@@ -2,3 +2,4 @@ RewriteEngine On
 
 RewriteRule ^afer-back$ index.php [L,QSA]
 RewriteRule ^([\/a-z]+)/([a-z]+)$ index.php?controller=$1&action=$2 [L,QSA]
+RewriteRule ^([\/a-z]+)/([a-z]+)/([1-9]+)$ index.php?controller=$1&action=$2&id=$3 [L,QSA]
