@@ -5,23 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <base href="http://localhost/afer-back/">
-    <title>Login</title>
+    <title>AFER - Login</title>
     <link rel="stylesheet" href="assets/css/manu.css">
 </head>
 <body class="login" >
     <div class="content">
-        <form action="" class="form-login" method="post" >
-            <div class="form-login-group">
-                <input type="text" class="form-login-input" placeholder="Identifiant" name="identifiant" />
-            </div>
-            <div class="form-login-group">
-                <input type="text" class="form-login-input" placeholder="Mot de passe" />
-            </div>
-            <div class="form-login-group">
-                <button class="form-login-button" >Connexion</button>
-            </div>
-        </form>
-    
+        <div class="card">
+            <form action="" class="form-login" method="post" >
+                <p class="form-login-header-message">Saisissez vos <strong>identifiant</strong> et <strong>mot de passe</strong> pour vous connecter.</p>
+                <div class="form-login-group">
+                    <label for="identifiant" class="form-label" >Identifiant *</label>
+                    <input type="text" class="form-login-input"  name="identifiant" />
+                </div>
+                <div class="form-login-group">
+                    <label for="mdp" class="form-label" >Mot de passe *</label>
+                    <input type="password" class="form-login-input" name="mdp"  />
+                </div>
+                <div class="form-login-group">
+                    <button class="form-login-button" >Connexion</button>
+                </div>
+            </form>
+        </div>    
     </div>
 </body>
 </html>
