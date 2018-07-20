@@ -1,7 +1,6 @@
 <?php 
 
-require("models/models.php");
-
+require("models/fonctionAnimateur.php");
 
 require 'vendor/autoload.php';
 $loader = new Twig_Loader_Filesystem('views');
@@ -9,23 +8,22 @@ $twig = new Twig_Environment($loader, array(
     'cache'=> false
 ));
 
+if (isset($_GET['action'])){
 
-$action= $_GET['action'];
-    if (isset($action)){
-
+    $action= $_GET['action'];
+    
     switch ($action) {
 
         case 'list':
-            $list = listAll('fonction_animateur');
+            showList();
             break;
 
         case 'new':
-            if (isset($_POST['fonction_nom'])){
+            if (isset($_POST['fonction_nom']) && (!empty($_POST['fonction_nom']))){
                 addNew($_POST['fonction_nom']);
             }
             else {
-                $template = $twig->load('newFonctionAnim.html.twig');
-                echo $template->render(array(""));
+                showNew();
             }
             break;
 
@@ -43,7 +41,25 @@ $action= $_GET['action'];
     }
 }
 
+
+function showList(){
+    global $twig;
+    $list = listAll('fonction_animateur');
+    $list = htmlentities($list);
+    var_dump($list);
+    $template = $twig->load('indexFonctionAnim.html.twig');
+    echo $template->render(array('list' => $list));
+}
+
 function addNew($valeur){
-    $template = $twig->load('listFonctionAnim.html.twig');
-    echo $template->render(array(""));
+    global $twig;
+    htmlentities($valeur);
+    create('fonction_animateur(fonction_nom)', $valeur);
+    header("Location: /afer-back/fonctionanim/list");
+}
+
+function showNew(){
+    global $twig;
+    $template = $twig->load('newFonctionAnim.html.twig');
+    echo $template->render(array());
 }
