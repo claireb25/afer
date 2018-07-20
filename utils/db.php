@@ -1,7 +1,7 @@
 
 <?php
 $user = 'admin';
-$pass= 'online2017';
+$pass= 'online@2017';
 try {
     $db = new PDO('mysql:host=localhost;dbname=afer', $user, $pass);
    
