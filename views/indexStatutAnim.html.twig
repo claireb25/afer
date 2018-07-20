@@ -7,7 +7,7 @@
 <h1>Liste des statuts</h1>
 <ul>
     {% for elems in list %}
-        <li>{{ elems.status_nom }}</li>
+        <li>{{ elems.status_nom }} <a href="statutanimateur/edit/{{ elems.id }}">Modifier</a></li>
     {% endfor %}
 </ul>
 
