@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 20 Juillet 2018 à 09:42
+-- Généré le :  Ven 20 Juillet 2018 à 10:35
 -- Version du serveur :  10.2.16-MariaDB-10.2.16+maria~xenial-log
 -- Version de PHP :  7.2.7-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -552,6 +552,20 @@ CREATE TABLE `type_infraction` (
   `type_infraction` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `identifiant` varchar(255) NOT NULL,
+  `mdp` varchar(255) NOT NULL,
+  `prenom` varchar(255) NOT NULL,
+  `nom` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Index pour les tables exportées
 --
@@ -780,6 +794,12 @@ ALTER TABLE `type_infraction`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT pour les tables exportées
 --
 
@@ -922,6 +942,11 @@ ALTER TABLE `tribunal`
 -- AUTO_INCREMENT pour la table `type_infraction`
 --
 ALTER TABLE `type_infraction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `user`
+--
+ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Contraintes pour les tables exportées
