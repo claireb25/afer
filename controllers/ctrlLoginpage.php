@@ -46,15 +46,35 @@ function testForm(){
     $mdp = validChamp('mdp');
     
     if( strlen( $identifiant ) == 0 ){
-        $error = false;
+        $test = false;
     }
     
     if( strlen( $identifiant ) == 0 ){
-        $error = false;
+        $test = false;
+    }
+
+    if( $test ){
+        $test = verifIdentity( $identifiant, $mdp );
     }
 
    
-    return $error;
+    return $test;
+}
+
+function verifIdentity( $identifiant, $mdp ){
+    $state = true;
+    $user = getLogin(  $identifiant, $mdp );
+    if( $user  !== false ){
+        startSession( $user );        
+    }else{
+        $state = false;
+    }
+    return $state;
+}
+
+function startSession( $user ){
+    session_start();
+    $_SESSION['USER'] = $user;
 }
 
 function validForm(){
@@ -65,6 +85,11 @@ function validForm(){
     }
 }
 
+
+function redirectDashboard(){
+    header('Location: dashboard/view');
+}
+
 function main(){
     if( count( $_POST ) > 0 ){
         validForm();
@@ -72,10 +97,6 @@ function main(){
         displayLogin();
     }
 }
-
-
-
-
 
 
 
