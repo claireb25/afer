@@ -1,6 +1,6 @@
 <?php
 
-require("models/user.php");
+require("models/users.php");
 
 require 'vendor/autoload.php';
 $loader = new Twig_Loader_Filesystem('views');
