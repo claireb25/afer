@@ -37,7 +37,7 @@ if (isset($_GET['action'])){
             $view;
             break;
         case 'delete':
-            $delete;
+            deleteElement($_GET['id']);
             break;
     }
 }
@@ -63,15 +63,17 @@ function showNew(){
 }
 
 //EDIT 
-
-
 function showEdit($id){
     $statuttoEdit = getOne($id);
     global $twig;
     $template = $twig->load('editStatutAnim.html.twig');
     echo $template->render(array('statuttoEdit'=>$statuttoEdit));
 }
-
+//DELETE
+function deleteElement($id){
+    $id = (int)$id;
+    delete($id);
+}
 
 function updateStatut($data, $id){
     $status_nom = htmlentities($data);

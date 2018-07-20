@@ -33,3 +33,15 @@ function edit($status_nom, $id){
     $response->execute();
     return true; 
 }
+
+//DELETE
+
+
+function delete($id){
+    global $db;
+    $response = $db->prepare("DELETE FROM statut_animateur
+    WHERE id = :id");
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    return true; 
+}
