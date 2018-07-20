@@ -38,7 +38,7 @@ if (isset($_GET['action'])){
 function addNew($valeur){
         $status_nom = htmlentities($valeur);
         create('statut_animateur(status_nom)', $status_nom);
-        var_dump($valeur);
+        header('Location: /afer-back/statutanimateur/list');
 }
 
 function showNew(){
