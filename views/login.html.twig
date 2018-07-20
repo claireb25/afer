@@ -6,11 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <base href="http://localhost/afer-back/">
     <title>AFER - Login</title>
-    <link rel="stylesheet" href="assets/css/manu.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body class="login" >
     <div class="content">
         <div class="card">
+            <div class="card-header">
+                <p class="card-header--logo" ><img src="assets/media/images/logo.png" alt="Logo de l'association Franc-Comtoise d'éducation routière"></p>
+            </div>
             <form action="" class="form-login" method="post" >
                 <p class="form-login-header-message">Saisissez vos <strong>identifiant</strong> et <strong>mot de passe</strong> pour vous connecter.</p>
                 <div class="form-login-group">
@@ -27,5 +30,14 @@
             </form>
         </div>    
     </div>
+
+    {%if error %}
+        <div class="boxOverlay" >
+            <div class="modal icon-warning-sign">
+            <p class="modal-message">Identifiants invalides.</p>
+            <button type="button" class="modal-btn form-login-button" >OK</button>
+        </div>
+    {% endif %}
+    <script src="assets/js/app.js" ></script>
 </body>
 </html>
