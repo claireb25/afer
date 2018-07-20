@@ -1,0 +1,15 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier : {{ statuttoEdit.status_nom }}</h1>
+
+
+<form action="statutanimateur/edit/{{ statuttoEdit.id }}" method="post" class="form">
+  <div class="form-example">
+    <label for="edit_statut" name="edit_statut">Statut 
+    <input type="text" name="edit_statut" id="name" value="{{ statuttoEdit.status_nom }}"required></label>
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}

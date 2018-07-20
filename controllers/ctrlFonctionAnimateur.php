@@ -30,6 +30,11 @@ if (isset($_GET['action'])){
         case 'edit':
             if (isset($_GET['id'])){
                 showOne($_GET['id']);
+
+            }
+            if (isset($_POST['fonction_nom']) && (!empty($_POST['fonction_nom']))){
+                edit($_POST['fonction_nom'], intval($_GET['id']));
+                header("Location: /afer-back/fonctionanimateur/list");
             }
             break;
 
@@ -38,7 +43,10 @@ if (isset($_GET['action'])){
             break;
             
         case 'delete':
-            $delete;
+            if (isset($_GET['id'])){
+                delete(intval($_GET['id']));
+                header("Location: /afer-back/fonctionanimateur/list");
+            }
             break;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-require("models/user.php");
+require("models/users.php");
 
 require 'vendor/autoload.php';
 $loader = new Twig_Loader_Filesystem('views');
@@ -9,7 +9,8 @@ $twig = new Twig_Environment($loader, array(
 ));
 
 
-echo "Controler User";
 
 
 
+$template = $twig->load('login.html.twig');
+echo $template->render();

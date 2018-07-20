@@ -1,3 +1,2 @@
 <?php
-
-echo "modele user";
+    require_once("utils/db.php");

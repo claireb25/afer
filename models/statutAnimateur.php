@@ -18,8 +18,30 @@ function listAll(){
 //EDIT
 function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT id, status_nom FROM statut_animateur WHERE statut_animateur = :id");
+    $response = $db->prepare("SELECT id, status_nom FROM statut_animateur WHERE statut_animateur.id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
+}
+function edit($status_nom, $id){
+    global $db;
+    $response = $db->prepare("UPDATE statut_animateur
+    SET status_nom = :status_nom 
+    WHERE id = :id");
+    $response->bindParam(':status_nom', $status_nom, PDO::PARAM_STR);
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    return true; 
+}
+
+//DELETE
+
+
+function delete($id){
+    global $db;
+    $response = $db->prepare("DELETE FROM statut_animateur
+    WHERE id = :id");
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    return true; 
 }
