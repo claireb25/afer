@@ -1,7 +1,6 @@
 <?php 
 
-require("models/models.php");
-
+require("models/fonctionAnimateur.php");
 
 require 'vendor/autoload.php';
 $loader = new Twig_Loader_Filesystem('views');
@@ -9,28 +8,29 @@ $twig = new Twig_Environment($loader, array(
     'cache'=> false
 ));
 
+if (isset($_GET['action'])){
 
-$action= $_GET['action'];
-    if (isset($action)){
-
+    $action= $_GET['action'];
+    
     switch ($action) {
 
         case 'list':
-            $list = listAll('fonction_animateur');
+            showList();
             break;
 
         case 'new':
-            if (isset($_POST['fonction_nom'])){
+            if (isset($_POST['fonction_nom']) && (!empty($_POST['fonction_nom']))){
                 addNew($_POST['fonction_nom']);
             }
             else {
-                $template = $twig->load('newFonctionAnim.html.twig');
-                echo $template->render(array(""));
+                showNew();
             }
             break;
 
         case 'edit':
-            $edit ;
+            if (isset($_GET['id'])){
+                showOne($_GET['id']);
+            }
             break;
 
         case 'view':
@@ -43,7 +43,29 @@ $action= $_GET['action'];
     }
 }
 
+function showOne($id){
+    global $twig;
+    $list = listOne('fonction_animateur', $id);
+    $template = $twig->load('editFonctionAnim.html.twig');
+    echo $template->render(array('list' => $list));
+}
+
+function showList(){
+    global $twig;
+    $list = listAll('fonction_animateur');
+    $template = $twig->load('indexFonctionAnim.html.twig');
+    echo $template->render(array('list' => $list));
+}
+
 function addNew($valeur){
-    $template = $twig->load('listFonctionAnim.html.twig');
-    echo $template->render(array(""));
+    global $twig;
+    htmlentities($valeur);
+    create('fonction_animateur(fonction_nom)', $valeur);
+    header("Location: /afer-back/fonctionanimateur/list");
+}
+
+function showNew(){
+    global $twig;
+    $template = $twig->load('newFonctionAnim.html.twig');
+    echo $template->render(array());
 }
