@@ -11,11 +11,10 @@ function listAll($tables){
 }
 
 
-function create($insertInto, $val){
+function create($tables, $val){
     global $db;
-    $response = $db->prepare("INSERT INTO :insertInto VALUES(:val)");
-    $response->bindParam(':insertInto', $insertInto);
-    $response->bindParam(':val', $val);
+    $response = $db->prepare("INSERT INTO $tables VALUES(:val)");
+    $response->bindParam(':val', $val, PDO::PARAM_STR);
     $response->execute();
     return true; 
 }
