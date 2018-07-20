@@ -9,7 +9,8 @@ $twig = new Twig_Environment($loader, array(
 ));
 
 
-echo "Controler User";
 
 
 
+$template = $twig->load('login.html.twig');
+echo $template->render();
