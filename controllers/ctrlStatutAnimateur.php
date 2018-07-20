@@ -34,5 +34,5 @@ $twig = new Twig_Environment($loader, array(
     'cache'=> false
 ));
 
-$template = $twig->load('views/statutAnimateur/index.html.twig');
+$template = $twig->load('indexStatutAnim.html.twig');
 echo $template->render(array('images'=>$posts,'categories'=>$tags));
