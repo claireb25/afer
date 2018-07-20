@@ -4,12 +4,17 @@ require("utils/db.php");
 
 function listAll($tables){
     global $db;
-    $response = $db->prepare("SELECT * FROM :tables");
-    $response->bindParam(':tables', $tables);
+    $response = $db->prepare("SELECT * FROM $tables");
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function listOne($tables, $id){
+    global $db;
+    $response = $db->prepare("SELECT * FROM $tables WHERE id = $id");
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
 
 function create($tables, $val){
     global $db;

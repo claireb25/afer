@@ -28,7 +28,9 @@ if (isset($_GET['action'])){
             break;
 
         case 'edit':
-            $edit ;
+            if (isset($_GET['id'])){
+                showOne($_GET['id']);
+            }
             break;
 
         case 'view':
@@ -41,12 +43,16 @@ if (isset($_GET['action'])){
     }
 }
 
+function showOne($id){
+    global $twig;
+    $list = listOne('fonction_animateur', $id);
+    $template = $twig->load('editFonctionAnim.html.twig');
+    echo $template->render(array('list' => $list));
+}
 
 function showList(){
     global $twig;
     $list = listAll('fonction_animateur');
-    $list = htmlentities($list);
-    var_dump($list);
     $template = $twig->load('indexFonctionAnim.html.twig');
     echo $template->render(array('list' => $list));
 }
@@ -55,7 +61,7 @@ function addNew($valeur){
     global $twig;
     htmlentities($valeur);
     create('fonction_animateur(fonction_nom)', $valeur);
-    header("Location: /afer-back/fonctionanim/list");
+    header("Location: /afer-back/fonctionanimateur/list");
 }
 
 function showNew(){
