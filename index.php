@@ -12,6 +12,10 @@
             require('controllers/ctrlLoginpage.php');
             break;
 
+        case "dashboard":
+            require('controllers/ctrlHomepage.php');
+            break;
+
         case "statutanimateur":
             require('controllers/ctrlStatutAnimateur.php');
             break;
