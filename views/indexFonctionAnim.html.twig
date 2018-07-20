@@ -4,12 +4,15 @@
 
     <h1>Liste des fonctions des animateurs</h1>
 
+    <a href="/afer-back/fonctionanimateur/new"><button>Nouveau</button></a>
     <ul>
     {% for elmt in list %}
         <li>
             Nom de la fonction : {{ elmt.fonction_nom }}
             <a href="/afer-back/fonctionanimateur/edit/{{ elmt.id }}"><button>Modifier</button></a>
+            <a href="/afer-back/fonctionanimateur/delete/{{ elmt.id }}"><button>Supprimer</button></a>
         </li>
     {% endfor %}
     </ul>
+    <a href="/afer-back/fonctionanimateur/new"><button>Nouveau</button></a>
 {% endblock %}
