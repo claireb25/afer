@@ -3,7 +3,7 @@
 {% block content %}
 
     <h1>Éditer fonction animateur : {{ list.fonction_nom }}</h1>
-    <form method="post">
+    <form action="/afer-back/fonctionanimateur/edit/{{ list.id }}" method="post">
         <label for="fonction_nom">Nom de la fonction</label>
         <input type="text" name="fonction_nom" value="{{ list.fonction_nom }}">
         <button type="submit">Envoyer</button>
