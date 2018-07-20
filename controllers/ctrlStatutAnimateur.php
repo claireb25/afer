@@ -25,9 +25,14 @@ if (isset($_GET['action'])){
         case 'edit':
             if (isset($_GET['id'])){
                 showEdit($_GET['id']);
+               
+            }
+            if (isset($_POST['edit_statut']) && (!empty($_POST['edit_statut']))){
+                updateStatut($_POST['edit_statut'], $_GET['id']);
             }
            
             break;
+        
         case 'view':
             $view;
             break;
@@ -60,9 +65,18 @@ function showNew(){
 //EDIT 
 
 
-function showEdit(){
-    $statuttoEdit = listOne($id);
+function showEdit($id){
+    $statuttoEdit = getOne($id);
     global $twig;
     $template = $twig->load('editStatutAnim.html.twig');
     echo $template->render(array('statuttoEdit'=>$statuttoEdit));
+}
+
+
+function updateStatut($data, $id){
+    $status_nom = htmlentities($data);
+    $id = (int)$id;
+    edit($status_nom, $id);
+    header('Location: /afer-back/statutanimateur/list');
+   
 }
