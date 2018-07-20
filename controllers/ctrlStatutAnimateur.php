@@ -1,10 +1,28 @@
 <?php 
 
 require("models/statutAnimateur.php");
-$new;
-$create ;
-$view ;
-$list ;
+
+$action= $_GET['action'];
+    if (isset($action)){
+
+    switch ($action) {
+        case 'list':
+            $list = listAll('statut_animateur');
+            break;
+        case 'new':
+            $new ;
+            break; 
+        case 'edit':
+            $edit ;
+            break;
+        case 'view':
+            $view;
+            break;
+        case 'delete':
+            $delete;
+            break;
+    }
+}
 
 function main(){
 

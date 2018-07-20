@@ -1,6 +1,6 @@
 <?php 
 
-$path = $_GET['action'];
+$path = $_GET['controller'];
 
 if (isset($path)){
 
