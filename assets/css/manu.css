@@ -104,6 +104,18 @@ html, .login, .content{
     width: 500px;
     background-color:#fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+.modal::before{
+    content: "\f071";
+    font-family : "Font Awesome 5 Free";
+    display: block;
+    position: absolute;
+    top: calc( 50% - 25px);
+    left: 15px;
+    color : #d21242;
+    font-size: 45px;
 }
 
 .modal-message{
