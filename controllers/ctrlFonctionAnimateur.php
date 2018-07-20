@@ -14,23 +14,36 @@ $action= $_GET['action'];
     if (isset($action)){
 
     switch ($action) {
+
         case 'list':
             $list = listAll('fonction_animateur');
             break;
+
         case 'new':
-            $new ;
-            break; 
+            if (isset($_POST['fonction_nom'])){
+                addNew($_POST['fonction_nom']);
+            }
+            else {
+                $template = $twig->load('newFonctionAnim.html.twig');
+                echo $template->render(array(""));
+            }
+            break;
+
         case 'edit':
             $edit ;
             break;
+
         case 'view':
             $view;
             break;
+            
         case 'delete':
             $delete;
             break;
     }
 }
 
-$template = $twig->load('indexStatutAnim.html.twig');
-echo $template->render(array('images'=>$posts,'categories'=>$tags));
+function addNew($valeur){
+    $template = $twig->load('listFonctionAnim.html.twig');
+    echo $template->render(array(""));
+}
