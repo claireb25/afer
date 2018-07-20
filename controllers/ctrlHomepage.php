@@ -1,7 +1,6 @@
 <?php 
-<<<<<<< HEAD
 
-require("models/models.php");
+require("models/homePage.php");
 
 
 require 'vendor/autoload.php';
@@ -12,5 +11,3 @@ $twig = new Twig_Environment($loader, array(
 
 $template = $twig->load('template.html.twig');
 echo $template->render(array(""));
-=======
->>>>>>> 4c2cab10f4019ca98476b36401fe971df2aaadd2
