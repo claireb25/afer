@@ -2,8 +2,14 @@
 
 {% block content %}
 
-    {% for elmt in list %}
-        
-    {% endfor %}
+    <h1>Liste des fonctions des animateurs</h1>
 
+    <ul>
+    {% for elmt in list %}
+        <li>
+            Nom de la fonction : {{ elmt.fonction_nom }}
+            <a href="/afer-back/fonctionanimateur/edit/{{ elmt.id }}"><button>Modifier</button></a>
+        </li>
+    {% endfor %}
+    </ul>
 {% endblock %}
