@@ -1,0 +1,16 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+	
+
+<h1>Liste des statuts</h1>
+<ul>
+    {% for elems in list %}
+        <li>{{ elems.status_nom }}</li>
+    {% endfor %}
+</ul>
+
+<a href="statutanimateur/new"><button>Nouveau</button></a>
+
+{% endblock %}

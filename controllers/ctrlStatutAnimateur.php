@@ -14,7 +14,9 @@ if (isset($_GET['action'])){
 
     switch ($action) {
         case 'list':
-            $list = listAll('statut_animateur');
+            makeList();
+            
+            
             break;
         case 'new':
             if (isset($_POST['new_statut']) && (!empty($_POST['new_statut']))){
@@ -35,10 +37,21 @@ if (isset($_GET['action'])){
     }
 }
 
+function makeList(){
+    $list = listAll();
+    global $twig;
+    $template = $twig->load('indexStatutAnim.html.twig');
+    echo $template->render(array('list'=>$list));
+}
+
+    
+
+
+
 function addNew($valeur){
         $status_nom = htmlentities($valeur);
         create('statut_animateur(status_nom)', $status_nom);
-        var_dump($valeur);
+        header('Location: /afer-back/statutanimateur/list');
 }
 
 function showNew(){
