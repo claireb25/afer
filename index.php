@@ -1,16 +1,27 @@
-<?php 
+<?php
 
-$path = $_GET['controller'];
 
-if (isset($path)){
+    $path = '';
 
-switch ($path) {
-    case "/afer-back":
-    case "/afer-back/":
-        require('controllers/ctrlHomepage.php');
-        break;
-    default :
-        require('controllers/ctrl404.php');
-        break;
+
+    if( isset( $_GET['controller'] ) ){
+        $path = $_GET['controller']; 
     }
-}
+    
+    $path = ( $path== '' )? 'afer-back' : $path ;
+
+
+
+    switch ($path) {
+        case "afer-back":
+            require('controllers/ctrlLoginpage.php');
+            break;
+        case "statutanimateur":
+            require('controllers/ctrlStatutAnimateur.php');
+            break;
+        default :
+            require('controllers/ctrl404.php');
+            break;
+    }
+
+?>

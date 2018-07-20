@@ -1,4 +1,4 @@
 RewriteEngine On 
 
-RewriteRule ^(home)$ index.php?controller=$1 [L,QSA]
-RewriteRule ^(home)/([A-Za-z]+)$ index.php?controller=$1&action=$2 [L,QSA]
+RewriteRule ^afer-back$ index.php [L,QSA]
+RewriteRule ^([\/a-z]+)/([a-z]+)$ index.php?controller=$1&action=$2 [L,QSA]
