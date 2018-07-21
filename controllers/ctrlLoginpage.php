@@ -91,10 +91,19 @@ function redirectDashboard(){
 }
 
 function main(){
-    if( count( $_POST ) > 0 ){
+    if( count( $_POST ) > 0 ){        
         validForm();
-    }else{
-        displayLogin();
+    }else{      
+        if( isset( $_GET['action']) ){            
+            if( !empty( $_GET['action'] ) ){
+                session_start();
+                unset( $_SESSION['user'] );
+                session_destroy();
+                header("Location: /afer-back");
+            }
+        }else{
+            displayLogin();
+        }
     }
 }
 

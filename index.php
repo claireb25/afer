@@ -9,6 +9,7 @@
 
     switch ($path) {
         case "afer-back":
+        case "login":
             require('controllers/ctrlLoginpage.php');
             break;
 
