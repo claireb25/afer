@@ -1,4 +1,5 @@
 <?php 
+require("utils/security.php");
 require_once "models/statutAnimateur.php";
 
 if (isset($_GET['action'])){
