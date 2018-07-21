@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <base href="http://localhost/afer-back/">
+    <title>AFER - Login</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="login" >
+    <div class="content">
+        <div class="card">
+            <div class="card-header">
+                <p class="card-header--logo" ><img src="assets/media/images/logo.png" alt="Logo de l'association Franc-Comtoise d'éducation routière"></p>
+            </div>
+            <form action="" class="form-login" method="post" >
+                <p class="form-login-header-message">Saisissez vos <strong>identifiant</strong> et <strong>mot de passe</strong> pour vous connecter.</p>
+                <div class="form-login-group">
+                    <label for="identifiant" class="form-label" >Identifiant *</label>
+                    <input type="text" class="form-login-input"  name="identifiant" />
+                </div>
+                <div class="form-login-group">
+                    <label for="mdp" class="form-label" >Mot de passe *</label>
+                    <input type="password" class="form-login-input" name="mdp"  />
+                </div>
+                <div class="form-login-group">
+                    <button class="form-login-button" >Connexion</button>
+                </div>
+            </form>
+        </div>    
+    </div>
+
+    {%if error %}
+        <div class="boxOverlay" >
+            <div class="modal fas fa-exclamation-triangle">
+            <p class="modal-message">Identifiants invalides.</p>
+            <button type="button" class="modal-btn form-login-button" >OK</button>
+        </div>
+    {% endif %}
+    <script src="assets/js/app.js" ></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+html, .login, .content{
+    width : 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background : #f0f0f0;
+}
+
+.content{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 0 20px 0 20px;
+    width : 80%;
+}
+
+.card-header--logo{
+    text-align: center;
+}
+
+.form-login{
+    width : 450px;
+    margin : auto;
+}
+
+.form-login-header-message{
+    margin-bottom : 30px;
+    font-size: 1.4rem;
+    line-height: 120%;
+}
+
+.form-login-group{
+    margin : 16px 0 0 0;
+}
+
+.form-label{
+    display:block;
+    margin-bottom: 4px;
+    font-size: 13.2px;
+}
+
+.form-login-input{
+    padding: 0 15px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 13.2px;
+    color: #464c58;
+    background-color: #f0f0f0;
+    border: 1px solid #f0f0f0;
+    text-align: left;
+    font-family: 'Arial';
+    width:100%;
+}
+
+.form-login-button{
+    min-width: 200px;
+    width: 200px;
+    height: 43px;
+    min-height: 30px;
+    margin: 30px auto auto auto;
+    color:#fff;
+    background-color: #d21242;
+    border: none;
+    font-size: 1.4rem;
+    cursor:pointer;
+    display: block;
+    
+}
+
+.form-login-button:hover{
+    
+    background-color: #eb446e;
+   
+}
+
+
+.boxOverlay{
+
+    position: fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 65565;
+    background-color: rgba(0, 0, 0, .6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+[class*="fontawesome-"]:before {
+    font-family: 'FontAwesome', sans-serif;
+  }
+
+
+.modal{
+    padding : 30px;
+    width: 500px;
+    background-color:#fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+.modal::before{
+    content: "\f071";
+    font-family : "Font Awesome 5 Free";
+    display: block;
+    position: absolute;
+    top: calc( 50% - 25px);
+    left: 15px;
+    color : #d21242;
+    font-size: 45px;
+}
+
+.modal-message{
+    text-align:center;
+}
+
+.hidden{
+    display : none;
+}
+
+
+
