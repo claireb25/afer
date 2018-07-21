@@ -24,6 +24,9 @@
         case "fonctionanimateur":
             require('controllers/ctrlFonctionAnimateur.php');
             break;
+        case "autoritetribunal":
+            require('controllers/ctrlAutoriteTribunal.php');
+            break;
         default :
             require('controllers/ctrl404.php');
             break;

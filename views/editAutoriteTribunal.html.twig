@@ -1,0 +1,15 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier : {{ autoritetoEdit.autorite_nom }}</h1>
+
+
+<form action="autoritetribunal/edit/{{ autoritetoEdit.id }}" method="post" class="form">
+  <div class="form-example">
+    <label for="edit_autorite" name="edit_autorite">Statut 
+    <input type="text" name="edit_autorite" id="name" value="{{ autoritetoEdit.autorite_nom }}"required></label>
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}
