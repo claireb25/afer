@@ -1,5 +1,5 @@
 <?php 
-
+require("utils/security.php");
 require("models/homePage.php");
 
 

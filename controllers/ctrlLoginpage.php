@@ -74,7 +74,7 @@ function verifIdentity( $identifiant, $mdp ){
 
 function startSession( $user ){
     session_start();
-    $_SESSION['USER'] = $user;
+    $_SESSION['user'] = $user;
 }
 
 function validForm(){
