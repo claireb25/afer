@@ -1,6 +1,7 @@
-<?php 
+<?php
+
 require("utils/security.php");
-require_once "models/statutAnimateur.php";
+require_once "models/serviceTribunal.php";
 
 if (isset($_GET['action'])){
        
@@ -17,8 +18,8 @@ if (isset($_GET['action'])){
             makeList();            
             break;
         case 'new':
-            if (isset($_POST['new_statut']) && (!empty($_POST['new_statut']))){
-                addNew($_POST['new_statut']);
+            if (isset($_POST['service_nom']) && (!empty($_POST['service_nom']))){
+                addNew($_POST['service_nom']);
             } else {
                 showNew();
             }
@@ -28,8 +29,8 @@ if (isset($_GET['action'])){
                 showEdit($_GET['id']);
                
             }
-            if (isset($_POST['edit_statut']) && (!empty($_POST['edit_statut']))){
-                updateStatut($_POST['edit_statut'], $_GET['id']);
+            if (isset($_POST['edit_service']) && (!empty($_POST['edit_service']))){
+                updateService($_POST['edit_service'], $_GET['id']);
             }
            
             break;
@@ -46,40 +47,42 @@ if (isset($_GET['action'])){
 function makeList(){
     $list = listAll();
     global $twig;
-    $template = $twig->load('indexStatutAnim.html.twig');
+    $template = $twig->load('indexServiceTribunal.html.twig');
     echo $template->render(array('list'=>$list));
 }
 
 // NEW
 function addNew($valeur){
-    $status_nom = htmlentities($valeur);
-    create('statut_animateur(status_nom)', $status_nom);
-    header('Location: /afer-back/statutanimateur/list');
+    $service_nom = htmlentities($valeur);
+    create($service_nom);
+    header('Location: /afer-back/servicetribunal/list');
 }
 
 function showNew(){
     global $twig;
-    $template = $twig->load('newStatutAnim.html.twig');
+    $template = $twig->load('newServiceTribunal.html.twig');
     echo $template->render(array());
 }
 
 //EDIT 
 function showEdit($id){
-    $statuttoEdit = getOne($id);
+    $servicetoEdit = getOne($id);
     global $twig;
-    $template = $twig->load('editStatutAnim.html.twig');
-    echo $template->render(array('statuttoEdit'=>$statuttoEdit));
+    $template = $twig->load('editServiceTribunal.html.twig');
+    echo $template->render(array('servicetoEdit'=>$servicetoEdit));
+}
+
+function updateService($data, $id){
+    $service_nom = htmlentities($data);
+    $id = (int)$id;
+    edit($service_nom, $id);
+    header('Location: /afer-back/servicetribunal/list');
+   
 }
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
+    // header('Location: /afer-back/servicetribunal/list');
 }
 
-function updateStatut($data, $id){
-    $status_nom = htmlentities($data);
-    $id = (int)$id;
-    edit($status_nom, $id);
-    header('Location: /afer-back/statutanimateur/list');
-   
-}
