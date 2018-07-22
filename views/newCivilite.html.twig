@@ -1,0 +1,12 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<form action="civilite/new" method="post" class="form">
+  <div class="form-example">
+    <label for="civilite" name="civilite">Civilité
+    <input type="text" name="civilite" id="name" required></label>
+    <input type="submit" value="Envoyer">
+</form>
+
+{% endblock %}
