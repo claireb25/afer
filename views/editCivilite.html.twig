@@ -1,0 +1,15 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier : {{ toEdit.nature_nom }}</h1>
+
+
+<form action="civilite/edit/{{ toEdit.id }}" method="post" class="form">
+  <div class="form-example">
+    <label for="edit_civilite" name="edit_civilite">Nature 
+    <input type="text" name="edit_civilite" id="name" value="{{ toEdit.nom }}"required></label>
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}

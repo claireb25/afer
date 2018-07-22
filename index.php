@@ -36,7 +36,9 @@
         case "servicetribunal":
             require('controllers/ctrlServiceTribunal.php');
             break;
-            
+        case "civilite":
+        require('controllers/ctrlCivilite.php');
+            break;     
         default :
             require('controllers/ctrl404.php');
             break;
