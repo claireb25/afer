@@ -27,6 +27,9 @@
         case "autoritetribunal":
             require('controllers/ctrlAutoriteTribunal.php');
             break;
+        case "naturetribunal":
+            require('controllers/ctrlNatureTribunal.php');
+            break;
         default :
             require('controllers/ctrl404.php');
             break;
