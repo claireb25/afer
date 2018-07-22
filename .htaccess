@@ -3,3 +3,5 @@ RewriteEngine On
 RewriteRule ^afer-back$ index.php [L,QSA]
 RewriteRule ^([\/a-z]+)/([a-z]+)$ index.php?controller=$1&action=$2 [L,QSA]
 RewriteRule ^([\/a-z]+)/([a-z]+)/([0-9]+)$ index.php?controller=$1&action=$2&id=$3 [L,QSA]
+
+ErrorDocument 404 index.php?controller=404
