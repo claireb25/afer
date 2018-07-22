@@ -94,9 +94,7 @@ html, .login, .content{
     align-items: center;
 }
 
-[class*="fontawesome-"]:before {
-    font-family: 'FontAwesome', sans-serif;
-  }
+
 
 
 .modal{
@@ -125,6 +123,44 @@ html, .login, .content{
 .hidden{
     display : none;
 }
+
+
+/********** page 404 ******/
+.msg-404{
+    width:100%;
+    text-align: center;
+}
+
+.msg-link-content{
+    display: flex;
+    justify-content : space-between;
+    width: 10%;
+    margin: 30px auto;
+}
+
+.msg-link-para{
+    width: 100%;
+    text-align: center;
+    margin:0;
+}
+
+.fa-cog::before, .fa-sign-in-alt::before{
+    color : #d21242;
+    font-size: 45px;
+}
+
+.msg-link-click{
+
+    text-decoration: none;
+    color : #d21242;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.msg-link-click:hover, .msg-link-click:hover .fa-cog::before, .msg-link-click:hover .fa-sign-in-alt::before{
+    color : #eb446e;
+}
+
 
 
 
