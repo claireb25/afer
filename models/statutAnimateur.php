@@ -1,9 +1,9 @@
 <?php 
 require_once("utils/db.php");
 // NEW
-function create($table,$status_nom){
+function create($status_nom){
     global $db;
-    $response = $db->prepare("INSERT INTO $table VALUES(:status_nom)");
+    $response = $db->prepare("INSERT INTO statut_animateur(status_nom) VALUES(:status_nom)");
     $response->bindParam(':status_nom', $status_nom, PDO::PARAM_STR);
     $response->execute();
     return true; 
