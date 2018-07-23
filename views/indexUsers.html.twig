@@ -1,0 +1,20 @@
+{% extends 'template.html.twig' %}
+
+  {% block content %} 
+       
+    <h1>Utilisateurs</h1>
+    <table class="tbl-list" >
+        <tr>
+            <th class="tbl-col-header" >Identifiant</th>
+            <th class="tbl-col-header" >Prénom</th>
+            <th class="tbl-col-header" >Nom</th>
+        </tr>
+        <tr class="tbl-row-search">
+            <td class="tbl-col-search" ><input type="text" class="form-input" ></td>
+            <td class="tbl-col-search" ><input type="text" class="form-input" ></td>
+            <td class="tbl-col-search" ><input type="text" class="form-input" ></td>
+        </tr>
+    </table>
+        
+  {% endblock %}
+

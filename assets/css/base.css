@@ -1404,3 +1404,52 @@ a:hover {
   margin-right: 25px;
   color: #edc225;
 }
+
+
+******* élément de formulaire *******
+
+.form-group{
+  margin : 16px 0 0 0;
+  padding : 15px;
+}
+
+.form-input{
+  padding: 0 15px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16.2px;
+  color: #464c58;
+  background-color: #ffffff;
+  border: 1px solid #f0f0f0;
+  text-align: left;
+  font-family: 'Arial';
+  width:100%;
+}
+
+.form-msg-error{
+  font-size: 13px ;
+  color:rgb(210, 18, 66);
+  font-style: italic;
+}
+
+
+/******** liste des entités ****/
+.tbl-list{
+  margin : 15px 0;
+  width : 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.tbl-col-header{
+  padding: 8px 20px;
+  text-align: left;
+}
+
+.tbl-row-search{
+  background-color: #dadcd9;
+}
+
+.tbl-col-search{
+  padding: 8px 20px;
+}

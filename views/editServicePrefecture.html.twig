@@ -1,0 +1,15 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier : {{ servicetoEdit.service_nom }}</h1>
+
+
+<form action="serviceprefecture/edit/{{ servicetoEdit.id }}" method="post" class="form">
+  <div class="form-example">
+    <label for="edit_service" name="edit_service">Nature 
+    <input type="text" name="edit_service" id="name" value="{{ servicetoEdit.service_nom }}" required></label>
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}

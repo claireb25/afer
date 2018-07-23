@@ -22,7 +22,8 @@ $(document).ready( function() {
     });
 
     
-    $('body').on("click", "nav ul li a", function(){
+    $('body').on("click", "nav ul li a", function(e){
+      // e.preventDefault();
       var title = $(this).data('title');
       $('.title').children('h2').html(title);
     });
