@@ -16,6 +16,10 @@
         case "dashboard":
             require('controllers/ctrlHomepage.php');
             break;
+        
+        case "forfaitanimateur":
+            require('controllers/ctrlForfaitAnimateur.php');
+            break;
 
         case "statutanimateur":
             require('controllers/ctrlStatutAnimateur.php');
