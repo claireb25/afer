@@ -1,3 +1,7 @@
+<head>
+    <base href="http://localhost/afer-back/"> 
+</head> 
+
 <?php
     $path = '';
 
@@ -54,7 +58,7 @@
             break;
 
         case "civilite":
-        require('controllers/ctrlCivilite.php');
+            require('controllers/ctrlCivilite.php');
             break; 
             
         case "typeinfraction":
@@ -62,8 +66,20 @@
             break;
             
         case "defraiement":
-            require('controllers/ctrlDefraiement.php');
-            break; 
+            require('controllers/ctrlDefraiement.php'); 
+            break;  
+        
+        case "natureprefecture":
+            require('controllers/ctrlNaturePrefecture.php');
+            break;    
+        
+        case "prix":
+            require('controllers/ctrlPrix.php');
+            break;
+
+        case "users":
+            require('controllers/ctrlUsers.php');
+            break;
 
         default :
             require('controllers/ctrl404.php');

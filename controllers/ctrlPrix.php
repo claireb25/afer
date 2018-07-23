@@ -1,6 +1,7 @@
-<?php 
+<?php
+
 require("utils/security.php");
-require_once "models/statutAnimateur.php";
+require_once "models/prix.php";
 
 if (isset($_GET['action'])){
        
@@ -17,8 +18,8 @@ if (isset($_GET['action'])){
             makeList();            
             break;
         case 'new':
-            if (isset($_POST['status_nom']) && (!empty($_POST['status_nom']))){
-                addNew($_POST['status_nom']);
+            if (isset($_POST['prix_montant']) && (!empty($_POST['prix_montant']))){
+                addNew($_POST['prix_montant']);
             } else {
                 showNew();
             }
@@ -28,8 +29,8 @@ if (isset($_GET['action'])){
                 showEdit($_GET['id']);
                
             }
-            if (isset($_POST['edit_statut']) && (!empty($_POST['edit_statut']))){
-                updateStatut($_POST['edit_statut'], $_GET['id']);
+            if (isset($_POST['edit_prix_montant']) && (!empty($_POST['edit_prix_montant']))){
+                update($_POST['edit_prix_montant'], $_GET['id']);
             }
            
             break;
@@ -46,40 +47,42 @@ if (isset($_GET['action'])){
 function makeList(){
     $list = listAll();
     global $twig;
-    $template = $twig->load('indexStatutAnim.html.twig');
+    $template = $twig->load('indexPrix.html.twig');
     echo $template->render(array('list'=>$list));
 }
 
 // NEW
-function addNew($valeur){
-    $status_nom = htmlentities($valeur);
-    create($status_nom);
-    header('Location: /afer-back/statutanimateur/list');
+function addNew($prix_montant){
+    $prix = htmlentities($prix_montant);
+    create($prix);
+    header('Location: /afer-back/prix/list');
 }
 
 function showNew(){
     global $twig;
-    $template = $twig->load('newStatutAnim.html.twig');
+    $template = $twig->load('newPrix.html.twig');
     echo $template->render(array());
 }
 
 //EDIT 
 function showEdit($id){
-    $statuttoEdit = getOne($id);
+    $toEdit = getOne($id);
     global $twig;
-    $template = $twig->load('editStatutAnim.html.twig');
-    echo $template->render(array('statuttoEdit'=>$statuttoEdit));
+    $template = $twig->load('editPrix.html.twig');
+    echo $template->render(array('toEdit'=>$toEdit));
+}
+
+function update($prix_montant, $id){
+    $prix = htmlentities($prix_montant);
+    $id = (int)$id;
+    edit($prix, $id);
+    header('Location: /afer-back/prix/list');
+   
 }
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
+    header('Location: /afer-back/prix/list');
 }
 
-function updateStatut($data, $id){
-    $status_nom = htmlentities($data);
-    $id = (int)$id;
-    edit($status_nom, $id);
-    header('Location: /afer-back/statutanimateur/list');
-   
-}
