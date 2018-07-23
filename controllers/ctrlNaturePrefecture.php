@@ -1,7 +1,7 @@
 <?php
 
 require("utils/security.php");
-require_once "models/natureTribunal.php";
+require_once "models/naturePrefecture.php";
 
 if (isset($_GET['action'])){
        
@@ -47,7 +47,7 @@ if (isset($_GET['action'])){
 function makeList(){
     $list = listAll();
     global $twig;
-    $template = $twig->load('indexNatureTribunal.html.twig');
+    $template = $twig->load('indexNaturePrefecture.html.twig');
     echo $template->render(array('list'=>$list));
 }
 
@@ -55,12 +55,12 @@ function makeList(){
 function addNew($valeur){
     $nature_nom = htmlentities($valeur);
     create($nature_nom);
-    header('Location: /afer-back/naturetribunal/list');
+    header('Location: /afer-back/natureprefecture/list');
 }
 
 function showNew(){
     global $twig;
-    $template = $twig->load('newNatureTribunal.html.twig');
+    $template = $twig->load('newNaturePrefecture.html.twig');
     echo $template->render(array());
 }
 
@@ -68,7 +68,7 @@ function showNew(){
 function showEdit($id){
     $naturetoEdit = getOne($id);
     global $twig;
-    $template = $twig->load('editNatureTribunal.html.twig');
+    $template = $twig->load('editNaturePrefecture.html.twig');
     echo $template->render(array('naturetoEdit'=>$naturetoEdit));
 }
 
@@ -76,13 +76,13 @@ function updateNature($data, $id){
     $nature_nom = htmlentities($data);
     $id = (int)$id;
     edit($nature_nom, $id);
-    header('Location: /afer-back/naturetribunal/list');
+    header('Location: /afer-back/natureprefecture/list');
    
 }
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
-    header('Location: /afer-back/naturetribunal/list');
+    header('Location: /afer-back/natureprefecture/list');
 }
 
