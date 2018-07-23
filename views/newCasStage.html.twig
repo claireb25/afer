@@ -1,0 +1,16 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<form action="casstage/new" method="post" class="form">
+  <div class="form-example">
+    <label for="cas_nom" name="cas_nom">Cas
+    <input type="text" name="cas_nom" id="name" required></label>
+    <label for="cas_prix" name="cas_prix">Prix
+    <input type="text" name="cas_prix" id="name" required></label>
+     <label for="cas_description" name="cas_description">Description
+    <input type="text" name="cas_description" id="name" required></label>
+    <input type="submit" value="Envoyer">
+</form>
+
+{% endblock %}
