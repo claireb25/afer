@@ -1,6 +1,7 @@
-<?php 
+<?php
+
 require("utils/security.php");
-require_once "models/statutAnimateur.php";
+require_once "models/autoriteTribunal.php";
 
 if (isset($_GET['action'])){
        
@@ -17,8 +18,8 @@ if (isset($_GET['action'])){
             makeList();            
             break;
         case 'new':
-            if (isset($_POST['new_statut']) && (!empty($_POST['new_statut']))){
-                addNew($_POST['new_statut']);
+            if (isset($_POST['autorite_nom']) && (!empty($_POST['autorite_nom']))){
+                addNew($_POST['autorite_nom']);
             } else {
                 showNew();
             }
@@ -28,8 +29,8 @@ if (isset($_GET['action'])){
                 showEdit($_GET['id']);
                
             }
-            if (isset($_POST['edit_statut']) && (!empty($_POST['edit_statut']))){
-                updateStatut($_POST['edit_statut'], $_GET['id']);
+            if (isset($_POST['edit_autorite']) && (!empty($_POST['edit_autorite']))){
+                updateAutorite($_POST['edit_autorite'], $_GET['id']);
             }
            
             break;
@@ -46,40 +47,42 @@ if (isset($_GET['action'])){
 function makeList(){
     $list = listAll();
     global $twig;
-    $template = $twig->load('indexStatutAnim.html.twig');
+    $template = $twig->load('indexAutoriteTribunal.html.twig');
     echo $template->render(array('list'=>$list));
 }
 
 // NEW
 function addNew($valeur){
-    $status_nom = htmlentities($valeur);
-    create('statut_animateur(status_nom)', $status_nom);
-    header('Location: /afer-back/statutanimateur/list');
+    $autorite_nom = htmlentities($valeur);
+    create($autorite_nom);
+    header('Location: /afer-back/autoritetribunal/list');
 }
 
 function showNew(){
     global $twig;
-    $template = $twig->load('newStatutAnim.html.twig');
+    $template = $twig->load('newAutoriteTribunal.html.twig');
     echo $template->render(array());
 }
 
 //EDIT 
 function showEdit($id){
-    $statuttoEdit = getOne($id);
+    $autoritetoEdit = getOne($id);
     global $twig;
-    $template = $twig->load('editStatutAnim.html.twig');
-    echo $template->render(array('statuttoEdit'=>$statuttoEdit));
+    $template = $twig->load('editAutoriteTribunal.html.twig');
+    echo $template->render(array('autoritetoEdit'=>$autoritetoEdit));
+}
+
+function updateAutorite($data, $id){
+    $autorite_nom = htmlentities($data);
+    $id = (int)$id;
+    edit($autorite_nom, $id);
+    header('Location: /afer-back/autoritetribunal/list');
+   
 }
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
+    // header('Location: /afer-back/autoritetribunal/list');
 }
 
-function updateStatut($data, $id){
-    $status_nom = htmlentities($data);
-    $id = (int)$id;
-    edit($status_nom, $id);
-    header('Location: /afer-back/statutanimateur/list');
-   
-}

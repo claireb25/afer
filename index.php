@@ -9,6 +9,7 @@
 
     switch ($path) {
         case "afer-back":
+        case "login":
             require('controllers/ctrlLoginpage.php');
             break;
 
@@ -23,6 +24,21 @@
         case "fonctionanimateur":
             require('controllers/ctrlFonctionAnimateur.php');
             break;
+
+        case "autoritetribunal":
+            require('controllers/ctrlAutoriteTribunal.php');
+            break;
+
+        case "naturetribunal":
+            require('controllers/ctrlNatureTribunal.php');
+            break;
+        
+        case "servicetribunal":
+            require('controllers/ctrlServiceTribunal.php');
+            break;
+        case "civilite":
+        require('controllers/ctrlCivilite.php');
+            break;     
         default :
             require('controllers/ctrl404.php');
             break;

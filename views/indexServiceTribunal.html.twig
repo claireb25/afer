@@ -1,0 +1,21 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+	
+
+<h1>Liste des services (tribunal)</h1>
+
+<a href="servicetribunal/new"><button>Nouveau</button></a>
+
+<ul>
+    {% for elems in list %}
+        <li>{{ elems.service_nom }}  <a href="servicetribunal/edit/{{ elems.id }}"><button>Modifier</button></a>
+                                    <a href="servicetribunal/delete/{{ elems.id }}"><button>Supprimer</button></a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="servicetribunal/new"><button>Nouveau</button></a>
+
+{% endblock %}

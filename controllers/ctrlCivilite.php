@@ -1,6 +1,7 @@
-<?php 
+<?php
+
 require("utils/security.php");
-require_once "models/statutAnimateur.php";
+require_once "models/civilite.php";
 
 if (isset($_GET['action'])){
        
@@ -17,8 +18,8 @@ if (isset($_GET['action'])){
             makeList();            
             break;
         case 'new':
-            if (isset($_POST['new_statut']) && (!empty($_POST['new_statut']))){
-                addNew($_POST['new_statut']);
+            if (isset($_POST['civilite']) && (!empty($_POST['civilite']))){
+                addNew($_POST['civilite']);
             } else {
                 showNew();
             }
@@ -28,8 +29,8 @@ if (isset($_GET['action'])){
                 showEdit($_GET['id']);
                
             }
-            if (isset($_POST['edit_statut']) && (!empty($_POST['edit_statut']))){
-                updateStatut($_POST['edit_statut'], $_GET['id']);
+            if (isset($_POST['edit_civilite']) && (!empty($_POST['edit_civilite']))){
+                update($_POST['edit_civilite'], $_GET['id']);
             }
            
             break;
@@ -46,40 +47,42 @@ if (isset($_GET['action'])){
 function makeList(){
     $list = listAll();
     global $twig;
-    $template = $twig->load('indexStatutAnim.html.twig');
+    $template = $twig->load('indexCivilite.html.twig');
     echo $template->render(array('list'=>$list));
 }
 
 // NEW
 function addNew($valeur){
-    $status_nom = htmlentities($valeur);
-    create('statut_animateur(status_nom)', $status_nom);
-    header('Location: /afer-back/statutanimateur/list');
+    $service_nom = htmlentities($valeur);
+    create($service_nom);
+    header('Location: /afer-back/civilite/list');
 }
 
 function showNew(){
     global $twig;
-    $template = $twig->load('newStatutAnim.html.twig');
+    $template = $twig->load('newCivilite.html.twig');
     echo $template->render(array());
 }
 
 //EDIT 
 function showEdit($id){
-    $statuttoEdit = getOne($id);
+    $toEdit = getOne($id);
     global $twig;
-    $template = $twig->load('editStatutAnim.html.twig');
-    echo $template->render(array('statuttoEdit'=>$statuttoEdit));
+    $template = $twig->load('editCivilite.html.twig');
+    echo $template->render(array('toEdit'=>$toEdit));
+}
+
+function update($data, $id){
+    $civilite = htmlentities($data);
+    $id = (int)$id;
+    edit($civilite, $id);
+    header('Location: /afer-back/civilite/list');
+   
 }
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
+    // header('Location: /afer-back/civilite/list');
 }
 
-function updateStatut($data, $id){
-    $status_nom = htmlentities($data);
-    $id = (int)$id;
-    edit($status_nom, $id);
-    header('Location: /afer-back/statutanimateur/list');
-   
-}

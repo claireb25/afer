@@ -1,0 +1,15 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier : {{ naturetoEdit.nature_nom }}</h1>
+
+
+<form action="naturetribunal/edit/{{ naturetoEdit.id }}" method="post" class="form">
+  <div class="form-example">
+    <label for="edit_nature" name="edit_nature">Nature 
+    <input type="text" name="edit_nature" id="name" value="{{ naturetoEdit.nature_nom }}"required></label>
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}
