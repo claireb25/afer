@@ -1,33 +1,33 @@
 {% extends 'template.html.twig' %}
 
   {% block content %} 
-        <article class="larg">
-            <h1>Votre profile</h1>
-            <form action="user/edit/{{ user.id }}" method="post" >
-                <div class="form-group">
-                    <label for="identifiant" class="form-label" >Identifiant *</label>
-                    <input type="text" class="form-input"  name="identifiant" value="{{ user.identifiant }}" />
-                    <p class="form-msg-error" >Veuillez saisir votre identifiant</p>
-                </div>
-                <div class="form-group">
-                    <label for="mdp" class="form-label" >Mot de passe *</label>
-                    <input type="password" class="form-input"  name="mdp" />
-                    
-                </div>
-                <div class="form-group">
-                    <label for="prenom" class="form-label" >Prénom *</label>
-                    <input type="text" class="form-input"  name="prenom" value="{{user.prenom}}" />
-                    <p class="form-msg-error" >Veuillez saisir votre prénom</p>
-                </div>
-                <div class="form-group">
-                    <label for="nom" class="form-label" >Nom *</label>
-                    <input type="text" class="form-input"  name="nom" value="{{user.nom}}"/>
-                    <p class="form-msg-error" >Veuillez saisir votre nom</p>
-                </div>
-                <div class="form-login-group">
-                    <button class="form-login-button" >Mettre à jour</button>
-                </div>
-            </form>
-        </article>
+       
+    <h1>Votre profile</h1>
+    <form action="users/edit/{{ user.id }}" method="post" class="form" >
+        <div class="form-group">
+            <label for="identifiant" class="form-label" >Identifiant *</label>
+            <input type="text" class="form-input"  name="identifiant" value="{{ user.identifiant }}" />
+            <p class="form-msg-error" >Veuillez saisir votre identifiant</p>
+        </div>
+        <div class="form-group">
+            <label for="mdp" class="form-label" >Mot de passe *</label>
+            <input type="password" class="form-input"  name="mdp" />
+            
+        </div>
+        <div class="form-group">
+            <label for="prenom" class="form-label" >Prénom *</label>
+            <input type="text" class="form-input"  name="prenom" value="{{user.prenom}}" />
+            <p class="form-msg-error" >Veuillez saisir votre prénom</p>
+        </div>
+        <div class="form-group">
+            <label for="nom" class="form-label" >Nom *</label>
+            <input type="text" class="form-input"  name="nom" value="{{user.nom}}"/>
+            <p class="form-msg-error" >Veuillez saisir votre nom</p>
+        </div>
+        <div class="form-login-group">
+            <button class="form-login-button" >Mettre à jour</button>
+        </div>
+    </form>
+        
   {% endblock %}
 

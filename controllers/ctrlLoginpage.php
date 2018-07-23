@@ -49,7 +49,7 @@ function testForm(){
         $test = false;
     }
     
-    if( strlen( $identifiant ) == 0 ){
+    if( strlen( $mdp ) == 0 ){
         $test = false;
     }
 

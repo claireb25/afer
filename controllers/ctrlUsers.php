@@ -2,7 +2,7 @@
 
 require('utils/security.php');
 require("models/users.php");
-require 'vendor/autoload.php';
+require('vendor/autoload.php');
 
 
 
@@ -18,54 +18,78 @@ function twig(){
 
 function edit( $id ){
 
-    
-    // if( !empty( $id ) ){
-    //     $id = ( int ) $id;
-    //     $user = getById( $id );
-    displayViewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"] ) ) );
-    // }else{
-    //     showError();
-    // }  
-   
+    if( count( $_POST ) > 0 ){
+        validForm( $i );
+    }else{
+        if( !empty( $id ) ){
+            $id = ( int ) $id;
+            displayViewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ) );
+        }else{
+            showError();
+        }      
+    }  
+}
+
+function validForm( $id ){
+    function validForm(){
+        if( testForm( $id ) ){
+            showError();
+        }else{
+            redirectListUser();
+        }
+    }
 }
 
 
-// function validChamp( $champ ){
-//     $val = '';
+function validChamp( $champ ){
+    $val = '';
 
-//     if( isset( $_POST[ $champ ] ) ){
-//         if( !empty( $_POST[ $champ ] ) ){
-//             $val =  htmlentities( trim( $_POST[ $champ ] ) );
-//         }
-//     }
+    if( isset( $_POST[ $champ ] ) ){
+        if( !empty( $_POST[ $champ ] ) ){
+             $val =  htmlentities( trim( $_POST[ $champ ] ) );
+        }
+    }
 
-//     return $val;
-// }
+    return $val;
+}
 
-// function testForm(){
-//     $identifiant = '';
-//     $mdp = '';
-//     $test = true;
+ function testForm( $id ){
+     $identifiant = '';
+     $mdp = '';
+     $nom = '';
+     $prenom = '';
+     $test = true;
 
 
-//     $identifiant = validChamp('identifiant');
-//     $mdp = validChamp('mdp');
+    $identifiant = validChamp('identifiant');
+    $mdp = validChamp('mdp');
+    $nom = validChamp('nom');
+    $prenom = validChamp('prenom');
     
-//     if( strlen( $identifiant ) == 0 ){
-//         $test = false;
-//     }
-    
-//     if( strlen( $identifiant ) == 0 ){
-//         $test = false;
-//     }
+    if( strlen( $identifiant ) == 0 ){
+        $test = false;
+    }
 
-//     if( $test ){
-//         $test = verifIdentity( $identifiant, $mdp );
-//     }
+    if( strlen( $nom ) == 0 ){
+        $test = false;
+    }
+
+    if( strlen( $prenom ) == 0 ){
+        $test = false;
+    }
+    
+    
+
+    if( $test ){        
+        $test = edit(  $id,  $identifiant,  $mdp,  $prenom, $nom  ); 
+        if( $test === true ){
+            $_SESSION['user'] = array('id' => $id, 'identifiant' => $identifiant, 'prenom' => $prenom, 'nom' => $prenom );
+        }       
+    }
 
    
-//     return $test;
-// }
+    return $test;
+}
 
 // function verifIdentity( $identifiant, $mdp ){
 //     $state = true;
@@ -92,9 +116,9 @@ function edit( $id ){
 // }
 
 
-// function redirectDashboard(){
-//     header('Location: users/view');
-// }
+function redirectListUser(){
+    header('Location: users/view');
+}
 
 
 function displayViewUser( $args = array() ){
@@ -118,6 +142,8 @@ function main(){
                 }else{
                     $error = true;
                 }
+            }else{
+                redirectListUser();
             }
         }else{
             $error = true; 

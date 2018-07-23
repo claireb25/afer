@@ -23,6 +23,26 @@
     }
 
 
-    function getById( $id ){
-        
+    function edit( $id, $identifiant, $mdp, $prenom, $nom ){
+        global $db, $salt;
+        if( $mdp === '' ){
+            $sql = 'update  user set identifiant = :identifiant, prenom = :prenom, nom := nom where id = :id ';
+        }else{
+            $hmpd = crypt( $mdp, $salt );
+            $sql = 'update  user set identifiant = :identifiant, prenom = :prenom, nom := nom, mdp = :mdp where id = :id ';
+        }
+
+        $response = $db->prepare( $sql );
+        $response->bindParam(':id', $identifiant, PDO::PARAM_INT);
+        $response->bindParam(':identifiant', $identifiant, PDO::PARAM_STR);
+        $response->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $response->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+        $response->bindParam(':identifiant', $identifiant, PDO::PARAM_STR);
+
+        if( $mdp !== '' ){
+            $response->bindParam(':mdp', $hmpd, PDO::PARAM_STR);
+        }
+
+        return $response->execute();
+       
     }
