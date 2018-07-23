@@ -1,0 +1,15 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier : {{ toEdit.forfait_prix }}</h1>
+
+
+<form action="forfaitanimateur/edit/{{ toEdit.id }}" method="post" class="form">
+  <div class="form-example">
+    <label for="edit_forfait" name="edit_forfait">Forfait (€)
+    <input type="text" name="edit_forfait" id="name" value="{{ toEdit.forfait_prix }}"required></label>
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}
