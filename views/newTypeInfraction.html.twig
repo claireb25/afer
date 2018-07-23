@@ -1,0 +1,12 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<form action="typeinfraction/new" method="post" class="form">
+  <div class="form-example">
+    <label for="type_infraction" name="type_infraction">Type de l'infraction
+    <input type="text" name="type_infraction" id="name" required></label>
+    <input type="submit" value="Envoyer">
+</form>
+
+{% endblock %}
