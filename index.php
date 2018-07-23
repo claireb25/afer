@@ -77,6 +77,10 @@
             require('controllers/ctrlModeEnvoiInsc.php');
             break;
 
+        case "tribunal":
+            require('controllers/ctrlTribunal.php');
+            break;
+
         case "users":
         require('controllers/ctrlUsers.php');
         break;
