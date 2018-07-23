@@ -17,7 +17,7 @@
   content: "\1f3b5";
 }
 .entypo-search:before {
-  content: "\1f50d";
+  content: "\1f465";;
 }
 .entypo-flashlight:before {
   content: "\1f526";
@@ -988,7 +988,7 @@ header nav ul li:nth-child(5) a:before {
   content: "\2699";
 }
 header nav ul li:nth-child(6) a:before {
-  content: "\1f50d";
+  content: "\1f465";
 }
 main {
   flex: 1;
