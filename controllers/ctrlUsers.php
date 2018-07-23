@@ -22,7 +22,7 @@ function edit( $id ){
     // if( !empty( $id ) ){
     //     $id = ( int ) $id;
     //     $user = getById( $id );
-    displayViewUser( array( "user" => array( 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"], 'id' => $_SESSION['user']["id"] ) ) );
+    displayViewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"] ) ) );
     // }else{
     //     showError();
     // }  
