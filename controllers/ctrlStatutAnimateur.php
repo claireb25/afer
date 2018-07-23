@@ -53,7 +53,7 @@ function makeList(){
 // NEW
 function addNew($valeur){
     $status_nom = htmlentities($valeur);
-    create('statut_animateur(status_nom)', $status_nom);
+    create($status_nom);
     header('Location: /afer-back/statutanimateur/list');
 }
 
