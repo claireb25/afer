@@ -60,6 +60,10 @@
         case "natureprefecture":
             require('controllers/ctrlNaturePrefecture.php');
             break;    
+        
+        case "prix":
+            require('controllers/ctrlPrix.php');
+            break;
 
         default :
             require('controllers/ctrl404.php');
