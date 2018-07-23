@@ -64,6 +64,14 @@
         case "prix":
             require('controllers/ctrlPrix.php');
             break;
+        
+        case "modeenvoiconvocation":
+            require('controllers/ctrlModeEnvoiConvoc.php');
+            break;
+        
+        case "modeenvoiinscription":
+            require('controllers/ctrlModeEnvoiInsc.php');
+            break;
 
         default :
             require('controllers/ctrl404.php');
