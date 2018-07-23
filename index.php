@@ -55,6 +55,10 @@
             
         case "typeinfraction":
             require('controllers/ctrlTypeInfraction.php');
+            break;  
+        
+        case "natureprefecture":
+            require('controllers/ctrlNaturePrefecture.php');
             break;    
 
         default :
