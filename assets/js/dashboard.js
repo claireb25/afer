@@ -14,4 +14,5 @@ $(document).ready( function() {
       var title = $(this).data('title');
       $('.title').children('h2').html(title);
     });
+    
   });

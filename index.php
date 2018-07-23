@@ -1,3 +1,7 @@
+<head>
+    <base href="http://localhost/afer-back/"> 
+</head> 
+
 <?php
     $path = '';
 

@@ -9,5 +9,5 @@ $twig = new Twig_Environment($loader, array(
     'cache'=> false
 ));
 
-$template = $twig->load('template.html.twig');
+$template = $twig->load('viewDashboard.html.twig');
 echo $template->render(array("user" => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"]));
