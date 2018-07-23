@@ -1084,3 +1084,26 @@ a:hover {
   font-style: italic;
 }
 
+
+/******** liste des entités ****/
+.tbl-list{
+  margin : 15px 0;
+  width : 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.tbl-col-header{
+  padding: 8px 20px;
+  text-align: left;
+}
+
+.tbl-row-search{
+  background-color: #dadcd9;
+}
+
+.tbl-col-search{
+  padding: 8px 20px;
+}
+
+

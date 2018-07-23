@@ -1,5 +1,4 @@
 <?php
-
 require('utils/security.php');
 require("models/users.php");
 require('vendor/autoload.php');
@@ -16,14 +15,14 @@ function twig(){
 }
 
 
-function edit( $id ){
+function editUser( $id ){
 
     if( count( $_POST ) > 0 ){
         validForm( $i );
     }else{
         if( !empty( $id ) ){
             $id = ( int ) $id;
-            displayViewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ) );
+            displayEditUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ) );
         }else{
             showError();
         }      
@@ -121,9 +120,15 @@ function redirectListUser(){
 }
 
 
-function displayViewUser( $args = array() ){
+function displayEditUser( $args = array() ){
     $tpl =  twig();
     $template = $tpl->load('editUser.html.twig');
+    echo $template->render( $args );
+} 
+
+function displayViewUser( $args = array() ){
+    $tpl =  twig();
+    $template = $tpl->load('indexUsers.html.twig');
     echo $template->render( $args );
 } 
 
@@ -135,15 +140,15 @@ function main(){
                 if(  isset( $_GET['id'] )  ){
                     if( !empty( $_GET['id'] ) ){
                         $id = (int) $_GET['id'];
-                        edit( $id );
+                        editUser( $id );
                     }else{
                         $error = true;
                     }
                 }else{
                     $error = true;
                 }
-            }else{
-                redirectListUser();
+            }else if( $_GET['action'] === 'view' ){
+                displayViewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ));
             }
         }else{
             $error = true; 
