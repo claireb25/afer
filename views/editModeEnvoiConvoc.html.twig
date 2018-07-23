@@ -1,0 +1,15 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier : {{ toEdit.mode }}</h1>
+
+
+<form action="modeenvoiconvocation/edit/{{ toEdit.id }}" method="post" class="form">
+  <div class="form-example">
+    <label for="edit_mode_envoi_convoc" name="edit_mode_envoi_convoc">Mode d'envoi convocations
+    <input type="text" name="edit_mode_envoi_convoc" id="name" value="{{ toEdit.mode }}"required></label>
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}

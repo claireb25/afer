@@ -1,0 +1,12 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<form action="modeenvoiinscription/new" method="post" class="form">
+  <div class="form-example">
+    <label for="mode_envoi_insc" name="mode_envoi_insc">Mode d'envoi
+    <input type="text" name="mode_envoi_insc" id="name" required></label>
+    <input type="submit" value="Envoyer">
+</form>
+
+{% endblock %}
