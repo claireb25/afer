@@ -17,6 +17,10 @@
             require('controllers/ctrlHomepage.php');
             break;
         
+        case "casstage":
+            require('controllers/ctrlCasStage.php');
+            break;
+            
         case "forfaitanimateur":
             require('controllers/ctrlForfaitAnimateur.php');
             break;
