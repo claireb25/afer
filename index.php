@@ -65,6 +65,10 @@
             require('controllers/ctrlPrix.php');
             break;
 
+        case "users":
+        require('controllers/ctrlUsers.php');
+        break;
+
         default :
             require('controllers/ctrl404.php');
             break;
