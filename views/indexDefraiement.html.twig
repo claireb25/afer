@@ -1,0 +1,22 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+	
+
+<h1>Liste des défraiements</h1>
+
+<a href="defraiement/new"><button>Nouveau</button></a>
+
+<ul>
+    {% for elemt in list %}
+        <li>{% if elemt.repas == 1 %}Oui{% else %}Non{% endif %} {{ elemt.km_ar }} 
+            <a href="defraiement/edit/{{ elemt.id }}"><button>Modifier</button></a>
+            <a href="defraiement/delete/{{ elemt.id }}"><button>Supprimer</button></a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="defraiement/new"><button>Nouveau</button></a>
+
+{% endblock %}

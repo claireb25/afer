@@ -53,12 +53,20 @@
             require('controllers/ctrlAutoritePrefecture.php');
             break;
 
+        case "serviceprefecture":
+            require('controllers/ctrlServicePrefecture.php');
+            break;
+
         case "civilite":
-        require('controllers/ctrlCivilite.php');
+            require('controllers/ctrlCivilite.php');
             break; 
             
         case "typeinfraction":
             require('controllers/ctrlTypeInfraction.php');
+            break;
+            
+        case "defraiement":
+            require('controllers/ctrlDefraiement.php'); 
             break;  
         
         case "natureprefecture":
@@ -70,8 +78,8 @@
             break;
 
         case "users":
-        require('controllers/ctrlUsers.php');
-        break;
+            require('controllers/ctrlUsers.php');
+            break;
 
         default :
             require('controllers/ctrl404.php');

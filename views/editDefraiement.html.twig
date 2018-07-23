@@ -1,0 +1,17 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier le défraiement :</h1>
+
+
+<form action="defraiement/edit/{{ elmttoEdit.id }}" method="post" class="form">
+  <div class="form-example">
+    <label for="repas" name="repas">Repas :
+    <input type="checkbox" name="repas" value="1" {% if elmttoEdit.repas == 1 %} checked {% endif %}></label>
+    <label for="km_ar" name="km_ar">Kilomètres aller/retour : 
+    <input type="number" name="km_ar" value="{{ elmttoEdit.km_ar }}"></label>    
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<form action="serviceprefecture/new" method="post" class="form">
+  <div class="form-example">
+    <label for="service_nom" name="service_nom">Nom du service (prefecture)
+    <input type="text" name="service_nom" id="name" required></label>
+    <input type="submit" value="Envoyer">
+</form>
+
+{% endblock %}
