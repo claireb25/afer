@@ -9,6 +9,8 @@ $(document).ready( function() {
       }
       $(this).parent().children('p').slideToggle(250);
     });
+
+    
     
     $('body').on("click", "nav ul li a", function(){
       var title = $(this).data('title');

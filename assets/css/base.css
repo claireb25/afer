@@ -17,7 +17,7 @@
   content: "\1f3b5";
 }
 .entypo-search:before {
-  content: "\1f50d";
+  content: "\1f465";;
 }
 .entypo-flashlight:before {
   content: "\1f526";
@@ -976,19 +976,19 @@ header nav ul li:first-child a:before {
   content: "\268f";
 }
 header nav ul li:nth-child(2) a:before {
-  content: "\1f465";
-}
-header nav ul li:nth-child(3) a:before {
   content: "\1f4c5";
 }
+header nav ul li:nth-child(3) a:before {
+  content: "\1f465";
+}
 header nav ul li:nth-child(4) a:before {
-  content: "\e771";
+  content: "\1f465";
 }
 header nav ul li:nth-child(5) a:before {
   content: "\2699";
 }
 header nav ul li:nth-child(6) a:before {
-  content: "\1f50d";
+  content: "\1f465";
 }
 main {
   flex: 1;
@@ -1056,5 +1056,31 @@ a:hover {
   margin-left: 10px;
   padding: 0 15px;
   border-left: 1px solid #ccc;
+}
+
+/******** élément de formulaire ********/
+
+.form-group{
+  margin : 16px 0 0 0;
+  padding : 15px;
+}
+
+.form-input{
+  padding: 0 15px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 13.2px;
+  color: #464c58;
+  background-color: #ffffff;
+  border: 1px solid #f0f0f0;
+  text-align: left;
+  font-family: 'Arial';
+  width:100%;
+}
+
+.form-msg-error{
+  font-size: 8px ;
+  color:rgb(210, 18, 66);
+  font-style: italic;
 }
 
