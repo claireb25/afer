@@ -17,8 +17,8 @@ if (isset($_GET['action'])){
             makeList();            
             break;
         case 'new':
-            if (isset($_POST['new_statut']) && (!empty($_POST['new_statut']))){
-                addNew($_POST['new_statut']);
+            if (isset($_POST['status_nom']) && (!empty($_POST['status_nom']))){
+                addNew($_POST['status_nom']);
             } else {
                 showNew();
             }
