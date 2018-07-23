@@ -49,13 +49,21 @@
             require('controllers/ctrlAutoritePrefecture.php');
             break;
 
+        case "serviceprefecture":
+            require('controllers/ctrlServicePrefecture.php');
+            break;
+
         case "civilite":
         require('controllers/ctrlCivilite.php');
             break; 
             
         case "typeinfraction":
             require('controllers/ctrlTypeInfraction.php');
-            break;    
+            break;
+            
+        case "defraiement":
+            require('controllers/ctrlDefraiement.php');
+            break; 
 
         default :
             require('controllers/ctrl404.php');
