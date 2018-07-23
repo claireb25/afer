@@ -4,18 +4,18 @@
 
 	
 
-<h1>Liste des autorités (tribunal)</h1>
+<h1>Liste des autorités (prefecture)</h1>
 
-<a href="autoritetribunal/new"><button>Nouveau</button></a>
+<a href="autoriteprefecture/new"><button>Nouveau</button></a>
 
 <ul>
     {% for elems in list %}
-        <li>{{ elems.autorite_nom }}  <a href="autoritetribunal/edit/{{ elems.id }}"><button>Modifier</button></a>
-                                    <a href="autoritetribunal/delete/{{ elems.id }}"><button>Supprimer</button></a>
+        <li>{{ elems.autorite_nom }}  <a href="autoriteprefecture/edit/{{ elems.id }}"><button>Modifier</button></a>
+                                    <a href="autoriteprefecture/delete/{{ elems.id }}"><button>Supprimer</button></a>
         </li>
     {% endfor %}
 </ul>
 
-<a href="autoritetribunal/new"><button>Nouveau</button></a>
+<a href="autoriteprefecture/new"><button>Nouveau</button></a>
 
 {% endblock %}
