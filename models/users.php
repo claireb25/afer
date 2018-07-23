@@ -21,3 +21,8 @@
         $response->execute();
         return $response->fetch(PDO::FETCH_ASSOC);
     }
+
+
+    function getById( $id ){
+        
+    }

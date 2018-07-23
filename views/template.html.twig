@@ -43,7 +43,7 @@
     <main>
         <div class="title">
             <h2>Outil de gestion</h2>
-            <a href="javascript:void(0);">Hello {{user}} !</a>
+            <a href="users/edit/{{user.id}}">Hello {{user.fullName}} !</a>
         </div>
         <section>
         {% block Unedashboard %}{% endblock %}

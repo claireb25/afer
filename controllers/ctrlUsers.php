@@ -16,78 +16,92 @@ function twig(){
 }
 
 
-function displayLogin( $args = array() ){
-    $tpl =  twig();
-    $template = $tpl->load('login.html.twig');
-    echo $template->render( $args );
+function edit( $id ){
+
+    
+    // if( !empty( $id ) ){
+    //     $id = ( int ) $id;
+    //     $user = getById( $id );
+    displayViewUser( array( "user" => array( 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"], 'id' => $_SESSION['user']["id"] ) ) );
+    // }else{
+    //     showError();
+    // }  
+   
 }
 
 
-function validChamp( $champ ){
-    $val = '';
+// function validChamp( $champ ){
+//     $val = '';
 
-    if( isset( $_POST[ $champ ] ) ){
-        if( !empty( $_POST[ $champ ] ) ){
-            $val =  htmlentities( trim( $_POST[ $champ ] ) );
-        }
-    }
+//     if( isset( $_POST[ $champ ] ) ){
+//         if( !empty( $_POST[ $champ ] ) ){
+//             $val =  htmlentities( trim( $_POST[ $champ ] ) );
+//         }
+//     }
 
-    return $val;
-}
+//     return $val;
+// }
 
-function testForm(){
-    $identifiant = '';
-    $mdp = '';
-    $test = true;
+// function testForm(){
+//     $identifiant = '';
+//     $mdp = '';
+//     $test = true;
 
 
-    $identifiant = validChamp('identifiant');
-    $mdp = validChamp('mdp');
+//     $identifiant = validChamp('identifiant');
+//     $mdp = validChamp('mdp');
     
-    if( strlen( $identifiant ) == 0 ){
-        $test = false;
-    }
+//     if( strlen( $identifiant ) == 0 ){
+//         $test = false;
+//     }
     
-    if( strlen( $identifiant ) == 0 ){
-        $test = false;
-    }
+//     if( strlen( $identifiant ) == 0 ){
+//         $test = false;
+//     }
 
-    if( $test ){
-        $test = verifIdentity( $identifiant, $mdp );
-    }
+//     if( $test ){
+//         $test = verifIdentity( $identifiant, $mdp );
+//     }
 
    
-    return $test;
-}
+//     return $test;
+// }
 
-function verifIdentity( $identifiant, $mdp ){
-    $state = true;
-    $user = getLogin(  $identifiant, $mdp );
-    if( $user  !== false ){
-        startSession( $user );        
-    }else{
-        $state = false;
-    }
-    return $state;
-}
+// function verifIdentity( $identifiant, $mdp ){
+//     $state = true;
+//     $user = getLogin(  $identifiant, $mdp );
+//     if( $user  !== false ){
+//         startSession( $user );        
+//     }else{
+//         $state = false;
+//     }
+//     return $state;
+// }
 
-function startSession( $user ){
-    session_start();
-    $_SESSION['user'] = $user;
-}
+// function startSession( $user ){
+//     session_start();
+//     $_SESSION['user'] = $user;
+// }
 
-function validForm(){
-    if( testForm() ){
-        redirectDashboard();
-    }else{
-        displayLogin( array('error' => true ) );
-    }
-}
+// function validForm(){
+//     if( testForm() ){
+//         redirectDashboard();
+//     }else{
+//         displayLogin( array('error' => true ) );
+//     }
+// }
 
 
-function redirectDashboard(){
-    header('Location: users/view');
-}
+// function redirectDashboard(){
+//     header('Location: users/view');
+// }
+
+
+function displayViewUser( $args = array() ){
+    $tpl =  twig();
+    $template = $tpl->load('editUser.html.twig');
+    echo $template->render( $args );
+} 
 
 function main(){
     $error = false;
