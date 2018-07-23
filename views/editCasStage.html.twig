@@ -1,0 +1,19 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier : {{ toEdit.cas_nom }}</h1>
+
+
+<form action="casstage/edit/{{ toEdit.id }}" method="post" class="form">
+  <div class="form-example">
+    <label for="edit_nom" name="edit_nom">Cas
+    <input type="text" name="edit_nom" id="name" value="{{ toEdit.cas_nom }}"required></label>
+    <label for="edit_prix" name="edit_prix">Prix
+    <input type="text" name="edit_prix" id="name" value="{{ toEdit.cas_prix }}"required></label>
+     <label for="edit_description" name="edit_description">Description
+    <input type="text" name="edit_description" id="name" value="{{ toEdit.cas_description }}"required></label>
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}

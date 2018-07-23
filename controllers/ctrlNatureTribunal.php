@@ -53,8 +53,8 @@ function makeList(){
 
 // NEW
 function addNew($valeur){
-    $autorite_nom = htmlentities($valeur);
-    create($autorite_nom);
+    $nature_nom = htmlentities($valeur);
+    create($nature_nom);
     header('Location: /afer-back/naturetribunal/list');
 }
 
@@ -83,6 +83,6 @@ function updateNature($data, $id){
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
-    // header('Location: /afer-back/autoritetribunal/list');
+    header('Location: /afer-back/naturetribunal/list');
 }
 

@@ -17,6 +17,10 @@
             require('controllers/ctrlHomepage.php');
             break;
         
+        case "casstage":
+            require('controllers/ctrlCasStage.php');
+            break;
+            
         case "forfaitanimateur":
             require('controllers/ctrlForfaitAnimateur.php');
             break;
@@ -44,10 +48,23 @@
         case "autoriteprefecture":
             require('controllers/ctrlAutoritePrefecture.php');
             break;
-              
+
         case "civilite":
         require('controllers/ctrlCivilite.php');
-            break;     
+            break; 
+            
+        case "typeinfraction":
+            require('controllers/ctrlTypeInfraction.php');
+            break;  
+        
+        case "natureprefecture":
+            require('controllers/ctrlNaturePrefecture.php');
+            break;    
+        
+        case "prix":
+            require('controllers/ctrlPrix.php');
+            break;
+
         default :
             require('controllers/ctrl404.php');
             break;

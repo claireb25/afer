@@ -83,6 +83,6 @@ function updateAutorite($data, $id){
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
-    // header('Location: /afer-back/autoritetribunal/list');
+    header('Location: /afer-back/autoritetribunal/list');
 }
 

@@ -1,7 +1,7 @@
 <?php
 
 require("utils/security.php");
-require_once "models/autoritePrefecture.php";
+require_once "models/typeInfraction.php";
 
 if (isset($_GET['action'])){
        
@@ -18,8 +18,8 @@ if (isset($_GET['action'])){
             makeList();            
             break;
         case 'new':
-            if (isset($_POST['autorite_nom']) && (!empty($_POST['autorite_nom']))){
-                addNew($_POST['autorite_nom']);
+            if (isset($_POST['type_infraction']) && (!empty($_POST['type_infraction']))){
+                addNew($_POST['type_infraction']);
             } else {
                 showNew();
             }
@@ -29,8 +29,8 @@ if (isset($_GET['action'])){
                 showEdit($_GET['id']);
                
             }
-            if (isset($_POST['edit_autorite']) && (!empty($_POST['edit_autorite']))){
-                updateAutorite($_POST['edit_autorite'], $_GET['id']);
+            if (isset($_POST['type_infraction']) && (!empty($_POST['type_infraction']))){
+                updateType($_POST['type_infraction'], $_GET['id']);
             }
            
             break;
@@ -47,42 +47,42 @@ if (isset($_GET['action'])){
 function makeList(){
     $list = listAll();
     global $twig;
-    $template = $twig->load('indexAutoritePrefecture.html.twig');
+    $template = $twig->load('indexTypeInfraction.html.twig');
     echo $template->render(array('list'=>$list));
 }
 
 // NEW
 function addNew($valeur){
-    $autorite_nom = htmlentities($valeur);
-    create($autorite_nom);
-    header('Location: /afer-back/autoriteprefecture/list');
+    $type_infraction = htmlentities($valeur);
+    create('type_infraction(type_infraction_nom)', $type_infraction);
+    header('Location: /afer-back/typeinfraction/list');
 }
 
 function showNew(){
     global $twig;
-    $template = $twig->load('newAutoritePrefecture.html.twig');
+    $template = $twig->load('newTypeInfraction.html.twig');
     echo $template->render(array());
 }
 
 //EDIT 
 function showEdit($id){
-    $autoritetoEdit = getOne($id);
+    $typetoEdit = getOne($id);
     global $twig;
-    $template = $twig->load('editAutoritePrefecture.html.twig');
-    echo $template->render(array('autoritetoEdit'=>$autoritetoEdit));
+    $template = $twig->load('editTypeInfraction.html.twig');
+    echo $template->render(array('typetoEdit'=>$typetoEdit));
 }
 
-function updateAutorite($data, $id){
-    $autorite_nom = htmlentities($data);
+function updateType($data, $id){
+    $type_infraction = htmlentities($data);
     $id = (int)$id;
-    edit($autorite_nom, $id);
-    header('Location: /afer-back/autoriteprefecture/list');
+    edit($type_infraction, $id);
+    header('Location: /afer-back/typeinfraction/list');
    
 }
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
-    header('Location: /afer-back/autoriteprefecture/list');
+    header('Location: /afer-back/typeinfraction/list');
 }
 

@@ -1,7 +1,7 @@
 <?php
 
 require("utils/security.php");
-require_once "models/autoritePrefecture.php";
+require_once "models/naturePrefecture.php";
 
 if (isset($_GET['action'])){
        
@@ -18,8 +18,8 @@ if (isset($_GET['action'])){
             makeList();            
             break;
         case 'new':
-            if (isset($_POST['autorite_nom']) && (!empty($_POST['autorite_nom']))){
-                addNew($_POST['autorite_nom']);
+            if (isset($_POST['nature_nom']) && (!empty($_POST['nature_nom']))){
+                addNew($_POST['nature_nom']);
             } else {
                 showNew();
             }
@@ -29,8 +29,8 @@ if (isset($_GET['action'])){
                 showEdit($_GET['id']);
                
             }
-            if (isset($_POST['edit_autorite']) && (!empty($_POST['edit_autorite']))){
-                updateAutorite($_POST['edit_autorite'], $_GET['id']);
+            if (isset($_POST['edit_nature']) && (!empty($_POST['edit_nature']))){
+                updateNature($_POST['edit_nature'], $_GET['id']);
             }
            
             break;
@@ -47,42 +47,42 @@ if (isset($_GET['action'])){
 function makeList(){
     $list = listAll();
     global $twig;
-    $template = $twig->load('indexAutoritePrefecture.html.twig');
+    $template = $twig->load('indexNaturePrefecture.html.twig');
     echo $template->render(array('list'=>$list));
 }
 
 // NEW
 function addNew($valeur){
-    $autorite_nom = htmlentities($valeur);
-    create($autorite_nom);
-    header('Location: /afer-back/autoriteprefecture/list');
+    $nature_nom = htmlentities($valeur);
+    create($nature_nom);
+    header('Location: /afer-back/natureprefecture/list');
 }
 
 function showNew(){
     global $twig;
-    $template = $twig->load('newAutoritePrefecture.html.twig');
+    $template = $twig->load('newNaturePrefecture.html.twig');
     echo $template->render(array());
 }
 
 //EDIT 
 function showEdit($id){
-    $autoritetoEdit = getOne($id);
+    $naturetoEdit = getOne($id);
     global $twig;
-    $template = $twig->load('editAutoritePrefecture.html.twig');
-    echo $template->render(array('autoritetoEdit'=>$autoritetoEdit));
+    $template = $twig->load('editNaturePrefecture.html.twig');
+    echo $template->render(array('naturetoEdit'=>$naturetoEdit));
 }
 
-function updateAutorite($data, $id){
-    $autorite_nom = htmlentities($data);
+function updateNature($data, $id){
+    $nature_nom = htmlentities($data);
     $id = (int)$id;
-    edit($autorite_nom, $id);
-    header('Location: /afer-back/autoriteprefecture/list');
+    edit($nature_nom, $id);
+    header('Location: /afer-back/natureprefecture/list');
    
 }
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
-    header('Location: /afer-back/autoriteprefecture/list');
+    header('Location: /afer-back/natureprefecture/list');
 }
 

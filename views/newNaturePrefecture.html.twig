@@ -1,0 +1,12 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<form action="natureprefecture/new" method="post" class="form">
+  <div class="form-example">
+    <label for="nature_nom" name="nature_nom">Nature du tribunal
+    <input type="text" name="nature_nom" id="name" required></label>
+    <input type="submit" value="Envoyer">
+</form>
+
+{% endblock %}

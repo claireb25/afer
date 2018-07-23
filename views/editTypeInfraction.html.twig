@@ -1,0 +1,15 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier : {{ typetoEdit.type_infraction_nom }}</h1>
+
+
+<form action="typeinfraction/edit/{{ typetoEdit.id }}" method="post" class="form">
+  <div class="form-example">
+    <label for="type_infraction" name="type_infraction">Statut 
+    <input type="text" name="type_infraction" id="name" value="{{ typetoEdit.type_infraction_nom }}" required></label>
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}
