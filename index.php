@@ -44,6 +44,11 @@
         case "servicetribunal":
             require('controllers/ctrlServiceTribunal.php');
             break;
+
+        case "autoriteprefecture":
+            require('controllers/ctrlAutoritePrefecture.php');
+            break;
+              
         case "civilite":
         require('controllers/ctrlCivilite.php');
             break;     
