@@ -16,26 +16,28 @@
 <body>
     <span class="bckg"></span>
     <header>
-        <h1>AFER</h1>
+        <a href="dashboard/view">
+            <h1>AFER</h1>
+        </a>
         <nav>
             <ul>
                 <li>
-                    <a href="javascript:void(0);" data-title="A la une">A la une</a>
+                    <a href="dashboard/view" data-title="A la une">A la une</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-title="Stages">Stages</a>
+                    <a href="dashboard/view" data-title="Stages">Stages</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-title="Stagiaire">Stagiaires</a>
+                    <a href="dashboard/view" data-title="Stagiaire">Stagiaires</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-title="Animateurs">Animateurs</a>
+                    <a href="dashboard/view" data-title="Animateurs">Animateurs</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-title="Réglages">Réglages</a>
+                    <a href="dashboard/view" data-title="Réglages">Réglages</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-title="Utilisateurs">Utilisateurs</a>
+                    <a href="dashboard/view" data-title="Utilisateurs">Utilisateurs</a>
                 </li>
             </ul>
         </nav>
@@ -45,9 +47,6 @@
             <h2>Outil de gestion</h2>
             <a href="users/edit/{{user.id}}">Hello {{user.fullName}} !</a>
         </div>
-        <section>
-        {% block Unedashboard %}{% endblock %}
-        </section>
 
         <section>
             {% block content %} {% endblock %}
