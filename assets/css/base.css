@@ -1382,6 +1382,8 @@ a:hover {
   border-left: 1px solid #ccc;
 }
 
+****************************** Tables contenues dans Menu bouton réglages *********************************************
+
 .small-entities span {
   font-family: 'entypo';
   font-size: 19px;
@@ -1428,7 +1430,7 @@ a:hover {
 
 .form-msg-error{
   font-size: 13px ;
-  color:rgb(210, 18, 66);
+  color: #056a86;
   font-style: italic;
 }
 

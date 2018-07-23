@@ -65,7 +65,7 @@ html, .login, .content{
     min-height: 30px;
     margin: 30px auto auto auto;
     color:#fff;
-    background-color: #d21242;
+    background-color: #045269;
     border: none;
     font-size: 1.4rem;
     cursor:pointer;
@@ -75,7 +75,7 @@ html, .login, .content{
 
 .form-login-button:hover{
     
-    background-color: #eb446e;
+    background-color: #056a86;
    
 }
 
