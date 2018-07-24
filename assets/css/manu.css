@@ -42,14 +42,14 @@ html, .login, .content{
 .form-label{
     display:block;
     margin-bottom: 4px;
-    font-size: 13.2px;
+    font-size: 16.2px;
 }
 
 .form-login-input{
     padding: 0 15px;
     height: 40px;
     line-height: 40px;
-    font-size: 13.2px;
+    font-size: 16.2px;
     color: #464c58;
     background-color: #f0f0f0;
     border: 1px solid #f0f0f0;
@@ -65,7 +65,7 @@ html, .login, .content{
     min-height: 30px;
     margin: 30px auto auto auto;
     color:#fff;
-    background-color: #d21242;
+    background-color: #045269;
     border: none;
     font-size: 1.4rem;
     cursor:pointer;
@@ -75,7 +75,7 @@ html, .login, .content{
 
 .form-login-button:hover{
     
-    background-color: #eb446e;
+    background-color: #056a86;
    
 }
 

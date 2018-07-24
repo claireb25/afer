@@ -76,6 +76,18 @@
         case "prix":
             require('controllers/ctrlPrix.php');
             break;
+        
+        case "modeenvoiconvocation":
+            require('controllers/ctrlModeEnvoiConvoc.php');
+            break;
+        
+        case "modeenvoiinscription":
+            require('controllers/ctrlModeEnvoiInsc.php');
+            break;
+
+        case "tribunal":
+            require('controllers/ctrlTribunal.php');
+            break;
 
         case "users":
             require('controllers/ctrlUsers.php');

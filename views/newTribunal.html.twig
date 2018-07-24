@@ -1,0 +1,36 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+<form action="tribunal/new" method="post" class="form">
+  <div class="form-example">
+    <label for="tribunal_nom" name="tribunal_nom">Nom du tribunal</label>
+    <input type="text" name="tribunal_nom" id="name" required>
+    
+    <select name="nature_tribunal">
+        <option value="nature_tribunal" selected disabled>Nature</option>
+        {% for elem in nature %}
+        <option value="{{ elem.id }}">{{ elem.nature_nom }}</option>
+        {% endfor %}
+    </select>
+    <select name="autorite_tribunal">
+        <option value="autorite_tribunal" selected disabled>Autorité</option>   
+        {% for elem in autorite %}
+        <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
+        {% endfor %}
+    </select>
+    <select name="service_tribunal">
+        <option value="service_tribunal" selected disabled>Service</option> 
+        {% for elem in service %}
+        <option value="{{ elem.id }}">{{ elem.service_nom }}</option>
+        {% endfor %}
+    </select>
+    <label for="adresse" name="adresse">Adresse</label>
+    <input type="text" name="adresse" id="name" required>
+    <label for="code_postal" name="code_postal">Code Postal</label>
+    <input type="text" name="code_postal" id="name" required>
+    <label for="commune" name="commune">Ville</label>
+    <input type="text" name="commune" id="name" required>
+    <input type="submit" value="Envoyer">
+</form>
+
+{% endblock %}
