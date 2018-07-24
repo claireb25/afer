@@ -265,6 +265,10 @@ a:hover {
 
 
 ******* élément de formulaire *******
+.cadre {
+  padding: 10%;
+}
+
 
 .form-group{
   margin : 16px 0 0 0;
