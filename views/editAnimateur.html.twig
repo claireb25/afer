@@ -32,36 +32,49 @@
     </select>
 
     <label for="gta" name="gta">Gestion Technique et Administrative</label>
-    
-    <input value="{{ toEdit.gta }}" type="checkbox" name="gta" id="name" required>
-
+    <input type="checkbox" name="gta" id="name">
     
     <h3>Adresse</h3>
+
     <label for="raison_sociale" name="raison_sociale">Raison sociale
-    <input type="text" name="raison_sociale" id="raison_sociale" value="{{ toEdit.raison_sociale }}" required></label>
+    <input type="text" name="raison_sociale" id="raison_sociale" value="{{ toEdit.raison_sociale }}"></label>
 
     <label for="adresse" name="adresse">Numéro et nom de rue
     <input type="text" name="adresse" id="adresse" value="{{ toEdit.adresse }}" required></label>
 
     <label for="code_postal" name="code_postal">Code postal
-    <input type="text" name="code_postal" id="code_postal" value="{{ toEdit.code_postal }}" required></label>
+    <input type="text" name="code_postal" id="code_postal" value="{{ toEdit.code_postal }}"></label>
 
     <label for="ville" name="ville">Ville
-    <input type="text" name="ville" id="ville" value="{{ toEdit.commune }}"required></label>
+    <input type="text" name="ville" id="ville" value="{{ toEdit.commune }}"></label>
 
     <label for="region" name="region">Région
-    <input type="text" name="region" id="region" value="{{ toEdit.region }}"required></label>
+    <input type="text" name="region" id="region" value="{{ toEdit.region }}"></label>
 
 
     <h3>Contact</h3>
+
     <label for="tel_portable" name="tel_portable">Téléphone portable
-    <input type="text" name="tel_portable" id="tel_portable" value="{{ toEdit.tel_portable }}" required></label>
+    <input type="text" name="tel_portable" id="tel_portable" value="{{ toEdit.tel_portable }}"></label>
 
     <label for="tel_fixe" name="tel_fixe">Téléphone fixe
-    <input type="text" name="tel_fixe" id="tel_fixe" value="{{ toEdit.tel_fixe }}" required></label>
+    <input type="text" name="tel_fixe" id="tel_fixe" value="{{ toEdit.tel_fixe }}"></label>
 
     <label for="email" name="email">Adresse e-mail
-    <input type="text" name="email" id="email" value="{{ toEdit.email }}"required></label>
+    <input type="text" name="email" id="email" value="{{ toEdit.email }}"></label>
+
+
+    <h3>Autres</h3>
+
+    <label for="urssaf" name="urssaf">Urssaf
+    <input type="text" name="urssaf" id="urssaf" value="{{ toEdit.urssaf }}"></label>
+
+    <label for="siret" name="siret">SIRET
+    <input type="text" name="siret" id="siret" value="{{ toEdit.siret }}"></label>
+
+    <label for="observations" name="observations">Observations
+    <input type="text" name="observations" id="observations" value="{{ toEdit.observations }}"></label>
+
     <input type="submit" value="Modifier">
 </form>
 

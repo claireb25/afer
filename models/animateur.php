@@ -1,9 +1,9 @@
 <?php 
 require_once("utils/db.php");
 // NEW
-function create($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email){
+function create($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations){
     global $db;
-    $response = $db->prepare("INSERT INTO animateur(civilite_id_id, fonction_animateur_id_id, statut_id_id, nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email) VALUES(:civilite, :fonction, :statut, :nom, :prenom, :gta, :raison_sociale, :adresse, :code_postal, :ville, :region, :tel_portable, :tel_fixe, :email)");
+    $response = $db->prepare("INSERT INTO animateur(civilite_id_id, fonction_animateur_id_id, statut_id_id, nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email, urssaf, siret, observations) VALUES(:civilite, :fonction, :statut, :nom, :prenom, :gta, :raison_sociale, :adresse, :code_postal, :ville, :region, :tel_portable, :tel_fixe, :email, :urssaf, :siret, :observations)");
     $response->bindParam(':civilite', $civilite, PDO::PARAM_INT);
     $response->bindParam(':nom', $nom, PDO::PARAM_STR);
     $response->bindParam(':prenom', $prenom, PDO::PARAM_STR);
@@ -18,6 +18,9 @@ function create($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_soci
     $response->bindParam(':tel_portable', $tel_portable, PDO::PARAM_STR);
     $response->bindParam(':tel_fixe', $tel_fixe, PDO::PARAM_STR);
     $response->bindParam(':email', $email, PDO::PARAM_STR);
+    $response->bindParam(':urssaf', $urssaf, PDO::PARAM_STR);
+    $response->bindParam(':siret', $siret, PDO::PARAM_STR);
+    $response->bindParam(':observations', $observations, PDO::PARAM_STR);
     $response->execute();
     return true; 
 }
@@ -51,33 +54,36 @@ function statut(){
 //EDIT
 function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT id, civilite_id_id, fonction_animateur_id_id, statut_id_id, nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email FROM animateur 
+    $response = $db->prepare("SELECT id, civilite_id_id, fonction_animateur_id_id, statut_id_id, nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email, urssaf, siret, observations FROM animateur 
     WHERE animateur.id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
-// function edit($nom, $nature, $autorite, $srv, $adr, $cp, $ville, $id){
-//     global $db;
-//     $response = $db->prepare("UPDATE tribunal SET nature_tribunal_id_id = :nature,
-//     autorite_tribunal_id_id = :autorite,
-//     service_tribunal_id_id = :srv,
-//     tribunal_nom = :nom, 
-//     adresse = :adr,
-//     code_postal = :cp, 
-//     commune = :ville 
-//     WHERE tribunal.id = :id");
-//     $response->bindParam(':nom', $nom, PDO::PARAM_STR);
-//     $response->bindParam(':nature', $nature, PDO::PARAM_INT);
-//     $response->bindParam(':autorite', $autorite, PDO::PARAM_INT);
-//     $response->bindParam(':srv', $srv, PDO::PARAM_INT);
-//     $response->bindParam(':adr', $adr, PDO::PARAM_STR);
-//     $response->bindParam(':cp', $cp, PDO::PARAM_STR);
-//     $response->bindParam(':ville', $ville, PDO::PARAM_STR);
-//     $response->bindParam(':id', $id, PDO::PARAM_INT);
-//     $response->execute();
-//     return true; 
-// }
+function edit($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations, $id){
+    global $db;
+    $response = $db->prepare("UPDATE animateur SET civilite_id_id = :civilite, fonction_animateur_id_id = :fonction,statut_id_id = :statut, nom = :nom, prenom = :prenom, gta = :gta, raison_sociale = :raison_sociale, adresse = :adresse, code_postal = :code_postal, commune = :ville, region = :region, tel_portable = :tel_portable,tel_fixe = :tel_fixe, email = :email, urssaf = :urssaf, siret = :siret, observations = :observations WHERE animateur.id = :id");
+    $response->bindParam(':civilite', $civilite, PDO::PARAM_INT);
+    $response->bindParam(':nom', $nom, PDO::PARAM_STR);
+    $response->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+    $response->bindParam(':fonction', $fonction, PDO::PARAM_INT);
+    $response->bindParam(':statut', $statut, PDO::PARAM_INT);
+    $response->bindParam(':gta', $gta, PDO::PARAM_BOOL);
+    $response->bindParam(':raison_sociale', $raison_sociale, PDO::PARAM_STR);
+    $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
+    $response->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
+    $response->bindParam(':ville', $ville, PDO::PARAM_STR);
+    $response->bindParam(':region', $region, PDO::PARAM_STR);
+    $response->bindParam(':tel_portable', $tel_portable, PDO::PARAM_STR);
+    $response->bindParam(':tel_fixe', $tel_fixe, PDO::PARAM_STR);
+    $response->bindParam(':email', $email, PDO::PARAM_STR);
+    $response->bindParam(':urssaf', $urssaf, PDO::PARAM_STR);
+    $response->bindParam(':siret', $siret, PDO::PARAM_STR);
+    $response->bindParam(':observations', $observations, PDO::PARAM_STR);
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    return true; 
+}
 
 
 

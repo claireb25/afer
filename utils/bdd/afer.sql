@@ -2,10 +2,10 @@
 -- version 4.5.4.1deb2ubuntu2
 -- http://www.phpmyadmin.net
 --
--- Client :  localhost
--- Généré le :  Ven 20 Juillet 2018 à 23:47
--- Version du serveur :  10.2.16-MariaDB-10.2.16+maria~xenial
--- Version de PHP :  7.2.7-1+ubuntu16.04.1+deb.sury.org+1
+-- Host: localhost
+-- Generation Time: Jul 24, 2018 at 04:14 PM
+-- Server version: 10.2.16-MariaDB-10.2.16+maria~xenial
+-- PHP Version: 7.2.7-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `afer-backup`
+-- Database: `afer`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `animateur`
+-- Table structure for table `animateur`
 --
 
 CREATE TABLE `animateur` (
@@ -31,7 +31,6 @@ CREATE TABLE `animateur` (
   `civilite_id_id` int(11) DEFAULT NULL,
   `fonction_animateur_id_id` int(11) DEFAULT NULL,
   `statut_id_id` int(11) DEFAULT NULL,
-  `forfait_animateur_id_id` int(11) DEFAULT NULL,
   `nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `prenom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `gta` tinyint(1) NOT NULL,
@@ -44,26 +43,36 @@ CREATE TABLE `animateur` (
   `tel_fixe` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `urssaf` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `siret` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `siret` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `observations` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `animateur`
+--
+
+INSERT INTO `animateur` (`id`, `civilite_id_id`, `fonction_animateur_id_id`, `statut_id_id`, `nom`, `prenom`, `gta`, `raison_sociale`, `adresse`, `code_postal`, `commune`, `region`, `tel_portable`, `tel_fixe`, `email`, `urssaf`, `siret`, `observations`) VALUES
+(5, 3, 2, 13, 'Martin', 'Tom', 0, 'SARL', '57 rue des fleurs bleues', '25870', 'Dole', 'Bourgogne', '0675340401', '0382588126', 'claire.b@codeur.online', '123483729847', '122000-3243904U-23344', '300 km a/r'),
+(6, 3, 1, 13, 'Bourgeois', 'Claire', 1, 'SARL', '57 rue de Vesoul', '25870', 'Dole', 'FC', '0675340401', '0382588126', 'claire.bourgeoisarmurier@gmail.com', NULL, NULL, NULL),
+(7, 3, 1, 13, 'Ben Younes', 'Sirine', 1, 'SARL', '14 rue du Doubs', '25870', 'Dole', 'Bourgogne', '0675340401', '0382588126', 'chalalala@fdsqfdsqf.com', NULL, NULL, NULL),
+(8, 1, 2, 13, 'Bailly-Salins', 'Emmanuel', 1, 'SARL', '57 rue de Vesoul', '39000', 'Dole', 'Bourgogne', '0675340401', '0382588126', 'nicolas.j@codeur.online', '123483729847', '122000-3243904U-23344', 'Un repas par jour');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `animateur_stage`
+-- Table structure for table `animateur_stage`
 --
 
 CREATE TABLE `animateur_stage` (
   `id` int(11) NOT NULL,
   `animateur_id` int(11) DEFAULT NULL,
-  `stage_id` int(11) DEFAULT NULL,
-  `defraiement_id` int(11) DEFAULT NULL
+  `stage_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `autorite_prefecture`
+-- Table structure for table `autorite_prefecture`
 --
 
 CREATE TABLE `autorite_prefecture` (
@@ -72,7 +81,7 @@ CREATE TABLE `autorite_prefecture` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `autorite_prefecture`
+-- Dumping data for table `autorite_prefecture`
 --
 
 INSERT INTO `autorite_prefecture` (`id`, `autorite_nom`) VALUES
@@ -81,7 +90,7 @@ INSERT INTO `autorite_prefecture` (`id`, `autorite_nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `autorite_tribunal`
+-- Table structure for table `autorite_tribunal`
 --
 
 CREATE TABLE `autorite_tribunal` (
@@ -90,16 +99,18 @@ CREATE TABLE `autorite_tribunal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `autorite_tribunal`
+-- Dumping data for table `autorite_tribunal`
 --
 
 INSERT INTO `autorite_tribunal` (`id`, `autorite_nom`) VALUES
-(1, 'NonNonLesFamons');
+(1, 'NonNonLesFamonsjjhkjk'),
+(4, 'Madame le Juge'),
+(5, 'Madame la procureure de la republique');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `bordereau`
+-- Table structure for table `bordereau`
 --
 
 CREATE TABLE `bordereau` (
@@ -112,26 +123,27 @@ CREATE TABLE `bordereau` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `cas_stage`
+-- Table structure for table `cas_stage`
 --
 
 CREATE TABLE `cas_stage` (
   `id` int(11) NOT NULL,
   `cas_nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cas_prix` int(11) DEFAULT NULL
+  `cas_prix` int(11) DEFAULT NULL,
+  `cas_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `cas_stage`
+-- Dumping data for table `cas_stage`
 --
 
-INSERT INTO `cas_stage` (`id`, `cas_nom`, `cas_prix`) VALUES
-(1, 'cas 1', 110);
+INSERT INTO `cas_stage` (`id`, `cas_nom`, `cas_prix`, `cas_description`) VALUES
+(2, 'Cas 1', 160, 'Volontaire');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `civilite`
+-- Table structure for table `civilite`
 --
 
 CREATE TABLE `civilite` (
@@ -140,28 +152,17 @@ CREATE TABLE `civilite` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `civilite`
+-- Dumping data for table `civilite`
 --
 
 INSERT INTO `civilite` (`id`, `nom`) VALUES
-(1, 'Monsieur');
+(1, 'Monsieur'),
+(3, 'Madame');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `defraiement`
---
-
-CREATE TABLE `defraiement` (
-  `id` int(11) NOT NULL,
-  `repas` tinyint(1) NOT NULL,
-  `km_ar` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `fonction_animateur`
+-- Table structure for table `fonction_animateur`
 --
 
 CREATE TABLE `fonction_animateur` (
@@ -169,21 +170,18 @@ CREATE TABLE `fonction_animateur` (
   `fonction_nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `fonction_animateur`
+--
+
+INSERT INTO `fonction_animateur` (`id`, `fonction_nom`) VALUES
+(1, 'Psychologue'),
+(2, 'Technicien de la route');
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `forfait_animateur`
---
-
-CREATE TABLE `forfait_animateur` (
-  `id` int(11) NOT NULL,
-  `forfait_prix` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `infraction`
+-- Table structure for table `infraction`
 --
 
 CREATE TABLE `infraction` (
@@ -193,14 +191,13 @@ CREATE TABLE `infraction` (
   `heure_infraction` time DEFAULT NULL,
   `lieu_infraction` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `numero_parquet` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `conduite_sans_permis` tinyint(1) NOT NULL,
-  `conduite_sans_assurance` tinyint(1) NOT NULL
+  `stagiaire_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `infraction_type_infraction`
+-- Table structure for table `infraction_type_infraction`
 --
 
 CREATE TABLE `infraction_type_infraction` (
@@ -211,7 +208,7 @@ CREATE TABLE `infraction_type_infraction` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `liaison_stagiaire_stage_dossier_cas_bordereau`
+-- Table structure for table `liaison_stagiaire_stage_dossier_cas_bordereau`
 --
 
 CREATE TABLE `liaison_stagiaire_stage_dossier_cas_bordereau` (
@@ -226,7 +223,7 @@ CREATE TABLE `liaison_stagiaire_stage_dossier_cas_bordereau` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lieu_stage`
+-- Table structure for table `lieu_stage`
 --
 
 CREATE TABLE `lieu_stage` (
@@ -243,7 +240,7 @@ CREATE TABLE `lieu_stage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `lieu_stage`
+-- Dumping data for table `lieu_stage`
 --
 
 INSERT INTO `lieu_stage` (`id`, `lieu_nom`, `etablissement_nom`, `adresse`, `code_postal`, `commune`, `tel`, `latitude`, `longitude`, `divers`) VALUES
@@ -252,7 +249,7 @@ INSERT INTO `lieu_stage` (`id`, `lieu_nom`, `etablissement_nom`, `adresse`, `cod
 -- --------------------------------------------------------
 
 --
--- Structure de la table `migration_versions`
+-- Table structure for table `migration_versions`
 --
 
 CREATE TABLE `migration_versions` (
@@ -262,49 +259,45 @@ CREATE TABLE `migration_versions` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `mode_envoi_convoc`
+-- Table structure for table `mode_envoi_convoc`
 --
 
 CREATE TABLE `mode_envoi_convoc` (
   `id` int(11) NOT NULL,
-  `courrier` tinyint(1) NOT NULL,
-  `email` tinyint(1) NOT NULL
+  `mode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `mode_envoi_convoc`
+--
+
+INSERT INTO `mode_envoi_convoc` (`id`, `mode`) VALUES
+(1, 'courrier'),
+(2, 'e-mail');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `mode_envoi_inscription`
+-- Table structure for table `mode_envoi_inscription`
 --
 
 CREATE TABLE `mode_envoi_inscription` (
   `id` int(11) NOT NULL,
-  `courrier` tinyint(1) NOT NULL,
-  `email` tinyint(1) NOT NULL
+  `mode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `mode_envoi_inscription`
+--
+
+INSERT INTO `mode_envoi_inscription` (`id`, `mode`) VALUES
+(1, 'courrier'),
+(2, 'e-mail');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `nature_prefecture`
---
-
-CREATE TABLE `nature_prefecture` (
-  `id` int(11) NOT NULL,
-  `nature_nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Contenu de la table `nature_prefecture`
---
-
-INSERT INTO `nature_prefecture` (`id`, `nature_nom`) VALUES
-(1, 'Youpiyop');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `nature_tribunal`
+-- Table structure for table `nature_tribunal`
 --
 
 CREATE TABLE `nature_tribunal` (
@@ -313,16 +306,17 @@ CREATE TABLE `nature_tribunal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `nature_tribunal`
+-- Dumping data for table `nature_tribunal`
 --
 
 INSERT INTO `nature_tribunal` (`id`, `nature_nom`) VALUES
-(1, 'superNature');
+(1, 'superNature'),
+(3, 'TGI');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `permis`
+-- Table structure for table `permis`
 --
 
 CREATE TABLE `permis` (
@@ -336,12 +330,11 @@ CREATE TABLE `permis` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `prefecture`
+-- Table structure for table `prefecture`
 --
 
 CREATE TABLE `prefecture` (
   `id` int(11) NOT NULL,
-  `prefecture_nature_id_id` int(11) DEFAULT NULL,
   `autorite_prefecture_id_id` int(11) DEFAULT NULL,
   `service_prefecture_id_id` int(11) DEFAULT NULL,
   `prefecture_nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -351,27 +344,34 @@ CREATE TABLE `prefecture` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `prefecture`
+-- Dumping data for table `prefecture`
 --
 
-INSERT INTO `prefecture` (`id`, `prefecture_nature_id_id`, `autorite_prefecture_id_id`, `service_prefecture_id_id`, `prefecture_nom`, `adresse`, `code_postal`, `commune`) VALUES
-(1, NULL, NULL, NULL, 'perlinpinpin', '87 rue de l\'époisse', '25000', 'Besançon');
+INSERT INTO `prefecture` (`id`, `autorite_prefecture_id_id`, `service_prefecture_id_id`, `prefecture_nom`, `adresse`, `code_postal`, `commune`) VALUES
+(1, 1, 1, 'Prefecture du Doubs', '87 rue de l\'&amp;amp;eacute;poisse', '25000', 'Besan&amp;amp;ccedil;on');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `prix`
+-- Table structure for table `prix`
 --
 
 CREATE TABLE `prix` (
   `id` int(11) NOT NULL,
-  `prix` int(11) DEFAULT NULL
+  `prix_montant` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `prix`
+--
+
+INSERT INTO `prix` (`id`, `prix_montant`) VALUES
+(3, 160);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `service_prefecture`
+-- Table structure for table `service_prefecture`
 --
 
 CREATE TABLE `service_prefecture` (
@@ -380,7 +380,7 @@ CREATE TABLE `service_prefecture` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `service_prefecture`
+-- Dumping data for table `service_prefecture`
 --
 
 INSERT INTO `service_prefecture` (`id`, `service_nom`) VALUES
@@ -389,7 +389,7 @@ INSERT INTO `service_prefecture` (`id`, `service_nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `service_tribunal`
+-- Table structure for table `service_tribunal`
 --
 
 CREATE TABLE `service_tribunal` (
@@ -398,16 +398,17 @@ CREATE TABLE `service_tribunal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `service_tribunal`
+-- Dumping data for table `service_tribunal`
 --
 
 INSERT INTO `service_tribunal` (`id`, `service_nom`) VALUES
-(1, 'superService');
+(1, 'superService'),
+(3, 'Service');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `stage`
+-- Table structure for table `stage`
 --
 
 CREATE TABLE `stage` (
@@ -420,7 +421,7 @@ CREATE TABLE `stage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `stage`
+-- Dumping data for table `stage`
 --
 
 INSERT INTO `stage` (`id`, `lieu_stage_id_id`, `stage_numero`, `date`, `stage_hpo`, `date_fin`) VALUES
@@ -429,7 +430,7 @@ INSERT INTO `stage` (`id`, `lieu_stage_id_id`, `stage_numero`, `date`, `stage_hp
 -- --------------------------------------------------------
 
 --
--- Structure de la table `stagiaire`
+-- Table structure for table `stagiaire`
 --
 
 CREATE TABLE `stagiaire` (
@@ -453,7 +454,7 @@ CREATE TABLE `stagiaire` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `stagiaire`
+-- Dumping data for table `stagiaire`
 --
 
 INSERT INTO `stagiaire` (`id`, `civilite_id_id`, `nom`, `nom_naissance`, `prenom`, `date_naissance`, `lieu_naissance`, `adresse`, `code_postal`, `commune`, `pays`, `tel_portable`, `tel_fixe`, `email`, `carte_avantages_jeunes`, `partenaires`, `adherents`) VALUES
@@ -462,7 +463,7 @@ INSERT INTO `stagiaire` (`id`, `civilite_id_id`, `nom`, `nom_naissance`, `prenom
 -- --------------------------------------------------------
 
 --
--- Structure de la table `statut_animateur`
+-- Table structure for table `statut_animateur`
 --
 
 CREATE TABLE `statut_animateur` (
@@ -470,10 +471,17 @@ CREATE TABLE `statut_animateur` (
   `status_nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `statut_animateur`
+--
+
+INSERT INTO `statut_animateur` (`id`, `status_nom`) VALUES
+(13, 'Independant');
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `suivi_dossier`
+-- Table structure for table `suivi_dossier`
 --
 
 CREATE TABLE `suivi_dossier` (
@@ -489,7 +497,7 @@ CREATE TABLE `suivi_dossier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `suivi_dossier`
+-- Dumping data for table `suivi_dossier`
 --
 
 INSERT INTO `suivi_dossier` (`id`, `paye`, `reception_bulletin_inscription`, `copie_cni`, `copie_permis`, `releve_integral`, `decision_judiciaire`, `lettre_48n`, `observations`) VALUES
@@ -498,7 +506,7 @@ INSERT INTO `suivi_dossier` (`id`, `paye`, `reception_bulletin_inscription`, `co
 -- --------------------------------------------------------
 
 --
--- Structure de la table `suivi_dossier_mode_envoi_convoc`
+-- Table structure for table `suivi_dossier_mode_envoi_convoc`
 --
 
 CREATE TABLE `suivi_dossier_mode_envoi_convoc` (
@@ -509,7 +517,7 @@ CREATE TABLE `suivi_dossier_mode_envoi_convoc` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `suivi_dossier_mode_envoi_inscription`
+-- Table structure for table `suivi_dossier_mode_envoi_inscription`
 --
 
 CREATE TABLE `suivi_dossier_mode_envoi_inscription` (
@@ -520,7 +528,7 @@ CREATE TABLE `suivi_dossier_mode_envoi_inscription` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `tribunal`
+-- Table structure for table `tribunal`
 --
 
 CREATE TABLE `tribunal` (
@@ -535,81 +543,91 @@ CREATE TABLE `tribunal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Contenu de la table `tribunal`
+-- Dumping data for table `tribunal`
 --
 
 INSERT INTO `tribunal` (`id`, `nature_tribunal_id_id`, `autorite_tribunal_id_id`, `service_tribunal_id_id`, `tribunal_nom`, `adresse`, `code_postal`, `commune`) VALUES
-(1, 1, 1, 1, 'John', '25 grande rue', '98726', 'Paname');
+(5, 1, 4, 3, 'Tribunal de Dole', '6 rue des charmilles', '25870', 'Dole'),
+(6, 3, 4, 3, 'Tribunal de Lons', '57 rue de Vesoul', '39000', 'Dole');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `type_infraction`
+-- Table structure for table `type_infraction`
 --
 
 CREATE TABLE `type_infraction` (
   `id` int(11) NOT NULL,
-  `type_infraction` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `type_infraction_nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `type_infraction`
+--
+
+INSERT INTO `type_infraction` (`id`, `type_infraction_nom`) VALUES
+(1, 'Alcool'),
+(2, 'Drogues'),
+(3, 'Vitesse'),
+(4, 'Conduite sans permis'),
+(5, 'Conduite sans assurance');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `identifiant` varchar(255) NOT NULL,
-  `mdp` varchar(13) NOT NULL,
+  `mdp` varchar(255) NOT NULL,
   `prenom` varchar(255) NOT NULL,
   `nom` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `identifiant`, `mdp`, `prenom`, `nom`) VALUES
 (1, 'admin', '88L256cjBzSqQ', 'Alain', 'Martin');
 
 --
--- Index pour les tables exportées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `animateur`
+-- Indexes for table `animateur`
 --
 ALTER TABLE `animateur`
   ADD PRIMARY KEY (`id`),
   ADD KEY `IDX_2064DB2CC6BE736B` (`civilite_id_id`),
   ADD KEY `IDX_2064DB2C5A467232` (`fonction_animateur_id_id`),
-  ADD KEY `IDX_2064DB2C4DB9F129` (`statut_id_id`),
-  ADD KEY `IDX_2064DB2CB364AC04` (`forfait_animateur_id_id`);
+  ADD KEY `IDX_2064DB2C4DB9F129` (`statut_id_id`);
 
 --
--- Index pour la table `animateur_stage`
+-- Indexes for table `animateur_stage`
 --
 ALTER TABLE `animateur_stage`
   ADD PRIMARY KEY (`id`),
   ADD KEY `IDX_4A06D2447F05C301` (`animateur_id`),
-  ADD KEY `IDX_4A06D2442298D193` (`stage_id`),
-  ADD KEY `IDX_4A06D24489DE9505` (`defraiement_id`);
+  ADD KEY `IDX_4A06D2442298D193` (`stage_id`);
 
 --
--- Index pour la table `autorite_prefecture`
+-- Indexes for table `autorite_prefecture`
 --
 ALTER TABLE `autorite_prefecture`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `autorite_tribunal`
+-- Indexes for table `autorite_tribunal`
 --
 ALTER TABLE `autorite_tribunal`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `bordereau`
+-- Indexes for table `bordereau`
 --
 ALTER TABLE `bordereau`
   ADD PRIMARY KEY (`id`),
@@ -617,44 +635,32 @@ ALTER TABLE `bordereau`
   ADD KEY `IDX_F7B4C561D5BBB400` (`tribunal_id_id`);
 
 --
--- Index pour la table `cas_stage`
+-- Indexes for table `cas_stage`
 --
 ALTER TABLE `cas_stage`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `civilite`
+-- Indexes for table `civilite`
 --
 ALTER TABLE `civilite`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `defraiement`
---
-ALTER TABLE `defraiement`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `fonction_animateur`
+-- Indexes for table `fonction_animateur`
 --
 ALTER TABLE `fonction_animateur`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `forfait_animateur`
---
-ALTER TABLE `forfait_animateur`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `infraction`
+-- Indexes for table `infraction`
 --
 ALTER TABLE `infraction`
   ADD PRIMARY KEY (`id`),
   ADD KEY `IDX_C1A458F5D5BBB400` (`tribunal_id_id`);
 
 --
--- Index pour la table `infraction_type_infraction`
+-- Indexes for table `infraction_type_infraction`
 --
 ALTER TABLE `infraction_type_infraction`
   ADD PRIMARY KEY (`infraction_id`,`type_infraction_id`),
@@ -662,7 +668,7 @@ ALTER TABLE `infraction_type_infraction`
   ADD KEY `IDX_8E64B76A67A7352` (`type_infraction_id`);
 
 --
--- Index pour la table `liaison_stagiaire_stage_dossier_cas_bordereau`
+-- Indexes for table `liaison_stagiaire_stage_dossier_cas_bordereau`
 --
 ALTER TABLE `liaison_stagiaire_stage_dossier_cas_bordereau`
   ADD PRIMARY KEY (`id`),
@@ -673,43 +679,37 @@ ALTER TABLE `liaison_stagiaire_stage_dossier_cas_bordereau`
   ADD KEY `IDX_CF1E2B4235BA7507` (`bordereau_id_id`);
 
 --
--- Index pour la table `lieu_stage`
+-- Indexes for table `lieu_stage`
 --
 ALTER TABLE `lieu_stage`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `migration_versions`
+-- Indexes for table `migration_versions`
 --
 ALTER TABLE `migration_versions`
   ADD PRIMARY KEY (`version`);
 
 --
--- Index pour la table `mode_envoi_convoc`
+-- Indexes for table `mode_envoi_convoc`
 --
 ALTER TABLE `mode_envoi_convoc`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `mode_envoi_inscription`
+-- Indexes for table `mode_envoi_inscription`
 --
 ALTER TABLE `mode_envoi_inscription`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `nature_prefecture`
---
-ALTER TABLE `nature_prefecture`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `nature_tribunal`
+-- Indexes for table `nature_tribunal`
 --
 ALTER TABLE `nature_tribunal`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `permis`
+-- Indexes for table `permis`
 --
 ALTER TABLE `permis`
   ADD PRIMARY KEY (`id`),
@@ -717,60 +717,59 @@ ALTER TABLE `permis`
   ADD KEY `IDX_17389453747B1928` (`prefecture_id_id`);
 
 --
--- Index pour la table `prefecture`
+-- Indexes for table `prefecture`
 --
 ALTER TABLE `prefecture`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_ABE6511AF0DA99CA` (`prefecture_nature_id_id`),
   ADD KEY `IDX_ABE6511AD3CAE0E` (`autorite_prefecture_id_id`),
   ADD KEY `IDX_ABE6511AD33E3E39` (`service_prefecture_id_id`);
 
 --
--- Index pour la table `prix`
+-- Indexes for table `prix`
 --
 ALTER TABLE `prix`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `service_prefecture`
+-- Indexes for table `service_prefecture`
 --
 ALTER TABLE `service_prefecture`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `service_tribunal`
+-- Indexes for table `service_tribunal`
 --
 ALTER TABLE `service_tribunal`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `stage`
+-- Indexes for table `stage`
 --
 ALTER TABLE `stage`
   ADD PRIMARY KEY (`id`),
   ADD KEY `IDX_C27C936933BA3147` (`lieu_stage_id_id`);
 
 --
--- Index pour la table `stagiaire`
+-- Indexes for table `stagiaire`
 --
 ALTER TABLE `stagiaire`
   ADD PRIMARY KEY (`id`),
   ADD KEY `IDX_4F62F731C6BE736B` (`civilite_id_id`);
 
 --
--- Index pour la table `statut_animateur`
+-- Indexes for table `statut_animateur`
 --
 ALTER TABLE `statut_animateur`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `suivi_dossier`
+-- Indexes for table `suivi_dossier`
 --
 ALTER TABLE `suivi_dossier`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `suivi_dossier_mode_envoi_convoc`
+-- Indexes for table `suivi_dossier_mode_envoi_convoc`
 --
 ALTER TABLE `suivi_dossier_mode_envoi_convoc`
   ADD PRIMARY KEY (`suivi_dossier_id`,`mode_envoi_convoc_id`),
@@ -778,7 +777,7 @@ ALTER TABLE `suivi_dossier_mode_envoi_convoc`
   ADD KEY `IDX_BB39738547801C9D` (`mode_envoi_convoc_id`);
 
 --
--- Index pour la table `suivi_dossier_mode_envoi_inscription`
+-- Indexes for table `suivi_dossier_mode_envoi_inscription`
 --
 ALTER TABLE `suivi_dossier_mode_envoi_inscription`
   ADD PRIMARY KEY (`suivi_dossier_id`,`mode_envoi_inscription_id`),
@@ -786,7 +785,7 @@ ALTER TABLE `suivi_dossier_mode_envoi_inscription`
   ADD KEY `IDX_3BE805C66DE5DB3E` (`mode_envoi_inscription_id`);
 
 --
--- Index pour la table `tribunal`
+-- Indexes for table `tribunal`
 --
 ALTER TABLE `tribunal`
   ADD PRIMARY KEY (`id`),
@@ -795,209 +794,192 @@ ALTER TABLE `tribunal`
   ADD KEY `IDX_DC8C3AAFD6DDE9B6` (`service_tribunal_id_id`);
 
 --
--- Index pour la table `type_infraction`
+-- Indexes for table `type_infraction`
 --
 ALTER TABLE `type_infraction`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `animateur`
+-- AUTO_INCREMENT for table `animateur`
 --
 ALTER TABLE `animateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
--- AUTO_INCREMENT pour la table `animateur_stage`
+-- AUTO_INCREMENT for table `animateur_stage`
 --
 ALTER TABLE `animateur_stage`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `autorite_prefecture`
+-- AUTO_INCREMENT for table `autorite_prefecture`
 --
 ALTER TABLE `autorite_prefecture`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT pour la table `autorite_tribunal`
+-- AUTO_INCREMENT for table `autorite_tribunal`
 --
 ALTER TABLE `autorite_tribunal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT pour la table `bordereau`
+-- AUTO_INCREMENT for table `bordereau`
 --
 ALTER TABLE `bordereau`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `cas_stage`
+-- AUTO_INCREMENT for table `cas_stage`
 --
 ALTER TABLE `cas_stage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT pour la table `civilite`
+-- AUTO_INCREMENT for table `civilite`
 --
 ALTER TABLE `civilite`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT pour la table `defraiement`
---
-ALTER TABLE `defraiement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `fonction_animateur`
+-- AUTO_INCREMENT for table `fonction_animateur`
 --
 ALTER TABLE `fonction_animateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT pour la table `forfait_animateur`
---
-ALTER TABLE `forfait_animateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `infraction`
+-- AUTO_INCREMENT for table `infraction`
 --
 ALTER TABLE `infraction`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `liaison_stagiaire_stage_dossier_cas_bordereau`
+-- AUTO_INCREMENT for table `liaison_stagiaire_stage_dossier_cas_bordereau`
 --
 ALTER TABLE `liaison_stagiaire_stage_dossier_cas_bordereau`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `lieu_stage`
+-- AUTO_INCREMENT for table `lieu_stage`
 --
 ALTER TABLE `lieu_stage`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT pour la table `mode_envoi_convoc`
+-- AUTO_INCREMENT for table `mode_envoi_convoc`
 --
 ALTER TABLE `mode_envoi_convoc`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT pour la table `mode_envoi_inscription`
+-- AUTO_INCREMENT for table `mode_envoi_inscription`
 --
 ALTER TABLE `mode_envoi_inscription`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT pour la table `nature_prefecture`
---
-ALTER TABLE `nature_prefecture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT pour la table `nature_tribunal`
+-- AUTO_INCREMENT for table `nature_tribunal`
 --
 ALTER TABLE `nature_tribunal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT pour la table `permis`
+-- AUTO_INCREMENT for table `permis`
 --
 ALTER TABLE `permis`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `prefecture`
+-- AUTO_INCREMENT for table `prefecture`
 --
 ALTER TABLE `prefecture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT pour la table `prix`
+-- AUTO_INCREMENT for table `prix`
 --
 ALTER TABLE `prix`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT pour la table `service_prefecture`
+-- AUTO_INCREMENT for table `service_prefecture`
 --
 ALTER TABLE `service_prefecture`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT pour la table `service_tribunal`
+-- AUTO_INCREMENT for table `service_tribunal`
 --
 ALTER TABLE `service_tribunal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT pour la table `stage`
+-- AUTO_INCREMENT for table `stage`
 --
 ALTER TABLE `stage`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT pour la table `stagiaire`
+-- AUTO_INCREMENT for table `stagiaire`
 --
 ALTER TABLE `stagiaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT pour la table `statut_animateur`
+-- AUTO_INCREMENT for table `statut_animateur`
 --
 ALTER TABLE `statut_animateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
--- AUTO_INCREMENT pour la table `suivi_dossier`
+-- AUTO_INCREMENT for table `suivi_dossier`
 --
 ALTER TABLE `suivi_dossier`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT pour la table `tribunal`
+-- AUTO_INCREMENT for table `tribunal`
 --
 ALTER TABLE `tribunal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT pour la table `type_infraction`
+-- AUTO_INCREMENT for table `type_infraction`
 --
 ALTER TABLE `type_infraction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT pour la table `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- Contraintes pour les tables exportées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `animateur`
+-- Constraints for table `animateur`
 --
 ALTER TABLE `animateur`
   ADD CONSTRAINT `FK_2064DB2C4DB9F129` FOREIGN KEY (`statut_id_id`) REFERENCES `statut_animateur` (`id`),
   ADD CONSTRAINT `FK_2064DB2C5A467232` FOREIGN KEY (`fonction_animateur_id_id`) REFERENCES `fonction_animateur` (`id`),
-  ADD CONSTRAINT `FK_2064DB2CB364AC04` FOREIGN KEY (`forfait_animateur_id_id`) REFERENCES `forfait_animateur` (`id`),
   ADD CONSTRAINT `FK_2064DB2CC6BE736B` FOREIGN KEY (`civilite_id_id`) REFERENCES `civilite` (`id`);
 
 --
--- Contraintes pour la table `animateur_stage`
+-- Constraints for table `animateur_stage`
 --
 ALTER TABLE `animateur_stage`
   ADD CONSTRAINT `FK_4A06D2442298D193` FOREIGN KEY (`stage_id`) REFERENCES `stage` (`id`),
-  ADD CONSTRAINT `FK_4A06D2447F05C301` FOREIGN KEY (`animateur_id`) REFERENCES `animateur` (`id`),
-  ADD CONSTRAINT `FK_4A06D24489DE9505` FOREIGN KEY (`defraiement_id`) REFERENCES `defraiement` (`id`);
+  ADD CONSTRAINT `FK_4A06D2447F05C301` FOREIGN KEY (`animateur_id`) REFERENCES `animateur` (`id`);
 
 --
--- Contraintes pour la table `bordereau`
+-- Constraints for table `bordereau`
 --
 ALTER TABLE `bordereau`
   ADD CONSTRAINT `FK_F7B4C561747B1928` FOREIGN KEY (`prefecture_id_id`) REFERENCES `prefecture` (`id`),
   ADD CONSTRAINT `FK_F7B4C561D5BBB400` FOREIGN KEY (`tribunal_id_id`) REFERENCES `tribunal` (`id`);
 
 --
--- Contraintes pour la table `infraction`
+-- Constraints for table `infraction`
 --
 ALTER TABLE `infraction`
   ADD CONSTRAINT `FK_C1A458F5D5BBB400` FOREIGN KEY (`tribunal_id_id`) REFERENCES `tribunal` (`id`);
 
 --
--- Contraintes pour la table `infraction_type_infraction`
+-- Constraints for table `infraction_type_infraction`
 --
 ALTER TABLE `infraction_type_infraction`
   ADD CONSTRAINT `FK_8E64B76A67A7352` FOREIGN KEY (`type_infraction_id`) REFERENCES `type_infraction` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_8E64B76A7697C467` FOREIGN KEY (`infraction_id`) REFERENCES `infraction` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `liaison_stagiaire_stage_dossier_cas_bordereau`
+-- Constraints for table `liaison_stagiaire_stage_dossier_cas_bordereau`
 --
 ALTER TABLE `liaison_stagiaire_stage_dossier_cas_bordereau`
   ADD CONSTRAINT `FK_CF1E2B422AA7DFFB` FOREIGN KEY (`stagiaire_id_id`) REFERENCES `stagiaire` (`id`),
@@ -1007,48 +989,47 @@ ALTER TABLE `liaison_stagiaire_stage_dossier_cas_bordereau`
   ADD CONSTRAINT `FK_CF1E2B42FFE32C93` FOREIGN KEY (`stage_id_id`) REFERENCES `stage` (`id`);
 
 --
--- Contraintes pour la table `permis`
+-- Constraints for table `permis`
 --
 ALTER TABLE `permis`
   ADD CONSTRAINT `FK_173894532AA7DFFB` FOREIGN KEY (`stagiaire_id_id`) REFERENCES `stagiaire` (`id`),
   ADD CONSTRAINT `FK_17389453747B1928` FOREIGN KEY (`prefecture_id_id`) REFERENCES `prefecture` (`id`);
 
 --
--- Contraintes pour la table `prefecture`
+-- Constraints for table `prefecture`
 --
 ALTER TABLE `prefecture`
   ADD CONSTRAINT `FK_ABE6511AD33E3E39` FOREIGN KEY (`service_prefecture_id_id`) REFERENCES `service_prefecture` (`id`),
-  ADD CONSTRAINT `FK_ABE6511AD3CAE0E` FOREIGN KEY (`autorite_prefecture_id_id`) REFERENCES `autorite_prefecture` (`id`),
-  ADD CONSTRAINT `FK_ABE6511AF0DA99CA` FOREIGN KEY (`prefecture_nature_id_id`) REFERENCES `nature_prefecture` (`id`);
+  ADD CONSTRAINT `FK_ABE6511AD3CAE0E` FOREIGN KEY (`autorite_prefecture_id_id`) REFERENCES `autorite_prefecture` (`id`);
 
 --
--- Contraintes pour la table `stage`
+-- Constraints for table `stage`
 --
 ALTER TABLE `stage`
   ADD CONSTRAINT `FK_C27C936933BA3147` FOREIGN KEY (`lieu_stage_id_id`) REFERENCES `lieu_stage` (`id`);
 
 --
--- Contraintes pour la table `stagiaire`
+-- Constraints for table `stagiaire`
 --
 ALTER TABLE `stagiaire`
   ADD CONSTRAINT `FK_4F62F731C6BE736B` FOREIGN KEY (`civilite_id_id`) REFERENCES `civilite` (`id`);
 
 --
--- Contraintes pour la table `suivi_dossier_mode_envoi_convoc`
+-- Constraints for table `suivi_dossier_mode_envoi_convoc`
 --
 ALTER TABLE `suivi_dossier_mode_envoi_convoc`
   ADD CONSTRAINT `FK_BB39738547801C9D` FOREIGN KEY (`mode_envoi_convoc_id`) REFERENCES `mode_envoi_convoc` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_BB397385CB7FE0F2` FOREIGN KEY (`suivi_dossier_id`) REFERENCES `suivi_dossier` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `suivi_dossier_mode_envoi_inscription`
+-- Constraints for table `suivi_dossier_mode_envoi_inscription`
 --
 ALTER TABLE `suivi_dossier_mode_envoi_inscription`
   ADD CONSTRAINT `FK_3BE805C66DE5DB3E` FOREIGN KEY (`mode_envoi_inscription_id`) REFERENCES `mode_envoi_inscription` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_3BE805C6CB7FE0F2` FOREIGN KEY (`suivi_dossier_id`) REFERENCES `suivi_dossier` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `tribunal`
+-- Constraints for table `tribunal`
 --
 ALTER TABLE `tribunal`
   ADD CONSTRAINT `FK_DC8C3AAF2A34D77F` FOREIGN KEY (`nature_tribunal_id_id`) REFERENCES `nature_tribunal` (`id`),
