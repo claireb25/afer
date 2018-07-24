@@ -1252,6 +1252,7 @@ header nav ul li {
 
 .entities li {
   padding-left: 30px; 
+  color: white;
 }
 
 header nav ul li:hover {
@@ -1384,27 +1385,24 @@ a:hover {
 
 ****************************** Tables contenues dans Menu bouton réglages *********************************************
 
-.small-entities span {
-  font-family: 'entypo';
-  font-size: 19px;
-  position: absolute;
-  right: 0;
-  transition: all .6s;
-}
-
-.small-entities span.close {
-  -webkit-transform: rotate(180deg);
-  transition: all .5s;
-}
-
 .list-small-entities {
   display: none;
-  color: white;
 }
 
 .fleche-jaune {
   margin-right: 25px;
   color: #edc225;
+  font-family: 'entypo';
+  font-size: 19px;
+  position: absolute;
+  right: 0;
+  transition: all .6s;
+
+}
+
+.fleche-jaune.close {
+  -webkit-transform: rotate(180deg);
+  transition: all .5s;
 }
 
 

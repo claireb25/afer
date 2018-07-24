@@ -20,13 +20,8 @@ if (isset($_GET['action'])){
             break;
 
         case 'new':
-            if (isset($_POST['km_ar']) && (!empty($_POST['km_ar']))){
-                if (isset($_POST['repas'])){
-                    addNew('0, 1, '.$_POST['km_ar']);
-                }
-                else {
-                    addNew('0, 0, '.$_POST['km_ar']);
-                }
+            if (isset($_POST['lieu_nom']) && (!empty($_POST['lieu_nom']))){
+                addNew($_POST['lieu_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers']);
             } 
             else {
                 showNew();
@@ -34,20 +29,11 @@ if (isset($_GET['action'])){
             break; 
 
         case 'edit':
-            if (isset($_GET['id'])){
+            if (isset($_GET['id']) && (!isset($_POST['lieu_nom']))){
                 showEdit($_GET['id']);  
             }
-            if (isset($_POST['km_ar']) && (!empty($_POST['km_ar']))){
-
-                updateType('km_ar', $_POST['km_ar'], $_GET['id']);
-
-                if (isset($_POST['repas'])){
-                    updateType('repas', 1, $_GET['id']);
-                }
-                else {
-                    updateType('repas', 0, $_GET['id']);
-                }
-                header('Location: /afer-back/lieustage/list');
+            if (isset($_POST['lieu_nom']) && (!empty($_POST['lieu_nom']))){
+                updateType($_POST['lieu_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers'], $_GET['id']);
             }
             break;
         
@@ -70,10 +56,17 @@ function makeList(){
 }
 
 // NEW
-function addNew($data){
-    var_dump($data);
-    $valeur = htmlentities($data);
-    create($valeur);
+function addNew($lieuNom, $etablissementNom, $adresse, $codePostal, $commune, $tel, $latitude, $longitude, $divers){
+    $lieuNom = htmlentities($lieuNom);
+    $etablissementNom = htmlentities($etablissementNom);
+    $adresse = htmlentities($adresse);
+    $codePostal = htmlentities($codePostal);
+    $commune = htmlentities($commune);
+    $tel = htmlentities($tel);
+    $latitude = htmlentities($latitude);
+    $longitude = htmlentities($longitude);
+    $divers = htmlentities($divers);
+    create($lieuNom, $etablissementNom, $adresse, $codePostal, $commune, $tel, $latitude, $longitude, $divers);
     header('Location: /afer-back/lieustage/list');
 }
 
@@ -92,10 +85,18 @@ function showEdit($id){
     echo $template->render(array('elmttoEdit'=>$elmttoEdit));
 }
 
-function updateType($colonne, $data, $id){
-    $valeur = htmlentities($data);
-    $id = (int)$id;
-    edit($colonne, $valeur, $id);   
+function updateType($lieuNom, $etablissementNom, $adresse, $codePostal, $commune, $tel, $latitude, $longitude, $divers, $id){
+    $lieuNom = htmlentities($lieuNom);
+    $etablissementNom = htmlentities($etablissementNom);
+    $adresse = htmlentities($adresse);
+    $codePostal = htmlentities($codePostal);
+    $commune = htmlentities($commune);
+    $tel = htmlentities($tel);
+    $latitude = htmlentities($latitude);
+    $longitude = htmlentities($longitude);
+    $divers = htmlentities($divers);
+    edit($lieuNom, $etablissementNom, $adresse, $codePostal, $commune, $tel, $latitude, $longitude, $divers, $id);
+    header('Location: /afer-back/lieustage/list');   
 }
 
 //DELETE

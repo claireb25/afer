@@ -22,10 +22,10 @@ if (isset($_GET['action'])){
         case 'new':
             if (isset($_POST['km_ar']) && (!empty($_POST['km_ar']))){
                 if (isset($_POST['repas'])){
-                    addNew('0, 1, '.$_POST['km_ar']);
+                    addNew(1, $_POST['km_ar']);
                 }
                 else {
-                    addNew('0, 0, '.$_POST['km_ar']);
+                    addNew(0, $_POST['km_ar']);
                 }
             } 
             else {
@@ -38,14 +38,11 @@ if (isset($_GET['action'])){
                 showEdit($_GET['id']);  
             }
             if (isset($_POST['km_ar']) && (!empty($_POST['km_ar']))){
-
-                updateType('km_ar', $_POST['km_ar'], $_GET['id']);
-
                 if (isset($_POST['repas'])){
-                    updateType('repas', 1, $_GET['id']);
+                    updateType(1, $_POST['km_ar'], $_GET['id']);
                 }
                 else {
-                    updateType('repas', 0, $_GET['id']);
+                    updateType(0, $_POST['km_ar'], $_GET['id']);
                 }
                 header('Location: /afer-back/defraiement/list');
             }
@@ -70,10 +67,10 @@ function makeList(){
 }
 
 // NEW
-function addNew($data){
-    var_dump($data);
-    $valeur = htmlentities($data);
-    create($valeur);
+function addNew($repas, $kmar){
+    $repas = htmlentities($repas);
+    $kmar = htmlentities($kmar);
+    create($repas, $kmar);
     header('Location: /afer-back/defraiement/list');
 }
 
@@ -92,10 +89,11 @@ function showEdit($id){
     echo $template->render(array('elmttoEdit'=>$elmttoEdit));
 }
 
-function updateType($colonne, $data, $id){
-    $valeur = htmlentities($data);
+function updateType($repas, $kmar, $id){
+    $repas = htmlentities($repas);
+    $kmar = htmlentities($kmar);
     $id = (int)$id;
-    edit($colonne, $valeur, $id);   
+    edit($repas, $kmar, $id);   
 }
 
 //DELETE
