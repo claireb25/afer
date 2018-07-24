@@ -1,0 +1,57 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier : {{ toEdit.nom }} {{ toEdit.prenom }}</h1>
+
+
+<form action="animateur/edit/{{ toEdit.id }}" method="post" class="form">
+  <div class="form-example">
+
+    <select name="civilite">
+        <option value="civilite" selected disabled>Civilité</option>   
+        {% for elem in civilite %}
+        <option selected="{{ toEdit.civilite_id_id }}" value="{{ elem.id }}">{{ elem.nom }}</option>
+        {% endfor %}
+    </select>
+    <label for="nom" name="nom">Nom
+    <input type="text" name="nom" id="nom" value="{{ toEdit.nom }}"required></label>
+
+    <label for="edit_tribunal_nom" name="edit_tribunal_nom">Tribunal 
+    <input type="text" name="edit_tribunal_nom" id="name" value="{{ toEdit.tribunal_nom }}"required></label>
+
+     <select name="edit_nature_tribunal">
+        <option value="edit_nature_tribunal" selected disabled>Nature</option>
+        {% for elem in nature %}
+        <option selected="{{ toEdit.nature_tribunal_id_id }}" value="{{ elem.id }}">{{ elem.nature_nom }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="edit_autorite_tribunal">
+        <option value="edit_autorite_tribunal" selected disabled>Autorité</option>   
+        {% for elem in autorite %}
+        <option selected="{{ toEdit.autorite_tribunal_id_id }}" value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="service_tribunal">
+        <option value="service_tribunal" selected disabled>Service</option> 
+        {% for elem in service %}
+        <option selected="{{ toEdit.service_tribunal_id_id }}" value="{{ elem.id }}">{{ elem.service_nom }}</option>
+        {% endfor %}
+    </select>
+   <label for="adresse" name="adresse">Adresse
+    <input type="text" name="adresse" id="adresse" value="{{ toEdit.adresse }}"required></label>
+
+    <label for="code_postal" name="code_postal">Code postal
+    <input type="text" name="code_postal" id="cp" value="{{ toEdit.code_postal }}"required></label>
+
+     <label for="commune" name="commune">Commune
+    <input type="text" name="commune" id="commune" value="{{ toEdit.commune }}"required></label>
+
+   {{ toEdit.id }}
+
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}
