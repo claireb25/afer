@@ -55,3 +55,29 @@
         $response->execute();
         return $response->fetchAll( PDO::FETCH_ASSOC);
     }
+
+
+    function getByIdentifiant( $identifiant ){
+        global $db;
+        $sql = 'select id, identifiant, prenom, nom from user where identifiant = :identifiant ';
+        $response = $db->prepare( $sql );
+        $response->bindParam(':identifiant', $identifiant, PDO::PARAM_STR);
+        $response->execute();
+        return $response->fetchAll( PDO::FETCH_ASSOC );
+    }
+
+
+    function create( $identifiant, $mdp, $prenom, $nom ){
+        global $db, $salt;
+        $hmpd = crypt( $mdp, $salt );
+        $sql = 'insert into user( identifiant, mdp, prenom, nom) values(:identifiant, :mdp, :prenom, :nom)';
+        $response = $db->prepare( $sql );
+        $response->bindParam( ':identifiant', $identifiant, PDO::PARAM_STR );
+        $response->bindParam( ':prenom', $prenom, PDO::PARAM_STR );
+        $response->bindParam( ':mdp', $mdp, PDO::PARAM_STR );
+        $response->bindParam( ':nom', $nom, PDO::PARAM_STR );
+
+        return $response->execute();
+        
+
+    }

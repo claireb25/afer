@@ -324,3 +324,33 @@ a:hover {
 .tbl-col-list{
   padding: 8px 20px;
 }
+
+.tbl-link-action::before{
+    font-family: 'entypo', sans-serif;
+    font-size: 20px;
+    content: "\270e";
+}
+
+
+.btn-link{
+  min-width: 200px;
+    width: 200px;
+    height: 43px;
+    min-height: 30px;
+    margin: 30px auto auto auto;
+    color:#fff;
+    background-color: #045269;
+    border: none;
+    font-size: 1.4rem;
+    cursor:pointer;
+    display: block;
+    text-align : center;
+    line-height: 43px;
+}
+
+.btn-link:hover{
+    
+  background-color: #056a86;
+  color:#fff;
+ 
+}

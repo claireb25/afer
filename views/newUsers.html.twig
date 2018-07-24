@@ -1,0 +1,31 @@
+{% extends 'template.html.twig' %}
+
+  {% block content %} 
+       
+    <h1>Ajout d'un utilisateur</h1>
+    <form action="users/new" method="post" class="form">
+        <div class="form-group">
+            <label for="identifiant" class="form-label">Identifiant *</label>
+            <input type="text" class="form-input" name="identifiant" value="" />
+            <p class="form-msg-error">Veuillez saisir votre identifiant</p>
+        </div>
+        <div class="form-group">
+            <label for="mdp" class="form-label">Mot de passe *</label>
+            <input type="password" class="form-input" name="mdp" />
+
+        </div>
+        <div class="form-group">
+            <label for="prenom" class="form-label">Prénom *</label>
+            <input type="text" class="form-input" name="prenom" value="" />
+            <p class="form-msg-error">Veuillez saisir votre prénom</p>
+        </div>
+        <div class="form-group">
+            <label for="nom" class="form-label">Nom *</label>
+            <input type="text" class="form-input" name="nom" value="" />
+            <p class="form-msg-error">Veuillez saisir votre nom</p>
+        </div>
+        <div class="form-login-group">
+            <button class="form-login-button">Valider</button>
+        </div>
+    </form>
+  {% endblock %}
