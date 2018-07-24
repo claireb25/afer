@@ -10,7 +10,6 @@ $(document).ready( function() {
       $(this).parent().children('p').slideToggle(250);
     });
 
-
     $('body').on("click", ".small-entities", function(e){
       if ($(this).children('span').hasClass('close')) {
         $(this).children('span').removeClass('close');
@@ -21,6 +20,7 @@ $(document).ready( function() {
       $(this).parent().children('.list-small-entities').slideToggle(250);
     });
 
+   
     
     $('body').on("click", "nav ul li a", function(e){
       // e.preventDefault();
