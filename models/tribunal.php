@@ -45,7 +45,10 @@ function nature(){
 //EDIT
 function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT tribunal.id, tribunal.nature_tribunal_id_id, tribunal.autorite_tribunal_id_id, tribunal.service_tribunal_id_id, tribunal_nom, adresse, code_postal, commune FROM tribunal 
+    $response = $db->prepare("SELECT tribunal.id, nature_tribunal.nature_nom, autorite_tribunal.autorite_nom, service_tribunal.service_nom, tribunal_nom, adresse, code_postal, commune FROM tribunal 
+    INNER JOIN nature_tribunal ON tribunal.nature_tribunal_id_id = nature_tribunal.id 
+    INNER JOIN autorite_tribunal ON tribunal.autorite_tribunal_id_id = autorite_tribunal.id 
+    INNER JOIN service_tribunal ON tribunal.service_tribunal_id_id = service_tribunal.id 
     WHERE tribunal.id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
