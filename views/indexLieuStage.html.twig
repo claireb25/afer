@@ -1,0 +1,22 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+	
+
+<h1>Liste des lieux de stage</h1>
+
+<a href="lieustage/new"><button>Nouveau</button></a>
+
+<ul>
+    {% for elmt in list %}
+        <li>{{ elmt.lieu_nom }} {{ elmt.etablissement_nom }} {{ elmt.commune }} {{ elmt.tel }} 
+            <a href="lieustage/edit/{{ elmt.id }}"><button>Modifier</button></a>
+            <a href="lieustage/delete/{{ elmt.id }}"><button>Supprimer</button></a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="lieustage/new"><button>Nouveau</button></a>
+
+{% endblock %}

@@ -1,9 +1,11 @@
 <?php 
 require_once("utils/db.php");
 // NEW
-function create($valeur){
+function create($repas, $kmar){
     global $db;
-    $response = $db->prepare("INSERT INTO defraiement VALUES ($valeur)");
+    $response = $db->prepare("INSERT INTO defraiement(repas, km_ar) VALUES(:repas, :kmar)");
+    $response->bindParam(':repas', $repas, PDO::PARAM_STR);
+    $response->bindParam(':kmar', $kmar, PDO::PARAM_STR);
     $response->execute();
     return true; 
 }
@@ -22,14 +24,12 @@ function getOne($id){
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
-function edit($colonne, $valeur, $id){
+function edit($repas, $kmar, $id){
     global $db;
-    $response = $db->prepare("UPDATE defraiement
-    SET $colonne = $valeur 
-    WHERE id = $id");
-    // $response->bindParam(':colonne', $colonne, PDO::PARAM_STR);
-    // $response->bindParam(':valeur', $valeur, PDO::PARAM_STR);
-    // $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response = $db->prepare("UPDATE defraiement SET repas = :repas, km_ar = :kmar WHERE id = :id");
+    $response->bindParam(':repas', $repas, PDO::PARAM_STR);
+    $response->bindParam(':kmar', $kmar, PDO::PARAM_STR);
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return true; 
 }
