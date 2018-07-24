@@ -4,13 +4,13 @@
 
 	
 
-<h1>Liste des préfectures</h1>
+<h1>Liste des animateurs</h1>
 
 <a href="animateur/new"><button>Nouveau</button></a>
 
 <ul>
     {% for elems in list %}
-        <li>{{ elems.prefecture_nom }}  <a href="animateur/edit/{{ elems.id }}"><button>Modifier</button></a>
+        <li>{{ elems.nom }} {{ elems.prenom }} <a href="animateur/edit/{{ elems.id }}"><button>Modifier</button></a>
                                     <a href="animateur/delete/{{ elems.id }}"><button>Supprimer</button></a>
         </li>
     {% endfor %}

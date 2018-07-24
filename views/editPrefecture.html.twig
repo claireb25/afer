@@ -11,13 +11,6 @@
     <label for="edit_prefecture_nom" name="edit_prefecture_nom">Préfecture
     <input type="text" name="edit_prefecture_nom" id="name" value="{{ toEdit.prefecture_nom }}"required></label>
 
-     <select name="edit_nature_prefecture">
-        <option value="edit_nature_prefecture" selected disabled>Nature</option>
-        {% for elem in nature %}
-        <option selected="{{ toEdit.nature_prefecture_id_id }}" value="{{ elem.id }}">{{ elem.nature_nom }}</option>
-        {% endfor %}
-    </select>
-
     <select name="edit_autorite_prefecture">
         <option value="edit_autorite_prefecture" selected disabled>Autorité</option>   
         {% for elem in autorite %}

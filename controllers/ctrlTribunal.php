@@ -13,6 +13,7 @@ if (isset($_GET['action'])){
         case 'list':
             makeList();            
             break;
+
         case 'new':
             if (isset($_POST['tribunal_nom']) && (!empty($_POST['tribunal_nom'])) && isset($_POST['nature_tribunal']) && (!empty($_POST['nature_tribunal'])) && isset($_POST['autorite_tribunal']) && (!empty($_POST['autorite_tribunal'])) && isset($_POST['service_tribunal']) && (!empty($_POST['service_tribunal'])) && isset($_POST['adresse']) && (!empty($_POST['adresse']))&& isset($_POST['code_postal']) && (!empty($_POST['code_postal']))&& isset($_POST['commune']) && (!empty($_POST['commune']))){
                 addNew($_POST['tribunal_nom'], $_POST['nature_tribunal'], $_POST['autorite_tribunal'], $_POST['service_tribunal'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune']);
@@ -20,8 +21,8 @@ if (isset($_GET['action'])){
                 showNew();
             }
             break; 
+
         case 'edit':
-            
             if (count($_POST) > 0){
                 if((isset($_POST['edit_tribunal_nom']) && (!empty($_POST['edit_tribunal_nom'])) && isset($_POST['edit_nature_tribunal']) && (!empty($_POST['edit_nature_tribunal'])) && isset($_POST['edit_autorite_tribunal']) && (!empty($_POST['edit_autorite_tribunal'])) && isset($_POST['service_tribunal']) && (!empty($_POST['service_tribunal'])) && isset($_POST['adresse']) && (!empty($_POST['adresse'])) && isset($_POST['code_postal']) && (!empty($_POST['code_postal']))&& isset($_POST['commune']) && (!empty($_POST['commune'])))
                     )
@@ -32,12 +33,12 @@ if (isset($_GET['action'])){
             } else {
                 showEdit($_GET['id']);
             }
-            
             break;
         
         case 'view':
             $view;
             break;
+
         case 'delete':
             deleteElement($_GET['id']);
             break;
