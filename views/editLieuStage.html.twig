@@ -1,0 +1,40 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier le lieu de stage : {{ elmttoEdit.lieu_nom }}</h1>
+
+
+<form action="lieustage/edit/{{ elmttoEdit.id }}" method="post" class="form">
+  <div class="form-example">
+    <label for="lieu_nom" name="lieu_nom">Nom du lieu :
+    <input type="text" name="lieu_nom" value="{{ elmttoEdit.lieu_nom }}"></label>
+
+    <label for="etablissement_nom" name="etablissement_nom">Nom de l'établissement : 
+    <input type="text" name="etablissement_nom" value="{{ elmttoEdit.etablissement_nom }}"></label>
+
+    <label for="adresse" name="adresse">Adresse :
+    <input type="text" name="adresse" value="{{ elmttoEdit.adresse }}"></label> 
+
+    <label for="code_postal" name="code_postal">Code postal :
+    <input type="text" name="code_postal" value="{{ elmttoEdit.code_postal }}"></label> 
+
+    <label for="commune" name="commune">Commune :
+    <input type="text" name="commune" value="{{ elmttoEdit.commune }}"></label> 
+
+    <label for="tel" name="tel">Téléphone :
+    <input type="text" name="tel" value="{{ elmttoEdit.tel }}"></label>
+
+    <label for="latitude" name="latitude">Latitude :
+    <input type="text" name="latitude" value="{{ elmttoEdit.latitude }}"></label>
+
+    <label for="longitude" name="longitude">Longitude :
+    <input type="text" name="longitude" value="{{ elmttoEdit.longitude }}"></label>
+
+    <label for="divers" name="divers">Divers :
+    <input type="text" name="divers" value="{{ elmttoEdit.divers }}"></label>
+
+    <input type="submit" value="Envoyer">
+</form>
+
+{% endblock %}

@@ -81,6 +81,10 @@
             require('controllers/ctrlUsers.php');
             break;
 
+        case "lieustage":
+            require('controllers/ctrlLieuStage.php');
+            break;
+
         default :
             require('controllers/ctrl404.php');
             break;
