@@ -38,7 +38,7 @@ function service(){
 //EDIT
 function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT prefecture.id, prefecture.autorite_prefecture_id_id, prefecture.service_prefecture_id_id, prefecture_nom, adresse, code_postal, commune FROM prefecture 
+    $response = $db->prepare("SELECT prefecture.id, autorite_prefecture.autorite_nom ,service_prefecture.service_nom, prefecture_nom, adresse, code_postal, commune FROM prefecture INNER JOIN autorite_prefecture ON prefecture.autorite_prefecture_id_id = autorite_prefecture.id INNER JOIN service_prefecture ON prefecture.service_prefecture_id_id = service_prefecture.id
     WHERE prefecture.id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
