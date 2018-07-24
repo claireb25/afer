@@ -1,0 +1,22 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+	
+
+<h1>Liste des infractions</h1>
+
+<a href="infraction/new"><button>Nouveau</button></a>
+
+<ul>
+    {% for elmt in list %}
+        <li>{{ elmt.tribunal_nom }}  {{ elmt.date_infraction }} {{ elmt.lieu_infraction }} {{ elmt.numero_parquet }}
+            <a href="infraction/edit/{{ elmt.id }}"><button>Modifier</button></a>
+            <a href="infraction/delete/{{ elmt.id }}"><button>Supprimer</button></a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="infraction/new"><button>Nouveau</button></a>
+
+{% endblock %}

@@ -1,6 +1,4 @@
-<head>
-    <base href="http://localhost/afer-back/"> 
-</head> 
+
 
 <?php
     $path = '';
@@ -103,6 +101,10 @@
 
         case "lieustage":
             require('controllers/ctrlLieuStage.php');
+            break;
+
+        case "infraction":
+            require('controllers/ctrlInfraction.php');
             break;
 
         default :

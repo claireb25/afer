@@ -4,16 +4,29 @@
        
     <h1>Utilisateurs</h1>
     <table class="tbl-list" >
-        <tr>
-            <th class="tbl-col-header" >Identifiant</th>
-            <th class="tbl-col-header" >Prénom</th>
-            <th class="tbl-col-header" >Nom</th>
-        </tr>
-        <tr class="tbl-row-search">
-            <td class="tbl-col-search" ><input type="text" class="form-input" ></td>
-            <td class="tbl-col-search" ><input type="text" class="form-input" ></td>
-            <td class="tbl-col-search" ><input type="text" class="form-input" ></td>
-        </tr>
+        <thead>
+            <tr>
+                <th class="tbl-col-header" >Identifiant</th>
+                <th class="tbl-col-header" >Prénom</th>
+                <th class="tbl-col-header" >Nom</th>
+            </tr>
+            <tr class="tbl-row-search">
+                <td class="tbl-col-search" ><input type="text" class="form-input" ></td>
+                <td class="tbl-col-search" ><input type="text" class="form-input" ></td>
+                <td class="tbl-col-search" ><input type="text" class="form-input" ></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+
+                <tr class="tbl-row-list" >
+                    <td class="tbl-col-list" >{{u.identifiant}}</td>
+                    <td class="tbl-col-list" >{{u.prenom}}</td>
+                    <td class="tbl-col-list" >{{u.nom}}</td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
     </table>
         
   {% endblock %}

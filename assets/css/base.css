@@ -241,7 +241,7 @@ a:hover {
   border-left: 1px solid #ccc;
 }
 
-****************************** Tables contenues dans Menu bouton réglages *********************************************
+/****************************** Tables contenues dans Menu bouton réglages *********************************************/
 
 .list-small-entities {
   display: none;
@@ -264,7 +264,11 @@ a:hover {
 }
 
 
-******* élément de formulaire *******
+/******* élément de formulaire *******/
+
+.cadre {
+  padding: 30px;
+}
 
 .form-group{
   margin : 16px 0 0 0;
@@ -309,5 +313,14 @@ a:hover {
 }
 
 .tbl-col-search{
+  padding: 8px 20px;
+}
+
+
+.tbl-row-list{
+  border-bottom: 1px solid #dadcd9;
+}
+
+.tbl-col-list{
   padding: 8px 20px;
 }
