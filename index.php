@@ -92,6 +92,10 @@
         case "prefecture":
             require('controllers/ctrlPrefecture.php');
             break;
+        
+        case "animateur":
+            require('controllers/ctrlAnimateur.php');
+            break;    
             
         case "users":
             require('controllers/ctrlUsers.php');
