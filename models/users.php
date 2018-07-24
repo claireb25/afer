@@ -67,7 +67,7 @@
     }
 
 
-    function create( $identifiant, $mdp, $prenom, $nom ){
+    function createUser( $identifiant, $mdp, $prenom, $nom ){
         global $db, $salt;
         $hmpd = crypt( $mdp, $salt );
         $sql = 'insert into user( identifiant, mdp, prenom, nom) values(:identifiant, :mdp, :prenom, :nom)';
