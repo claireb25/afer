@@ -29,11 +29,11 @@ if (isset($_GET['action'])){
             break; 
 
         case 'edit':
-            if (isset($_GET['id']) && (!isset($_POST['lieu_nom']))){
-                showEdit($_GET['id']);  
-            }
-            if (isset($_POST['lieu_nom']) && (!empty($_POST['lieu_nom']))){
+            if (count($_POST) > 0){
                 updateType($_POST['lieu_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers'], $_GET['id']);
+            }
+            else {
+                showEdit($_GET['id']);
             }
             break;
         

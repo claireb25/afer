@@ -34,17 +34,17 @@ if (isset($_GET['action'])){
             break; 
 
         case 'edit':
-            if (isset($_GET['id'])){
-                showEdit($_GET['id']);  
-            }
-            if (isset($_POST['km_ar']) && (!empty($_POST['km_ar']))){
+            if (count($_POST) > 0){
                 if (isset($_POST['repas'])){
                     updateType(1, $_POST['km_ar'], $_GET['id']);
                 }
                 else {
                     updateType(0, $_POST['km_ar'], $_GET['id']);
                 }
-                header('Location: /afer-back/defraiement/list');
+                header('Location: /afer-back/defraiement/list');  
+            }
+            else {
+                showEdit($_GET['id']);
             }
             break;
         
