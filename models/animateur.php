@@ -54,7 +54,10 @@ function statut(){
 //EDIT
 function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT id, civilite_id_id, fonction_animateur_id_id, statut_id_id, nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email, urssaf, siret, observations FROM animateur 
+    $response = $db->prepare("SELECT animateur.id, civilite.nom , fonction_animateur.fonction_nom, statut_animateur.status_nom, animateur.nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email, urssaf, siret, observations FROM animateur 
+    INNER JOIN civilite ON animateur.civilite_id_id = civilite.id
+    INNER JOIN fonction_animateur ON animateur.fonction_animateur_id_id = fonction_animateur.id 
+    INNER JOIN statut_animateur ON statut_id_id = statut_animateur.id
     WHERE animateur.id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
