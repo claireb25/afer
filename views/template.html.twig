@@ -22,31 +22,31 @@
         <nav>
             <ul>
                 <li>
-                    <a href="dashboard/view" data-title="A la une">A la une</a>
+                    <a href="dashboard/view" class="bouton-bigmenu" "data-title="A la une">A la une</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-title="Stages">Stages</a>
+                    <a href="javascript:void(0);" class="bouton-bigmenu" data-title="Stages">Stages</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-title="Stagiaire">Stagiaires</a>
+                    <a href="javascript:void(0);" class="bouton-bigmenu" data-title="Stagiaire">Stagiaires</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-title="Animateurs">Animateurs</a>
+                    <a href="javascript:void(0);" class="bouton-bigmenu" data-title="Animateurs">Animateurs</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" class="small-entities" data-title="Réglages">Réglages
+                    <a href="javascript:void(0);" class="bouton-bigmenu small-entities" data-title="Réglages">Réglages
                         <span class="fleche-jaune entypo-down-open "></span>   
                     </a>
                     <div class="list-small-entities">
                         <ul>
                             <li class="cat-entities">Animateur</li>
-                            <ul class="entities">
-                                <li>Statut</li>
+                            <ul class="entities ">
+                                <li><a href="statutanimateur/list" class="bouton-smallmenu">Statut</a></li>
                                 <li>Fonction</li>
                                 <li>Forfait</li>
                             </ul>
                             <li class="cat-entities">Tribunal</li>
-                            <ul class="entities">
+                            <ul class="entities ">
                                 <li>Autorité</li>
                                 <li>Nature</li>
                                 <li>Service</li>
@@ -62,15 +62,15 @@
                     </div>
                 </li>
                 <li>
-                    <a href="users/view" data-title="Utilisateurs">Utilisateurs</a>
+                    <a href="users/view " class="bouton-bigmenu" data-title="Utilisateurs ">Utilisateurs</a>
                 </li>
             </ul>
         </nav>
     </header>
     <main>
-        <div class="title">
+        <div class="title ">
             <h2>Outil de gestion</h2>
-            <a href="users/edit/{{user.id}}">Hello {{user.fullName}} !</a>
+            <a href="users/edit/{{user.id}} ">Hello {{user.fullName}} !</a>
         </div>
 
         <section>
@@ -81,9 +81,9 @@
 
 
     {% block javascript %} {% endblock %}
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script src="assets/js/dashboard.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js " integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin=" anonymous "></script>
+    <script src="assets/js/dashboard.js "></script>
 </body>
 
 </html>
