@@ -46,3 +46,12 @@
         return $response->execute();
        
     }
+
+
+    function getList(){
+        global $db;
+        $sql = 'select id, identifiant, prenom, nom from user order by nom asc';
+        $response = $db->prepare( $sql );
+        $response->execute();
+        return $response->fetchAll( PDO::FETCH_ASSOC);
+    }
