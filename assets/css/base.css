@@ -241,7 +241,7 @@ a:hover {
   border-left: 1px solid #ccc;
 }
 
-****************************** Tables contenues dans Menu bouton réglages *********************************************
+/****************************** Tables contenues dans Menu bouton réglages *********************************************/
 
 .list-small-entities {
   display: none;
@@ -264,11 +264,11 @@ a:hover {
 }
 
 
-******* élément de formulaire *******
-.cadre {
-  padding: 10%;
-}
+/******* élément de formulaire *******/
 
+.cadre {
+  padding: 30px;
+}
 
 .form-group{
   margin : 16px 0 0 0;
