@@ -264,11 +264,20 @@ a:hover {
   -webkit-transform: rotate(180deg);
   transition: all .5s;
 }
+.bouton-titresmallmenu {
+  color:#edc225;
+}
+
+.bouton-titresmallmenu:hover {
+  color:#edc225;
+  font-weight: bold;
+}
 
 .bouton-smallmenu:hover {
   color: white;
   font-weight: bold;
 }
+
 
 
 /******* élément de formulaire *******/
