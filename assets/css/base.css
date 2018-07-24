@@ -96,6 +96,8 @@ header {
   z-index: 99;
 }
 
+/************************** BigMenu **************************/
+
 header nav ul li {
   border-bottom: 1px solid #42454D;
   padding-left: 50px;
@@ -241,7 +243,7 @@ a:hover {
   border-left: 1px solid #ccc;
 }
 
-/****************************** Tables contenues dans Menu bouton réglages *********************************************/
+/****************************** SmallMenu (bouton réglages) *********************************************/
 
 .list-small-entities {
   display: none;
@@ -261,6 +263,11 @@ a:hover {
 .fleche-jaune.close {
   -webkit-transform: rotate(180deg);
   transition: all .5s;
+}
+
+.bouton-smallmenu:hover {
+  color: white;
+  font-weight: bold;
 }
 
 
