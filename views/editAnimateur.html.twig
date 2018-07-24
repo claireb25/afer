@@ -10,7 +10,7 @@
     <h3>Informations</h3>
     <select name="civilite">   
         {% for elem in civilite %}
-        <option selected="{{ toEdit.civilite_id_id }}" value="{{ elem.id }}">{{ elem.nom }}</option>
+        <option value {{ elem.id }}{% if toEdit.nom == elem.civilite %} selected {% endif %}>{{ elem.nom }}</option>
         {% endfor %}
     </select>
     <label for="nom" name="nom">Nom
@@ -20,14 +20,19 @@
     <input type="text" name="prenom" id="prenom" value="{{ toEdit.prenom }}"required></label>
 
      <select name="fonction">
+        {# <option  selected="{{ toEdit.fonction_nom }}" disabled value="{{ toEdit.id }}">{{ toEdit.fonction_nom }}</option> #}
         {% for elem in fonction %}
-        <option  selected="{{ toEdit.fonction_animateur_id_id }}"value="{{ elem.id }}">{{ elem.fonction_nom }}</option>
+            <option  value="{{ elem.id }}" {% if toEdit.fonction_nom == elem.fonction_nom %} selected {% endif %} >{{ elem.fonction_nom }}</option>    
         {% endfor %}
+        
     </select>
- 
+    {{ toEdit.fonction_nom }}
     <select name="statut">
+        
         {% for elem in statut %}
-        <option selected="{{ toEdit.statut_animateur_id_id }}" value="{{ elem.id }}">{{ elem.status_nom }}</option>
+
+        <option selected="" value="{{ elem.id }}"  {% if toEdit.status_nom == elem.status_nom %} selected {% endif %}>{{ elem.status_nom }}</option>
+        
         {% endfor %}
     </select>
 
