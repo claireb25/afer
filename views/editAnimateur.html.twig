@@ -2,14 +2,13 @@
 
 {% block content %}
 
-<h1>Modifier : {{ toEdit.nom }} {{ toEdit.prenom }}</h1>
+<h1>Modifier l'animateur : {{ toEdit.prenom }} {{ toEdit.nom }}</h1>
 
 
 <form action="animateur/edit/{{ toEdit.id }}" method="post" class="form">
   <div class="form-example">
-
-    <select name="civilite">
-        <option value="civilite" selected disabled>Civilité</option>   
+    <h3>Informations</h3>
+    <select name="civilite">   
         {% for elem in civilite %}
         <option selected="{{ toEdit.civilite_id_id }}" value="{{ elem.id }}">{{ elem.nom }}</option>
         {% endfor %}
@@ -17,40 +16,52 @@
     <label for="nom" name="nom">Nom
     <input type="text" name="nom" id="nom" value="{{ toEdit.nom }}"required></label>
 
-    <label for="edit_tribunal_nom" name="edit_tribunal_nom">Tribunal 
-    <input type="text" name="edit_tribunal_nom" id="name" value="{{ toEdit.tribunal_nom }}"required></label>
+    <label for="prenom" name="prenom">Prénom
+    <input type="text" name="prenom" id="prenom" value="{{ toEdit.prenom }}"required></label>
 
-     <select name="edit_nature_tribunal">
-        <option value="edit_nature_tribunal" selected disabled>Nature</option>
-        {% for elem in nature %}
-        <option selected="{{ toEdit.nature_tribunal_id_id }}" value="{{ elem.id }}">{{ elem.nature_nom }}</option>
+     <select name="fonction">
+        {% for elem in fonction %}
+        <option  selected="{{ toEdit.fonction_animateur_id_id }}"value="{{ elem.id }}">{{ elem.fonction_nom }}</option>
+        {% endfor %}
+    </select>
+ 
+    <select name="statut">
+        {% for elem in statut %}
+        <option selected="{{ toEdit.statut_animateur_id_id }}" value="{{ elem.id }}">{{ elem.status_nom }}</option>
         {% endfor %}
     </select>
 
-    <select name="edit_autorite_tribunal">
-        <option value="edit_autorite_tribunal" selected disabled>Autorité</option>   
-        {% for elem in autorite %}
-        <option selected="{{ toEdit.autorite_tribunal_id_id }}" value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
-        {% endfor %}
-    </select>
+    <label for="gta" name="gta">Gestion Technique et Administrative</label>
+    
+    <input value="{{ toEdit.gta }}" type="checkbox" name="gta" id="name" required>
 
-    <select name="service_tribunal">
-        <option value="service_tribunal" selected disabled>Service</option> 
-        {% for elem in service %}
-        <option selected="{{ toEdit.service_tribunal_id_id }}" value="{{ elem.id }}">{{ elem.service_nom }}</option>
-        {% endfor %}
-    </select>
-   <label for="adresse" name="adresse">Adresse
-    <input type="text" name="adresse" id="adresse" value="{{ toEdit.adresse }}"required></label>
+    
+    <h3>Adresse</h3>
+    <label for="raison_sociale" name="raison_sociale">Raison sociale
+    <input type="text" name="raison_sociale" id="raison_sociale" value="{{ toEdit.raison_sociale }}" required></label>
+
+    <label for="adresse" name="adresse">Numéro et nom de rue
+    <input type="text" name="adresse" id="adresse" value="{{ toEdit.adresse }}" required></label>
 
     <label for="code_postal" name="code_postal">Code postal
-    <input type="text" name="code_postal" id="cp" value="{{ toEdit.code_postal }}"required></label>
+    <input type="text" name="code_postal" id="code_postal" value="{{ toEdit.code_postal }}" required></label>
 
-     <label for="commune" name="commune">Commune
-    <input type="text" name="commune" id="commune" value="{{ toEdit.commune }}"required></label>
+    <label for="ville" name="ville">Ville
+    <input type="text" name="ville" id="ville" value="{{ toEdit.commune }}"required></label>
 
-   {{ toEdit.id }}
+    <label for="region" name="region">Région
+    <input type="text" name="region" id="region" value="{{ toEdit.region }}"required></label>
 
+
+    <h3>Contact</h3>
+    <label for="tel_portable" name="tel_portable">Téléphone portable
+    <input type="text" name="tel_portable" id="tel_portable" value="{{ toEdit.tel_portable }}" required></label>
+
+    <label for="tel_fixe" name="tel_fixe">Téléphone fixe
+    <input type="text" name="tel_fixe" id="tel_fixe" value="{{ toEdit.tel_fixe }}" required></label>
+
+    <label for="email" name="email">Adresse e-mail
+    <input type="text" name="email" id="email" value="{{ toEdit.email }}"required></label>
     <input type="submit" value="Modifier">
 </form>
 
