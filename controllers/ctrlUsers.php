@@ -114,6 +114,10 @@ function validChamp( $champ ){
 //     }
 // }
 
+function listUser(){
+    $user = getList();
+    displayViewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), "users" => $user ) );
+}
 
 function redirectListUser(){
     header('Location: users/view');
@@ -148,7 +152,7 @@ function main(){
                     $error = true;
                 }
             }else if( $_GET['action'] === 'view' ){
-                displayViewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ));
+                listUser();
             }
         }else{
             $error = true; 

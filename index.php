@@ -1,6 +1,4 @@
-<head>
-    <base href="http://localhost/afer-back/"> 
-</head> 
+
 
 <?php
     $path = '';
@@ -89,6 +87,10 @@
             require('controllers/ctrlTribunal.php');
             break;
 
+        case "prefecture":
+            require('controllers/ctrlPrefecture.php');
+            break;
+            
         case "users":
             require('controllers/ctrlUsers.php');
             break;
