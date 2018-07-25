@@ -37,7 +37,7 @@ if (isset($_GET['action'])){
                     $_POST['gta'] = 0;
                     update($_POST['civilite'], $_POST['nom'], $_POST['prenom'], $_POST['fonction'], $_POST['statut'], $_POST['gta'], $_POST['raison_sociale'], $_POST['adresse'], $_POST['code_postal'], $_POST['ville'], $_POST['region'], $_POST['tel_portable'], $_POST['tel_fixe'], $_POST['email'], $_POST['urssaf'], $_POST['siret'],$_POST['observations'], $_GET['id']);
                 }
-                redirectAnimateurList(); 
+                // redirectAnimateurList(); 
             } else {
                 showEdit($_GET['id']);
               
@@ -99,6 +99,8 @@ function showEdit($id){
     global $twig;
     $template = $twig->load('editAnimateur.html.twig');
     echo $template->render(array('toEdit'=>$toEdit, 'civilite'=>$civilite, 'fonction'=> $fonction, 'statut' => $statut));
+    // var_dump($toEdit);
+    // var_dump($civilite);
 }
 function update($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations, $id){
     $civilite = (int)$civilite;

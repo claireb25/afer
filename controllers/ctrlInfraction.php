@@ -17,6 +17,8 @@ if (isset($_GET['action'])){
         case 'new':
             if (count($_POST) > 0){
                 addNew($_POST['tribunal'], $_POST['date_infraction'], $_POST['heure_infraction'], $_POST['lieu_infraction'], $_POST['numero_parquet']);
+                // addNewLiaison($_POST['numero_parquet']);
+                // redirectList();
             } 
             else {
                 showNew();
@@ -53,14 +55,9 @@ function makeList(){
 
 // NEW
 function addNew($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet){
-    $tribunal = htmlentities($tribunal);
-    $dateInfraction = htmlentities($dateInfraction);
-    $heureInfraction = htmlentities($heureInfraction);
     $lieuInfraction = htmlentities($lieuInfraction);
     $numeroParquet = htmlentities($numeroParquet);
     create($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet);
-    addNewLiaison($numeroParquet);
-    redirectList();
 }
 
 function addNewLiaison($numeroParquet){
@@ -68,7 +65,7 @@ function addNewLiaison($numeroParquet){
     $idInfraction = getIdByNP($numeroParquet);
     foreach($typeInfraction as $value){
         if (isset($_POST[$value['type_infraction_nom']])){
-            createLiaisonTypeInfraction($idInfraction, $_POST[$value['id']]);
+            createLiaisonTypeInfraction($idInfraction, $_POST[$value['type_infraction_nom']]);
         }
     }
 }

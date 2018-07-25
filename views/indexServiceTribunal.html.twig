@@ -6,16 +6,48 @@
 
 <h1>Liste des services (tribunal)</h1>
 
-<a href="servicetribunal/new"><button>Nouveau</button></a>
+<div class="container-new-button">
+    <a class="new-button plus" href="servicetribunal/new">
+        <span class="bg" id="plus"></span>
+        <span class="symbol"></span>
+    </a>
+    <p class="title-new-button"><h3>Nouveau</h3></p>
+</div>
 
-<ul>
+<section class="list-table">
+ <table>
+        <thead>
+            <tr>
+                <th> Nom du service </th>
+            </tr>
+        </thread>
+        
+        
     {% for elems in list %}
-        <li>{{ elems.service_nom }}  <a href="servicetribunal/edit/{{ elems.id }}"><button>Modifier</button></a>
-                                    <a href="servicetribunal/delete/{{ elems.id }}"><button>Supprimer</button></a>
-        </li>
+    <tr>
+        <td>{{ elems.service_nom }} </td>
+        <td> 
+            <a href="servicetribunal/edit/{{ elems.id }}">
+                <button>Modifier</button>
+            </a>
+        </td>
+        <td>
+            <a href="servicetribunal/delete/{{ elems.id }}">
+                <button>Supprimer</button>
+            </a>
+        </td>
+    </tr>
     {% endfor %}
-</ul>
+    </table>
+</section>
 
-<a href="servicetribunal/new"><button>Nouveau</button></a>
+
+<div class="container-new-button">
+    <a class="new-button plus" href="servicetribunal/new">
+        <span class="bg" id="plus"></span>
+        <span class="symbol"></span>
+    </a>
+    <p class="title-new-button"><h3>Nouveau</h3></p>
+</div>
 
 {% endblock %}
