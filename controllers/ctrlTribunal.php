@@ -50,6 +50,7 @@ function makeList(){
     global $twig;
     $template = $twig->load('indexTribunal.html.twig');
     echo $template->render(array('list'=>$list));
+
 }
 // NEW
 function addNew($tribunal_nom, $nature_tribunal, $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune){

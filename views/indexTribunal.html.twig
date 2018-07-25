@@ -26,12 +26,12 @@
         {% for elems in list %}
         <tr>
             <td>{{ elems.tribunal_nom }}</td>
-            <td>valeur</td>
-            <td>valeur</td>
-            <td>valeur</td>
-            <td>valeur</td>
-            <td>valeur</td>
-            <td>valeur</td>
+            <td>{{ elems.nature_nom}}</td>
+            <td> {{ elems.autorite_nom }}</td>
+            <td>{{ elems.service_nom }}</td>
+            <td>{{ elems.adresse }}</td>
+            <td>{{ elems.code_postal }}</td>
+            <td>{{ elems.commune }}</td>
             <td>
                 <a href="tribunal/edit/{{ elems.id }}">
                     <button>Modifier</button>
