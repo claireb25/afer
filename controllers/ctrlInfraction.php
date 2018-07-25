@@ -16,17 +16,9 @@ if (isset($_GET['action'])){
 
         case 'new':
             if (count($_POST) > 0){
-                if (isset($_POST['conduite_sans_permis']) && isset($_POST['conduite_sans_assurance'])) {
-                    addNew($_POST['tribunal'], $_POST['date_infraction'], $_POST['heure_infraction'], $_POST['lieu_infraction'], $_POST['numero_parquet'], 1, 0);
-                }
-                else if (isset($_POST['conduite_sans_permis']) && !isset($_POST['conduite_sans_assurance'])){
-                    addNew($_POST['tribunal'], $_POST['date_infraction'], $_POST['heure_infraction'], $_POST['lieu_infraction'], $_POST['numero_parquet'], 1, 0);
-
-                }
-                else if (!isset($_POST['conduite_sans_permis']) && isset($_POST['conduite_sans_assurance'])){
-                    addNew($_POST['tribunal'], $_POST['date_infraction'], $_POST['heure_infraction'], $_POST['lieu_infraction'], $_POST['numero_parquet'], 0, 1);
-                }
-            } else {
+                addNew($_POST['tribunal'], $_POST['date_infraction'], $_POST['heure_infraction'], $_POST['lieu_infraction'], $_POST['numero_parquet']);
+            } 
+            else {
                 showNew();
             }
             break; 
@@ -50,6 +42,7 @@ if (isset($_GET['action'])){
             break;
     }
 }
+
 // LIST
 function makeList(){
     $list = listAll();
@@ -57,24 +50,37 @@ function makeList(){
     $template = $twig->load('indexInfraction.html.twig');
     echo $template->render(array('list'=>$list));
 }
+
 // NEW
-function addNew($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $csp, $csa){
+function addNew($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet){
     $tribunal = htmlentities($tribunal);
     $dateInfraction = htmlentities($dateInfraction);
     $heureInfraction = htmlentities($heureInfraction);
     $lieuInfraction = htmlentities($lieuInfraction);
     $numeroParquet = htmlentities($numeroParquet);
-    $csp = htmlentities($csp);
-    $csa = htmlentities($csa);
-    create($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $csp, $csa);
+    create($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet);
+    addNewLiaison($numeroParquet);
     redirectList();
 }
+
+function addNewLiaison($numeroParquet){
+    $typeInfraction = typeInfraction();
+    $idInfraction = getIdByNP($numeroParquet);
+    foreach($typeInfraction as $value){
+        if (isset($_POST[$value['type_infraction_nom']])){
+            createLiaisonTypeInfraction($idInfraction, $_POST[$value['id']]);
+        }
+    }
+}
+
 function showNew(){
     $tribunal = tribunal();
+    $typeInfraction = typeInfraction();
     global $twig;
     $template = $twig->load('newInfraction.html.twig');
-    echo $template->render(array('tribunal'=>$tribunal));
+    echo $template->render(array('tribunal'=>$tribunal, 'typeInfraction'=>$typeInfraction));
 }
+
 //EDIT 
 function showEdit($id){
     $tribunal = tribunal();
@@ -95,6 +101,7 @@ function update($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $
     edit($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $csp, $csa, $id);
    
 }
+
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
@@ -103,7 +110,6 @@ function deleteElement($id){
 }
 
 // REDIRECTIONS
-
 function redirectList(){
     header('Location: /afer-back/infraction/list');
 }

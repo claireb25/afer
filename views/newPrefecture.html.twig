@@ -3,6 +3,7 @@
 {% block content %}
 <form action="prefecture/new" method="post" class="form">
   <div class="form-example">
+
     <label for="prefecture_nom" name="prefecture_nom">Nom de la préfecture</label>
     <input type="text" name="prefecture_nom" id="name" required>
     
@@ -12,24 +13,30 @@
         <option value="{{ elem.id }}">{{ elem.nature_nom }}</option>
         {% endfor %}
     </select>
+
     <select name="autorite_prefecture">
         <option value="autorite_prefecture" selected disabled>Autorité</option>   
         {% for elem in autorite %}
         <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
         {% endfor %}
     </select>
+
     <select name="service_prefecture">
         <option value="service_prefecture" selected disabled>Service</option> 
         {% for elem in service %}
         <option value="{{ elem.id }}">{{ elem.service_nom }}</option>
         {% endfor %}
     </select>
+
     <label for="adresse" name="adresse">Adresse</label>
     <input type="text" name="adresse" id="name" required>
+
     <label for="code_postal" name="code_postal">Code Postal</label>
     <input type="text" name="code_postal" id="name" required>
+
     <label for="commune" name="commune">Ville</label>
     <input type="text" name="commune" id="name" required>
+
     <input type="submit" value="Envoyer">
 </form>
 

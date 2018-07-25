@@ -15,6 +15,14 @@
         {% endfor %}
     </select>
 
+    <div>
+        Sélectionner les types d'infractions commis :
+        {% for elmt in typeInfraction %}
+            <label for="{{ elmt.type_infraction_nom }}" name="{{ elmt.type_infraction_nom }}"> {{ elmt.type_infraction_nom }}
+            <input type="checkbox" name="{{ elmt.type_infraction_nom }}" value="{{ elmt.id }}"></label>
+        {% endfor %}
+    </div>
+
    <label for="date_infraction" name="date_infraction">Date de l'infraction
     <input type="date" name="date_infraction"></label>
 
@@ -27,11 +35,11 @@
     <label for="numero_parquet" name="numero_parquet">Numero de parquet
     <input type="text" name="numero_parquet"></label>
 
-    <label for="conduite_sans_permis" name="conduite_sans_permis">Conduite sans permis
+    <!-- <label for="conduite_sans_permis" name="conduite_sans_permis">Conduite sans permis
     <input type="checkbox" name="conduite_sans_permis"></label>
 
     <label for="conduite_sans_assurance" name="conduite_sans_assurance">Conduite sans assurance
-    <input type="checkbox" name="conduite_sans_assurance"></label>
+    <input type="checkbox" name="conduite_sans_assurance"></label> -->
 
     <input type="submit" value="Modifier">
 </form>
