@@ -384,6 +384,7 @@ a:hover {
 
 .container-new-button {
   padding: 0% 6% 0%;
+  display: flex;
 }
 
 .new-button {
@@ -431,4 +432,14 @@ a:hover {
   width: 0.3rem;
   height: 2rem;
   background-color: white;
+}
+
+.title-new-button {
+}
+
+.container-new-button h3 {
+  text-transform: uppercase;
+  line-height: inherit;
+  margin-top: 33px;
+  color: #045269;
 }
