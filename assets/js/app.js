@@ -1,11 +1,20 @@
 function main(){
 
-  if( document.querySelector('.modal-btn') !== null ){
+  if( document.querySelector('.modal-btn-ok') !== null ){
       closeModal();
+  }
+
+  if( document.querySelector('.modal-btn-no') !== null ){
+    closeModal();
   }
 
   if( document.querySelector('.form-user') !== null ){
      userForm();
+  }
+
+  
+  if( document.querySelector('.tbl-link-delete') !== null ){
+      msgDelete();
   }
 
 
@@ -13,11 +22,19 @@ function main(){
 
 
 function closeModal(){
-    const modal = document.querySelector('.modal-btn');
     const overlay = document.querySelector('.boxOverlay');
-    modal.addEventListener('click', () => {
-        overlay.classList.add('hidden');
-    });
+    if( document.querySelector('.modal-btn-ok') !== null ){
+        document.querySelector('.modal-btn-ok').addEventListener('click', () => {
+            overlay.classList.add('hidden');
+        });
+    }else{
+        document.querySelector('.modal-btn-no').addEventListener('click', () => {
+            overlay.classList.add('hidden');
+        });
+    }
+    
+    
+    
 }
 
 
@@ -70,12 +87,33 @@ function userForm(){
             html = '<div class="boxOverlay" >';
             html += '<div class="modal fas fa-exclamation-triangle">';
             html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
-            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button modal-btn-ok" >OK</button>';
             html += '</div>';
             html += '</div>';
             document.querySelector('body').innerHTML =  document.querySelector('body').innerHTML + html
         }
     })
+}
+
+
+function msgDelete(){
+    btnDelete = document.querySelectorAll('.tbl-link-delete');
+
+    btnDelete.forEach( ( element ) => {
+        element.addEventListener('click', (e) =>{
+            e.preventDefault();
+            const overlay = document.querySelector('.boxOverlay');
+            overlay.classList.remove('hidden');
+            btnYes = document.querySelector( '.modal-btn-yes' );
+            btnYes.setAttribute('data-link', element.getAttribute( 'href' ) );
+        })
+    });
+}
+
+
+
+function deleteUser(){
+    console.log('lol');
 }
 
 main();

@@ -383,9 +383,17 @@ a:hover {
   color:#fff;
 }
 
+
+
 .hidden{
   display:none;
 }
+
+.modal-yesNo{
+  text-align : center;
+}
+
+
 
 /********************************************** Tableau pages /list **************************************/
 .list-title {

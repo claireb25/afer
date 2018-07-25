@@ -73,6 +73,10 @@ html, .login, .content{
     
 }
 
+.modal-btn--inline{
+  display : inline-block;
+}
+
 .form-login-button:hover{
     
     background-color: #056a86;

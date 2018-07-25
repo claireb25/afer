@@ -32,6 +32,18 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="users/new" class="btn-link"  >Ajouter</a>     
+    <a href="users/new" class="btn-link"  >Ajouter</a>  
+
+    <div class="boxOverlay hidden " >
+        <div class="modal modal-yesNo fas fa-exclamation-triangle">                   
+            <p class="modal-message">Êtes-vous sûre de vouloir supprimmer l'utilisateur.</p>                 
+            <button type="button"  data-link="" onclick="deleteUser()" class="modal-btn form-login-button modal-btn--inline modal-btn-yes"  >Oui</button> <button type="button" class="modal-btn form-login-button modal-btn--inline modal-btn-no" > Non</button>
+        </div>
+    </div>
+
   {% endblock %}
+
+ {% block javascript %} 
+    <script src="assets/js/app.js" ></script>
+ {% endblock %}
 
