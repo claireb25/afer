@@ -4,10 +4,11 @@ require_once("utils/db.php");
 // NEW
 function create($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet){
     global $db;
-    $response = $db->prepare("INSERT INTO infraction(nature_tribunal_id_id, date_infraction, heure_infraction, lieu_infraction, numero_parquet, conduite_sans_permis, conduite_sans_assurance) VALUES(:tribunal, :dateInfraction, :heureInfraction, :lieuInfraction, :numeroParquet)");
+    var_dump($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet);
+    $response = $db->prepare("INSERT INTO infraction(tribunal_id_id, date_infraction, heure_infraction, lieu_infraction, numero_parquet) VALUES(:tribunal, :dateInfraction, :heureInfraction, :lieuInfraction, :numeroParquet)");
     $response->bindParam(':tribunal', $tribunal, PDO::PARAM_INT);
-    $response->bindParam(':dateInfraction', $dateInfraction, PDO::PARAM_INT);
-    $response->bindParam(':heureInfraction', $heureInfraction, PDO::PARAM_INT);
+    $response->bindParam(':dateInfraction', $dateInfraction, PDO::PARAM_STR);
+    $response->bindParam(':heureInfraction', $heureInfraction, PDO::PARAM_STR);
     $response->bindParam(':lieuInfraction', $lieuInfraction, PDO::PARAM_STR);
     $response->bindParam(':numeroParquet', $numeroParquet, PDO::PARAM_STR);
     $response->execute();
