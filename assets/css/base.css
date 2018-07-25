@@ -368,10 +368,20 @@ a:hover {
     
   background-color: #056a86;
   color:#fff;
- 
 }
-
 
 .hidden{
   display:none;
+}
+
+/********************************************** Tableau pages /list **************************************/
+.list-title {
+  margin-bottom: 10%;
+}
+.list-table {
+  padding: 4% 8%;
+}
+
+.new-button {
+  padding: 0% 8% 0%;
 }
