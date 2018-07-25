@@ -72,17 +72,17 @@ function testForm(){
     if( strlen( $prenom ) == 0 ){
         $test = false;
     }
+
+    if( $test === true ){
+        $user = getByIdentifiant( $identifiant );
+        if( count( $user[ 0 ] ) === 0 ){
+            $test = create( $identifiant, $mdp, $prenom, $nom );
+        }else{
+            $test = 'exist';
+        }
+    }   
     
-    $user = getByIdentifiant( $identifiant );
-    if( count( $user ) === 0 ){
-        $test = create( $identifiant, $mdp, $prenom, $nom );
-    }else{
-        //existe déjà
-    }
-    
-    die();
-    return true;
-    //return $test;
+    return $test;
 }
 
 // function verifIdentity( $identifiant, $mdp ){
@@ -102,8 +102,16 @@ function testForm(){
 // }
 
 function validForm(){
-    if( testForm() ){
+    $test = testForm();
+
+    if( $test === true ){
         redirectDashboardUser();
+    }else if( $test === 'exist' ){
+        $identifiant = validChamp('identifiant');
+        $mdp = validChamp('mdp');
+        $nom = validChamp('nom');
+        $prenom = validChamp('prenom');
+        displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'users' => array( 'identifiant' => '', 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
     }else{
         displayLogin( array('error' => true ) );
     }
