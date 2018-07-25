@@ -1,21 +1,53 @@
-{% extends 'template.html.twig' %}
+{% extends 'template.html.twig' %} {% block content %}
 
-{% block content %}
 
-	
 
-<h1>Liste des tribunaux</h1>
-
-<a href="tribunal/new"><button>Nouveau</button></a>
-
-<ul>
-    {% for elems in list %}
-        <li>{{ elems.tribunal_nom }}  <a href="tribunal/edit/{{ elems.id }}"><button>Modifier</button></a>
-                                    <a href="tribunal/delete/{{ elems.id }}"><button>Supprimer</button></a>
-        </li>
-    {% endfor %}
-</ul>
-
-<a href="tribunal/new"><button>Nouveau</button></a>
+<h1 class="list-title">Liste des tribunaux</h1>
+<div class="new-button">
+    <a href="tribunal/new">
+        <button>Nouveau</button>
+    </a>
+</div>
+<section class="list-table">
+    <table>
+        <thead>
+            <tr>
+                <th>Nom Tribunal</th>
+                <th>Nature</th>
+                <th>Autorité</th>
+                <th>Service</th>
+                <th>Adresse</th>
+                <th>Code postal</th>
+                <th>Ville</th>
+            </tr>
+        </thead>
+        {% for elems in list %}
+        <tr>
+            <td>{{ elems.tribunal_nom }}</td>
+            <td>valeur</td>
+            <td>valeur</td>
+            <td>valeur</td>
+            <td>valeur</td>
+            <td>valeur</td>
+            <td>valeur</td>
+            <td>
+                <a href="tribunal/edit/{{ elems.id }}">
+                    <button>Modifier</button>
+                </a>
+            </td>
+            <td>
+                <a href="tribunal/delete/{{ elems.id }}">
+                    <button>Supprimer</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+<div class="new-button">
+<a href="tribunal/new">
+    <button>Nouveau</button>
+</a>
+</div>
 
 {% endblock %}
