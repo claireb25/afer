@@ -13,31 +13,30 @@ if (isset($_GET['action'])){
         case 'list':
             makeList();            
             break;
+
         case 'new':
-            if (isset($_POST['prefecture_nom']) && (!empty($_POST['prefecture_nom'])) && isset($_POST['autorite_prefecture']) && isset($_POST['service_prefecture']) && (!empty($_POST['service_prefecture'])) && isset($_POST['adresse']) && (!empty($_POST['adresse']))&& isset($_POST['code_postal']) && (!empty($_POST['code_postal']))&& isset($_POST['commune']) && (!empty($_POST['commune']))){
-                addNew($_POST['prefecture_nom'], $_POST['autorite_prefecture'], $_POST['service_prefecture'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune']);
-            } else {
+            if (count($_POST) > 0){
+                addNew($_POST['prefecture_nom'], $_POST['nature_prefecture'], $_POST['autorite_prefecture'], $_POST['service_prefecture'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune']);
+            } 
+            else {
                 showNew();
             }
             break; 
+
         case 'edit':
-            
             if (count($_POST) > 0){
-                if((isset($_POST['edit_prefecture_nom']) && (!empty($_POST['edit_prefecture_nom'])) && isset($_POST['edit_autorite_prefecture']) && (!empty($_POST['edit_autorite_prefecture'])) && isset($_POST['service_prefecture']) && (!empty($_POST['service_prefecture'])) && isset($_POST['adresse']) && (!empty($_POST['adresse'])) && isset($_POST['code_postal']) && (!empty($_POST['code_postal']))&& isset($_POST['commune']) && (!empty($_POST['commune'])))
-                    )
-                {  
-                    update($_POST['edit_prefecture_nom'], $_POST['edit_autorite_prefecture'], $_POST['service_prefecture'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_GET['id']); 
-                    redirectPrefectureList();
-                }
-            } else {
+                update($_POST['edit_prefecture_nom'], $_POST['edit_autorite_prefecture'], $_POST['service_prefecture'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_GET['id']); 
+                redirectPrefectureList();
+            } 
+            else {
                 showEdit($_GET['id']);
             }
-            
             break;
         
         case 'view':
             $view;
             break;
+
         case 'delete':
             deleteElement($_GET['id']);
             break;
