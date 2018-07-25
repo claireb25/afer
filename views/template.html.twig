@@ -22,55 +22,53 @@
         <nav>
             <ul>
                 <li>
-                    <a href="dashboard/view" data-title="A la une">A la une</a>
+                    <a href="dashboard/view" class="bouton-bigmenu" "data-title="A la une">A la une</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-title="Stages">Stages</a>
+                    <a href="javascript:void(0);" class="bouton-bigmenu" data-title="Stages">Stages</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-title="Stagiaire">Stagiaires</a>
+                    <a href="javascript:void(0);" class="bouton-bigmenu" data-title="Stagiaire">Stagiaires</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-title="Animateurs">Animateurs</a>
+                    <a href="javascript:void(0);" class="bouton-bigmenu" data-title="Animateurs">Animateurs</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" class="small-entities" data-title="Réglages">Réglages
+                    <a href="javascript:void(0);" class="bouton-bigmenu small-entities" data-title="Réglages">Réglages
                         <span class="fleche-jaune entypo-down-open "></span>   
                     </a>
                     <div class="list-small-entities">
                         <ul>
                             <li class="cat-entities">Animateur</li>
-                            <ul class="entities">
-                                <li>Statut</li>
-                                <li>Fonction</li>
-                                <li>Forfait</li>
+                            <ul class="entities ">
+                                <li><a href="statutanimateur/list" class="bouton-smallmenu">Statut</a></li>
+                                <li><a href="fonctionanimateur/list" class="bouton-smallmenu">Fonction</a></li>
                             </ul>
-                            <li class="cat-entities">Tribunal</li>
-                            <ul class="entities">
-                                <li>Autorité</li>
-                                <li>Nature</li>
-                                <li>Service</li>
+                            <li class="cat-entities"><a href="tribunal/list" class="bouton-titresmallmenu">Tribunal</a></li>
+                            <ul class="entities ">
+                                <li><a href="autoritetribunal/list" class="bouton-smallmenu">Autorité</a></li>
+                                <li><a href="naturetribunal/list" class="bouton-smallmenu">Nature</a></li>
+                                <li><a href="servicetribunal/list" class="bouton-smallmenu">Service</a></li>
                             </ul>
-                            <li class="cat-entities">Préfecture</li>
+                            <li class="cat-entities"><a href="prefecture/list" class="bouton-titresmallmenu">Préfecture</a></li>
                             <ul class="entities">
-                                <li>Autorité</li>
-                                <li>Nature</li>
-                                <li>Service</li>
+                                <li><a href="autoriteprefecture/list" class="bouton-smallmenu">Autorité</a></li>
+                                <li><a href="serviceprefecture/list" class="bouton-smallmenu">Service</a></li>
                             </ul>
 
                         </ul>
                     </div>
                 </li>
                 <li>
-                    <a href="users/view" data-title="Utilisateurs">Utilisateurs</a>
+                    <a href="users/view " class="bouton-bigmenu" data-title="Utilisateurs ">Utilisateurs</a>
                 </li>
             </ul>
         </nav>
     </header>
     <main>
-        <div class="title">
+        <div class="title ">
             <h2>Outil de gestion</h2>
-            <a href="users/edit/{{user.id}}">Hello {{user.fullName}} !</a>
+            <a href="users/edit/{{user.id}} ">Hello {{user.fullName}} !</a>
         </div>
 
         <section>
@@ -80,10 +78,11 @@
 
 
 
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js " integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin=" anonymous "></script>
+    <script src="assets/js/dashboard.js "></script>
     {% block javascript %} {% endblock %}
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script src="assets/js/dashboard.js"></script>
 </body>
 
 </html>

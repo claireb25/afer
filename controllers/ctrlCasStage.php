@@ -18,8 +18,8 @@ if (isset($_GET['action'])){
             makeList();            
             break;
         case 'new':
-            if (isset($_POST['cas_nom']) && (!empty($_POST['cas_nom'])) && isset($_POST['cas_prix']) && (!empty($_POST['cas_prix'])) && isset($_POST['cas_description']) && (!empty($_POST['cas_description']))  ){
-                addNew($_POST['cas_nom'], $_POST['cas_prix'], $_POST['cas_description']);
+            if (isset($_POST['cas_nom']) && (!empty($_POST['cas_nom'])) && isset($_POST['cas_description']) && (!empty($_POST['cas_description']))  ){
+                addNew($_POST['cas_nom'], $_POST['cas_description']);
             } else {
                 showNew();
             }

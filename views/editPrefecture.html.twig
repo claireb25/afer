@@ -11,24 +11,15 @@
     <label for="edit_prefecture_nom" name="edit_prefecture_nom">Préfecture
     <input type="text" name="edit_prefecture_nom" id="name" value="{{ toEdit.prefecture_nom }}"required></label>
 
-     <select name="edit_nature_prefecture">
-        <option value="edit_nature_prefecture" selected disabled>Nature</option>
-        {% for elem in nature %}
-        <option selected="{{ toEdit.nature_prefecture_id_id }}" value="{{ elem.id }}">{{ elem.nature_nom }}</option>
-        {% endfor %}
-    </select>
-
     <select name="edit_autorite_prefecture">
-        <option value="edit_autorite_prefecture" selected disabled>Autorité</option>   
         {% for elem in autorite %}
-        <option selected="{{ toEdit.autorite_prefecture_id_id }}" value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
+        <option value="{{ elem.id }}" {% if toEdit.autorite_nom == elem.autorite_nom %} selected {% endif %}>{{ elem.autorite_nom }}</option>
         {% endfor %}
     </select>
 
-    <select name="service_prefecture">
-        <option value="service_prefecture" selected disabled>Service</option> 
+    <select name="service_prefecture"> 
         {% for elem in service %}
-        <option selected="{{ toEdit.service_prefecture_id_id }}" value="{{ elem.id }}">{{ elem.service_nom }}</option>
+        <option value="{{ elem.id }}" {% if toEdit.service_nom == elem.service_nom %} selected {% endif %}>{{ elem.service_nom }}</option>
         {% endfor %}
     </select>
    <label for="adresse" name="adresse">Adresse
@@ -39,8 +30,6 @@
 
      <label for="commune" name="commune">Commune
     <input type="text" name="commune" id="commune" value="{{ toEdit.commune }}"required></label>
-
-   {{ toEdit.id }}
 
     <input type="submit" value="Modifier">
 </form>

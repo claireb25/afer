@@ -10,7 +10,7 @@
 
 <ul>
     {% for elems in list %}
-        <li>{{ elems.cas_nom }} {{ elems.cas_prix }}€  {{ elems.cas_description }}  <a href="casstage/edit/{{ elems.id }}"><button>Modifier</button></a>
+        <li>{{ elems.cas_nom }} {{ elems.cas_description }}  <a href="casstage/edit/{{ elems.id }}"><button>Modifier</button></a>
                                     <a href="casstage/delete/{{ elems.id }}"><button>Supprimer</button></a>
         </li>
     {% endfor %}

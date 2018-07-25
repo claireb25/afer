@@ -29,15 +29,7 @@ function editUser( $id ){
     }  
 }
 
-function validForm( $id ){
-    function validForm(){
-        if( testForm( $id ) ){
-            showError();
-        }else{
-            redirectListUser();
-        }
-    }
-}
+
 
 
 function validChamp( $champ ){
@@ -52,12 +44,12 @@ function validChamp( $champ ){
     return $val;
 }
 
- function testForm( $id ){
-     $identifiant = '';
-     $mdp = '';
-     $nom = '';
-     $prenom = '';
-     $test = true;
+function testForm(){
+    $identifiant = '';
+    $mdp = '';
+    $nom = '';
+    $prenom = '';
+    $test = true;
 
 
     $identifiant = validChamp('identifiant');
@@ -69,6 +61,10 @@ function validChamp( $champ ){
         $test = false;
     }
 
+    if( strlen( $mdp ) == 0 ){
+        $test = false;
+    }
+
     if( strlen( $nom ) == 0 ){
         $test = false;
     }
@@ -76,17 +72,16 @@ function validChamp( $champ ){
     if( strlen( $prenom ) == 0 ){
         $test = false;
     }
-    
-    
 
-    if( $test ){        
-        $test = edit(  $id,  $identifiant,  $mdp,  $prenom, $nom  ); 
-        if( $test === true ){
-            $_SESSION['user'] = array('id' => $id, 'identifiant' => $identifiant, 'prenom' => $prenom, 'nom' => $prenom );
-        }       
-    }
-
-   
+    if( $test === true ){
+        $user = getByIdentifiant( $identifiant );
+        if( count( $user[ 0 ] ) === 0 ){
+            $test = create( $identifiant, $mdp, $prenom, $nom );
+        }else{
+            $test = 'exist';
+        }
+    }   
+    
     return $test;
 }
 
@@ -106,21 +101,36 @@ function validChamp( $champ ){
 //     $_SESSION['user'] = $user;
 // }
 
-// function validForm(){
-//     if( testForm() ){
-//         redirectDashboard();
-//     }else{
-//         displayLogin( array('error' => true ) );
-//     }
-// }
+function validForm(){
+    $test = testForm();
+
+    if( $test === true ){
+        redirectDashboardUser();
+    }else if( $test === 'exist' ){
+        $identifiant = validChamp('identifiant');
+        $mdp = validChamp('mdp');
+        $nom = validChamp('nom');
+        $prenom = validChamp('prenom');
+        displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'users' => array( 'identifiant' => '', 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
+    }else{
+        displayLogin( array('error' => true ) );
+    }
+}
 
 function listUser(){
     $user = getList();
     displayViewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), "users" => $user ) );
 }
 
-function redirectListUser(){
-    header('Location: users/view');
+
+function displayNewUser( $args ){    
+    $tpl =  twig();
+    $template = $tpl->load('newUsers.html.twig');
+    echo $template->render( $args );
+}
+
+function redirectDashboardUser(){
+    header('Location: ../users/view');
 }
 
 
@@ -153,6 +163,13 @@ function main(){
                 }
             }else if( $_GET['action'] === 'view' ){
                 listUser();
+            }else if( $_GET['action'] === 'new' ){
+                if( count( $_POST ) > 0 ){
+                    validForm();
+                }else{
+                    displayNewUser(( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ) ) );
+                }
+                
             }
         }else{
             $error = true; 

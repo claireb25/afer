@@ -1,11 +1,10 @@
 <?php 
 require_once("utils/db.php");
 // NEW
-function create($nom, $nature, $autorite, $service, $adr, $cp, $ville){
+function create($nom, $autorite, $service, $adr, $cp, $ville){
     global $db;
-    $response = $db->prepare("INSERT INTO prefecture(prefecture_nature_id_id, autorite_prefecture_id_id, service_prefecture_id_id, prefecture_nom, adresse, code_postal, commune) VALUES(:nature, :autorite, :service, :nom, :adr, :cp, :ville)");
+    $response = $db->prepare("INSERT INTO prefecture(autorite_prefecture_id_id, service_prefecture_id_id, prefecture_nom, adresse, code_postal, commune) VALUES(:autorite, :service, :nom, :adr, :cp, :ville)");
     $response->bindParam(':nom', $nom, PDO::PARAM_STR);
-    $response->bindParam(':nature', $nature, PDO::PARAM_INT);
     $response->bindParam(':autorite', $autorite, PDO::PARAM_INT);
     $response->bindParam(':service', $service, PDO::PARAM_INT);
     $response->bindParam(':adr', $adr, PDO::PARAM_STR);
@@ -17,8 +16,7 @@ function create($nom, $nature, $autorite, $service, $adr, $cp, $ville){
 //LIST
 function listAll(){
     global $db;
-    $response = $db->prepare("SELECT prefecture.id, nature_prefecture.nature_nom, autorite_prefecture.autorite_nom, service_prefecture.service_nom, prefecture_nom, adresse, code_postal, commune FROM `prefecture` 
-    INNER JOIN nature_prefecture ON prefecture.prefecture_nature_id_id = nature_prefecture.id
+    $response = $db->prepare("SELECT prefecture.id, autorite_prefecture.autorite_nom, service_prefecture.service_nom, prefecture_nom, adresse, code_postal, commune FROM `prefecture` 
     INNER JOIN autorite_prefecture ON prefecture.autorite_prefecture_id_id = autorite_prefecture.id
     INNER JOIN service_prefecture ON prefecture.service_prefecture_id_id = service_prefecture.id");
     $response->execute();
@@ -36,24 +34,19 @@ function service(){
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
-function nature(){
-    global $db;
-    $response = $db->prepare("SELECT id, nature_nom FROM nature_prefecture");
-    $response->execute();
-    return $response->fetchAll(PDO::FETCH_ASSOC);
-}
+
 //EDIT
 function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT prefecture.id, prefecture.prefecture_nature_id_id, prefecture.autorite_prefecture_id_id, prefecture.service_prefecture_id_id, prefecture_nom, adresse, code_postal, commune FROM prefecture 
+    $response = $db->prepare("SELECT prefecture.id, autorite_prefecture.autorite_nom ,service_prefecture.service_nom, prefecture_nom, adresse, code_postal, commune FROM prefecture INNER JOIN autorite_prefecture ON prefecture.autorite_prefecture_id_id = autorite_prefecture.id INNER JOIN service_prefecture ON prefecture.service_prefecture_id_id = service_prefecture.id
     WHERE prefecture.id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
-function edit($nom, $nature, $autorite, $srv, $adr, $cp, $ville, $id){
+function edit($nom, $autorite, $srv, $adr, $cp, $ville, $id){
     global $db;
-    $response = $db->prepare("UPDATE prefecture SET prefecture_nature_id_id = :nature,
+    $response = $db->prepare("UPDATE prefecture SET 
     autorite_prefecture_id_id = :autorite,
     service_prefecture_id_id = :srv,
     prefecture_nom = :nom, 
@@ -62,7 +55,6 @@ function edit($nom, $nature, $autorite, $srv, $adr, $cp, $ville, $id){
     commune = :ville 
     WHERE prefecture.id = :id");
     $response->bindParam(':nom', $nom, PDO::PARAM_STR);
-    $response->bindParam(':nature', $nature, PDO::PARAM_INT);
     $response->bindParam(':autorite', $autorite, PDO::PARAM_INT);
     $response->bindParam(':srv', $srv, PDO::PARAM_INT);
     $response->bindParam(':adr', $adr, PDO::PARAM_STR);
