@@ -26,7 +26,7 @@
                     <td class="tbl-col-list" >{{u.identifiant}}</td>
                     <td class="tbl-col-list" >{{u.prenom}}</td>
                     <td class="tbl-col-list" >{{u.nom}}</td>
-                    <td class="tbl-col-list" ><a href="users/edit/{{ u.id }}" class="tbl-link-action"  ></a></td>
+                    <td class="tbl-col-list" ><a href="users/edit/{{ u.id }}" class="tbl-link-edit"  ></a> {% if u.id != user.id %}  <a href="users/delete/{{ u.id }}" class="tbl-link-delete"  ></a>{% endif %}</td>
                 </tr>
 
             {% endfor %}

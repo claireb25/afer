@@ -103,17 +103,18 @@ function testForm(){
 
 function validForm(){
     $test = testForm();
+    $identifiant = validChamp('identifiant');
+    $mdp = validChamp('mdp');
+    $nom = validChamp('nom');
+    $prenom = validChamp('prenom');
 
     if( $test === true ){
         redirectDashboardUser();
     }else if( $test === 'exist' ){
-        $identifiant = validChamp('identifiant');
-        $mdp = validChamp('mdp');
-        $nom = validChamp('nom');
-        $prenom = validChamp('prenom');
+        
         displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'users' => array( 'identifiant' => '', 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
     }else{
-        displayLogin( array('error' => true ) );
+        displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'blank', 'users' => array( 'identifiant' => $identifiant, 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
     }
 }
 
