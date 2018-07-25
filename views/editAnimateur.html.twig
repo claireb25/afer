@@ -20,32 +20,27 @@
     <input type="text" name="prenom" id="prenom" value="{{ toEdit.prenom }}"required></label>
 
      <select name="fonction">
-        {# <option  selected="{{ toEdit.fonction_nom }}" disabled value="{{ toEdit.id }}">{{ toEdit.fonction_nom }}</option> #}
         {% for elem in fonction %}
             <option  value="{{ elem.id }}" {% if toEdit.fonction_nom == elem.fonction_nom %} selected {% endif %} >{{ elem.fonction_nom }}</option>    
         {% endfor %}
         
     </select>
-    {{ toEdit.fonction_nom }}
     <select name="statut">
-        
         {% for elem in statut %}
-
         <option selected="" value="{{ elem.id }}"  {% if toEdit.status_nom == elem.status_nom %} selected {% endif %}>{{ elem.status_nom }}</option>
-        
         {% endfor %}
     </select>
 
     <label for="gta" name="gta">Gestion Technique et Administrative</label>
-    <input type="checkbox" name="gta" id="name">
-    
+    <input type="checkbox" name="gta" id="name" {% if toEdit.gta == 1 %} checked {% endif %}>
+
     <h3>Adresse</h3>
 
     <label for="raison_sociale" name="raison_sociale">Raison sociale
     <input type="text" name="raison_sociale" id="raison_sociale" value="{{ toEdit.raison_sociale }}"></label>
 
     <label for="adresse" name="adresse">Numéro et nom de rue
-    <input type="text" name="adresse" id="adresse" value="{{ toEdit.adresse }}" required></label>
+    <input type="text" name="adresse" id="adresse" value="{{ toEdit.adresse }}"></label>
 
     <label for="code_postal" name="code_postal">Code postal
     <input type="text" name="code_postal" id="code_postal" value="{{ toEdit.code_postal }}"></label>
