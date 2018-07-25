@@ -81,3 +81,12 @@
         
 
     }
+
+
+    function delete( $id ){
+        global $db;
+        $sql = 'delete from user where id = :id';
+        $response = $db->prepare( $sql );
+        $response->bindParam( ':id', $id, PDO::PARAM_STR );
+        return $response->execute();
+    }
