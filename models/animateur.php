@@ -54,10 +54,7 @@ function statut(){
 //EDIT
 function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT animateur.id, civilite.nom , fonction_animateur.fonction_nom, statut_animateur.status_nom, animateur.nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email, urssaf, siret, observations FROM animateur 
-    INNER JOIN civilite ON animateur.civilite_id_id = civilite.id
-    INNER JOIN fonction_animateur ON animateur.fonction_animateur_id_id = fonction_animateur.id 
-    INNER JOIN statut_animateur ON statut_id_id = statut_animateur.id
+    $response = $db->prepare("SELECT animateur.id, animateur.civilite_id_id, civilite.nom, animateur.fonction_animateur_id_id, fonction_animateur.fonction_nom, animateur.statut_id_id, statut_animateur.status_nom, animateur.nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email, urssaf, siret, observations FROM animateur INNER JOIN civilite ON animateur.civilite_id_id = civilite.id INNER JOIN fonction_animateur ON animateur.fonction_animateur_id_id = fonction_animateur.id INNER JOIN statut_animateur ON statut_id_id = statut_animateur.id 
     WHERE animateur.id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
@@ -84,6 +81,8 @@ function edit($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_social
     $response->bindParam(':siret', $siret, PDO::PARAM_STR);
     $response->bindParam(':observations', $observations, PDO::PARAM_STR);
     $response->bindParam(':id', $id, PDO::PARAM_INT);
+    var_dump($civilite);
+    var_dump($nom);
     $response->execute();
     return true; 
 }
