@@ -395,7 +395,7 @@ a:hover {
 
 
 
-/********************************************** Tableau pages /list **************************************/
+/********************************************** Tableau des pages /list **************************************/
 .list-title {
   margin-bottom: 10%;
 }
@@ -455,12 +455,24 @@ a:hover {
   background-color: white;
 }
 
-.title-new-button {
-}
-
 .container-new-button h3 {
   text-transform: uppercase;
   line-height: inherit;
   margin-top: 33px;
   color: #045269;
+}
+
+.circle-button {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  margin: 0.4rem;
+  border-radius: 50%;
+  background-color: #3f424b;
+}
+
+img.test {
+  position: absolute;
+  left: 16px;
+  top: 12px;
 }
