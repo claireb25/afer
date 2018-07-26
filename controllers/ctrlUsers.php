@@ -37,8 +37,8 @@ function validChamp( $champ ){
     $val = '';
 
     if( isset( $_POST[ $champ ] ) ){
-        if( !empty( $_POST[ $champ ] ) ){
-             $val =  htmlentities( trim( $_POST[ $champ ] ) );
+        if( !empty( $_POST[ $champ ] ) ){            
+                $val =  htmlentities( trim(  $_POST[ $champ ]  )  );            
         }
     }
 
@@ -83,10 +83,10 @@ function testForm( $action, $id ){
     if( $test === true ){
 
         $user = getByIdentifiant( $identifiant );
-            if (isset($user[0])){
-                $count = count( $user[0] );
-            }else {
-                $count = count( $user );
+        if (isset($user[0])){
+            $count = count( $user[0] );
+        }else {
+            $count = count( $user );
         }
 
 
@@ -99,9 +99,23 @@ function testForm( $action, $id ){
             }
         }else{
             if( $count === 0 ){
-                $test = edit( $id, $identifiant, $mdp, $prenom, $nom );
+                
             }else{
-                $test = 'exist';
+                if (isset($user[0])){
+                    if( $id != $user[0]['id'] ){
+                        $test = 'exist';
+                        
+                    }else{
+                        $test = edit( $id, $identifiant, $mdp, $prenom, $nom );
+                    }
+                }else {
+                    if( $id != $user['id'] ){
+                        $test = 'exist';
+                        
+                    }else{
+                        $test = edit( $id, $identifiant, $mdp, $prenom, $nom );
+                    }
+                }
             }         
             
         }
@@ -130,11 +144,11 @@ function validForm( $action, $id = '' ){
         if( $action === 'create' ){
             displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'users' => array( 'identifiant' => '', 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
         }else{
-            displayEditUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'users' => array( 'identifiant' => '', 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
+            displayEditUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'users' => array( 'id' => $id, 'identifiant' => $identifiant , 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
         }        
        
     }else{
-        displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'blank', 'users' => array( 'identifiant' => $identifiant, 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
+        displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'blank', 'users' => array(  'identifiant' => $identifiant, 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
     }
 }
 

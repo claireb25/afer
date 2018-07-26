@@ -389,6 +389,14 @@ a:hover {
   display:none;
 }
 
+.upper{
+  text-transform: uppercase;
+}
+
+.capitalize{
+  text-transform: capitalize;
+}
+
 .modal-yesNo{
   text-align : center;
 }
