@@ -30,12 +30,12 @@
             </p>
         </div>
         <div class="form-group">
-            <label for="mdp" class="form-label">Mot de passe *</label>
-            <input type="password"  class="form-input" name="mdp" value="{{ user.mdp | raw }}"/>
+            <label id="mdp-label" for="mdp" class="form-label hidden">Mot de passe *</label>
+            <input type="text"  class="form-input hidden" name="mdp" value="{{ user.mdp | raw }}" id="mdp" /><button type="button" class="modal-btn form-login-button modal-btn-change-pwd" >Modifier le mot de passe</button>
 
         </div>
         <div class="form-group">
-            <label for="prenom" class="form-label">Prénom *</label>
+            <label for="prenom" class="form-label ">Prénom *</label>
             <input type="text" id="prenom"  class="form-input capitalize" name="prenom" value="{{users.prenom | raw}}" />
             <p class="form-msg-error 
             {% if users is defined %} 

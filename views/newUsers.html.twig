@@ -29,7 +29,7 @@
         </div>
         <div class="form-group">
             <label for="mdp" class="form-label">Mot de passe *</label>
-            <input type="password" id="mdp" class="form-input" name="mdp" value="{% if users is defined %}{{ users.mdp | raw }}{% endif %}" />
+            <input type="text" id="mdp" class="form-input" name="mdp" value="{% if users is defined %}{{ users.mdp | raw }}{% endif %}" />
             <p class="form-msg-error 
             {% if users is defined %} 
                 {% if users.mdp != '' %}

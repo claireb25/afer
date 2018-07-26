@@ -20,6 +20,7 @@ if (isset($_GET['action'])){
                 } else {
                     $_POST['hpo'] = 0;
                 }
+                var_dump
                 if ($_POST['lieu_stage_id'] !== 0){
                     addNew($_POST['lieu_stage_id'], $_POST['stage_numero'], $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo']);
                     updateLieuxStage($_POST['lieu_stage_id'], $_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers']);
