@@ -3,39 +3,102 @@
   {% block content %} 
        
     <h1>Ajout d'un utilisateur</h1>
-    <form action="users/new" method="post" class="form">
+    <form action="users/new" method="post" class="form form-user">
         <div class="form-group">
             <label for="identifiant" class="form-label">Identifiant *</label>
-            <input type="text" class="form-input" name="identifiant" value="{% if users is defined %}{{ users.identifiant }}{% endif %}" />
-            <p class="form-msg-error {% if users is not defined %} hidden {% endif %}">{% if users is defined %}Veuillez saisir un autre identifiant. {% else %} Veuillez saisir votre identifiant {% endif %}</p>
+            <input type="text" class="form-input" id="identifiant" name="identifiant" value="{% if users is defined %}{{ users.identifiant }}{% endif %}" />
+            <p class="form-msg-error 
+            {% if users is defined %} 
+                {% if users.identifiant != '' %}
+                    hidden
+                {% endif %}
+            {% else %}
+                hidden             
+            {% endif %}
+            " id="msg-identifiant" >
+                {% if users is defined %} 
+                    {% if error == 'exist' %} 
+                        Veuillez saisir un autre identifiant.
+                    {% else %}
+                        {% if users.identifiant == '' %} 
+                            Veuillez saisir votre identifiant
+                        {% endif %}  
+                    {% endif %}                
+                {% endif %}
+            </p>
         </div>
         <div class="form-group">
             <label for="mdp" class="form-label">Mot de passe *</label>
-            <input type="password" class="form-input" name="mdp" value="{% if users is defined %}{{ users.mdp }}{% endif %}" />
-            <p class="form-msg-error hidden">Veuillez saisir un mot de passe</p>
+            <input type="password" id="mdp" class="form-input" name="mdp" value="{% if users is defined %}{{ users.mdp }}{% endif %}" />
+            <p class="form-msg-error 
+            {% if users is defined %} 
+                {% if users.mdp != '' %}
+                    hidden
+                {% endif %}
+            {% else %}
+                hidden             
+            {% endif %}
+            " id="msg-mdp"  >
+                {% if users is defined %}                   
+                        {% if users.mdp == '' %} 
+                            Veuillez saisir votre mot de passe
+                        {% endif %}                                
+                {% endif %}
+            </p>
         </div>
         <div class="form-group">
             <label for="prenom" class="form-label">Prénom *</label>
-            <input type="text" class="form-input" name="prenom" value="{% if users is defined %}{{ users.prenom }}{% endif %}" />
-            <p class="form-msg-error hidden">Veuillez saisir votre prénom</p>
+            <input type="text" id="prenom" class="form-input" name="prenom" value="{% if users is defined %}{{ users.prenom }}{% endif %}" />
+            <p class="form-msg-error 
+            {% if users is defined %} 
+                {% if users.prenom != '' %}
+                    hidden
+                {% endif %}
+            {% else %}
+                hidden             
+            {% endif %}
+            " id="msg-prenom"  >
+            {% if users is defined %}                   
+                {% if users.prenom == '' %} 
+                    Veuillez saisir votre prénom
+                {% endif %}                                
+            {% endif %}
+            </p>
         </div>
         <div class="form-group">
             <label for="nom" class="form-label">Nom *</label>
-            <input type="text" class="form-input" name="nom" value="{% if users is defined %}{{ users.nom }}{% endif %}" />
-            <p class="form-msg-error hidden">Veuillez saisir votre nom</p>
+            <input type="text" id="nom" class="form-input" name="nom" value="{% if users is defined %}{{ users.nom }}{% endif %}" />
+            <p class="form-msg-error 
+            {% if users is defined %} 
+                {% if users.nom != '' %}
+                    hidden
+                {% endif %}
+            {% else %}
+                hidden             
+            {% endif %}
+            " id="msg-nom"  >
+            {% if users is defined %}                   
+                {% if users.nom == '' %} 
+                    Veuillez saisir votre nom
+                {% endif %}                                
+            {% endif %}
+            </p>
         </div>
         <div class="form-login-group">
             <button class="form-login-button">Valider</button>
         </div>
     </form>
     {% if error is defined %}
-        {%if error == 'exist' %}
-            <div class="boxOverlay" >
-                <div class="modal fas fa-exclamation-triangle">
-                <p class="modal-message">L'identifiant éxiste déjà dans la table Utilisateurs.</p>
-                <button type="button" class="modal-btn form-login-button" >OK</button>
+        <div class="boxOverlay" >
+            <div class="modal fas fa-exclamation-triangle">
+                {%if error == 'exist' %}           
+                    <p class="modal-message">L'identifiant éxiste déjà dans la table Utilisateurs.</p> 
+                {% else %}         
+                    <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                {% endif %}
+                <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
             </div>
-        {% endif %}
+        </div>
     {% endif %}
   {% endblock %}
 

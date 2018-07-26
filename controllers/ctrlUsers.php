@@ -22,9 +22,10 @@ function editUser( $id ){
     }else{
         if( !empty( $id ) ){
             $id = ( int ) $id;
-            displayEditUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ) );
+            $user = getById( $id );
+            displayEditUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), "users" => $user ) );
         }else{
-            showError();
+            redirectDashboardUser();
         }      
     }  
 }
@@ -85,35 +86,26 @@ function testForm(){
     return $test;
 }
 
-// function verifIdentity( $identifiant, $mdp ){
-//     $state = true;
-//     $user = getLogin(  $identifiant, $mdp );
-//     if( $user  !== false ){
-//         startSession( $user );        
-//     }else{
-//         $state = false;
-//     }
-//     return $state;
-// }
-
-// function startSession( $user ){
-//     session_start();
-//     $_SESSION['user'] = $user;
-// }
+function deleteUser( $id ){
+    delete( $id );   
+    header('Location: ../../users/view');
+    
+}
 
 function validForm(){
     $test = testForm();
+    $identifiant = validChamp('identifiant');
+    $mdp = validChamp('mdp');
+    $nom = validChamp('nom');
+    $prenom = validChamp('prenom');
 
     if( $test === true ){
         redirectDashboardUser();
     }else if( $test === 'exist' ){
-        $identifiant = validChamp('identifiant');
-        $mdp = validChamp('mdp');
-        $nom = validChamp('nom');
-        $prenom = validChamp('prenom');
+        
         displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'users' => array( 'identifiant' => '', 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
     }else{
-        displayLogin( array('error' => true ) );
+        displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'blank', 'users' => array( 'identifiant' => $identifiant, 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
     }
 }
 
@@ -170,6 +162,17 @@ function main(){
                     displayNewUser(( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ) ) );
                 }
                 
+            }else if( $_GET['action'] === 'delete'){
+                if(  isset( $_GET['id'] )  ){
+                    if( !empty( $_GET['id'] ) ){
+                        $id = (int) $_GET['id'];
+                        deleteUser( $id );
+                    }else{
+                        $error = true;
+                    }
+                }else{
+                    $error = true;
+                }
             }
         }else{
             $error = true; 
@@ -179,7 +182,7 @@ function main(){
     }
 
     if( $error === true ){
-        showError();
+        redirectDashboardUser();
     }
 }
 

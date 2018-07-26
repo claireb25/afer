@@ -50,9 +50,10 @@ function makeList(){
     global $twig;
     $template = $twig->load('indexTribunal.html.twig');
     echo $template->render(array('list'=>$list));
+
 }
 // NEW
-function addNew($tribunal_nom, $nature_tribunal, $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune){
+function addNew($tribunal_nom, $nature_tribunal, $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune){ //adds a new tribunal
     $nom = htmlentities($tribunal_nom);
     $nature = (int)$nature_tribunal;
     $autorite = (int)$autorite_tribunal;

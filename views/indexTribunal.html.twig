@@ -3,10 +3,12 @@
 
 
 <h1 class="list-title">Liste des tribunaux</h1>
-<div class="new-button">
-    <a href="tribunal/new">
-        <button>Nouveau</button>
+<div class="container-new-button">
+    <a class="new-button plus" href="tribunal/new">
+        <span class="bg" id="plus"></span>
+        <span class="symbol"></span>
     </a>
+    <p class="title-new-button"><h3>Nouveau</h3></p>
 </div>
 <section class="list-table">
     <table>
@@ -24,12 +26,12 @@
         {% for elems in list %}
         <tr>
             <td>{{ elems.tribunal_nom }}</td>
-            <td>valeur</td>
-            <td>valeur</td>
-            <td>valeur</td>
-            <td>valeur</td>
-            <td>valeur</td>
-            <td>valeur</td>
+            <td>{{ elems.nature_nom}}</td>
+            <td> {{ elems.autorite_nom }}</td>
+            <td>{{ elems.service_nom }}</td>
+            <td>{{ elems.adresse }}</td>
+            <td>{{ elems.code_postal }}</td>
+            <td>{{ elems.commune }}</td>
             <td>
                 <a href="tribunal/edit/{{ elems.id }}">
                     <button>Modifier</button>
@@ -44,10 +46,12 @@
         {% endfor %}
     </table>
 </section>
-<div class="new-button">
-<a href="tribunal/new">
-    <button>Nouveau</button>
-</a>
+<div class="container-new-button">
+    <a class="new-button plus" href="tribunal/new">
+        <span class="bg" id="plus"></span>
+        <span class="symbol"></span>
+    </a>
+    <p class="title-new-button"><h3>Nouveau</h3></p>
 </div>
 
 {% endblock %}

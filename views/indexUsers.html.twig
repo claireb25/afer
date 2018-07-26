@@ -26,12 +26,24 @@
                     <td class="tbl-col-list" >{{u.identifiant}}</td>
                     <td class="tbl-col-list" >{{u.prenom}}</td>
                     <td class="tbl-col-list" >{{u.nom}}</td>
-                    <td class="tbl-col-list" ><a href="users/edit/{{ u.id }}" class="tbl-link-action"  ></a></td>
+                    <td class="tbl-col-list" ><a href="users/edit/{{ u.id }}" class="tbl-link-edit"  ></a> {% if u.id != user.id %}  <a href="users/delete/{{ u.id }}" class="tbl-link-delete"  ></a>{% endif %}</td>
                 </tr>
 
             {% endfor %}
         </tbody>
     </table>
-    <a href="users/new" class="btn-link"  >Ajouter</a>     
+    <a href="users/new" class="btn-link"  >Ajouter</a>  
+
+    <div class="boxOverlay hidden " >
+        <div class="modal modal-yesNo fas fa-exclamation-triangle">                   
+            <p class="modal-message">Êtes-vous sûre de vouloir supprimmer l'utilisateur.</p>                 
+            <button type="button"  data-link="" onclick="deleteUser()" class="modal-btn form-login-button modal-btn--inline modal-btn-yes"  >Oui</button> <button type="button" class="modal-btn form-login-button modal-btn--inline modal-btn-no" > Non</button>
+        </div>
+    </div>
+
   {% endblock %}
+
+ {% block javascript %} 
+    <script src="assets/js/app.js" ></script>
+ {% endblock %}
 
