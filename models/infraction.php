@@ -2,21 +2,25 @@
 require_once("utils/db.php");
 
 // NEW
-function create($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet){
+function create($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $stagiaire){
     global $db;
-    var_dump($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet);
-    $response = $db->prepare("INSERT INTO infraction(tribunal_id_id, date_infraction, heure_infraction, lieu_infraction, numero_parquet) VALUES(:tribunal, :dateInfraction, :heureInfraction, :lieuInfraction, :numeroParquet)");
+    $response = $db->prepare("INSERT INTO infraction(tribunal_id_id, date_infraction, heure_infraction, lieu_infraction, numero_parquet, stagiaire_id) VALUES(:tribunal, :dateInfraction, :heureInfraction, :lieuInfraction, :numeroParquet, :stagiaire)");
     $response->bindParam(':tribunal', $tribunal, PDO::PARAM_INT);
     $response->bindParam(':dateInfraction', $dateInfraction, PDO::PARAM_STR);
     $response->bindParam(':heureInfraction', $heureInfraction, PDO::PARAM_STR);
     $response->bindParam(':lieuInfraction', $lieuInfraction, PDO::PARAM_STR);
     $response->bindParam(':numeroParquet', $numeroParquet, PDO::PARAM_STR);
+    $response->bindParam(':stagiaire', $stagiaire, PDO::PARAM_INT);
     $response->execute();
     return true; 
 }
 
 function createLiaisonTypeInfraction($idInfraction, $idTypeInfraction){
     global $db;
+    
+    var_dump($idInfraction);
+    echo('</br>');
+    var_dump($idTypeInfraction);echo('</br>');echo('</br>');
     $response = $db->prepare("INSERT INTO infraction_type_infraction(infraction_id, type_infraction_id) VALUES(:idInfraction, :idType)");
     $response->bindParam(':idInfraction', $idInfraction, PDO::PARAM_INT);
     $response->bindParam(':idType', $idTypeInfraction, PDO::PARAM_INT);
@@ -28,14 +32,22 @@ function createLiaisonTypeInfraction($idInfraction, $idTypeInfraction){
 function listAll(){
     global $db;
     $response = $db->prepare("SELECT * FROM `infraction` 
-    INNER JOIN tribunal ON infraction.tribunal_id_id = tribunal.id");
+    INNER JOIN tribunal.tribunal_nom ON infraction.tribunal_id_id = tribunal.id      
+    INNER JOIN stagiaire.nom, stagiaire.prenom ON infraction.stagiaire_id = stagiaire.id");
+    $response->execute();
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function stagiaire(){
+    global $db;
+    $response = $db->prepare("SELECT * FROM stagiaire");
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function tribunal(){
     global $db;
-    $response = $db->prepare("SELECT id, tribunal_nom FROM tribunal");
+    $response = $db->prepare("SELECT * FROM tribunal");
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -101,8 +113,8 @@ function edit($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $nu
 //DELETE
 function delete($id){
     global $db;
-    $response = $db->prepare("DELETE FROM infraction
-    WHERE id = :id");
+    $response = $db->prepare("DELETE FROM infraction, infraction_type_infraction 
+    WHERE infraction.id = :id AND infraction_type_infraction.infraction_id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return true; 
