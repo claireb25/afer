@@ -9,10 +9,42 @@ function create($lieu_stage, $stage_numero, $date_debut, $date_fin, $stage_hpo){
     $response->bindParam(':date_debut', $date_debut, PDO::PARAM_STR);
     $response->bindParam(':stage_hpo', $stage_hpo, PDO::PARAM_BOOL);
     $response->bindParam(':date_fin', $date_fin, PDO::PARAM_STR);
- 
     $response->execute();
     return true; 
 }
+function createStage($lieu_stage_nom, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers){
+    global $db;
+    $response = $db->prepare("INSERT INTO lieu_stage(lieu_nom, etablissement_nom, adresse, code_postal, commune, tel, latitude, longitude, divers) VALUES(:lieu_stage_nom, :etablissement_nom, :adresse, :code_postal, :commune, :tel, :latitude, :longitude, :divers");
+    $response->bindParam(':lieu_stage_nom', $lieu_stage_nom, PDO::PARAM_STR);
+    $response->bindParam(':etablissement_nom', $etablissement_nom, PDO::PARAM_STR);
+    $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
+    $response->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
+    $response->bindParam(':commune', $commune, PDO::PARAM_STR);
+    $response->bindParam(':tel', $tel, PDO::PARAM_STR);
+    $response->bindParam(':latitude', $latitude, PDO::PARAM_STR);
+    $response->bindParam(':longitude', $longitude, PDO::PARAM_STR);
+    $response->bindParam(':divers', $divers, PDO::PARAM_STR);
+    $response->execute();
+    return $response->lastInsertId();
+}
+function updateLieux($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers){
+    global $db;
+        $response = $db->prepare("UPDATE lieu_stage SET lieu_nom = :lieu_nom, etablissement_nom = :etablissement_nom, adresse = :adresse, code_postal = :code_postal, commune = :commune, tel = :tel, latitude = :latitude, longitude = :longitude, divers = :divers WHERE id = :id");
+        $response->bindParam(':lieu_nom', $lieu_stage, PDO::PARAM_STR);
+        $response->bindParam(':etablissement_nom', $etablissement_nom, PDO::PARAM_STR);
+        $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
+        $response->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
+        $response->bindParam(':commune', $commune, PDO::PARAM_STR);
+        $response->bindParam(':tel', $tel, PDO::PARAM_STR);
+        $response->bindParam(':latitude', $latitude, PDO::PARAM_STR);
+        $response->bindParam(':longitude', $longitude, PDO::PARAM_STR);
+        $response->bindParam(':divers', $divers, PDO::PARAM_STR);
+        $response->bindParam(':id', $lieu_id, PDO::PARAM_INT);
+        var_dump($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers);
+        $response->execute();
+        return true; 
+}
+
 //LIST
 function listAll(){
     global $db;
@@ -20,6 +52,7 @@ function listAll(){
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
+
 function listLieux($keyword){
     global $db;
     $response = $db->prepare("SELECT * FROM lieu_stage WHERE lieu_nom LIKE :keyword");
