@@ -45,7 +45,7 @@ function validChamp( $champ ){
     return $val;
 }
 
-function testForm(){
+function testForm( $action ){
     $identifiant = '';
     $mdp = '';
     $nom = '';
@@ -54,7 +54,11 @@ function testForm(){
 
 
     $identifiant = validChamp('identifiant');
-    $mdp = validChamp('mdp');
+
+    if( $action === 'create'){
+        $mdp = validChamp('mdp');
+    }
+    
     $nom = validChamp('nom');
     $prenom = validChamp('prenom');
     
@@ -62,8 +66,10 @@ function testForm(){
         $test = false;
     }
 
-    if( strlen( $mdp ) == 0 ){
-        $test = false;
+    if( $action === 'create'){
+        if( strlen( $mdp ) == 0 ){
+            $test = false;
+        }
     }
 
     if( strlen( $nom ) == 0 ){
@@ -75,17 +81,21 @@ function testForm(){
     }
 
     if( $test === true ){
-        $user = getByIdentifiant( $identifiant );
-        if (isset($user[0])){
-            $count = count( $user[0] );
-        }else {
-            $count = count( $user );
+
+        if( $action === 'create' ){
+            $user = getByIdentifiant( $identifiant );
+            if (isset($user[0])){
+                $count = count( $user[0] );
+            }else {
+                $count = count( $user );
+            }
+            if( $count === 0 ){
+                $test = create( $identifiant, $mdp, $prenom, $nom );
+            }else{
+                $test = 'exist';
+            }
         }
-        if( $count === 0 ){
-            $test = create( $identifiant, $mdp, $prenom, $nom );
-        }else{
-            $test = 'exist';
-        }
+        
     }   
     
     return $test;
@@ -97,12 +107,12 @@ function deleteUser( $id ){
     
 }
 
-function validForm(){
-    $test = testForm();
-    $identifiant = validChamp('identifiant');
-    $mdp = validChamp('mdp');
-    $nom = validChamp('nom');
-    $prenom = validChamp('prenom');
+function validForm( $action ){
+    $test = testForm( $action );
+    $identifiant = html_entity_decode( validChamp('identifiant') );
+    $mdp = html_entity_decode( validChamp('mdp') );
+    $nom = html_entity_decode( validChamp('nom') );
+    $prenom = html_entity_decode( validChamp('prenom') );
 
     if( $test === true ){
         redirectDashboardUser();
@@ -116,6 +126,7 @@ function validForm(){
 
 function listUser(){
     $user = getList();
+
     displayViewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), "users" => $user ) );
 }
 
@@ -151,7 +162,11 @@ function main(){
                 if(  isset( $_GET['id'] )  ){
                     if( !empty( $_GET['id'] ) ){
                         $id = (int) $_GET['id'];
-                        editUser( $id );
+                        if( count( $_POST ) > 0 ){
+                            validForm('edit');
+                        }else{
+                            editUser( $id );
+                        }
                     }else{
                         $error = true;
                     }
@@ -162,7 +177,7 @@ function main(){
                 listUser();
             }else if( $_GET['action'] === 'new' ){
                 if( count( $_POST ) > 0 ){
-                    validForm();
+                    validForm('create');
                 }else{
                     displayNewUser(( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ) ) );
                 }
