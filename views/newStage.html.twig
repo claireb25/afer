@@ -1,0 +1,68 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+<article class="form">
+<form action="stage/new" method="post" class="form">
+  {# <div class="form-example"> #}
+
+<h4> Stage </h4>
+    <label for="stage_numero" name="stage_numero">Numéro de Stage
+    <input type="text" name="stage_numero" id="name" required></label>
+
+    <label for="date_debut" name="date_debut">Date de début
+    <input type="date" name="date_debut"></label>
+
+    <label for="date_fin" name="date_fin">Date de fin
+    <input type="date" name="date_fin"></label>
+
+    <label for="hpo" name="hpo">Stage hors programme officiel
+    <input type="checkbox" name="hpo"></label>
+
+<div>
+<h3> Lieu de Stage 
+  <span class="entypo-down-open"></span>
+</h3>
+<div>
+   
+    
+    <div id="input_lieu">
+        <label  for="lieu_stage_nom" name="lieu_stage_nom">Lieu de Stage
+        <input id="lieu_stage" type="text" name="lieu_stage_nom"></label>
+        <input id="lieu_stage_hidden" name="lieu_stage_id" type="hidden" value="">
+        
+        <ul id="lieu_stage_list"></ul>
+    </div>
+
+    <label for="etablissement_nom" name="etablissement_nom">Nom de l'établissement : 
+    <input id="etablissement_nom" type="text" name="etablissement_nom"></label>
+
+    
+
+    <label for="adresse" name="adresse">Adresse :
+    <input id="adresse" type="text" name="adresse"></label> 
+
+    <label for="code_postal" name="code_postal">Code postal :
+    <input id="code_postal" type="text" name="code_postal"></label> 
+
+    <label for="commune" name="commune">Commune :
+    <input id="commune" type="text" name="commune"></label> 
+
+    <label for="tel" name="tel">Téléphone :
+    <input id="tel" type="text" name="tel"></label>
+
+    <label for="latitude" name="latitude">Latitude :
+    <input id="latitude" type="text" name="latitude"></label>
+
+    <label for="longitude" name="longitude">Longitude :
+    <input id="longitude" type="text" name="longitude"></label>
+
+    <label for="divers" name="divers">Divers :
+    <input id="divers" type="text" name="divers"></label>
+
+</div>
+    <input type="submit" value="Envoyer">
+</div>
+</form>
+</article>
+
+{% endblock %}

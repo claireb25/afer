@@ -1,0 +1,39 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Muli);
+@import url('entypo.css');
+.form {
+    max-width: 100%;
+    margin: 30px auto;
+    padding: 0 30px;
+  }
+/*   
+  .form div {
+    background-color: #F7F7F7;
+    border: 1px solid #E2E2E2;
+    padding: 0 20px;
+    margin: 15px 0;
+  } */
+  
+  /* .form div:hover {
+    background-color: #fafafa;
+  }
+   */
+  .form div h3 span {
+    font-family: 'entypo';
+    font-size: 19px;
+    position: absolute;
+    right: 0;
+    transition: all .6s;
+  }
+  
+  .larg div h3 span.close {
+    -webkit-transform: rotate(180deg);
+    transition: all .5s;
+  }
+  
+  /* .form div div {
+    display: none;
+    margin-left: 10px;
+    padding: 0 15px;
+    border-left: 1px solid #ccc;
+  } */
