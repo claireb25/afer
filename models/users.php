@@ -66,6 +66,14 @@
         return $response->fetchAll( PDO::FETCH_ASSOC );
     }
 
+    function getById( $id ){
+        global $db;
+        $sql = 'select id, identifiant, prenom, nom from user where id = :id ';
+        $response = $db->prepare( $sql );
+        $response->bindParam(':id', $id, PDO::PARAM_INT);
+        $response->execute();
+        return $response->fetch( PDO::FETCH_ASSOC );
+    }
 
     function create( $identifiant, $mdp, $prenom, $nom ){
         global $db, $salt;
