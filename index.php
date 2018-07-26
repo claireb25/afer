@@ -107,6 +107,10 @@
             require('controllers/ctrlInfraction.php');
             break;
 
+        case "stage":
+            require('controllers/ctrlStage.php');
+            break;
+            
         default :
             require('controllers/ctrl404.php');
             break;
