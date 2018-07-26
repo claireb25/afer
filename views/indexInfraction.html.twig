@@ -10,7 +10,7 @@
 
 <ul>
     {% for elmt in list %}
-        <li>{{ elmt.prenom }} {{ elmt.nom }} {{ elmt.tribunal_nom }} {{ elmt.date_infraction }} {{ elmt.heure_infraction }} {{ elmt.lieu_infraction }} {{ elmt.numero_parquet }}
+        <li>{{ elmt.prenom }} {{ elmt.nom }} {{ elmt.tribunal_nom }} {{ elmt.date_infraction }} {{ elmt.heure_infraction }} {{ elmt.lieu_infraction }} {{ elmt.numero_parquet }} 
             <a href="infraction/edit/{{ elmt.id }}"><button>Modifier</button></a>
             <a href="infraction/delete/{{ elmt.id }}"><button>Supprimer</button></a>
         </li>

@@ -105,6 +105,10 @@
             require('controllers/ctrlInfraction.php');
             break;
 
+        case "stagiaire":
+            require("controllers/ctrlStagiaire.php");
+            break;
+
         default :
             require('controllers/ctrl404.php');
             break;

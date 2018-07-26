@@ -50,7 +50,7 @@ if (isset($_GET['action'])){
 function makeList(){
     $list = listAll();
     global $twig;
-    $template = $twig->load('indexInfraction.html.twig');
+    $template = $twig->load('indexStagiaire.html.twig');
     echo $template->render(array('list'=>$list));
 }
 
@@ -86,7 +86,7 @@ function showEdit($id){
     $stagiaire = stagiaire();
     $tribunal = tribunal();
     $typeInfraction = typeInfraction();
-    $typeInfractionLiaison = typeInfractionLiaison($id);
+    $typeInfractionLiaison = typeInfractionLiaisonByID($id);
     global $twig;
     $template = $twig->load('editInfraction.html.twig');
     echo $template->render(array('infraction'=>$infraction, 'tribunal'=>$tribunal, 'stagiaire'=>$stagiaire, 'typeInfraction'=>$typeInfraction, 'typeInfractionLiaison'=>$typeInfractionLiaison));
