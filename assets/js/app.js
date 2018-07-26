@@ -87,17 +87,17 @@ function userForm( action ){
             document.querySelector('#msg-nom').innerHTML = "";
         }
 
-        // if( test === true ){
+        if( test === true ){
         //     formUser.submit();
-        //  }else{
-        //     html = '<div class="boxOverlay" >';
-        //     html += '<div class="modal fas fa-exclamation-triangle">';
-        //     html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
-        //     html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
-        //     html += '</div>';
-        //     html += '</div>';
-        //     document.querySelector('#alertUser').innerHTML =   html;
-        // }
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
+        }
     });
 }
 
