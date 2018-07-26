@@ -11,7 +11,7 @@
      <select name="tribunal">
         <option value="edit_tribunal" selected disabled>Tribunal</option>
         {% for elem in tribunal %}
-        <option selected="{{ toEdit.tribunal_id_id }}" value="{{ elem.id }}">{{ elem.tribunal_nom }}</option>
+            <option selected="{{ toEdit.tribunal_id_id }}" value="{{ elem.id }}">{{ elem.tribunal_nom }}</option>
         {% endfor %}
     </select>
 
@@ -26,12 +26,6 @@
 
     <label for="numero_parquet" name="numero_parquet">Numero de parquet
     <input type="text" name="numero_parquet" value="{{ toEdit.numero_parquet }}"></label>
-
-    <label for="conduite_sans_permis" name="conduite_sans_permis">Conduite sans permis
-    <input type="text" name="conduite_sans_permis" value="{{ toEdit.conduite_sans_permis }}"></label>
-
-    <label for="conduite_sans_assurance" name="conduite_sans_assurance">Conduite sans assurance
-    <input type="text" name="conduite_sans_assurance" value="{{ toEdit.conduite_sans_assurance }}"></label>
 
     <input type="submit" value="Modifier">
 </form>

@@ -16,9 +16,9 @@ if (isset($_GET['action'])){
 
         case 'new':
             if (count($_POST) > 0){
-                addNew($_POST['tribunal'], $_POST['date_infraction'], $_POST['heure_infraction'], $_POST['lieu_infraction'], $_POST['numero_parquet']);
-                // addNewLiaison($_POST['numero_parquet']);
-                // redirectList();
+                addNew($_POST['tribunal'], $_POST['date_infraction'], $_POST['heure_infraction'], $_POST['lieu_infraction'], $_POST['numero_parquet'], $_POST['stagiaire']);
+                addNewLiaison($_POST['numero_parquet']);
+                //redirectList();
             } 
             else {
                 showNew();
@@ -40,7 +40,8 @@ if (isset($_GET['action'])){
             break;
 
         case 'delete':
-            deleteElement($_GET['id']);
+            delete($_GET['id']);
+            //redirectList();
             break;
     }
 }
@@ -48,16 +49,17 @@ if (isset($_GET['action'])){
 // LIST
 function makeList(){
     $list = listAll();
+    var_dump($list);
     global $twig;
-    $template = $twig->load('indexInfraction.html.twig');
+    $template = $twig->load('test.html.twig');
     echo $template->render(array('list'=>$list));
 }
 
 // NEW
-function addNew($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet){
+function addNew($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $stagiaire){
     $lieuInfraction = htmlentities($lieuInfraction);
     $numeroParquet = htmlentities($numeroParquet);
-    create($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet);
+    create($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $stagiaire);
 }
 
 function addNewLiaison($numeroParquet){
@@ -65,17 +67,18 @@ function addNewLiaison($numeroParquet){
     $idInfraction = getIdByNP($numeroParquet);
     foreach($typeInfraction as $value){
         if (isset($_POST[$value['type_infraction_nom']])){
-            createLiaisonTypeInfraction($idInfraction, $_POST[$value['type_infraction_nom']]);
+            createLiaisonTypeInfraction($idInfraction['id'], $_POST[$value['type_infraction_nom']]);
         }
     }
 }
 
 function showNew(){
+    $stagiaire = stagiaire();
     $tribunal = tribunal();
     $typeInfraction = typeInfraction();
     global $twig;
     $template = $twig->load('newInfraction.html.twig');
-    echo $template->render(array('tribunal'=>$tribunal, 'typeInfraction'=>$typeInfraction));
+    echo $template->render(array('stagiaire'=>$stagiaire, 'tribunal'=>$tribunal, 'typeInfraction'=>$typeInfraction));
 }
 
 //EDIT 
@@ -103,7 +106,6 @@ function update($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
-    redirectList();
 }
 
 // REDIRECTIONS
