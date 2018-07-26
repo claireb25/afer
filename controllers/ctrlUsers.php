@@ -76,7 +76,12 @@ function testForm(){
 
     if( $test === true ){
         $user = getByIdentifiant( $identifiant );
-        if( count( $user[ 0 ] ) === 0 ){
+        if (isset($user[0])){
+            $count = count( $user[0] );
+        }else {
+            $count = count( $user );
+        }
+        if( $count === 0 ){
             $test = create( $identifiant, $mdp, $prenom, $nom );
         }else{
             $test = 'exist';
