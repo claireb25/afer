@@ -1,6 +1,6 @@
 function main(){
 
-  if( document.querySelector('.modal-btn-ok') !== null ){
+  if( document.querySelector('.modal-btn-ok') !== null ){      
       closeModal();
   }
 
@@ -8,8 +8,12 @@ function main(){
     closeModal();
   }
 
-  if( document.querySelector('.form-user') !== null ){
-     userForm();
+  if( document.querySelector('.form-user-create') !== null ){
+    userForm( 'create');
+  }
+
+  if( document.querySelector('.form-user-edit') !== null ){
+    userForm( 'edit');
   }
 
   
@@ -38,13 +42,12 @@ function closeModal(){
 }
 
 
-function userForm(){
+function userForm( action ){
     formUser = document.querySelector( '.form-user' );
-
     formUser.addEventListener('submit', ( e ) =>{
         e.preventDefault();
         test = true;
-
+        console.log( true );
         if( document.querySelector('#identifiant').value.trim().length === 0 ){
             document.querySelector('#msg-identifiant').classList.remove( 'hidden');
             document.querySelector('#msg-identifiant').innerHTML = "Veuillez saisir le champ identifiant";
@@ -54,14 +57,17 @@ function userForm(){
             document.querySelector('#msg-identifiant').innerHTML = "";
         }
 
-        if( document.querySelector('#mdp').value.trim().length === 0 ){
-            document.querySelector('#msg-mdp').classList.remove( 'hidden');
-            document.querySelector('#msg-mdp').innerHTML = "Veuillez saisir le champ mot de passe";
-            test = false;
-        }else{
-            document.querySelector('#msg-mdp').classList.add( 'hidden');
-            document.querySelector('#msg-mdp').innerHTML = "";
+        if( action === 'create'){
+            if( document.querySelector('#mdp').value.trim().length === 0 ){
+                document.querySelector('#msg-mdp').classList.remove( 'hidden');
+                document.querySelector('#msg-mdp').innerHTML = "Veuillez saisir le champ mot de passe";
+                test = false;
+            }else{
+                document.querySelector('#msg-mdp').classList.add( 'hidden');
+                document.querySelector('#msg-mdp').innerHTML = "";
+            }
         }
+        
 
         if( document.querySelector('#prenom').value.trim().length === 0 ){
             document.querySelector('#msg-prenom').classList.remove( 'hidden');
@@ -82,17 +88,17 @@ function userForm(){
         }
 
         if( test === true ){
-            formUser.submit();
-        }else{
+        //     formUser.submit();
+          }else{
             html = '<div class="boxOverlay" >';
             html += '<div class="modal fas fa-exclamation-triangle">';
             html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
-            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button modal-btn-ok" >OK</button>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
             html += '</div>';
             html += '</div>';
-            document.querySelector('body').innerHTML =  document.querySelector('body').innerHTML + html
+            document.querySelector('#alertUser').innerHTML =   html;
         }
-    })
+    });
 }
 
 
