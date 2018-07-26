@@ -76,7 +76,13 @@ function typeInfractionByID($infractionID){
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function typeInfractionLiaison($id){
+function typeInfractionLiaison(){
+    global $db;
+    $response = $db->prepare("SELECT * FROM infraction_type_infraction");
+    $response->execute();
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+}
+function typeInfractionLiaisonByID($id){
     global $db;
     $response = $db->prepare("SELECT * FROM infraction_type_infraction WHERE infraction_id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);

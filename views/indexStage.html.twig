@@ -1,0 +1,21 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+	
+
+<h1>Liste des stages</h1>
+
+<a href="stage/new"><button>Nouveau</button></a>
+
+<ul>
+    {% for elems in list %}
+        <li> {{ elems.stage_numero }} <a href="stage/edit/{{ elems.id }}"><button>Modifier</button></a>
+                                    <a href="stage/delete/{{ elems.id }}"><button>Supprimer</button></a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="stage/new"><button>Nouveau</button></a>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Nouveau stagiaire : </h1>
+
+
+<form action="stagiaire/new" method="post" class="form">
+  <div class="form-example">
+
+     <select name="civilite">
+        <option value="civilite" selected disabled>Civilité</option>
+        {% for elmt in civilite %}
+            <option value="{{ elmt.id }}">{{ elmt.nom }}</option>
+        {% endfor %}
+    </select>
+
+   <label for="nom" name="nom">Nom
+    <input type="text" name="nom"></label>
+
+    <label for="nom_naissance" name="nom_naissance">Nom de naissance
+    <input type="text" name="nom_naissance"></label>
+
+     <label for="prenom" name="prenom">Prénom
+    <input type="text" name="prenom"></label>
+
+    <label for="date_naissance" name="date_naissance">Date de naissance
+    <input type="date" name="date_naissance"></label>
+
+    <label for="lieu_naissance" name="lieu_naissance">Lieu de naissance
+    <input type="text" name="lieu_naissance"></label>
+
+    <label for="adresse" name="adresse">Adresse
+    <input type="text" name="adresse"></label>
+
+    <label for="code_postal" name="code_postal">Code Postal
+    <input type="text" name="code_postal"></label>
+
+    <label for="commune" name="commune">Commune
+    <input type="text" name="commune"></label>
+
+    <label for="pays" name="pays">Pays
+    <input type="text" name="pays"></label>
+
+    <label for="tel_portable" name="tel_portable">téléphone portable
+    <input type="text" name="tel_portable"></label>
+
+    <label for="tel_fixe" name="tel_fixe">Téléphone fixe
+    <input type="text" name="tel_fixe"></label>
+
+    <label for="email" name="email">Email
+    <input type="email" name="email"></label>
+
+    <label for="carte_avantage_jeunes" name="carte_avantage_jeunes">Carte avantages jeunes
+    <input type="checkbox" name="carte_avantage_jeunes"></label>
+
+    <label for="partenaires" name="partenaires">Partenaires
+    <input type="checkbox" name="partenaires"></label>
+
+    <label for="adherents" name="adherents">Adhérents
+    <input type="checkbox" name="adherents"></label>
+
+    <input type="submit" value="Valider">
+</form>
+
+{% endblock %}
