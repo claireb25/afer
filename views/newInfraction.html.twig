@@ -8,10 +8,17 @@
 <form action="infraction/new" method="post" class="form">
   <div class="form-example">
 
-     <select name="tribunal">
-        <option value="edit_tribunal" selected disabled>Tribunal</option>
-        {% for elem in tribunal %}
-        <option selected="{{ toEdit.tribunal_id_id }}" value="{{ elem.id }}">{{ elem.tribunal_nom }}</option>
+     <select name="stagiaire">
+        <option value="stagiaire" selected disabled>Stagiaire</option>
+        {% for elmt in stagiaire %}
+            <option value="{{ elmt.id }}">{{ elmt.prenom }} {{ elmt.nom }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="tribunal">
+        <option value="tribunal" selected disabled>Tribunal</option>
+        {% for elmt in tribunal %}
+            <option value="{{ elmt.id }}">{{ elmt.tribunal_nom }}</option>
         {% endfor %}
     </select>
 
@@ -34,12 +41,6 @@
 
     <label for="numero_parquet" name="numero_parquet">Numero de parquet
     <input type="text" name="numero_parquet"></label>
-
-    <!-- <label for="conduite_sans_permis" name="conduite_sans_permis">Conduite sans permis
-    <input type="checkbox" name="conduite_sans_permis"></label>
-
-    <label for="conduite_sans_assurance" name="conduite_sans_assurance">Conduite sans assurance
-    <input type="checkbox" name="conduite_sans_assurance"></label> -->
 
     <input type="submit" value="Valider">
 </form>

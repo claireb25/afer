@@ -1,0 +1,22 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+	
+
+<h1>Liste des stagiaires</h1>
+
+<a href="stagiaire/new"><button>Nouveau</button></a>
+
+<ul>
+    {% for elmt in list %}
+        <li> {{ elmt.civilite_nom }} {{ elmt.nom }} {{ elmt.prenom }} {{ elmt.commune }} {{ elmt.code_postal }} {{ elmt.tel_portable }} {{ elmt.tel_fix }} {{ elmt.email }} {{ elmt.carte_avantages_jeunes }} {{ elmt.partenaires }} {{ elmt.adherents }}
+            <a href="stagiaire/edit/{{ elmt.id }}"><button>Modifier</button></a>
+            <a href="stagiaire/delete/{{ elmt.id }}"><button>Supprimer</button></a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="stagiaire/new"><button>Nouveau</button></a>
+
+{% endblock %}

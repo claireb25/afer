@@ -1,13 +1,13 @@
 {% extends 'template.html.twig' %} {% block content %}
 
-<h1>Votre profil</h1>
+<h1>Modifier le profil</h1>
 
 <div class="cadre">
 
-    <form action="users/edit/{{ user.id }}" method="post" class="form">
+    <form action="users/edit/{{ users.id }}" method="post" class="form">
         <div class="form-group">
             <label for="identifiant" class="form-label">Identifiant *</label>
-            <input type="text" class="form-input" name="identifiant" value="{{ user.identifiant }}" />
+            <input type="text" class="form-input" name="identifiant" value="{{ users.identifiant }}" />
             <p class="form-msg-error">Veuillez saisir votre identifiant</p>
         </div>
         <div class="form-group">
@@ -17,12 +17,12 @@
         </div>
         <div class="form-group">
             <label for="prenom" class="form-label">Prénom *</label>
-            <input type="text" class="form-input" name="prenom" value="{{user.prenom}}" />
+            <input type="text" class="form-input" name="prenom" value="{{users.prenom}}" />
             <p class="form-msg-error">Veuillez saisir votre prénom</p>
         </div>
         <div class="form-group">
             <label for="nom" class="form-label">Nom *</label>
-            <input type="text" class="form-input" name="nom" value="{{user.nom}}" />
+            <input type="text" class="form-input" name="nom" value="{{users.nom}}" />
             <p class="form-msg-error">Veuillez saisir votre nom</p>
         </div>
         <div class="form-login-group">

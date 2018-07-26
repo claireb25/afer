@@ -113,7 +113,16 @@ function msgDelete(){
 
 
 function deleteUser(){
-    console.log('lol');
+    btn = document.querySelector( '.modal-btn-yes' );
+    url = btn.getAttribute( 'data-link' );
+    if( url !== '' ){
+        
+        location.href = url;
+        
+    }
+
+    const overlay = document.querySelector('.boxOverlay');
+    overlay.classList.add('hidden');
 }
 
 main();

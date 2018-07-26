@@ -2,36 +2,44 @@
 
 {% block content %}
 
-<h1>Modifier : </h1>
+<h1>Modifier l'infraction : </h1>
 
-
-<form action="infraction/edit/{{ toEdit.id }}" method="post" class="form">
+<form action="infraction/edit/{{ infraction.id }}" method="post" class="form">
   <div class="form-example">
 
      <select name="tribunal">
-        <option value="edit_tribunal" selected disabled>Tribunal</option>
-        {% for elem in tribunal %}
-        <option selected="{{ toEdit.tribunal_id_id }}" value="{{ elem.id }}">{{ elem.tribunal_nom }}</option>
+        <option value="tribunal" selected disabled>Tribunal</option>
+        {% for elmt in tribunal %}
+            <option selected="{% if infraction.tribunal_id_id == elmt.id %} {{ elmt.id }} {% endif %}" value="{{ elmt.id }}">{{ elmt.tribunal_nom }}</option>
         {% endfor %}
     </select>
 
+    <select name="stagiaire">
+        <option value="stagiaire" selected disabled>Stagiaire</option>
+        {% for elmt in stagiaire %}
+            <option selected="{% if infraction.stagiaire_id == elmt.id %} {{ elmt.id }} {% endif %}" value="{{ elmt.id }}">{{ elmt.prenom }} {{ elmt.nom }}</option>
+        {% endfor %}
+    </select>
+
+    <div>
+        Sélectionner les types d'infractions commis :
+        {% for elmt in typeInfraction %} 
+            <label for="{{ elmt.type_infraction_nom }}" name="{{ elmt.type_infraction_nom }}"> {{ elmt.type_infraction_nom }}
+            <input type="checkbox" name="{{ elmt.type_infraction_nom }}" value="{{ elmt.id }}" {% for type in typeInfractionLiaison %}{% if type.type_infraction_id == elmt.id %} checked {% endif %} {% endfor %}></label>
+        {% endfor %}
+    </div>
+
    <label for="date_infraction" name="date_infraction">Date de l'infraction
-    <input type="date" name="date_infraction" value="{{ toEdit.date_infraction }}"></label>
+    <input type="date" name="date_infraction" value="{{ infraction.date_infraction }}"></label>
 
     <label for="heure_infraction" name="heure_infraction">Heure de l'infraction
-    <input type="time" name="heure_infraction" value="{{ toEdit.heure_infraction }}"></label>
+    <input type="time" name="heure_infraction" value="{{ infraction.heure_infraction }}"></label>
 
      <label for="lieu_infraction" name="lieu_infraction">Lieu de l'infraction (commune)
-    <input type="text" name="lieu_infraction" value="{{ toEdit.lieu_infraction }}"></label>
+    <input type="text" name="lieu_infraction" value="{{ infraction.lieu_infraction }}"></label>
 
     <label for="numero_parquet" name="numero_parquet">Numero de parquet
-    <input type="text" name="numero_parquet" value="{{ toEdit.numero_parquet }}"></label>
-
-    <label for="conduite_sans_permis" name="conduite_sans_permis">Conduite sans permis
-    <input type="text" name="conduite_sans_permis" value="{{ toEdit.conduite_sans_permis }}"></label>
-
-    <label for="conduite_sans_assurance" name="conduite_sans_assurance">Conduite sans assurance
-    <input type="text" name="conduite_sans_assurance" value="{{ toEdit.conduite_sans_assurance }}"></label>
+    <input type="text" name="numero_parquet" value="{{ infraction.numero_parquet }}"></label>
 
     <input type="submit" value="Modifier">
 </form>
