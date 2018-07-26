@@ -45,7 +45,7 @@ function validChamp( $champ ){
     return $val;
 }
 
-function testForm( $action ){
+function testForm( $action, $id ){
     $identifiant = '';
     $mdp = '';
     $nom = '';
@@ -82,18 +82,28 @@ function testForm( $action ){
 
     if( $test === true ){
 
-        if( $action === 'create' ){
-            $user = getByIdentifiant( $identifiant );
+        $user = getByIdentifiant( $identifiant );
             if (isset($user[0])){
                 $count = count( $user[0] );
             }else {
                 $count = count( $user );
-            }
+        }
+
+
+        if( $action === 'create' ){
+            
             if( $count === 0 ){
                 $test = create( $identifiant, $mdp, $prenom, $nom );
             }else{
                 $test = 'exist';
             }
+        }else{
+            if( $count === 0 ){
+                $test = edit( $id, $identifiant, $mdp, $prenom, $nom );
+            }else{
+                $test = 'exist';
+            }         
+            
         }
         
     }   
@@ -103,22 +113,26 @@ function testForm( $action ){
 
 function deleteUser( $id ){
     delete( $id );   
-    header('Location: ../../users/view');
+    redirectDashboardUser();
     
 }
 
-function validForm( $action ){
-    $test = testForm( $action );
-    $identifiant = html_entity_decode( validChamp('identifiant') );
-    $mdp = html_entity_decode( validChamp('mdp') );
-    $nom = html_entity_decode( validChamp('nom') );
-    $prenom = html_entity_decode( validChamp('prenom') );
+function validForm( $action, $id = '' ){
+    $test = testForm( $action, $id );
+    $identifiant =  validChamp('identifiant') ;
+    $mdp =  validChamp('mdp') ;
+    $nom =  validChamp('nom') ;
+    $prenom =  validChamp('prenom') ;
 
     if( $test === true ){
         redirectDashboardUser();
     }else if( $test === 'exist' ){
-        
-        displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'users' => array( 'identifiant' => '', 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
+        if( $action === 'create' ){
+            displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'users' => array( 'identifiant' => '', 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
+        }else{
+            displayEditUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'users' => array( 'identifiant' => '', 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
+        }        
+       
     }else{
         displayNewUser( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'blank', 'users' => array( 'identifiant' => $identifiant, 'mdp' => $mdp, 'prenom' => $prenom, 'nom' => $nom ) ) );
     }
@@ -138,7 +152,12 @@ function displayNewUser( $args ){
 }
 
 function redirectDashboardUser(){
-    header('Location: ../users/view');
+    if( ! isset( $_GET['id'] ) ){
+        header('Location: ../users/view');
+    }else{
+        header('Location: ../../users/view');
+    }
+    
 }
 
 
@@ -163,7 +182,7 @@ function main(){
                     if( !empty( $_GET['id'] ) ){
                         $id = (int) $_GET['id'];
                         if( count( $_POST ) > 0 ){
-                            validForm('edit');
+                            validForm( 'edit', $id);
                         }else{
                             editUser( $id );
                         }

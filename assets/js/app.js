@@ -88,7 +88,7 @@ function userForm( action ){
         }
 
         if( test === true ){
-        //     formUser.submit();
+            formUser.submit();
           }else{
             html = '<div class="boxOverlay" >';
             html += '<div class="modal fas fa-exclamation-triangle">';
