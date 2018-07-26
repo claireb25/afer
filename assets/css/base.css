@@ -469,10 +469,22 @@ a:hover {
   margin: 0.4rem;
   border-radius: 50%;
   background-color: #3f424b;
+  margin-bottom: 16px;
+}
+.link {
+  position: relative;
+  margin: 30px;
+}
+.legend-button {
+  color: #3f424b;
+  position: absolute;
+  top: 45px;
+
 }
 
-img.test {
+img.th {
   position: absolute;
   left: 16px;
   top: 12px;
 }
+
