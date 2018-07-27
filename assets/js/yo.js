@@ -3,7 +3,7 @@ function filterIsComming(filter, column){ //3 colonnes en paramètre
         var filterContainer = document.getElementById(filter).value.toLowerCase();
         sizeArray = document.querySelectorAll(column).length;
         for (var i = 0; i < sizeArray; i++) {
-            var colId = document.querySelectorAll(column)[i].textContent;
+            var colId = document.querySelectorAll(column)[i].textContent.toLowerCase();
             console.log(colId);
             // console.log(colId);
             // console.log(filterContainer + '!=' + colId.substr(0, filterContainer.length));
