@@ -64,7 +64,7 @@
 <h5>Animateur 1</h5>
 
 <h6>Informations</h6>
-    <select name="civilite">
+    <select name="civilite" id="civilite_anim">
         <option value="civilite" selected disabled>Civilité</option>
         {% for elem in civilite %}
         <option value="{{ elem.id }}">{{ elem.nom }}</option>
@@ -83,14 +83,14 @@
     <label for="prenom" name="prenom">Prénom 
     <input type="text" name="prenom" id="prenom" required></label>
 
-    <select name="fonction">
+    <select name="fonction" id="fonction_anim">
         <option value="fonction" selected disabled>Fonction *</option>
         {% for elem in fonction %}
         <option value="{{ elem.id }}">{{ elem.fonction_nom }}</option>
         {% endfor %}
     </select required>
    
-    <select name="statut">
+    <select name="statut" id="statut_anim">
         <option value="statut" selected disabled>Statut *</option>
         {% for elem in statut %}
         <option value="{{ elem.id }}">{{ elem.status_nom }}</option>
@@ -98,17 +98,17 @@
     </select required>
    
     <label for="gta" name="gta">Gestion Technique et Administrative
-    <input type="checkbox" name="gta" id="name"></label>
+    <input type="checkbox" name="gta" id="gta"></label>
 
     <h6>Adresse</h6>
     <label for="raison_sociale" name="raison_sociale">Raison sociale
     <input type="text" name="raison_sociale" id="raison_sociale" required></label>
 
     <label for="adresse" name="adresse">Numéro et nom de rue
-    <input type="text" name="adresse" id="adresse"></label>
+    <input type="text" name="adresse" id="adresse_anim"></label>
 
     <label for="code_postal" name="code_postal">Code postal
-    <input type="text" name="code_postal" id="code_postal"></label>
+    <input type="text" name="code_postal" id="code_postal_anim"></label>
 
     <label for="ville" name="ville">Ville
     <input type="text" name="ville" id="ville"></label>

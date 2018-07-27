@@ -56,8 +56,13 @@ if (isset($_GET['action'])){
             $view;
             break;
         case 'query':
-            $keyword = $_POST['keyword'];
-            autoComplete($keyword);
+            if (isset($_POST['keyword'])){
+                $keyword = $_POST['keyword'];
+                autoCompleteLieu($keyword);
+            } else if (isset($_POST['animateur'])){
+                $animateur = $_POST['animateur'];
+                autoCompleteAnim($animateur);
+            }
             break;
         case 'delete':
             deleteElement($_GET['id']);
@@ -115,15 +120,23 @@ function addNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo)
 
 // display new stage page
 function showNew(){
+    $civilite = civilite();
+    $fonction = fonction();
+    $statut = statut();
     global $twig;
     $template = $twig->load('newStage.html.twig');
-    echo $template->render(array());
+    echo $template->render(array('civilite' => $civilite, 'fonction'=>$fonction, 'statut'=> $statut));
 }
 
 // when creating a new stage, enabeling autocomplete for lieu de stage
-function autoComplete($keyword){
+function autoCompleteLieu($keyword){
     listLieux($keyword); // keyword sent with AJAX in stage.js
 }
+
+function autoCompleteAnim($animateur){
+    listAnim($animateur); // keyword sent with AJAX in stage.js
+}
+
 
 // EDIT 
 
