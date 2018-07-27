@@ -37,13 +37,17 @@ if (isset($_GET['action'])){
             if (count($_POST) > 0){   
                 if (isset($_POST['hpo'])){
                     $_POST['hpo'] = 1;
-                    update($id, $_POST['stage_numero'], $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo'], $_GET['id']);
-
                 } else {
                     $_POST['hpo'] = 0;
-                    update($_POST['lieu_stage'], $_POST['stage_numero'], $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo'], $_GET['id']);
                 }
-                // redirectStageList(); 
+                if ($_POST['lieu_stage_id'] !== ''){
+                updateStage($_POST['edit_stage_numero'], $_POST['lieu_stage_id'], $_POST['edit_date_debut'], $_POST['edit_date_fin'], $_POST['hpo'], $_GET['id']);
+                redirectStageList(); 
+                } else {
+                    echo 'wrong';
+                    // $lieuId = addLieuxStage($_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers']);
+                    // updateStage($_POST['stage_numero'], $lieuId, $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo'], $_GET['id']);
+                }
             } else {
                 showEdit($_GET['id']);
             }
@@ -137,38 +141,24 @@ function updateLieuxStage($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $
     updateLieux($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers);
 }
 
-
+// displays the view to edit stage
 function showEdit($id){
     $toEdit = getOne($id);
     global $twig;
     $template = $twig->load('editStage.html.twig');
     echo $template->render(array('toEdit'=>$toEdit));
-    // var_dump($toEdit);
-  
 }
-// function update($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations, $id){
-//     $civilite = (int)$civilite;
-//     $nom = htmlentities($nom);
-//     $prenom = htmlentities($prenom);
-//     $fonction = (int)$fonction;
-//     $statut = (int)$statut;
-//     $gta = (bool)$gta;
-//     $raison_sociale = htmlentities($raison_sociale);
-//     $adresse = htmlentities($adresse);
-//     $code_postal = htmlentities($code_postal);
-//     $ville = htmlentities($ville);
-//     $region = htmlentities($region);
-//     $tel_portable = htmlentities($tel_portable);
-//     $tel_fixe = htmlentities($tel_fixe);
-//     $email = htmlentities($email);
-//     $urssaf = htmlentities($urssaf);
-//     $siret = htmlentities($siret);
-//     $observations = htmlentities($observations);
-//     $id = (int)$id;
+
+// update a stage 
+function updateStage($stage_numero, $lieu_stage_id, $date_debut, $date_fin, $hpo, $id){
+    $lieu_stage_id = (int)$lieu_stage_id;
+    $stage_numero = trim(htmlentities($stage_numero));
+    $hpo = (bool)$hpo;
+    $id = (int)$id;
+    editStage($stage_numero, $lieu_stage_id, $date_debut, $date_fin, $hpo, $id);
     
-//     edit($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations, $id);
    
-// }
+}
 
 
 //DELETE
