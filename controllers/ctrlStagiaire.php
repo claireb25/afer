@@ -52,6 +52,10 @@ if (isset($_GET['action'])){
                 showEdit($_GET['id']);
             }
             break;
+
+        case 'query':
+            queryStagiaire();
+            break;
         
         case 'view':
             $view;
@@ -71,6 +75,15 @@ function makeList(){
     $template = $twig->load('indexStagiaire.html.twig');
     echo $template->render(array('list'=>$list));
 }
+
+// QUERY
+function queryStagiaire(){
+    $list = listAll();
+    $test = $_POST['keyword'];
+    $coucou ="coucou";
+    echo json_encode($coucou);
+}
+
 
 // NEW
 function addNew($civilite, $nom, $nomNaissance, $prenom, $dateNaissance, $lieuNaissance, $adresse, $codePostal, $commune, $pays, $telPortable, $telFixe, $email, $carteAvantagesJeunes, $partenaires, $adherents){
