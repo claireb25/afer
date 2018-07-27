@@ -344,6 +344,11 @@ a:hover {
 .tbl-link-edit, .tbl-link-delete {
     display: inline-block;
     padding-left : 20px;
+    color: #33526B;
+}
+
+.tbl-link-edit:hover, .tbl-link-delete:hover {
+  color: #b3b3b3;
 }
 
 
@@ -387,6 +392,14 @@ a:hover {
 
 .hidden{
   display:none;
+}
+
+.upper{
+  text-transform: uppercase;
+}
+
+.capitalize{
+  text-transform: capitalize;
 }
 
 .modal-yesNo{

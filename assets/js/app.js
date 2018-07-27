@@ -21,6 +21,10 @@ function main(){
       msgDelete();
   }
 
+   if( document.querySelector('.modal-btn-change-pwd') !== null ){
+      showPassword();
+  }
+
 
 }
 
@@ -99,6 +103,16 @@ function userForm( action ){
             document.querySelector('#alertUser').innerHTML =   html;
         }
     });
+}
+
+
+function showPassword(){
+    btn = document.querySelector('.modal-btn-change-pwd');
+    btn.addEventListener('click', () => {
+        document.querySelector('#mdp').classList.remove('hidden');
+        document.querySelector('#mdp-label').classList.remove('hidden');
+        btn.classList.add('hidden');
+    })
 }
 
 
