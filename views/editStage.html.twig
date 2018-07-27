@@ -1,0 +1,63 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier le stage n° : {{ toEdit.stage_numero }}</h1>
+
+
+<form action="servicetribunal/edit/{{ toEdit.id }}" method="post" class="form">
+  <div class="form-example">
+
+  <h4> Stage </h4>
+    <label for="edit_stage_numero" name="edit_stage_numero">Numéro du stage
+    <input type="text" name="edit_stage_numero" id="name" value="{{ toEdit.stage_numero | raw }}"required></label>
+
+    <label for="edit_date_debut" name="edit_date_debut">Date de début
+    <input type="date" name="edit_date_debut" value="{{ toEdit.date }}"></label>
+
+    <label for="edit_date_fin" name="edit_date_fin">Date de fin
+    <input type="date" name="edit_date_fin"  value="{{ toEdit.date_fin }}"></label>
+
+    <label for="hpo" name="hpo">Stage hors programme officiel
+    <input type="checkbox" name="hpo" {% if toEdit.hpo == 1 %} checked {% endif %}></label>
+
+
+    <h3> Lieu de Stage </h3>
+    <div>   
+        <div id="input_lieu">
+            <label  for="lieu_stage_nom" name="lieu_stage_nom">Lieu de Stage
+            <input id="lieu_stage" type="text" name="lieu_stage_nom" value="{{toEdit.lieu_nom}}"></label>
+            <input id="lieu_stage_hidden" name="lieu_stage_id" type="hidden" value="">
+            
+            <ul id="lieu_stage_list"></ul>
+        </div>
+
+        <label for="etablissement_nom" name="etablissement_nom">Nom de l'établissement : 
+        <input id="etablissement_nom" type="text" name="etablissement_nom" value="{{toEdit.etablissement_nom}}"></label>
+
+        <label for="adresse" name="adresse">Adresse :
+        <input id="adresse" type="text" name="adresse" value="{{toEdit.adresse}}"></label> 
+
+        <label for="code_postal" name="code_postal">Code postal :
+        <input id="code_postal" type="text" name="code_postal" value="{{toEdit.code_postal}}"></label> 
+
+        <label for="commune" name="commune">Commune :
+        <input id="commune" type="text" name="commune" value="{{toEdit.commune}}"></label> 
+
+        <label for="tel" name="tel">Téléphone :
+        <input id="tel" type="text" name="tel" value="{{toEdit.tel}}"></label>
+
+        <label for="latitude" name="latitude">Latitude :
+        <input id="latitude" type="text" name="latitude" value="{{toEdit.latitude}}"></label>
+
+        <label for="longitude" name="longitude">Longitude :
+        <input id="longitude" type="text" name="longitude" value="{{toEdit.longitude}}"></label>
+
+        <label for="divers" name="divers">Divers :
+        <input id="divers" type="text" name="divers" value="{{toEdit.divers}}"></label>
+
+    </div>
+    <input type="submit" value="Modifier">
+</form>
+
+{% endblock %}
