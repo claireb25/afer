@@ -1,0 +1,73 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+
+<h1>Modifier : </h1>
+
+
+<form action="infraction/new" method="post" class="form">
+  <div class="form-example">
+
+    <select name="stagiaire">
+        <option value="stagiaire" selected disabled>Séléctionner le stagiaire</option>
+        {% for elmt in stagiaire %}
+            <option value="{{ elmt.id }}" {% if elmt.id == stagiaireSelect.id %} selected {% endif %} ></option>
+        {% endfor %}
+    </select>
+
+     <select name="stage">
+        <option value="stage" selected disabled>Séléctionner le stage</option>
+        {% for elmt in stage %}
+            <option value="{{ elmt.id }}"></option>
+        {% endfor %}
+    </select>
+
+    <select name="cas_stage">
+        <option value="cas_stage" selected disabled>Cas du stage</option>
+        {% for elmt in cas_stage %}
+            <option value="{{ elmt.id }}">{{ elmt.cas_nom }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="tribunal">
+        <option value="tribunal" selected disabled>Tribunal</option>
+        {% for elmt in tribunal %}
+            <option value="{{ elmt.id }}">{{ elmt.tribunal_nom }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="prefecture">
+        <option value="prefecture" selected disabled>Préfecture</option>
+        {% for elmt in prefecture %}
+            <option value="{{ elmt.id }}"></option>
+        {% endfor %}
+    </select>
+
+    <label for="paye" name="paye">Payé
+    <input type="checkbox" name="paye" value="{{ suivis_dossier.paye }}"></input></label>
+
+    <label for="reception_bulletin_inscription" name="reception_bulletin_inscription">Reception du bulletin d'inscription
+    <input type="checkbox" name="reception_bulletin_inscription" value="{{ suivis_dossier.reception_bulletin_inscription }}"></input></label>
+
+    <label for="copie_cni" name="copie_cni">Copie du CNI
+    <input type="checkbox" name="copie_cni" value="{{ suivis_dossier.copie_cni }}"></input></label>
+
+    <label for="copie_permis" name="copie_permis">Copie du permis de conduire
+    <input type="checkbox" name="copie_permis" value="{{ suivis_dossier.copie_permis }}"></input></label>
+
+    <label for="releve_integral" name="releve_integral">Relevé intégral
+    <input type="checkbox" name="releve_integral" value="{{ suivis_dossier.releve_integral }}"></input></label>
+
+    <label for="decision_judiciaire" name="decision_judiciaire">Décision judiciaire
+    <input type="checkbox" name="decision_judiciaire" value="{{ suivis_dossier.decision_judiciaire }}"></input></label>
+
+    <label for="lettre_48n" name="lettre_48n">Lettre 48n
+    <input type="checkbox" name="lettre_48n" value="{{ suivis_dossier.lettre_48n }}"></input></label>
+
+    <label for="observations" name="observations">Observations
+    <input type="text" name="observations" value="{{ suivis_dossier.observations }}"></input></label>
+
+    <input type="submit" value="Valider">
+</form>
+
+{% endblock %}
