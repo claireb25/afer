@@ -13,6 +13,9 @@ if (isset($_GET['action'])){
         'cache'=> false
     ));
 
+    
+    session_start();
+
     switch ($action) {
         case 'list':
             makeList();            
@@ -48,7 +51,8 @@ function makeList(){
     $list = listAll();
     global $twig;
     $template = $twig->load('indexServiceTribunal.html.twig');
-    echo $template->render(array('list'=>$list));
+    var_dump( $_SESSION['user'] );
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'list'=>$list));
 }
 
 // NEW
