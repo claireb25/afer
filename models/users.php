@@ -5,7 +5,7 @@
   
 
 
-
+    //fonction qui vérifie si l'utilisateur à saisie un bon mot de passe et identifiant
     function getLogin( $identifiant, $mdp ){
         global $db, $salt;
         $hmpd = crypt( $mdp, $salt );
@@ -17,6 +17,7 @@
     }
 
 
+    //fontion qui met à jour un utilisateur d'après son id
     function edit( $id, $identifiant, $mdp, $prenom, $nom ){
         global $db, $salt;
         if( $mdp === '' ){
@@ -42,6 +43,7 @@
     }
 
 
+    //fonction qui retourne tous les utilisateurs
     function getList(){
         global $db;
         $sql = 'select id, identifiant, prenom, nom from user order by identifiant asc';
@@ -51,6 +53,7 @@
     }
 
 
+    //fonction retourne id, identifiant, prenom et le nom d'un utilisateur d'après son identifiant
     function getByIdentifiant( $identifiant ){
         global $db;
         $sql = 'select id, identifiant, prenom, nom from user where identifiant = :identifiant ';
@@ -60,6 +63,8 @@
         return $response->fetchAll( PDO::FETCH_ASSOC );
     }
 
+
+    //fonction retourne id, identifiant, prenom et le nom d'un utilisateur d'après son id
     function getById( $id ){
         global $db;
         $sql = 'select id, identifiant, prenom, nom from user where id = :id ';
@@ -69,6 +74,8 @@
         return $response->fetch( PDO::FETCH_ASSOC );
     }
 
+
+    //fonction qui insérer un nouvel utilisateur
     function create( $identifiant, $mdp, $prenom, $nom ){
         global $db, $salt;
         $hmpd = crypt( $mdp, $salt );
@@ -84,7 +91,7 @@
 
     }
 
-
+    //fonction qui supprime l'utilisateur d'après son id
     function delete( $id ){
         global $db;
         $sql = 'delete from user where id = :id';
