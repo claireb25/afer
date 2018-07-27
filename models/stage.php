@@ -119,5 +119,14 @@ function updateLieux($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_
 
 // ANIMATEURS
 
+function listAnim($animateur){
+    global $db;
+    $response = $db->prepare("SELECT animateur.nom, animateur.prenom, fonction_animateur.fonction_nom, statut_animateur.status_nom, animateur.gta, animateur.raison_sociale, animateur.adresse, animateur.code_postal, animateur.commune, animateur.region, animateur.tel_portable, animateur.tel_fixe, animateur.email, animateur.urssaf, animateur.siret, animateur.observations FROM animateur INNER JOIN fonction_animateur ON animateur.fonction_animateur_id_id = fonction_animateur.id INNER JOIN statut_animateur ON animateur.statut_id_id = statut_animateur.id  WHERE animateur.nom LIKE :animateur");
+    $animateur= $animateur.'%';
+    $response->bindParam(':animateur', $animateur, PDO::PARAM_STR);
+    $response->execute();
+    $response = $response->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($response);
+}
 
 // STAGIAIRES

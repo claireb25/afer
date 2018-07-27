@@ -56,8 +56,13 @@ if (isset($_GET['action'])){
             $view;
             break;
         case 'query':
-            $keyword = $_POST['keyword'];
-            autoComplete($keyword);
+            if (isset($_POST['keyword'])){
+                $keyword = $_POST['keyword'];
+                autoCompleteLieu($keyword);
+            } else if (isset($_POST['animateur'])){
+                $animateur = $_POST['animateur'];
+                autoCompleteAnim($animateur);
+            }
             break;
         case 'delete':
             deleteElement($_GET['id']);
@@ -121,9 +126,14 @@ function showNew(){
 }
 
 // when creating a new stage, enabeling autocomplete for lieu de stage
-function autoComplete($keyword){
+function autoCompleteLieu($keyword){
     listLieux($keyword); // keyword sent with AJAX in stage.js
 }
+
+function autoCompleteAnim($animateur){
+    listAnim($animateur); // keyword sent with AJAX in stage.js
+}
+
 
 // EDIT 
 
