@@ -51,7 +51,6 @@ function makeList(){
     $list = listAll();
     global $twig;
     $template = $twig->load('indexServiceTribunal.html.twig');
-    var_dump( $_SESSION['user'] );
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'list'=>$list));
 }
 
