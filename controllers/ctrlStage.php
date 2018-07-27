@@ -23,17 +23,14 @@ if (isset($_GET['action'])){
                 if ($_POST['lieu_stage_id'] !== ''){
                     addNew($_POST['lieu_stage_id'], $_POST['stage_numero'], $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo']);
                     updateLieuxStage($_POST['lieu_stage_id'], $_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers']);
+                    redirectStageList();
                 } else {
-                    echo 'pas de lieu enregistré';
                     $lieuId = addLieuxStage($_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers']);
                     addNewStage($_POST['stage_numero'], $lieuId, $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo']);
+                    redirectStageList();
                 }
-
-
-    
             } else {
-                showNew();
-              
+                showNew();     
             }
             break; 
         case 'edit':
@@ -60,6 +57,7 @@ if (isset($_GET['action'])){
             break;
         case 'delete':
             deleteElement($_GET['id']);
+            redirectStageList();
             break;
     }
 }
@@ -70,9 +68,6 @@ function makeList(){
     $template = $twig->load('indexStage.html.twig');
     echo $template->render(array('list'=>$list));
 }
-
-
-
 
 //NEW
 
@@ -88,15 +83,6 @@ function addNew($lieu_stage, $stage_numero, $date_debut, $date_fin, $stage_hpo){
 }
 
 
-function addNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo){
-    $lieuId = (int)$lieuId;
-    $stage_numero = trim(htmlentities($stage_numero));
-    $date_debut = trim(htmlentities($date_debut));
-    $date_fin = trim(htmlentities($date_fin));
-    $stage_hpo = (bool)$stage_hpo;
-    createNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo);
-    // redirectStageList();
-}
 // when adding a new stage and lieu doesn't exist
 function addLieuxStage($lieu_stage_nom, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers){
     $lieu_stage_nom = trim(htmlentities($lieu_stage_nom));
@@ -110,6 +96,16 @@ function addLieuxStage($lieu_stage_nom, $etablissement_nom, $adresse, $code_post
     $divers = trim(htmlentities($divers));
     $lieuId = createLieu($lieu_stage_nom, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers);
     return $lieuId;
+}
+
+// adding a new stage after creating a lieu and getting the lastInsertId
+function addNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo){
+    $lieuId = (int)$lieuId;
+    $stage_numero = trim(htmlentities($stage_numero));
+    $date_debut = trim(htmlentities($date_debut));
+    $date_fin = trim(htmlentities($date_fin));
+    $stage_hpo = (bool)$stage_hpo;
+    createNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo);
 }
 
 // display new stage page
@@ -182,7 +178,6 @@ function updateLieuxStage($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
-    redirectStageList();
 }
 
 // REDIRECTIONS
