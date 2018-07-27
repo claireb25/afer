@@ -49,7 +49,7 @@ if (isset($_GET['action'])){
 function makeList(){
     $list = listAll();
     global $twig;
-    $template = $twig->load('indexStagiaire.html.twig');
+    $template = $twig->load('indexStagiaireStage.html.twig');
     echo $template->render(array('list'=>$list));
 }
 
@@ -68,8 +68,13 @@ function showNew(){
     $casStage = casStage();
     $tribunal = tribunal();
     $prefecture = prefecture();
+    var_dump($stagiaire);echo('</br>');echo('</br>');
+    var_dump($stage);echo('</br>');echo('</br>');
+    var_dump($casStage);echo('</br>');echo('</br>');
+    var_dump($tribunal);echo('</br>');echo('</br>');
+    var_dump($prefecture);echo('</br>');echo('</br>');
     global $twig;
-    $template = $twig->load('newStagiaireStage.html.twig');
+    $template = $twig->load('test.html.twig');
     echo $template->render(array('stagiaire'=>$stagiaire, 'stage'=>$stage, 'cas_stage'=>$casStage,'tribunal'=>$tribunal, 'prefecture'=>$prefecture));
 }
 
