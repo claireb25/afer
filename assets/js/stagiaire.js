@@ -1,3 +1,49 @@
+function addNewStagiaire(){
+    var carte_avantages_jeunes = "";
+    var partenaires = "";
+    var adherents = "";
+
+    if (document.getElementById('stagiaire_carte_avantages_jeunes').checked == true){
+         carte_avantages_jeunes = 1;
+    } else { carte_avantages_jeunes = 0; }
+
+    if (document.getElementById('stagiaire_partenaires').checked == true){
+        partenaires = 1;
+    } else { partenaires = 0; }
+
+    if (document.getElementById('stagiaire_adherents').checked == true){
+        adherents = 1;
+    } else { adherents = 0; }
+
+
+        $.ajax({
+            url: 'stagiaire/new',
+            type: 'POST',
+            data: {
+                civilite:document.getElementById('stagiaire_civilite').value,
+                nom:document.getElementById('stagiaire').value,
+                nom_naissance:document.getElementById('stagiaire_nom_naissance').value,
+                prenom:document.getElementById('stagiaire_prenom').value,
+                date_naissance:document.getElementById('stagiaire_date_naissance').value,
+                lieu_naissance:document.getElementById('stagiaire_lieu_naissance').value,
+                adresse:document.getElementById('stagiaire_adresse').value,
+                code_postal:document.getElementById('stagiaire_code_postal').value,
+                commune:document.getElementById('stagiaire_commune').value,
+                pays:document.getElementById('stagiaire_pays').value,
+                tel_portable:document.getElementById('stagiaire_tel_portable').value,
+                tel_fixe:document.getElementById('stagiaire_tel_fixe').value,
+                email:document.getElementById('stagiaire_email').value,
+                carte_avantages_jeunes:carte_avantages_jeunes,
+                partenaires:partenaires,
+                adherents:adherents
+            },
+            success:function(data){
+                data = JSON.parse(data);
+            }
+        }); 
+}
+
+
 if (document.getElementById('stagiaire') !== null) {
     var inputStagiaire = document.getElementById('stagiaire');
     var addStagiaire = document.getElementById('stagiaire_ajout');
@@ -7,7 +53,7 @@ if (document.getElementById('stagiaire') !== null) {
     });
 
     addStagiaire.addEventListener('click', function (e){
-        addStagiaire();
+        addNewStagiaire();
     });
 }
 
@@ -41,59 +87,9 @@ function autoCompleteStagiaire(){
 }
   
 
-function addStagiaire(){
-    var min_length = 1; // min caracters to display the autocomplete
-    var id = document.getAttribute('data-id').value;
-    var carte_avantages_jeunes = "";
-    var partenaires = "";
-    var adherents = "";
 
-    if (document.getElementById('stagiaire_carte_avantages_jeunes').checked == true){
-         carte_avantages_jeunes = 1;
-    } else { carte_avantages_jeunes = 0; }
-
-    if (document.getElementById('stagiaire_partenaires').checked == true){
-        partenaires = 1;
-   } else { partenaires = 0; }
-
-   if (document.getElementById('stagiaire_adherents').checked == true){
-        adherents = 1;
-    } else { adherents = 0; }
-
-    if (id) {
-        $.ajax({
-            url: 'stagiaire/new',
-            type: 'POST',
-            data: {
-                id:id,
-                civilite:document.getElementById('stagiaire_civilite').value,
-                nom:document.getElementById('stagiaire').value,
-                nom_naissance:document.getElementById('stagiaire_nom_naissance').value,
-                prenom:document.getElementById('stagiaire_prenom').value,
-                date_naissance:document.getElementById('stagiaire_date_naissance').value,
-                lieu_naissance:document.getElementById('stagiaire_lieu_naissance').value,
-                adresse:document.getElementById('stagiaire_adresse').value,
-                code_postal:document.getElementById('stagiaire_code_postal').value,
-                commune:document.getElementById('stagiaire_commune').value,
-                pays:document.getElementById('stagiaire_pays').value,
-                tel_portable:document.getElementById('stagiaire_tel_portable').value,
-                tel_fixe:document.getElementById('stagiaire_tel_fixe').value,
-                email:document.getElementById('stagiaire_email').value,
-                carte_avantages_jeunes:carte_avantages_jeunes,
-                partenaires:partenaires,
-                adherents:adherents
-            },
-            success:function(data){
-                data = JSON.parse(data);
-            }
-        });
-    } 
-    else {
-        console.log("raté ducon");
-    }
-}
   
-  function itemClicked(data){
+function itemClicked(data){
     listElem= document.getElementById('input_stagiaire'); 
     listElem.addEventListener('click', function(e){ // listen to click on children of input_lieu
       var newValue = e.target.innerText //
