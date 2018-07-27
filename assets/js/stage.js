@@ -36,7 +36,6 @@ function autoComplete(){
         for (elem of data){
           
           html += '<li data-id="'+elem.id+'">'+ elem.lieu_nom + '</li> <input id="etablissement_hidden" name="etablissement" type="hidden" value="'+elem.etablissement_nom+'">';
-          console.log(html);
           document.getElementById('lieu_stage_list').innerHTML = html;
           $('#lieu_stage_list').show();
         // // console.log($('#lieu_stage_list'))
@@ -46,6 +45,8 @@ function autoComplete(){
       }
     });
   } else {
+      document.getElementById('lieu_stage_hidden').value = "";
+    console.log('coucou');
     $('#lieu_stage_list').hide();
   }
 }
@@ -99,7 +100,8 @@ function itemClicked(data){
         numero_agrement = elements.numero_agrement;
         document.getElementById('numero_agrement').value = numero_agrement;
       }
-    }  
+    
+    }
   })
 }  
  
