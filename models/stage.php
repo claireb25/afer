@@ -131,7 +131,7 @@ function listLieux($keyword){
 //DELETE
 function delete($id){
     global $db;
-    $response = $db->prepare("DELETE FROM animateur
+    $response = $db->prepare("DELETE FROM stage
     WHERE id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
