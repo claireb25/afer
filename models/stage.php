@@ -38,8 +38,6 @@ function createLieu($lieuNom, $etablissementNom, $adresse, $codePostal, $commune
     $response->bindParam(':longitude', $longitude, PDO::PARAM_STR);
     $response->bindParam(':divers', $divers, PDO::PARAM_STR);
     $response->execute();
-    //var_dump($lieuNom, $etablissementNom, $adresse, $codePostal, $commune, $tel, $latitude, $longitude, $divers);
-    // return true;
     return $db->lastInsertId();
 }
 
@@ -56,7 +54,6 @@ function updateLieux($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_
         $response->bindParam(':longitude', $longitude, PDO::PARAM_STR);
         $response->bindParam(':divers', $divers, PDO::PARAM_STR);
         $response->bindParam(':id', $lieu_id, PDO::PARAM_INT);
-        // var_dump($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers);
         $response->execute();
         return true; 
 }
@@ -64,41 +61,36 @@ function updateLieux($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_
 //LIST
 function listAll(){
     global $db;
-    $response = $db->prepare("SELECT stage.id, stage.stage_numero, lieu_stage.lieu_nom, stage_numero, date, stage_hpo, date_fin FROM `stage` INNER JOIN lieu_stage ON stage.lieu_stage_id_id = lieu_stage.id");
+    $response = $db->prepare("SELECT stage.id, stage.stage_numero, lieu_stage.lieu_nom, date, stage_hpo, date_fin FROM `stage` INNER JOIN lieu_stage ON stage.lieu_stage_id_id = lieu_stage.id");
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
 
+// Function called with Ajax to find a lieu de stage from a keyword in the input
 function listLieux($keyword){
     global $db;
     $response = $db->prepare("SELECT * FROM lieu_stage WHERE lieu_nom LIKE :keyword");
     $keyword = $keyword.'%';
     $response->bindParam(':keyword', $keyword, PDO::PARAM_STR);
-   
     $response->execute();
     $response = $response->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($response);
-    // foreach ($result as $rs) {
-    //     // put in bold the written text
-    //     $lieu_nom = str_replace($_POST['keyword'], '<b>'.$_POST['keyword'].'</b>', $rs['lieu_nom']);
-        
-    //     // add new option
-    //     echo '<li onclick="set_item(\''.str_replace("'", "\'", $rs['lieu_nom']).'\')">'.$lieu_nom.'</li>';
-    // }
 }
 
 
 
 
 // //EDIT
-// function getOne($id){
-//     global $db;
-//     $response = $db->prepare("SELECT animateur.id, animateur.civilite_id_id, civilite.nom, animateur.fonction_animateur_id_id, fonction_animateur.fonction_nom, animateur.statut_id_id, statut_animateur.status_nom, animateur.nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email, urssaf, siret, observations FROM animateur INNER JOIN civilite ON animateur.civilite_id_id = civilite.id INNER JOIN fonction_animateur ON animateur.fonction_animateur_id_id = fonction_animateur.id INNER JOIN statut_animateur ON statut_id_id = statut_animateur.id 
-//     WHERE animateur.id = :id");
-//     $response->bindParam(':id', $id, PDO::PARAM_INT);
-//     $response->execute();
-//     return $response->fetch(PDO::FETCH_ASSOC);
-// }
+function getOne($id){
+    global $db;
+    $response = $db->prepare("SELECT stage.id, stage.stage_numero, lieu_stage.lieu_nom, lieu_stage.etablissement_nom, lieu_stage.adresse, lieu_stage.code_postal, lieu_stage.commune, lieu_stage.tel, lieu_stage.latitude, lieu_stage.longitude, lieu_stage.divers, stage.date, stage.stage_hpo, stage.date_fin FROM stage INNER JOIN lieu_stage ON stage.lieu_stage_id_id = lieu_stage.id 
+    WHERE stage.id = :id");
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
+
+
 // function edit($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations, $id){
 //     global $db;
 //     $response = $db->prepare("UPDATE animateur SET civilite_id_id = :civilite, fonction_animateur_id_id = :fonction,statut_id_id = :statut, nom = :nom, prenom = :prenom, gta = :gta, raison_sociale = :raison_sociale, adresse = :adresse, code_postal = :code_postal, commune = :ville, region = :region, tel_portable = :tel_portable,tel_fixe = :tel_fixe, email = :email, urssaf = :urssaf, siret = :siret, observations = :observations WHERE animateur.id = :id");
