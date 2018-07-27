@@ -25,9 +25,9 @@ function createNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_h
     return true; 
 }
 
-function createLieu($lieuNom, $etablissementNom, $adresse, $codePostal, $commune, $tel, $latitude, $longitude, $divers){
+function createLieu($lieuNom, $etablissementNom, $adresse, $codePostal, $commune, $tel, $latitude, $longitude, $divers, $numero_agrement){
     global $db;
-    $response = $db->prepare("INSERT INTO lieu_stage(lieu_nom, etablissement_nom, adresse, code_postal, commune, tel, latitude, longitude, divers) VALUES(:lieuNom, :etablissementNom, :adresse, :codePostal, :commune, :tel, :latitude, :longitude, :divers)");
+    $response = $db->prepare("INSERT INTO lieu_stage(lieu_nom, etablissement_nom, adresse, code_postal, commune, tel, latitude, longitude, divers, numero_agrement) VALUES(:lieuNom, :etablissementNom, :adresse, :codePostal, :commune, :tel, :latitude, :longitude, :divers, :numero_agrement)");
     $response->bindParam(':lieuNom', $lieuNom, PDO::PARAM_STR);
     $response->bindParam(':etablissementNom', $etablissementNom, PDO::PARAM_STR);
     $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
@@ -37,13 +37,14 @@ function createLieu($lieuNom, $etablissementNom, $adresse, $codePostal, $commune
     $response->bindParam(':latitude', $latitude, PDO::PARAM_STR);
     $response->bindParam(':longitude', $longitude, PDO::PARAM_STR);
     $response->bindParam(':divers', $divers, PDO::PARAM_STR);
+    $response->bindParam(':numero_agrement', $numero_agrement, PDO::PARAM_STR);
     $response->execute();
     return $db->lastInsertId();
 }
 
-function updateLieux($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers){
+function updateLieux($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers, $numero_agrement){
     global $db;
-        $response = $db->prepare("UPDATE lieu_stage SET lieu_nom = :lieu_nom, etablissement_nom = :etablissement_nom, adresse = :adresse, code_postal = :code_postal, commune = :commune, tel = :tel, latitude = :latitude, longitude = :longitude, divers = :divers WHERE id = :id");
+        $response = $db->prepare("UPDATE lieu_stage SET lieu_nom = :lieu_nom, etablissement_nom = :etablissement_nom, adresse = :adresse, code_postal = :code_postal, commune = :commune, tel = :tel, latitude = :latitude, longitude = :longitude, divers = :divers, numero_agrement = :numero_agrement WHERE id = :id");
         $response->bindParam(':lieu_nom', $lieu_stage, PDO::PARAM_STR);
         $response->bindParam(':etablissement_nom', $etablissement_nom, PDO::PARAM_STR);
         $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
@@ -53,6 +54,7 @@ function updateLieux($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_
         $response->bindParam(':latitude', $latitude, PDO::PARAM_STR);
         $response->bindParam(':longitude', $longitude, PDO::PARAM_STR);
         $response->bindParam(':divers', $divers, PDO::PARAM_STR);
+        $response->bindParam(':numero_agrement', $numero_agrement, PDO::PARAM_STR);
         $response->bindParam(':id', $lieu_id, PDO::PARAM_INT);
         $response->execute();
         return true; 
@@ -83,7 +85,7 @@ function listLieux($keyword){
 // //EDIT
 function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT stage.id, stage.stage_numero, stage.lieu_stage_id_id, lieu_stage.lieu_nom, lieu_stage.etablissement_nom, lieu_stage.adresse, lieu_stage.code_postal, lieu_stage.commune, lieu_stage.tel, lieu_stage.latitude, lieu_stage.longitude, lieu_stage.divers, stage.date, stage.stage_hpo, stage.date_fin FROM stage INNER JOIN lieu_stage ON stage.lieu_stage_id_id = lieu_stage.id 
+    $response = $db->prepare("SELECT stage.id, stage.stage_numero, stage.lieu_stage_id_id, lieu_stage.lieu_nom, lieu_stage.etablissement_nom, lieu_stage.adresse, lieu_stage.code_postal, lieu_stage.commune, lieu_stage.tel, lieu_stage.latitude, lieu_stage.longitude, lieu_stage.divers, lieu_stage.numero_agrement, stage.date, stage.stage_hpo, stage.date_fin FROM stage INNER JOIN lieu_stage ON stage.lieu_stage_id_id = lieu_stage.id 
     WHERE stage.id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
