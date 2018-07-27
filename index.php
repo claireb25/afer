@@ -113,6 +113,10 @@
             require("controllers/ctrlStagiaire.php");
             break;
 
+        case "stagiairestage":
+            require("controllers/ctrlStagiaireStage.php");
+            break;
+
         default :
             require('controllers/ctrl404.php');
             break;
