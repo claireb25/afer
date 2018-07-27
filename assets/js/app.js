@@ -1,5 +1,8 @@
+//cette fontion est appelée après chargement de la page
 function main(){
 
+    //elle va vérifier si les élément son présent dans la,page
+    //si c'est le cas elle va appeler la bonne fonction en conséquence
   if( document.querySelector('.modal-btn-ok') !== null ){      
       closeModal();
   }
@@ -28,7 +31,8 @@ function main(){
 
 }
 
-
+//fonction qui permet d'affécter l'événement
+//click au bouton ok pour pour fermer la modal
 function closeModal(){
     const overlay = document.querySelector('.boxOverlay');
     if( document.querySelector('.modal-btn-ok') !== null ){
@@ -45,13 +49,17 @@ function closeModal(){
     
 }
 
-
+//cette fonction est appelé si le formulaire
+//form-user est chargé et affect l'événement onsubmit
+//ce formulaire existe pour l'action edit ou new
 function userForm( action ){
     formUser = document.querySelector( '.form-user' );
     formUser.addEventListener('submit', ( e ) =>{
         e.preventDefault();
         test = true;
-        console.log( true );
+
+
+        //gestion des messages d'erreurs
         if( document.querySelector('#identifiant').value.trim().length === 0 ){
             document.querySelector('#msg-identifiant').classList.remove( 'hidden');
             document.querySelector('#msg-identifiant').innerHTML = "Veuillez saisir le champ identifiant";
@@ -91,6 +99,9 @@ function userForm( action ){
             document.querySelector('#msg-nom').innerHTML = "";
         }
 
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
         if( test === true ){
             formUser.submit();
           }else{
@@ -106,6 +117,8 @@ function userForm( action ){
 }
 
 
+//affecte l'événement click au bouton changer le mot de passe
+//et il afficher le champs mdp et son label
 function showPassword(){
     btn = document.querySelector('.modal-btn-change-pwd');
     btn.addEventListener('click', () => {
@@ -115,7 +128,10 @@ function showPassword(){
     })
 }
 
-
+//affecte l'événement click aux images en forme de croix
+//affiche la modal voulez vous supprimer l'utilisateur
+//récupère l'url dans l'attribut href et l'affecte
+//à l'attribut data-link du bouton yes
 function msgDelete(){
     btnDelete = document.querySelectorAll('.tbl-link-delete');
 
@@ -131,7 +147,9 @@ function msgDelete(){
 }
 
 
-
+//affecte l'évenement click ou bouton oui et on bouton non
+//si lapersonne click sur oui on récupère url qui est dans l'attribut 
+//data-link et on redirige la personne si elle click non et masque le lightbox
 function deleteUser(){
     btn = document.querySelector( '.modal-btn-yes' );
     url = btn.getAttribute( 'data-link' );
@@ -145,6 +163,8 @@ function deleteUser(){
     overlay.classList.add('hidden');
 }
 
+
+//execute la fonction main au chargement
 main();
 
 
