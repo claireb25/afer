@@ -26,6 +26,19 @@ function create($civilite, $nom, $nomNaissance, $prenom, $dateNaissance, $lieuNa
 }
 
 
+
+// Function called with Ajax to find a stagiaire from a keyword in the input
+function listStagiaire($keyword){
+    global $db;
+    $response = $db->prepare("SELECT * FROM stagiaire WHERE nom LIKE :keyword");
+    $keyword = $keyword.'%';
+    $response->bindParam(':keyword', $keyword, PDO::PARAM_STR);
+    $response->execute();
+    $response = $response->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($response);
+}
+
+
 //LIST
 function listAll(){
     global $db;
