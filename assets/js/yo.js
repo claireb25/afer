@@ -1,4 +1,4 @@
-function filterIsComming(filter, column){
+function filterIsComming(filter, column){ //3 colonnes en paramètre
     document.getElementById(filter).addEventListener("keyup", function (event) {
         var filterContainer = document.getElementById(filter).value;
         sizeArray = document.querySelectorAll(column).length;
@@ -19,3 +19,14 @@ function filterIsComming(filter, column){
 filterIsComming("identifiant", ".username");
 filterIsComming("firstname", ".prenom");
 filterIsComming("name", ".nom");
+
+
+// for (var c = 0; c < document.querySelectorAll("tr").length; c++) {
+//     for (var i = 0; i < 2; i++){
+//         document.querySelectorAll("td")[i].textContent;
+//         console.log(document.querySelectorAll("td")[i].textContent);
+//     }
+//     // console.log(document.querySelectorAll("tr"));
+// }
+
+// console.log(document.querySelectorAll("tr").length);
