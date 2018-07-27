@@ -5,7 +5,7 @@
 <h1>Modifier le stage n° : {{ toEdit.stage_numero }}</h1>
 
 
-<form action="servicetribunal/edit/{{ toEdit.id }}" method="post" class="form">
+<form action="stage/edit/{{ toEdit.id }}" method="post" class="form">
   <div class="form-example">
 
   <h4> Stage </h4>
@@ -27,13 +27,16 @@
         <div id="input_lieu">
             <label  for="lieu_stage_nom" name="lieu_stage_nom">Lieu de Stage
             <input id="lieu_stage" type="text" name="lieu_stage_nom" value="{{toEdit.lieu_nom}}"></label>
-            <input id="lieu_stage_hidden" name="lieu_stage_id" type="hidden" value="">
+            <input id="lieu_stage_hidden" name="lieu_stage_id" type="hidden" value="{{toEdit.lieu_stage_id_id}}">
             
             <ul id="lieu_stage_list"></ul>
         </div>
 
         <label for="etablissement_nom" name="etablissement_nom">Nom de l'établissement : 
         <input id="etablissement_nom" type="text" name="etablissement_nom" value="{{toEdit.etablissement_nom}}"></label>
+
+        <label for="numero_agrement" name="numero_agrement">Numéro d'agrément : 
+        <input id="numero_agrement" type="text" name="numero_agrement" value="{{toEdit.numero_agrement}}"></label>
 
         <label for="adresse" name="adresse">Adresse :
         <input id="adresse" type="text" name="adresse" value="{{toEdit.adresse}}"></label> 

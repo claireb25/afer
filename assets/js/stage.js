@@ -64,6 +64,7 @@ function itemClicked(data){
     var latitude = "";
     var longitude = "";
     var divers ="";
+    var numero_agrement ="";
     $('#lieu_stage_list').hide();
     document.getElementById('lieu_stage').value = newValue; // change main input name
     document.getElementById('lieu_stage_hidden').value = idValue; // change value of hidden input into chosen id number
@@ -94,6 +95,9 @@ function itemClicked(data){
 
         divers = elements.divers;
         document.getElementById('divers').value = divers;
+
+        numero_agrement = elements.numero_agrement;
+        document.getElementById('numero_agrement').value = numero_agrement;
       }
     }  
   })

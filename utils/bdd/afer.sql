@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 24, 2018 at 04:14 PM
+-- Generation Time: Jul 27, 2018 at 11:33 AM
 -- Server version: 10.2.16-MariaDB-10.2.16+maria~xenial
--- PHP Version: 7.2.7-1+ubuntu16.04.1+deb.sury.org+1
+-- PHP Version: 7.2.8-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -54,8 +54,9 @@ CREATE TABLE `animateur` (
 INSERT INTO `animateur` (`id`, `civilite_id_id`, `fonction_animateur_id_id`, `statut_id_id`, `nom`, `prenom`, `gta`, `raison_sociale`, `adresse`, `code_postal`, `commune`, `region`, `tel_portable`, `tel_fixe`, `email`, `urssaf`, `siret`, `observations`) VALUES
 (5, 3, 2, 13, 'Martin', 'Tom', 0, 'SARL', '57 rue des fleurs bleues', '25870', 'Dole', 'Bourgogne', '0675340401', '0382588126', 'claire.b@codeur.online', '123483729847', '122000-3243904U-23344', '300 km a/r'),
 (6, 3, 1, 13, 'Bourgeois', 'Claire', 1, 'SARL', '57 rue de Vesoul', '25870', 'Dole', 'FC', '0675340401', '0382588126', 'claire.bourgeoisarmurier@gmail.com', NULL, NULL, NULL),
-(7, 3, 1, 13, 'Ben Younes', 'Sirine', 1, 'SARL', '14 rue du Doubs', '25870', 'Dole', 'Bourgogne', '0675340401', '0382588126', 'chalalala@fdsqfdsqf.com', NULL, NULL, NULL),
-(8, 1, 2, 13, 'Bailly-Salins', 'Emmanuel', 1, 'SARL', '57 rue de Vesoul', '39000', 'Dole', 'Bourgogne', '0675340401', '0382588126', 'nicolas.j@codeur.online', '123483729847', '122000-3243904U-23344', 'Un repas par jour');
+(7, 3, 1, 13, 'Ben Younes', 'Sirine', 0, 'SARL', '14 rue du Doubs', '25870', 'Dole', 'Bourgogne', '0675340401', '0382588126', 'chalalala@fdsqfdsqf.com', 'fdqfdfqfdqfqdfq', 'fdqfqdsfq', 'repas'),
+(8, 3, 2, 13, 'Bailly-Salins', 'Emmanuel', 0, 'SARL', '57 rue de Vesoul', '70000', 'Dole', 'Bourgogne', '0675340401', '0382588126', 'nicolas.j@codeur.online', '123483729847', '122000-3243904U-23344', 'Un repas par jour'),
+(9, 1, 1, 13, 'Dupont', 'Pierre', 1, 'SARL', '57 rue des fleurs bleues', '25870', 'Dole', 'Bourgogne', '0675340401', '0382588126', 'claire.bourgeoisarmurier@gmail.com', '12434', 'blblbl', 'repas');
 
 -- --------------------------------------------------------
 
@@ -129,7 +130,7 @@ CREATE TABLE `bordereau` (
 CREATE TABLE `cas_stage` (
   `id` int(11) NOT NULL,
   `cas_nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cas_prix` int(11) DEFAULT NULL,
+  `prix_id` int(11) DEFAULT NULL,
   `cas_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -137,7 +138,7 @@ CREATE TABLE `cas_stage` (
 -- Dumping data for table `cas_stage`
 --
 
-INSERT INTO `cas_stage` (`id`, `cas_nom`, `cas_prix`, `cas_description`) VALUES
+INSERT INTO `cas_stage` (`id`, `cas_nom`, `prix_id`, `cas_description`) VALUES
 (2, 'Cas 1', 160, 'Volontaire');
 
 -- --------------------------------------------------------
@@ -187,11 +188,11 @@ INSERT INTO `fonction_animateur` (`id`, `fonction_nom`) VALUES
 CREATE TABLE `infraction` (
   `id` int(11) NOT NULL,
   `tribunal_id_id` int(11) DEFAULT NULL,
-  `date_infraction` datetime DEFAULT NULL,
+  `date_infraction` date DEFAULT NULL,
   `heure_infraction` time DEFAULT NULL,
-  `lieu_infraction` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lieu_infraction` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `numero_parquet` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `stagiaire_id` int(11) NOT NULL
+  `stagiaire_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -217,7 +218,8 @@ CREATE TABLE `liaison_stagiaire_stage_dossier_cas_bordereau` (
   `stage_id_id` int(11) DEFAULT NULL,
   `suivi_dossier_id_id` int(11) DEFAULT NULL,
   `cas_stage_id_id` int(11) DEFAULT NULL,
-  `bordereau_id_id` int(11) DEFAULT NULL
+  `tribunal_id` int(11) DEFAULT NULL,
+  `prefecture_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -228,23 +230,35 @@ CREATE TABLE `liaison_stagiaire_stage_dossier_cas_bordereau` (
 
 CREATE TABLE `lieu_stage` (
   `id` int(11) NOT NULL,
-  `lieu_nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `etablissement_nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `adresse` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `code_postal` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `commune` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tel` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `latitude` decimal(20,18) DEFAULT NULL,
-  `longitude` decimal(20,18) DEFAULT NULL,
-  `divers` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `lieu_nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `etablissement_nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adresse` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code_postal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `commune` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tel` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `latitude` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `longitude` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `divers` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `numero_agrement` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `lieu_stage`
 --
 
-INSERT INTO `lieu_stage` (`id`, `lieu_nom`, `etablissement_nom`, `adresse`, `code_postal`, `commune`, `tel`, `latitude`, `longitude`, `divers`) VALUES
-(1, 'John', 'John', '25 grande rue', '98726', 'Paname', '0374638475', '0.138498910000000000', '0.139831704810000000', 'c\'est chouette');
+INSERT INTO `lieu_stage` (`id`, `lieu_nom`, `etablissement_nom`, `adresse`, `code_postal`, `commune`, `tel`, `latitude`, `longitude`, `divers`, `numero_agrement`) VALUES
+(1, 'John', 'John\'s Business', '25 grande rue', '98726', 'Paname', '0374638475', '0.138498910000000000', '0.139831704810000000', 'c\'est chouette', NULL),
+(2, 'Jobalim34', 'Chez Jojo et Compagnie', '45 boulevard de la madeleine', '25000', 'Dijon', '07484848484', '', '', 'Bon resto', NULL),
+(3, 'ACS Besan&ccedil;on', 'John\'s Business', '57 rue de Vesoul', '25870', 'Dijon', '07484848484', '0.138498910000000000', '0.139831704810000000', 'Bon resto', NULL),
+(4, 'ACS Besan&ccedil;on', 'John\'s Business', '57 rue de Vesoul', '25870', 'Dijon', '07484848484', '0.138498910000000000', '0.139831704810000000', 'Bon resto', NULL),
+(5, 'ACS Besan&ccedil;on', 'John\'s Business', '57 rue de Vesoul', '25870', 'Dijon', '07484848484', '0.138498910000000000', '0.139831704810000000', 'Bon resto', NULL),
+(6, 'ACS Besan&ccedil;on', 'John\'s Business', '57 rue de Vesoul', '25870', 'Dijon', '07484848484', '0.138498910000000000', '0.139831704810000000', 'Bon resto', NULL),
+(7, 'Nouveau', 'Coucou', '57 rue des fleurs bleues', '25870', 'Capri', 'c\'est fini', 'tralala', 'l', 'l', NULL),
+(8, 'Nouveau', 'Coucou', '57 rue des fleurs bleues', '25870', 'Capri', 'c\'est fini', 'tralala', 'l', 'l', NULL),
+(9, 'Nouveau', 'Coucou', '57 rue des fleurs bleues', '25870', 'Capri', 'c\'est fini', 'tralala', 'l', 'l', NULL),
+(10, 'Nouveau', 'Coucou', '57 rue des fleurs bleues', '25870', 'Capri', 'c\'est fini', 'tralala', 'l', 'l', NULL),
+(11, 'Nouveau', 'Coucou', '57 rue des fleurs bleues', '25870', 'Capri', 'c\'est fini', 'tralala', 'l', 'l', NULL),
+(12, 'Nouveau', 'Coucou', '57 rue des fleurs bleues', '25870', 'Capri', 'c\'est fini', 'tralala', 'l', 'l', NULL);
 
 -- --------------------------------------------------------
 
@@ -348,7 +362,7 @@ CREATE TABLE `prefecture` (
 --
 
 INSERT INTO `prefecture` (`id`, `autorite_prefecture_id_id`, `service_prefecture_id_id`, `prefecture_nom`, `adresse`, `code_postal`, `commune`) VALUES
-(1, 1, 1, 'Prefecture du Doubs', '87 rue de l\'&amp;amp;eacute;poisse', '25000', 'Besan&amp;amp;ccedil;on');
+(1, 1, 1, 'Prefecture du Doubs', '87 rue de l\'&amp;amp;amp;eacute;poisse', '25000', 'Besan&amp;amp;amp;ccedil;on');
 
 -- --------------------------------------------------------
 
@@ -415,9 +429,9 @@ CREATE TABLE `stage` (
   `id` int(11) NOT NULL,
   `lieu_stage_id_id` int(11) DEFAULT NULL,
   `stage_numero` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
+  `date` date DEFAULT NULL,
   `stage_hpo` tinyint(1) NOT NULL,
-  `date_fin` datetime DEFAULT NULL
+  `date_fin` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -425,7 +439,22 @@ CREATE TABLE `stage` (
 --
 
 INSERT INTO `stage` (`id`, `lieu_stage_id_id`, `stage_numero`, `date`, `stage_hpo`, `date_fin`) VALUES
-(1, NULL, '98473839', '2014-02-03 02:01:00', 1, NULL);
+(5, 2, '118', '2018-08-15', 1, '2018-07-16'),
+(7, 2, '219', '2018-07-16', 0, '2018-07-09'),
+(8, 1, '318', '2018-08-16', 0, '2018-09-29'),
+(9, 1, '318', '2018-08-16', 0, '2018-09-29'),
+(10, 1, '318', '2018-08-16', 0, '2018-09-29'),
+(11, 2, '418', '2018-08-29', 0, '2018-08-30'),
+(12, 2, '418', '2018-06-26', 0, '2018-07-26'),
+(13, 2, '418', '2018-06-26', 0, '2018-07-26'),
+(14, 1, '666', '2018-09-21', 1, '2018-09-30'),
+(15, 2, '777', '2018-07-05', 1, '2018-07-05'),
+(16, 2, '777', '2018-07-26', 1, '2018-07-17'),
+(17, 2, '777', '2018-07-26', 1, '2018-07-17'),
+(18, 1, '768', '2018-06-26', 0, '2018-07-20'),
+(25, NULL, '11111111111111111111', '2018-07-24', 1, '2018-07-22'),
+(26, 11, '11112', '2018-07-11', 1, '2018-07-11'),
+(27, 12, '11112', '2018-07-11', 1, '2018-07-11');
 
 -- --------------------------------------------------------
 
@@ -547,8 +576,8 @@ CREATE TABLE `tribunal` (
 --
 
 INSERT INTO `tribunal` (`id`, `nature_tribunal_id_id`, `autorite_tribunal_id_id`, `service_tribunal_id_id`, `tribunal_nom`, `adresse`, `code_postal`, `commune`) VALUES
-(5, 1, 4, 3, 'Tribunal de Dole', '6 rue des charmilles', '25870', 'Dole'),
-(6, 3, 4, 3, 'Tribunal de Lons', '57 rue de Vesoul', '39000', 'Dole');
+(5, 3, 4, 3, 'Tribunal de Dole', '6 rue des charmilles', '25870', 'Dole'),
+(6, 3, 4, 3, 'Tribunal de Lons-le-Saunier', '57 rue de Vesoul', '39000', 'Dole');
 
 -- --------------------------------------------------------
 
@@ -675,8 +704,7 @@ ALTER TABLE `liaison_stagiaire_stage_dossier_cas_bordereau`
   ADD UNIQUE KEY `UNIQ_CF1E2B424EC5FD04` (`suivi_dossier_id_id`),
   ADD UNIQUE KEY `UNIQ_CF1E2B4248F70A6A` (`cas_stage_id_id`),
   ADD KEY `IDX_CF1E2B422AA7DFFB` (`stagiaire_id_id`),
-  ADD KEY `IDX_CF1E2B42FFE32C93` (`stage_id_id`),
-  ADD KEY `IDX_CF1E2B4235BA7507` (`bordereau_id_id`);
+  ADD KEY `IDX_CF1E2B42FFE32C93` (`stage_id_id`);
 
 --
 -- Indexes for table `lieu_stage`
@@ -813,7 +841,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `animateur`
 --
 ALTER TABLE `animateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `animateur_stage`
 --
@@ -863,7 +891,7 @@ ALTER TABLE `liaison_stagiaire_stage_dossier_cas_bordereau`
 -- AUTO_INCREMENT for table `lieu_stage`
 --
 ALTER TABLE `lieu_stage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `mode_envoi_convoc`
 --
@@ -908,7 +936,7 @@ ALTER TABLE `service_tribunal`
 -- AUTO_INCREMENT for table `stage`
 --
 ALTER TABLE `stage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `stagiaire`
 --
@@ -983,7 +1011,6 @@ ALTER TABLE `infraction_type_infraction`
 --
 ALTER TABLE `liaison_stagiaire_stage_dossier_cas_bordereau`
   ADD CONSTRAINT `FK_CF1E2B422AA7DFFB` FOREIGN KEY (`stagiaire_id_id`) REFERENCES `stagiaire` (`id`),
-  ADD CONSTRAINT `FK_CF1E2B4235BA7507` FOREIGN KEY (`bordereau_id_id`) REFERENCES `bordereau` (`id`),
   ADD CONSTRAINT `FK_CF1E2B4248F70A6A` FOREIGN KEY (`cas_stage_id_id`) REFERENCES `cas_stage` (`id`),
   ADD CONSTRAINT `FK_CF1E2B424EC5FD04` FOREIGN KEY (`suivi_dossier_id_id`) REFERENCES `suivi_dossier` (`id`),
   ADD CONSTRAINT `FK_CF1E2B42FFE32C93` FOREIGN KEY (`stage_id_id`) REFERENCES `stage` (`id`);
