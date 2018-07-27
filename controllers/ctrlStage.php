@@ -138,17 +138,14 @@ function updateLieuxStage($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $
 }
 
 
-// function showEdit($id){
-//     $civilite = civilite();
-//     $fonction = fonction();
-//     $statut = statut();
-//     $toEdit = getOne($id);
-//     global $twig;
-//     $template = $twig->load('editAnimateur.html.twig');
-//     echo $template->render(array('toEdit'=>$toEdit, 'civilite'=>$civilite, 'fonction'=> $fonction, 'statut' => $statut));
-//     // var_dump($toEdit);
-//     // var_dump($civilite);
-// }
+function showEdit($id){
+    $toEdit = getOne($id);
+    global $twig;
+    $template = $twig->load('editStage.html.twig');
+    echo $template->render(array('toEdit'=>$toEdit));
+    // var_dump($toEdit);
+  
+}
 // function update($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations, $id){
 //     $civilite = (int)$civilite;
 //     $nom = htmlentities($nom);

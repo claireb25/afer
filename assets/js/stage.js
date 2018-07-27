@@ -10,6 +10,8 @@ $(document).ready( function() {
       $(this).parent().children('div').slideToggle(250);
     });
 });
+
+
 if (document.getElementById('lieu_stage') !== null){
   var inputLieuStage = document.getElementById('lieu_stage');
   inputLieuStage.addEventListener('keyup', function(e){
