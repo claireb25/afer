@@ -1,6 +1,6 @@
 function filterIsComming(filter, column){ //3 colonnes en paramètre
     document.getElementById(filter).addEventListener("keyup", function (event) {
-        var filterContainer = document.getElementById(filter).value;
+        var filterContainer = document.getElementById(filter).value.toLowerCase();
         sizeArray = document.querySelectorAll(column).length;
         for (var i = 0; i < sizeArray; i++) {
             var colId = document.querySelectorAll(column)[i].textContent;
