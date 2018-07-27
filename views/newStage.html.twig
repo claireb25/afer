@@ -57,10 +57,10 @@
     <input id="divers" type="text" name="divers"></label>
 
 </div>
+</div>
+<h3> Animateurs</h3>
 
-<h4> Animateurs</h4>
-
-{# <div>
+<div>
 <h5>Animateur 1</h5>
 
 <h6>Informations</h6>
@@ -71,9 +71,16 @@
         {% endfor %}
     </select>
 
-    <label for="nom" name="nom">Nom *
-    <input type="text" name="nom" id="name" required></label>
-    <label for="prenom" name="prenom">Prénom *
+{# input de recherche #}
+    <div id="input_nom_anim1">
+        <label  for="animateur_nom" name="animateur_nom">Nom
+        <input id="animateur_nom" type="text" name="animateur_nom"></label>
+        <input id="animateur_nom_hidden" name="animateur_nom_id" type="hidden" value="">
+        
+        <ul id="animateur_nom_list"></ul>
+    </div>
+
+    <label for="prenom" name="prenom">Prénom 
     <input type="text" name="prenom" id="prenom" required></label>
 
     <select name="fonction">
@@ -128,14 +135,14 @@
     <input type="text" name="siret" id="siret"></label>
 
     <label for="observations" name="observations">Observations
-    <input type="text" name="observations" id="observations"></label> #}
+    <input type="text" name="observations" id="observations"></label>
 
 
 
-
+</div>
     {# TOM #}
 
-    
+
 
 </div>
     <input type="submit" value="Envoyer">
