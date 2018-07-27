@@ -120,9 +120,12 @@ function addNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo)
 
 // display new stage page
 function showNew(){
+    $civilite = civilite();
+    $fonction = fonction();
+    $statut = statut();
     global $twig;
     $template = $twig->load('newStage.html.twig');
-    echo $template->render(array());
+    echo $template->render(array('civilite' => $civilite, 'fonction'=>$fonction, 'statut'=> $statut));
 }
 
 // when creating a new stage, enabeling autocomplete for lieu de stage

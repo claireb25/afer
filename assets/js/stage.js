@@ -64,9 +64,13 @@ function animClicked(data){
     // var newValue = e.target.innerText //
     // console.log(e.target.innerText);
     var idValue = e.target.getAttribute('data-id');
+    var civilite ="";
+    var fonction ="";
+    var statut ="";
     var nom = "";
     var prenom = "";
     var adresse ="";
+    var gta ="";
     var code_postal ="";
     var commune ="";
     var raison_sociale = "";
@@ -85,11 +89,26 @@ function animClicked(data){
       console.log(elements);//if data element is the same as chosen element, change all the other inputs values 
       if (elements.nom+ ' '+ elements.prenom+ ' '+ elements.fonction_nom == e.target.innerText){
         // console.log(elements);
+
+        civilite = elements.civilite_id;
+        document.getElementById('civilite_anim').value = civilite;
+
+        fonction = elements.fonction_id;
+        document.getElementById('fonction_anim').value = fonction;
+
+        statut = elements.statut_id;
+        document.getElementById('statut_anim').value = statut;
+
         nom = elements.nom;
         document.getElementById('animateur_nom').value = nom;
 
         prenom = elements.prenom;
         document.getElementById('prenom').value = prenom;
+
+        gta = elements.gta;
+        if (elements.gta == 1){
+          document.getElementById('gta').checked = true
+        }
 
         raison_sociale = elements.raison_sociale;
         document.getElementById('raison_sociale').value = raison_sociale;
@@ -98,7 +117,6 @@ function animClicked(data){
         document.getElementById('adresse_anim').value = adresse;
 
         code_postal = elements.code_postal;
-        console.log(code_postal);
         document.getElementById('code_postal_anim').value = code_postal;
 
         commune = elements.commune;
