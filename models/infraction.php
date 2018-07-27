@@ -12,7 +12,7 @@ function create($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $
     $response->bindParam(':numeroParquet', $numeroParquet, PDO::PARAM_STR);
     $response->bindParam(':stagiaire', $stagiaire, PDO::PARAM_INT);
     $response->execute();
-    return true; 
+    return $db->lastInsertId(); 
 }
 
 function createLiaisonTypeInfraction($idInfraction, $idTypeInfraction){
@@ -95,15 +95,6 @@ function infractionByID($id){
     $response = $db->prepare("SELECT * FROM infraction 
     WHERE infraction.id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
-    $response->execute();
-    return $response->fetch(PDO::FETCH_ASSOC);
-}
-
-function getIdByNP($numeroParquet){
-    global $db;
-    $response = $db->prepare("SELECT id FROM infraction 
-    WHERE infraction.numero_parquet = :numeroParquet");
-    $response->bindParam(':numeroParquet', $numeroParquet, PDO::PARAM_STR);
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
