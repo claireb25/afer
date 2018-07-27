@@ -182,7 +182,7 @@ main {
   display: flex;
 }
 
-.title a {
+.title a.hello-user {
   color: #AAA;
   width: auto;
   margin: 0 20px;
@@ -193,7 +193,7 @@ main {
   transition: all .5s;
 }
 
-.title a:before {
+.title .hello-user:before {
   content: "\1f464";
   font-size: 38px;
   position: absolute;
@@ -507,4 +507,8 @@ img.th {
   text-align: center;
 }
 
+img.exit-action {
+  padding-top: 10px;
+  padding-right: 20px;
+}
 
