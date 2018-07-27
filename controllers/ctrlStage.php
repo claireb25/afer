@@ -41,12 +41,12 @@ if (isset($_GET['action'])){
                     $_POST['hpo'] = 0;
                 }
                 if ($_POST['lieu_stage_id'] !== ''){
-                updateStage($_POST['edit_stage_numero'], $_POST['lieu_stage_id'], $_POST['edit_date_debut'], $_POST['edit_date_fin'], $_POST['hpo'], $_GET['id']);
-                redirectStageList(); 
+                    updateStage($_POST['edit_stage_numero'], $_POST['lieu_stage_id'], $_POST['edit_date_debut'], $_POST['edit_date_fin'], $_POST['hpo'], $_GET['id']);
+                    redirectStageList(); 
                 } else {
                     echo 'wrong';
-                    // $lieuId = addLieuxStage($_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers']);
-                    // updateStage($_POST['stage_numero'], $lieuId, $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo'], $_GET['id']);
+                    $lieuId = addLieuxStage($_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers'], $_POST['numero_agrement']);
+                    updateStage($_POST['edit_stage_numero'], $lieuId, $_POST['edit_date_debut'], $_POST['edit_date_fin'], $_POST['hpo'], $_GET['id']);
                 }
             } else {
                 showEdit($_GET['id']);
