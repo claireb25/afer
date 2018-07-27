@@ -32,6 +32,9 @@
     <label for="etablissement_nom" name="etablissement_nom">Nom de l'établissement : 
     <input id="etablissement_nom" type="text" name="etablissement_nom"></label>
 
+    <label for="numero_agrement" name="numero_agrement">Numéro d'agrément : 
+    <input id="numero_agrement" type="text" name="numero_agrement"></label>
+
     <label for="adresse" name="adresse">Adresse :
     <input id="adresse" type="text" name="adresse"></label> 
 
@@ -54,10 +57,10 @@
     <input id="divers" type="text" name="divers"></label>
 
 </div>
+</div>
+<h3> Animateurs</h3>
 
-<h4> Animateurs</h4>
-
-{# <div>
+<div>
 <h5>Animateur 1</h5>
 
 <h6>Informations</h6>
@@ -68,9 +71,16 @@
         {% endfor %}
     </select>
 
-    <label for="nom" name="nom">Nom *
-    <input type="text" name="nom" id="name" required></label>
-    <label for="prenom" name="prenom">Prénom *
+{# input de recherche #}
+    <div id="input_nom_anim1">
+        <label  for="animateur_nom" name="animateur_nom">Nom
+        <input id="animateur_nom" type="text" name="animateur_nom"></label>
+        <input id="animateur_nom_hidden" name="animateur_nom_id" type="hidden" value="">
+        
+        <ul id="animateur_nom_list"></ul>
+    </div>
+
+    <label for="prenom" name="prenom">Prénom 
     <input type="text" name="prenom" id="prenom" required></label>
 
     <select name="fonction">
@@ -125,7 +135,67 @@
     <input type="text" name="siret" id="siret"></label>
 
     <label for="observations" name="observations">Observations
-    <input type="text" name="observations" id="observations"></label> #}
+    <input type="text" name="observations" id="observations"></label>
+
+
+
+</div>
+    {# TOM #}
+    <h3>Stagiaires</h3>
+    <div>
+        <select name="civilite">
+            <option value="civilite" selected disabled>Civilité</option>
+            {% for elmt in civilite %}
+                <option value="{{ elmt.id }}">{{ elmt.nom }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="stagaire_nom" name="stagaire_nom">Nom
+        <input id="stagiaire" type="text" name="stagaire_nom"></label>
+        
+        <label for="stagiaire_prenom" name="stagiaire_prenom">Prénom
+        <input type="text" name="stagiaire_prenom"></label>
+
+        <label for="stagiaire_nom_naissance" name="stagiaire_nom_naissance">Nom de naissance
+        <input type="text" name="stagiaire_nom_naissance"></label>
+
+        <label for="stagiaire_date_naissance" name="stagiaire_date_naissance">Date de naissance
+        <input type="date" name="stagiaire_date_naissance"></label>
+
+        <label for="stagiaire_lieu_naissance" name="stagiaire_lieu_naissance">Lieu de naissance
+        <input type="text" name="stagiaire_lieu_naissance"></label>
+
+        <label for="stagiaire_adresse" name="stagiaire_adresse">Adresse
+        <input type="text" name="stagiaire_adresse"></label>
+
+        <label for="stagiaire_code_postal" name="stagiaire_code_postal">Code Postal
+        <input type="text" name="stagiaire_code_postal"></label>
+
+        <label for="stagiaire_commune" name="stagiaire_commune">Commune
+        <input type="text" name="stagiaire_commune"></label>
+
+        <label for="stagiaire_pays" name="stagiaire_pays">Pays
+        <input type="text" name="stagiaire_pays"></label>
+
+        <label for="stagiaire_tel_portable" name="stagiaire_tel_portable">téléphone portable
+        <input type="text" name="stagiaire_tel_portable"></label>
+
+        <label for="stagiaire_tel_fixe" name="stagiaire_tel_fixe">Téléphone fixe
+        <input type="text" name="stagiaire_tel_fixe"></label>
+
+        <label for="stagiaire_email" name="stagiaire_email">Email
+        <input type="email" name="stagiaire_email"></label>
+
+        <label for="stagiaire_carte_avantage_jeunes" name="stagiaire_carte_avantage_jeunes">Carte avantages jeunes
+        <input type="checkbox" name="stagiaire_carte_avantage_jeunes"></label>
+
+        <label for="stagiaire_partenaires" name="stagiaire_partenaires">Partenaires
+        <input type="checkbox" name="stagiaire_partenaires"></label>
+
+        <label for="stagiaire_adherents" name="stagiaire_adherents">Adhérents
+        <input type="checkbox" name="stagiaire_adherents"></label>
+
+    </div>
 
 </div>
     <input type="submit" value="Envoyer">

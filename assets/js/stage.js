@@ -10,6 +10,8 @@ $(document).ready( function() {
       $(this).parent().children('div').slideToggle(250);
     });
 });
+
+
 if (document.getElementById('lieu_stage') !== null){
   var inputLieuStage = document.getElementById('lieu_stage');
   inputLieuStage.addEventListener('keyup', function(e){
@@ -34,7 +36,6 @@ function autoComplete(){
         for (elem of data){
           
           html += '<li data-id="'+elem.id+'">'+ elem.lieu_nom + '</li> <input id="etablissement_hidden" name="etablissement" type="hidden" value="'+elem.etablissement_nom+'">';
-          console.log(html);
           document.getElementById('lieu_stage_list').innerHTML = html;
           $('#lieu_stage_list').show();
         // // console.log($('#lieu_stage_list'))
@@ -44,6 +45,8 @@ function autoComplete(){
       }
     });
   } else {
+      document.getElementById('lieu_stage_hidden').value = "";
+    console.log('coucou');
     $('#lieu_stage_list').hide();
   }
 }
@@ -62,6 +65,7 @@ function itemClicked(data){
     var latitude = "";
     var longitude = "";
     var divers ="";
+    var numero_agrement ="";
     $('#lieu_stage_list').hide();
     document.getElementById('lieu_stage').value = newValue; // change main input name
     document.getElementById('lieu_stage_hidden').value = idValue; // change value of hidden input into chosen id number
@@ -92,8 +96,12 @@ function itemClicked(data){
 
         divers = elements.divers;
         document.getElementById('divers').value = divers;
+
+        numero_agrement = elements.numero_agrement;
+        document.getElementById('numero_agrement').value = numero_agrement;
       }
-    }  
+    
+    }
   })
 }  
  

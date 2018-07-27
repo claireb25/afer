@@ -13,6 +13,7 @@
         <li> {{ elmt.civilite_nom }} {{ elmt.nom }} {{ elmt.prenom }} {{ elmt.commune }} {{ elmt.code_postal }} {{ elmt.tel_portable }} {{ elmt.tel_fix }} {{ elmt.email }} {{ elmt.carte_avantages_jeunes }} {{ elmt.partenaires }} {{ elmt.adherents }}
             <a href="stagiaire/edit/{{ elmt.id }}"><button>Modifier</button></a>
             <a href="stagiaire/delete/{{ elmt.id }}"><button>Supprimer</button></a>
+            <a href="stagiaire/stagiairestage/{{ elmt.id }}"><button>Inscrire à un stage</button></a>
         </li>
     {% endfor %}
 </ul>
