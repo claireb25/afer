@@ -23,6 +23,7 @@
                 <th>Adresse</th>
                 <th>Code postal</th>
                 <th>Ville</th>
+                {# A jeter !
                 <th>
                     <a class="circle-button">
                         <img class="th" src="assets/media/flaticons/see.png" alt="voir" width="30">
@@ -45,6 +46,7 @@
                         <p class="legend-button">supprimer</p>
                     </a>
                 </th>
+                #}
             </tr>
         </thead>
         {% for elems in list %}
@@ -56,6 +58,7 @@
             <td>{{ elems.adresse }}</td>
             <td>{{ elems.code_postal }}</td>
             <td>{{ elems.commune }}</td>
+            {# A jeter !
             <td>
                 <a class="link" href="tribunal/delete/{{ elems.id }}">
                     <img class="test" src="assets/media/flaticons/see-action.png" title="voir le formulaire" width="25">
@@ -71,6 +74,7 @@
                     <img class="test" src="assets/media/flaticons/delete-action.png" title="supprimer le formulaire" width="25">
                 </a>
             </td>
+            #}
         </tr>
         {% endfor %}
     </table>
