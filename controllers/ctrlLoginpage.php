@@ -6,7 +6,7 @@ require("models/users.php");
 require 'vendor/autoload.php';
 
 
-
+// Fonction qui va paramétrer le twig
 function twig(){
     $loader = new Twig_Loader_Filesystem('views');
     $twig = new Twig_Environment($loader, array(
@@ -17,6 +17,10 @@ function twig(){
 }
 
 
+
+//fonction qui appele le twig
+//qui permet d'afficher le formulaire
+//de login
 function displayLogin( $args = array() ){
     $tpl =  twig();
     $template = $tpl->load('login.html.twig');
@@ -24,6 +28,8 @@ function displayLogin( $args = array() ){
 }
 
 
+//fonction qui permet de néttoyer
+//les champs reçu par post
 function validChamp( $champ ){
     $val = '';
 
@@ -36,6 +42,9 @@ function validChamp( $champ ){
     return $val;
 }
 
+
+//fonction qui va tester
+//si le formulaire est juste ou non
 function testForm(){
     $identifiant = '';
     $mdp = '';
@@ -61,6 +70,9 @@ function testForm(){
     return $test;
 }
 
+
+//fonction qui est appelé
+//pour vérifier si la, personne existe
 function verifIdentity( $identifiant, $mdp ){
     $state = true;
     $user = getLogin(  $identifiant, $mdp );
@@ -72,11 +84,19 @@ function verifIdentity( $identifiant, $mdp ){
     return $state;
 }
 
+
+//si la personne existe,
+//fonction qui va démarrer la session
+//est stocker le user connecté
 function startSession( $user ){
     session_start();
     $_SESSION['user'] = $user;
 }
 
+
+//fonction qui appelé et qui vérifie si tout est ok
+//si c'est ok on redirige la personne vers le tableau de bord
+//sinon on affiche les erreurs
 function validForm(){
     if( testForm() ){
         redirectDashboard();
@@ -85,11 +105,15 @@ function validForm(){
     }
 }
 
-
+//redirection vers le tableau de bord
 function redirectDashboard(){
     header('Location: dashboard/view');
 }
 
+
+//fonction qui vérifie si on reçois la variable get[action]
+//si c'est le cas alors on déconnecte la personne
+//sinon on charge le formulaire de login
 function main(){
     if( count( $_POST ) > 0 ){        
         validForm();
@@ -109,5 +133,5 @@ function main(){
 
 
 
-
+//fonction qui est appelé au chargement de la page
 main();

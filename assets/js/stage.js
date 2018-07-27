@@ -1,6 +1,4 @@
-
 $(document).ready( function() {
-  
     $('body').on("click", ".form div h3", function(){
         console.log($(this).children('div'))
       if ($(this).children('span').hasClass('close')) {
@@ -11,19 +9,20 @@ $(document).ready( function() {
       }
       $(this).parent().children('div').slideToggle(250);
     });
-
 });
 
 
-var inputLieuStage = document.getElementById('lieu_stage');
-inputLieuStage.addEventListener('keyup', function(e){
-  autoComplete();
-  
-});
+if (document.getElementById('lieu_stage') !== null){
+  var inputLieuStage = document.getElementById('lieu_stage');
+  inputLieuStage.addEventListener('keyup', function(e){
+    autoComplete();
+  });
+}
+
 
 function autoComplete(){
   var min_length = 1; // min caracters to display the autocomplete
-  var keyword = inputLieuStage.value ;
+  var keyword = inputLieuStage.value;
   if (keyword.length >= min_length) {
     $.ajax({
       url: 'stage/query',
@@ -31,17 +30,15 @@ function autoComplete(){
       data: {keyword:keyword},
       success:function(data){
         data = JSON.parse(data);
-
+        console.log(data);
+        console.log(keyword);
         var html = "";
-        // var etbls = "";
         for (elem of data){
-          html += '<li data-id="'+elem.id+'">'+ elem.lieu_nom + '</li> <input id="etablissement_hidden" name="etablissement" type="hidden" value="'+elem.etablissement_nom+'">';
-          document.getElementById('lieu_stage_list').innerHTML = html;
-
-        
-         
           
-        // $('#lieu_stage_list').show();
+          html += '<li data-id="'+elem.id+'">'+ elem.lieu_nom + '</li> <input id="etablissement_hidden" name="etablissement" type="hidden" value="'+elem.etablissement_nom+'">';
+          console.log(html);
+          document.getElementById('lieu_stage_list').innerHTML = html;
+          $('#lieu_stage_list').show();
         // // console.log($('#lieu_stage_list'))
         // $('#lieu_stage_list').html(data.lieu_nom);
         }
@@ -59,7 +56,6 @@ function itemClicked(data){
   listElem.addEventListener('click', function(e){ // listen to click on children of input_lieu
     var newValue = e.target.innerText //
     var idValue = e.target.getAttribute('data-id');
-   
     var etablissement = "";
     var adresse ="";
     var code_postal ="";
@@ -68,7 +64,7 @@ function itemClicked(data){
     var latitude = "";
     var longitude = "";
     var divers ="";
-
+    $('#lieu_stage_list').hide();
     document.getElementById('lieu_stage').value = newValue; // change main input name
     document.getElementById('lieu_stage_hidden').value = idValue; // change value of hidden input into chosen id number
     
@@ -99,11 +95,8 @@ function itemClicked(data){
         divers = elements.divers;
         document.getElementById('divers').value = divers;
       }
-     
-
     }  
   })
-
 }  
  
 

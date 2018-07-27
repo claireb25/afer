@@ -35,25 +35,43 @@
                 </li>
                 <li>
                     <a href="javascript:void(0);" class="bouton-bigmenu small-entities" data-title="Réglages">Réglages
-                        <span class="fleche-jaune entypo-down-open "></span>   
+                        <span class="fleche-jaune entypo-down-open "></span>
                     </a>
                     <div class="list-small-entities">
                         <ul>
                             <li class="cat-entities">Animateur</li>
                             <ul class="entities ">
-                                <li><a href="statutanimateur/list" class="bouton-smallmenu">Statut</a></li>
-                                <li><a href="fonctionanimateur/list" class="bouton-smallmenu">Fonction</a></li>
+                                <li>
+                                    <a href="statutanimateur/list" class="bouton-smallmenu">Statut</a>
+                                </li>
+                                <li>
+                                    <a href="fonctionanimateur/list" class="bouton-smallmenu">Fonction</a>
+                                </li>
                             </ul>
-                            <li class="cat-entities"><a href="tribunal/list" class="bouton-titresmallmenu">Tribunal</a></li>
+                            <li class="cat-entities">
+                                <a href="tribunal/list" class="bouton-titresmallmenu">Tribunal</a>
+                            </li>
                             <ul class="entities ">
-                                <li><a href="autoritetribunal/list" class="bouton-smallmenu">Autorité</a></li>
-                                <li><a href="naturetribunal/list" class="bouton-smallmenu">Nature</a></li>
-                                <li><a href="servicetribunal/list" class="bouton-smallmenu">Service</a></li>
+                                <li>
+                                    <a href="autoritetribunal/list" class="bouton-smallmenu">Autorité</a>
+                                </li>
+                                <li>
+                                    <a href="naturetribunal/list" class="bouton-smallmenu">Nature</a>
+                                </li>
+                                <li>
+                                    <a href="servicetribunal/list" class="bouton-smallmenu">Service</a>
+                                </li>
                             </ul>
-                            <li class="cat-entities"><a href="prefecture/list" class="bouton-titresmallmenu">Préfecture</a></li>
+                            <li class="cat-entities">
+                                <a href="prefecture/list" class="bouton-titresmallmenu">Préfecture</a>
+                            </li>
                             <ul class="entities">
-                                <li><a href="autoriteprefecture/list" class="bouton-smallmenu">Autorité</a></li>
-                                <li><a href="serviceprefecture/list" class="bouton-smallmenu">Service</a></li>
+                                <li>
+                                    <a href="autoriteprefecture/list" class="bouton-smallmenu">Autorité</a>
+                                </li>
+                                <li>
+                                    <a href="serviceprefecture/list" class="bouton-smallmenu">Service</a>
+                                </li>
                             </ul>
 
                         </ul>
@@ -68,9 +86,11 @@
     <main>
         <div class="title ">
             <h2>Outil de gestion</h2>
-            <a href="users/edit/{{user.id}} ">Hello {{user.fullName}} !</a>
+            <a class="hello-user" href="users/edit/{{user.id}}">Hello {{user.fullName}} !</a>
+            <a href="login/logout">
+                <img class="exit-action" alt="se déconnecter" title="se déconnecter" src="assets/media/flaticons/exit.png" width="35" height="35">
+            </a>
         </div>
-
         <section>
             {% block content %} {% endblock %}
         </section>
@@ -78,7 +98,7 @@
 
 
 
-    
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js " integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin=" anonymous "></script>
     <script src="assets/js/dashboard.js "></script>

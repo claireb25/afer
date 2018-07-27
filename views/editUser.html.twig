@@ -4,26 +4,73 @@
 
 <div class="cadre">
 
-    <form action="users/edit/{{ users.id }}" method="post" class="form">
+    <form action="users/edit/{{ users.id }}" method="post" class="form form-user form-user-edit">
         <div class="form-group">
             <label for="identifiant" class="form-label">Identifiant *</label>
-            <input type="text" class="form-input" name="identifiant" value="{{ users.identifiant }}" />
-            <p class="form-msg-error">Veuillez saisir votre identifiant</p>
+            <input type="text" id="identifiant" class="form-input upper" name="identifiant" value="{{ users.identifiant | raw }}" />
+            <p class="form-msg-error  
+            {% if users is defined %} 
+                {% if users.identifiant != '' %}
+                    hidden
+                {% endif %}
+            {% else %}
+                hidden             
+            {% endif %}
+            " id="msg-identifiant" >
+            
+             {% if users is defined %} 
+                    {% if error == 'exist' %} 
+                        Veuillez saisir un autre identifiant.
+                    {% else %}
+                        {% if users.identifiant == '' %} 
+                            Veuillez saisir votre identifiant
+                        {% endif %}  
+                    {% endif %}                
+                {% endif %}
+            </p>
         </div>
         <div class="form-group">
-            <label for="mdp" class="form-label">Mot de passe *</label>
-            <input type="password" class="form-input" name="mdp" />
+            <label id="mdp-label" for="mdp" class="form-label hidden">Mot de passe *</label>
+            <input type="text"  class="form-input hidden" name="mdp" value="{{ user.mdp | raw }}" id="mdp" /><button type="button" class="modal-btn form-login-button modal-btn-change-pwd" >Modifier le mot de passe</button>
 
         </div>
         <div class="form-group">
-            <label for="prenom" class="form-label">Prénom *</label>
-            <input type="text" class="form-input" name="prenom" value="{{users.prenom}}" />
-            <p class="form-msg-error">Veuillez saisir votre prénom</p>
+            <label for="prenom" class="form-label ">Prénom *</label>
+            <input type="text" id="prenom"  class="form-input capitalize" name="prenom" value="{{users.prenom | raw}}" />
+            <p class="form-msg-error 
+            {% if users is defined %} 
+                {% if users.prenom != '' %}
+                    hidden
+                {% endif %}
+            {% else %}
+                hidden             
+            {% endif %}
+            " id="msg-prenom"  >
+            {% if users is defined %}                   
+                {% if users.prenom == '' %} 
+                    Veuillez saisir votre prénom
+                {% endif %}                                
+            {% endif %}
+            </p>
         </div>
         <div class="form-group">
             <label for="nom" class="form-label">Nom *</label>
-            <input type="text" class="form-input" name="nom" value="{{users.nom}}" />
-            <p class="form-msg-error">Veuillez saisir votre nom</p>
+            <input type="text" id="nom"  class="form-input upper" name="nom" value="{{users.nom | raw }}" />
+            <p class="form-msg-error 
+            {% if users is defined %} 
+                {% if users.nom != '' %}
+                    hidden
+                {% endif %}
+            {% else %}
+                hidden             
+            {% endif %}
+            " id="msg-nom"  >
+            {% if users is defined %}                   
+                {% if users.nom == '' %} 
+                    Veuillez saisir votre nom
+                {% endif %}                                
+            {% endif %}
+            </p>
         </div>
         <div class="form-login-group">
             <button class="form-login-button">Mettre à jour</button>
@@ -31,4 +78,23 @@
     </form>
 
 </div>
-{% endblock %}
+<div id="alertUser" >
+
+</div>
+{% if error is defined %}
+        <div class="boxOverlay" >
+            <div class="modal fas fa-exclamation-triangle">
+                {%if error == 'exist' %}           
+                    <p class="modal-message">L'identifiant éxiste déjà dans la table Utilisateurs.</p> 
+                {% else %}         
+                    <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                {% endif %}
+                <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+            </div>
+        </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block javascript %} 
+    <script src="assets/js/app.js" ></script>
+  {% endblock %}
