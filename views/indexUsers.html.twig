@@ -23,10 +23,10 @@
             {% for u in users %}
 
                 <tr class="tbl-row-list" >
-                    <td class="tbl-col-list" >{{u.identifiant | raw }}</td>
-                    <td class="tbl-col-list" >{{u.prenom | raw }}</td>
-                    <td class="tbl-col-list" >{{u.nom | raw }}</td>
-                    <td class="tbl-col-list" ><a href="users/edit/{{ u.id }}" class="tbl-link-edit"  ></a> {% if u.id != user.id %}  <a href="users/delete/{{ u.id }}" class="tbl-link-delete"  ></a>{% endif %}</td>
+                    <td class="tbl-col-list upper" >{{u.identifiant|raw }}</td>
+                    <td class="tbl-col-list capitalize" >{{u.prenom |  capitalize }}</td>
+                    <td class="tbl-col-list upper" >{{u.nom |  capitalize }}</td>
+                    <td class="tbl-col-list capitalize" ><a href="users/edit/{{ u.id }}" class="tbl-link-edit"  ></a> {% if u.id != user.id %}  <a href="users/delete/{{ u.id }}" class="tbl-link-delete"  ></a>{% endif %}</td>
                 </tr>
 
             {% endfor %}

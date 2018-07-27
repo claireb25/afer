@@ -6,7 +6,7 @@
     <form action="users/new" method="post" class="form form-user form-user-create">
         <div class="form-group">
             <label for="identifiant" class="form-label">Identifiant *</label>
-            <input type="text" class="form-input" id="identifiant" name="identifiant" value="{% if users is defined %}{{ users.identifiant | raw }}{% endif %}" />
+            <input type="text" class="form-input upper" id="identifiant" name="identifiant" value="{% if users is defined %}{{ users.identifiant | raw }}{% endif %}" />
             <p class="form-msg-error 
             {% if users is defined %} 
                 {% if users.identifiant != '' %}
@@ -29,7 +29,7 @@
         </div>
         <div class="form-group">
             <label for="mdp" class="form-label">Mot de passe *</label>
-            <input type="password" id="mdp" class="form-input" name="mdp" value="{% if users is defined %}{{ users.mdp | raw }}{% endif %}" />
+            <input type="text" id="mdp" class="form-input" name="mdp" value="{% if users is defined %}{{ users.mdp | raw }}{% endif %}" />
             <p class="form-msg-error 
             {% if users is defined %} 
                 {% if users.mdp != '' %}
@@ -48,7 +48,7 @@
         </div>
         <div class="form-group">
             <label for="prenom" class="form-label">Prénom *</label>
-            <input type="text" id="prenom" class="form-input" name="prenom" value="{% if users is defined %}{{ users.prenom | raw }}{% endif %}" />
+            <input type="text" id="prenom" class="form-input capitalize" name="prenom" value="{% if users is defined %}{{ users.prenom | raw }}{% endif %}" />
             <p class="form-msg-error 
             {% if users is defined %} 
                 {% if users.prenom != '' %}
@@ -67,7 +67,7 @@
         </div>
         <div class="form-group">
             <label for="nom" class="form-label">Nom *</label>
-            <input type="text" id="nom" class="form-input" name="nom" value="{% if users is defined %}{{ users.nom | raw }}{% endif %}" />
+            <input type="text" id="nom" class="form-input upper" name="nom" value="{% if users is defined %}{{ users.nom | raw }}{% endif %}" />
             <p class="form-msg-error 
             {% if users is defined %} 
                 {% if users.nom != '' %}
