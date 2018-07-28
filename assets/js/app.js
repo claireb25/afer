@@ -19,12 +19,20 @@ function main(){
     userForm( 'edit');
   }
 
-  if( document.querySelector('.form-serviceTribunal-create') !== null ){
-    serviceTribunalForm( 'create');
+  if( document.querySelector('.form-servicePrefecture-create') !== null ){
+    servicePrefectureForm( 'create');
   }
 
-  if( document.querySelector('.form-serviceTribunal-edit') !== null ){
-    serviceTribunalForm( 'edit');
+  if( document.querySelector('.form-servicePrefecture-edit') !== null ){
+    servicePrefectureForm( 'edit');
+  }
+
+  if( document.querySelector('.form-autoritePrefecture-create') !== null ){
+    autoritePrefectureForm( 'create');
+  }
+
+  if( document.querySelector('.form-autoritePrefecture-edit') !== null ){
+    autoritePrefectureForm( 'edit');
   }
 
   
@@ -125,7 +133,7 @@ function userForm( action ){
 }
 
 
-function serviceTribunalForm( action ){
+function servicePrefectureForm( action ){
     formService = document.querySelector( '.form-service' );
     formService.addEventListener('submit', ( e ) =>{
         e.preventDefault();
@@ -140,6 +148,42 @@ function serviceTribunalForm( action ){
         }else{
             document.querySelector('#msg-service_nom').classList.add( 'hidden');
             document.querySelector('#msg-service_nom').innerHTML = "";
+        }
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){
+            formService.submit();
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
+        }
+    });
+}
+
+
+function autoritePrefectureForm( action ){
+    formService = document.querySelector( '.form-autorite' );
+    formService.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#autorite_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-autorite_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-autorite_nom').innerHTML = "Veuillez saisir le champ autorité";
+            test = false;
+        }else{
+            document.querySelector('#msg-autorite_nom').classList.add( 'hidden');
+            document.querySelector('#msg-autorite_nom').innerHTML = "";
         }
 
        

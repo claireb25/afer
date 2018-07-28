@@ -1,12 +1,51 @@
 {% extends 'template.html.twig' %}
 
 {% block content %}
+  <h1>Ajout d'une autorité (Préfecture)</h1>
+  <form action="autoriteprefecture/new" method="post" class="form form-autorite form-autoritePrefecture-create">
+    <div class="form-group">
+        <label for="autorite_nom" class="form-label">Autorité *</label>
+        <input type="text" class="form-input capitalize" id="autorite_nom" name="autorite_nom" value="{% if autorite_nom is defined %}{{ autorite_nom | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %} 
+            {% if error != 'exist' %}
+                hidden
+            {% endif %}
+        {% else %}
+            hidden             
+        {% endif %}
+        " id="msg-autorite_nom" >
+            {% if autorite_nom is defined %} 
+                {% if error == 'exist' %} 
+                    Veuillez saisir une autre autorité car celle que vous venez de saisir existe déjà.
+                {% else %}
+                    {% if autorite_nom == '' %} 
+                        Veuillez saisir une autorité
+                    {% endif %}  
+                {% endif %}                
+            {% endif %}
+        </p>
+    </div>
+  <div class="form-login-group">
+    <button class="form-login-button">Valider</button>
+  </div>
+  </form>
+  <div id="alertUser" >
+  </div>
+  {% if error is defined %}
+          <div class="boxOverlay" >
+              <div class="modal fas fa-exclamation-triangle">
+                  {%if error == 'exist' %}           
+                      <p class="modal-message">L'autorité éxiste déjà dans la table Autorité préfecture.</p> 
+                  {% else %}         
+                      <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                  {% endif %}
+                  <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
 
-<form action="autoriteprefecture/new" method="post" class="form">
-  <div class="form-example">
-    <label for="autorite_nom" name="autorite_nom">Nom de l'autorité
-    <input type="text" name="autorite_nom" id="name" required></label>
-    <input type="submit" value="Envoyer">
-</form>
-
-{% endblock %}
+    {% block javascript %} 
+      <script src="assets/js/app.js" ></script>
+    {% endblock %}
