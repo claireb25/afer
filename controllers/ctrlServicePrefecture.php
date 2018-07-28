@@ -20,7 +20,16 @@ if (isset($_GET['action'])){
             break;
         case 'new':
             if (isset($_POST['service_nom']) && (!empty($_POST['service_nom']))){
-                addNew($_POST['service_nom']);
+               
+                $service_nom = htmlentities( trim( $_POST['service_nom'] ) );               
+                $reponse = getServiceNom( $service_nom );
+                
+                if( $reponse === false ){   
+                    addNew($service_nom);
+                }else{
+                    showExist( $service_nom );
+                }
+                
             } else {
                 showNew();
             }
@@ -63,6 +72,12 @@ function showNew(){
     global $twig;
     $template = $twig->load('newServicePrefecture.html.twig');
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ) );
+}
+
+function showExist( $service_nom ){
+    global $twig;
+    $template = $twig->load('newServicePrefecture.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'service_nom' => $service_nom ) );
 }
 
 //EDIT 

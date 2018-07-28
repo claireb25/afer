@@ -174,14 +174,16 @@ function showPassword(){
 //à l'attribut data-link du bouton yes
 function msgDelete(){
     btnDelete = document.querySelectorAll('.tbl-link-delete');
-
+    
     btnDelete.forEach( ( element ) => {
         element.addEventListener('click', (e) =>{
             e.preventDefault();
             const overlay = document.querySelector('.boxOverlay');
+            const txtidentifiant = document.querySelector('.modal-message--value');
             overlay.classList.remove('hidden');
             btnYes = document.querySelector( '.modal-btn-yes' );
             btnYes.setAttribute('data-link', element.getAttribute( 'href' ) );
+            txtidentifiant.innerHTML = element.getAttribute('data-value');
         })
     });
 }

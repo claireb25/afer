@@ -54,7 +54,8 @@ if (isset($_GET['action'])){
             break;
 
         case 'query':
-            queryStagiaire();
+            $keyword = $_POST['keyword'];
+            autoCompleteStagiaire($keyword);
             break;
         
         case 'view':
@@ -77,11 +78,8 @@ function makeList(){
 }
 
 // QUERY
-function queryStagiaire(){
-    $list = listAll();
-    $test = $_POST['keyword'];
-    $coucou ="coucou";
-    echo json_encode($coucou);
+function autoCompleteStagiaire($keyword){
+    listStagiaire($keyword);
 }
 
 
