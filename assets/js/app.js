@@ -23,6 +23,10 @@ function main(){
     serviceTribunalForm( 'create');
   }
 
+  if( document.querySelector('.form-serviceTribunal-edit') !== null ){
+    serviceTribunalForm( 'edit');
+  }
+
   
   if( document.querySelector('.tbl-link-delete') !== null ){
       msgDelete();

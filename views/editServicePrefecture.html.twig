@@ -2,14 +2,53 @@
 
 {% block content %}
 
-<h1>Modifier : {{ servicetoEdit.service_nom }}</h1>
+<h1>Modifier le sercice préfecture : {{ servicetoEdit.service_nom }}</h1>
 
+<form action="serviceprefecture/edit/{{ servicetoEdit.id }}" method="post" class="form form-service form-serviceTribunal-edit">
+    <div class="form-group">
+        <label for="service_nom" class="form-label">Service *</label>
+        <input type="text" class="form-input capitalize" id="service_nom" name="service_nom" value="{% if servicetoEdit is defined %}{{ servicetoEdit.service_nom | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %} 
+            {% if error != 'exist' %}
+                hidden
+            {% endif %}
+        {% else %}
+            hidden             
+        {% endif %}
+        " id="msg-service_nom" >
+            {% if servicetoEdit.service_nom is defined %} 
+                {% if error == 'exist' %} 
+                    Veuillez saisir un autre service car celui que vous venez de saisir existe déjà.
+                {% else %}
+                    {% if servicetoEdit.service_nom == '' %} 
+                        Veuillez saisir un service
+                    {% endif %}  
+                {% endif %}                
+            {% endif %}
+        </p>
+    </div>
+  <div class="form-login-group">
+    <button class="form-login-button">Valider</button>
+  </div>
+  </form>
+  <div id="alertUser" >
+  </div>
+  {% if error is defined %}
+          <div class="boxOverlay" >
+              <div class="modal fas fa-exclamation-triangle">
+                  {%if error == 'exist' %}           
+                      <p class="modal-message">Le service éxiste déjà dans la table Service préfecture.</p> 
+                  {% else %}         
+                      <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                  {% endif %}
+                  <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
 
-<form action="serviceprefecture/edit/{{ servicetoEdit.id }}" method="post" class="form">
-  <div class="form-example">
-    <label for="edit_service" name="edit_service">Nature 
-    <input type="text" name="edit_service" id="name" value="{{ servicetoEdit.service_nom }}" required></label>
-    <input type="submit" value="Modifier">
-</form>
+    {% block javascript %} 
+      <script src="assets/js/app.js" ></script>
+    {% endblock %}
 
-{% endblock %}
