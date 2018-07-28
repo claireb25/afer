@@ -23,7 +23,7 @@
 
             <tr class="tbl-row-list ligne" >
                 <td class="tbl-col-list capitalize service">{{elems.service_nom|raw }}</td>
-                <td class="tbl-col-list " ><a href="serviceprefecture/edit/{{elems.id }}" class="tbl-link-edit"  ></a>   <a href="serviceprefecture/delete/{{ elems.id }}" class="tbl-link-delete"  ></a></td>
+                <td class="tbl-col-list " ><a href="serviceprefecture/edit/{{elems.id }}" class="tbl-link-edit"  ></a>   <a href="serviceprefecture/delete/{{ elems.id }}" class="tbl-link-delete" data-value="{{ elems.service_nom }}" ></a></td>
             </tr>
 
         {% endfor %}
@@ -34,7 +34,7 @@
 
 <div class="boxOverlay hidden " >
         <div class="modal modal-yesNo fas fa-exclamation-triangle">                   
-            <p class="modal-message">Êtes-vous sûre de vouloir supprimmer le service.</p>                 
+            <p class="modal-message">Êtes-vous sûre de vouloir supprimmer le service : <span class="capitalize modal-message--value" ></span></p>                 
             <button type="button"  data-link="" onclick="deleteUser()" class="modal-btn form-login-button modal-btn--inline modal-btn-yes"  >Oui</button> <button type="button" class="modal-btn form-login-button modal-btn--inline modal-btn-no" > Non</button>
         </div>
     </div>

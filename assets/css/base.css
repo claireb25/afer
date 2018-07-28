@@ -394,6 +394,9 @@ a:hover {
   display:none;
 }
 
+.lower{
+  text-transform: lowercase;
+}
 .upper{
   text-transform: uppercase;
 }
