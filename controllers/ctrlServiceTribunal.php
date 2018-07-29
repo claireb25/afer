@@ -13,9 +13,6 @@ if (isset($_GET['action'])){
         'cache'=> false
     ));
 
-    
-    session_start();
-
     switch ($action) {
         case 'list':
             makeList();            
