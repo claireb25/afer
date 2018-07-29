@@ -66,6 +66,9 @@ if (isset($_GET['action'])){
             deleteElement($_GET['id']);
             redirectList();
             break;
+        case 'pdf':
+        echo 'Future page pour la génération facture stagiaire';
+        break;
     }
 }
 
