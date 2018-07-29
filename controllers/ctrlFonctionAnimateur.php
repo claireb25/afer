@@ -37,12 +37,32 @@ if (isset($_GET['action'])){
 
         case 'edit':
             if (isset($_GET['id'])){
-                showOne($_GET['id']);
-
-            }
-            if (isset($_POST['fonction_nom']) && (!empty($_POST['fonction_nom']))){
-                edit($_POST['fonction_nom'], intval($_GET['id']));
-                header("Location: /afer-back/fonctionanimateur/list");
+                if( !empty( $_GET['id'] ) ){
+                    $id = (int) $_GET['id'];
+                    if( count( $_POST ) > 0 ){
+                        if( isset( $_POST['fonction_nom'] ) ){
+                            $fonction_nom = htmlentities( trim( $_POST['fonction_nom'] ) );               
+                            $reponse = getFonctionNom( $fonction_nom );
+                
+                            if( $reponse === false ){
+                                edit($_POST['fonction_nom'], $id );
+                                header('Location: /afer-back/fonctionanimateur/list');
+                            }else{
+                                showExistEdit( $fonction_nom, $id );
+                            }                            
+                            
+                        }else{
+                            header('Location: /afer-back/fonctionanimateur/list');
+                        }
+                        
+                    }else{
+                        showOne($_GET['id']);
+                    }
+                }else{
+                    header('Location: /afer-back/fonctionanimateur/list');
+                }
+            }else{
+                header('Location: /afer-back/fonctionanimateur/list');
             }
             break;
 
@@ -62,7 +82,13 @@ function showOne($id){
     global $twig;
     $list = listOne('fonction_animateur', $id);
     $template = $twig->load('editFonctionAnim.html.twig');
-    echo $template->render(array('list' => $list));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'list' => $list));
+}
+
+function showExistEdit( $fonction_nom , $id){
+    global $twig;
+    $template = $twig->load('editFonctionAnim.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'list'=>array('id' => $id, 'fonction_nom' => $fonction_nom ) ) );
 }
 
 function showList(){
