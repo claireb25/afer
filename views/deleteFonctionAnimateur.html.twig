@@ -1,0 +1,13 @@
+{% extends 'template.html.twig' %} {% block content %}
+
+
+<div class="boxOverlay  ">
+    <div class="modal modal-redirect fas fa-exclamation-triangle">
+        <p class="modal-message">Impossible de supprimer car un animateur est rattaché à cette fonction</p>
+        <button type="button" data-link="fonctionanimateur/list" onclick="deleteUser()" class="modal-btn form-login-button  modal-btn-yes">Ok</button>
+    </div>
+</div>
+
+{% endblock %} {% block javascript %}
+<script src="assets/js/app.js"></script>
+{% endblock %}

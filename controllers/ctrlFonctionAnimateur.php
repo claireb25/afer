@@ -44,8 +44,7 @@ if (isset($_GET['action'])){
             
         case 'delete':
             if (isset($_GET['id'])){
-                delete(intval($_GET['id']));
-                header("Location: /afer-back/fonctionanimateur/list");
+                deleteElement($_GET['id']);
             }
             break;
     }
@@ -76,4 +75,23 @@ function showNew(){
     global $twig;
     $template = $twig->load('newFonctionAnim.html.twig');
     echo $template->render(array());
+}
+
+function showDeleteError( $id ){
+    global $twig;
+    $template = $twig->load('deleteFonctionAnimateur.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
+}
+
+
+//DELETE
+function deleteElement($id){
+    $id = (int)$id;
+    $count = nombreRelationFonctionAnimateur( $id );
+    if( $count == 0 ){
+        delete($id);
+        header('Location: /afer-back/fonctionanimateur/list');
+    }else{
+        showDeleteError( $id );
+    }    
 }
