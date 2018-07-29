@@ -103,10 +103,11 @@ function animClicked(data){
     var observations = "";
     $('#animateur_nom_list').hide();
     //document.getElementById('animateur_nom').value = newValue; // change main input name
-    document.getElementById('animateur_nom_hidden').value = idValue; // change value of hidden input into chosen id number
+    document.getElementById('animateur_nom_hidden').value = idValue;
+    console.log(document.getElementById('animateur_nom_hidden').value) // change value of hidden input into chosen id number
     // console.log(data)
     for (elements of data){ 
-      console.log(elements);//if data element is the same as chosen element, change all the other inputs values 
+      //console.log(elements);//if data element is the same as chosen element, change all the other inputs values 
       if (elements.nom+ ' '+ elements.prenom+ ' '+ elements.fonction_nom == e.target.innerText){
         // console.log(elements);
 

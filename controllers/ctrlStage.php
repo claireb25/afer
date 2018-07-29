@@ -23,11 +23,15 @@ if (isset($_GET['action'])){
                 if ($_POST['lieu_stage_id'] !== ''){
                     addNew($_POST['lieu_stage_id'], $_POST['stage_numero'], $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo']);
                     updateLieuxStage($_POST['lieu_stage_id'], $_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers'], $_POST['numero_agrement']);
-                    redirectStageList();
+                    
+                    $animateurs_id = $_POST['animateur_nom_id'];
+                    var_dump($animateurs_id);
+                    // redirectStageList();
                 } else {
                     $lieuId = addLieuxStage($_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers'], $_POST['numero_agrement']);
                     addNewStage($_POST['stage_numero'], $lieuId, $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo']);
-                    redirectStageList();
+                    echo 'mauvais endroit';
+                    // redirectStageList();
                 }
             } else {
                 showNew();     
