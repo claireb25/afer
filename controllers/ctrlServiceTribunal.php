@@ -34,13 +34,33 @@ if (isset($_GET['action'])){
             }
             break; 
         case 'edit':
-            if (isset($_GET['id'])){
-                showEdit($_GET['id']);
-               
+        if (isset($_GET['id'])){
+            if( !empty( $_GET['id'] ) ){
+                $id = (int) $_GET['id'];
+                if( count( $_POST ) > 0 ){
+                    if( isset( $_POST['service_nom'] ) ){
+                        $service_nom = htmlentities( trim( $_POST['service_nom'] ) );               
+                        $reponse = getServiceNom( $service_nom );
+            
+                        if( $reponse === false ){   
+                            updateService($_POST['service_nom'], $id );
+                        }else{
+                            showExistEdit( $service_nom, $id );
+                        }                            
+                        
+                    }else{
+                        header('Location: /afer-back/servicetribunal/list');
+                    }
+                    
+                }else{
+                    showEdit($_GET['id']);
+                }
+            }else{
+                header('Location: /afer-back/servicetribunal/list');
             }
-            if (isset($_POST['edit_service']) && (!empty($_POST['edit_service']))){
-                updateService($_POST['edit_service'], $_GET['id']);
-            }
+        }else{
+            header('Location: /afer-back/servicetribunal/list');
+        }
            
             break;
         
@@ -79,12 +99,18 @@ function showExist( $service_nom ){
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'service_nom' => $service_nom ) );
 }
 
+function showExistEdit( $service_nom , $id){
+    global $twig;
+    $template = $twig->load('editServiceTribunal.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'servicetoEdit'=>array('id' => $id, 'service_nom' => $service_nom ) ) );
+}
+
 //EDIT 
 function showEdit($id){
     $servicetoEdit = getOne($id);
     global $twig;
     $template = $twig->load('editServiceTribunal.html.twig');
-    echo $template->render(array('servicetoEdit'=>$servicetoEdit));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'servicetoEdit'=>$servicetoEdit));
 }
 
 function updateService($data, $id){
