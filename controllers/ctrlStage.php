@@ -24,12 +24,8 @@ if (isset($_GET['action'])){
                     $idStage = addNew($_POST['lieu_stage_id'], $_POST['stage_numero'], $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo']);
                    ;
                     updateLieuxStage($_POST['lieu_stage_id'], $_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers'], $_POST['numero_agrement']);
-                    if (isset($_POST['animateur_nom_id'])){
-                        $animateurs_id = $_POST['animateur_nom_id'];
-                        foreach($animateurs_id as $anims){
-                            addAnimsToStage($anims,$idStage);  
-                        }
-                    }
+                    addAnimsToStage($_POST['animateur_nom_id'], $idStage);
+                 
                     // redirectStageList();
                 } else {
                     $lieuId = addLieuxStage($_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers'], $_POST['numero_agrement']);
@@ -129,8 +125,12 @@ function addNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo)
 function addAnimsToStage($anims, $idStage){
     $anims = (int)$anims;
     $idStage = (int)$idStage;
-    createLinkAnimStage($anims, $idStage);
-    var_dump($anims, $idStage);
+    if (isset($_POST['animateur_nom_id'])){
+        $animateurs_id = $_POST['animateur_nom_id'];
+        foreach($animateurs_id as $anims){
+            createLinkAnimStage($anims, $idStage);
+        }
+    }
 }
 
 // display new stage page
