@@ -17,8 +17,17 @@ if (isset($_GET['action'])){
             makeList();            
             break;
         case 'new':
-            if (isset($_POST['status_nom']) && (!empty($_POST['status_nom']))){
-                addNew($_POST['status_nom']);
+            if (isset($_POST['statut_nom']) && (!empty($_POST['statut_nom']))){
+                            
+                $statut_nom = htmlentities( trim( $_POST['statut_nom'] ) );               
+                $reponse = getStatutNom( $statut_nom );
+                
+                if( $reponse === false ){   
+                    addNew($statut_nom);
+                }else{
+                    showExist( $statut_nom );
+                }
+                
             } else {
                 showNew();
             }
@@ -60,7 +69,13 @@ function addNew($valeur){
 function showNew(){
     global $twig;
     $template = $twig->load('newStatutAnim.html.twig');
-    echo $template->render(array());
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
+}
+
+function showExist( $statut_nom ){
+    global $twig;
+    $template = $twig->load('newStatutAnim.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'statut_nom' => $statut_nom ) );
 }
 
 //EDIT 

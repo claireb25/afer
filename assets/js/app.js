@@ -68,6 +68,14 @@ function main(){
   if( document.querySelector('.form-fonctionAnimateur-edit') !== null ){
     fonctionAnimateurForm( 'edit');
   }
+
+  if( document.querySelector('.form-statutAnimateur-create') !== null ){
+    statutAnimateurForm( 'create');
+  }
+
+  if( document.querySelector('.form-statutAnimateur-edit') !== null ){
+    statutAnimateurForm( 'edit');
+  }
   
 
   
@@ -371,6 +379,42 @@ function fonctionAnimateurForm( action ){
         //informer des erreurs
         if( test === true ){
             formFonction.submit();
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
+        }
+    });
+}
+
+
+function statutAnimateurForm( action ){
+    formStatut = document.querySelector( '.form-statut' );
+    formStatut.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#statut_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-statut_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-statut_nom').innerHTML = "Veuillez saisir le champ statut";
+            test = false;
+        }else{
+            document.querySelector('#msg-statut_nom').classList.add( 'hidden');
+            document.querySelector('#msg-statut_nom').innerHTML = "";
+        }
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){
+            formStatut.submit();
           }else{
             html = '<div class="boxOverlay" >';
             html += '<div class="modal fas fa-exclamation-triangle">';

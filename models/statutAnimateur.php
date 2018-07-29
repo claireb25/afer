@@ -24,10 +24,10 @@ function getOne($id){
     return $response->fetch(PDO::FETCH_ASSOC);
 }
 
-function getStatusNom($status_nom){
+function getStatutNom($status_nom){
     global $db;
     $response = $db->prepare("SELECT status_nom FROM statut_animateur WHERE status_nom = :status_nom");
-    $response->bindParam(':status_nom', $fonction_nom, PDO::PARAM_STR);
+    $response->bindParam(':status_nom', $status_nom, PDO::PARAM_STR);
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
