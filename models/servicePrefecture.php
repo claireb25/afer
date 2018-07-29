@@ -55,3 +55,15 @@ function delete($id){
     $response->execute();
     return true; 
 }
+
+//retourne le nombre de préfecture rattaché a ce service
+function nombreRelationServicePrefecture( $id ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM prefecture where service_prefecture_id_id = :id";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+
+    return $result['nombre']; 
+}

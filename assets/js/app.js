@@ -11,6 +11,10 @@ function main(){
     closeModal();
   }
 
+  if( document.querySelector('.modal-btn-redirect') !== null ){
+    deleteUser();
+  }
+
   if( document.querySelector('.form-user-create') !== null ){
     userForm( 'create');
   }
