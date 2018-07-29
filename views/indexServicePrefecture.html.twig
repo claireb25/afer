@@ -27,7 +27,7 @@
             <td class="tbl-col-list capitalize service">{{elems.service_nom|raw }}</td>
             <td class="tbl-col-list ">                
                 <a href="serviceprefecture/edit/{{elems.id }}" class="tbl-link-edit"></a>
-                <a href="serviceprefecture/delete/{{elems.id }}" class="tbl-link-delete"></a>
+                <a href="serviceprefecture/delete/{{elems.id }}" class="tbl-link-delete" data-value="{{ elems.service_nom }}"></a>
             </td>
         </tr>
 
