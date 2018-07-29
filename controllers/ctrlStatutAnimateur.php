@@ -70,10 +70,24 @@ function showEdit($id){
     $template = $twig->load('editStatutAnim.html.twig');
     echo $template->render(array('statuttoEdit'=>$statuttoEdit));
 }
+
+function showDeleteError( $id ){
+    global $twig;
+    $template = $twig->load('deleteStatutAnim.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
+}
+
+
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
-    delete($id);
+    $count = nombreRelationStatutAnimateur( $id );
+    if( $count == 0 ){
+        delete($id);
+        header('Location: /afer-back/statutanimateur/list');
+    }else{
+        showDeleteError( $id );
+    }    
 }
 
 function updateStatut($data, $id){
