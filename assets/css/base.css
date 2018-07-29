@@ -341,13 +341,13 @@ a:hover {
   padding: 8px 20px;
 }
 
-.tbl-link-edit, .tbl-link-delete {
+.tbl-link-edit, .tbl-link-delete, .tbl-link-look {
     display: inline-block;
     padding-left : 20px;
     color: #33526B;
 }
 
-.tbl-link-edit:hover, .tbl-link-delete:hover {
+.tbl-link-edit:hover, .tbl-link-delete:hover, .tbl-link-look:hover {
   color: #b3b3b3;
 }
 
@@ -364,6 +364,15 @@ a:hover {
     font-size: 20px;
     content: "\2715";
 }
+
+.tbl-link-look::before{
+  font-family: 'entypo', sans-serif;
+  font-size: 20px;
+  content: "\e70a";
+}
+
+
+
 
 
 .btn-link{
