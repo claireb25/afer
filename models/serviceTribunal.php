@@ -18,7 +18,7 @@ function listAll(){
 //EDIT
 function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT id, service_nom FROM service_tribunal WHERE service_tribunal.id = :id");
+    $response = $db->prepare("SELECT id, service_nom FROM service_tribunal WHERE id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
@@ -39,8 +39,7 @@ function edit($service_nom, $id){
 
 function delete($id){
     global $db;
-    $response = $db->prepare("DELETE FROM service_tribunal
-    WHERE id = :id");
+    $response = $db->prepare("DELETE FROM service_tribunal WHERE id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return true; 

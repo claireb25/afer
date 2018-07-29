@@ -83,6 +83,6 @@ function updateService($data, $id){
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
-    // header('Location: /afer-back/servicetribunal/list');
+    header('Location: /afer-back/servicetribunal/list');
 }
 
