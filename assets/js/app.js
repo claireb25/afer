@@ -327,7 +327,7 @@ function natureTribunalForm( action ){
         //on l'envoi sinon on injecte le modal pour
         //informer des erreurs
         if( test === true ){
-            formService.submit();
+            formNature.submit();
           }else{
             html = '<div class="boxOverlay" >';
             html += '<div class="modal fas fa-exclamation-triangle">';
