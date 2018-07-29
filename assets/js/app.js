@@ -60,6 +60,14 @@ function main(){
   if( document.querySelector('.form-natureTribunal-edit') !== null ){
     natureTribunalForm( 'edit');
   }
+
+  if( document.querySelector('.form-fonctionAnimateur-create') !== null ){
+    fonctionAnimateurForm( 'create');
+  }
+
+  if( document.querySelector('.form-fonctionAnimateur-edit') !== null ){
+    fonctionAnimateurForm( 'edit');
+  }
   
 
   
@@ -340,6 +348,40 @@ function natureTribunalForm( action ){
     });
 }
 
+function fonctionAnimateurForm( action ){
+    formFonction = document.querySelector( '.form-fonction' );
+    formFonction.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#fonction_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-fonction_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-fonction_nom').innerHTML = "Veuillez saisir le champ fonction";
+            test = false;
+        }else{
+            document.querySelector('#msg-fonction_nom').classList.add( 'hidden');
+            document.querySelector('#msg-fonction_nom').innerHTML = "";
+        }
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){
+            formFonction.submit();
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
+        }
+    });
+}
 
 //affecte l'événement click au bouton changer le mot de passe
 //et il afficher le champs mdp et son label
