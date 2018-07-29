@@ -110,16 +110,7 @@ function addLieuxStage($lieu_stage_nom, $etablissement_nom, $adresse, $code_post
     return $lieuId;
 }
 
-// adding a new stage after creating a lieu and getting the lastInsertId
-// function addNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo){
-//     $lieuId = (int)$lieuId;
-//     $stage_numero = trim(htmlentities($stage_numero));
-//     $date_debut = trim(htmlentities($date_debut));
-//     $date_fin = trim(htmlentities($date_fin));
-//     $stage_hpo = (bool)$stage_hpo;
-//     createNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo);
-// }
-
+// Adding to animateurs to a stage
 function addAnimsToStage($anims, $idStage){
     $anims = (int)$anims;
     $idStage = (int)$idStage;
