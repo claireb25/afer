@@ -1,12 +1,51 @@
 {% extends 'template.html.twig' %}
 
 {% block content %}
+  <h1>Ajout d'un service ( Préfecture )</h1>
+  <form action="servicetribunal/new" method="post" class="form form-service form-serviceTribunal-create">
+    <div class="form-group">
+        <label for="service_nom" class="form-label">Service *</label>
+        <input type="text" class="form-input capitalize" id="service_nom" name="service_nom" value="{% if service_nom is defined %}{{ service_nom | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %} 
+            {% if error != 'exist' %}
+                hidden
+            {% endif %}
+        {% else %}
+            hidden             
+        {% endif %}
+        " id="msg-service_nom" >
+            {% if service_nom is defined %} 
+                {% if error == 'exist' %} 
+                    Veuillez saisir un autre service car celui que vous venez de saisir existe déjà.
+                {% else %}
+                    {% if service_nom == '' %} 
+                        Veuillez saisir un service
+                    {% endif %}  
+                {% endif %}                
+            {% endif %}
+        </p>
+    </div>
+  <div class="form-login-group">
+    <button class="form-login-button">Valider</button>
+  </div>
+  </form>
+  <div id="alertUser" >
+  </div>
+  {% if error is defined %}
+          <div class="boxOverlay" >
+              <div class="modal fas fa-exclamation-triangle">
+                  {%if error == 'exist' %}           
+                      <p class="modal-message">Le service éxiste déjà dans la table Service tribunal.</p> 
+                  {% else %}         
+                      <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                  {% endif %}
+                  <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
 
-<form action="servicetribunal/new" method="post" class="form">
-  <div class="form-example">
-    <label for="service_nom" name="service_nom">Nom du service (tribunal)
-    <input type="text" name="service_nom" id="name" required></label>
-    <input type="submit" value="Envoyer">
-</form>
-
-{% endblock %}
+    {% block javascript %} 
+      <script src="assets/js/app.js" ></script>
+    {% endblock %}

@@ -23,6 +23,16 @@ function getOne($id){
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
+
+function getServiceNom($service_nom){
+    global $db;
+    $response = $db->prepare("SELECT service_nom FROM service_tribunal WHERE service_nom = :service_nom");
+    $response->bindParam(':service_nom', $service_nom, PDO::PARAM_STR);
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
+
+
 function edit($service_nom, $id){
     global $db;
     $response = $db->prepare("UPDATE service_tribunal
