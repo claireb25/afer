@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1>Ajout d'un service ( Préfecture )</h1>
-  <form action="serviceprefecture/new" method="post" class="form form-service form-serviceTribunal-create">
+  <form action="serviceprefecture/new" method="post" class="form form-service form-servicePrefecture-create">
     <div class="form-group">
         <label for="service_nom" class="form-label">Service *</label>
         <input type="text" class="form-input capitalize" id="service_nom" name="service_nom" value="{% if service_nom is defined %}{{ service_nom | raw }}{% endif %}" />

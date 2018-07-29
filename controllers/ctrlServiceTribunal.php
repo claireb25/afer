@@ -13,9 +13,6 @@ if (isset($_GET['action'])){
         'cache'=> false
     ));
 
-    
-    session_start();
-
     switch ($action) {
         case 'list':
             makeList();            
@@ -86,6 +83,6 @@ function updateService($data, $id){
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
-    // header('Location: /afer-back/servicetribunal/list');
+    header('Location: /afer-back/servicetribunal/list');
 }
 

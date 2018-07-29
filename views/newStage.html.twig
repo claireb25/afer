@@ -75,7 +75,7 @@
     <div id="input_nom_anim1">
         <label  for="animateur_nom" name="animateur_nom">Nom
         <input id="animateur_nom" type="text" name="animateur_nom"></label>
-        <input id="animateur_nom_hidden" name="animateur_nom_id" type="hidden" value="">
+        <input id="animateur_nom_hidden" name="animateur_nom_id[]" type="hidden" value="">
         
         <ul id="animateur_nom_list"></ul>
     </div>
@@ -137,9 +137,86 @@
     <label for="observations" name="observations">Observations
     <input type="text" name="observations" id="observations"></label>
 
+</div>
 
+<h5>Animateur 2</h5>
+
+<h6>Informations</h6>
+    <select name="civilite_anim_2" id="civilite_anim_2">
+        <option value="civilite_anim_2" selected disabled>Civilité</option>
+        {% for elem in civilite %}
+        <option value="{{ elem.id }}">{{ elem.nom }}</option>
+        {% endfor %}
+    </select>
+
+{# input de recherche #}
+    <div id="input_nom_anim_2">
+        <label  for="animateur_2_nom" name="animateur_2_nom">Nom
+        <input id="animateur_2_nom" type="text" name="animateur_2_nom"></label>
+        <input id="animateur_2_nom_hidden" name="animateur_nom_id[]" type="hidden" value="">
+        
+        <ul id="animateur_2_nom_list"></ul>
+    </div>
+
+    <label for="prenom_anim_2" name="prenom_anim_2">Prénom 
+    <input type="text" name="prenom_anim_2" id="prenom_anim_2" required></label>
+
+    <select name="fonction_anim_2" id="fonction_anim_2">
+        <option value="fonction_anim_2" selected disabled>Fonction *</option>
+        {% for elem in fonction %}
+        <option value="{{ elem.id }}">{{ elem.fonction_nom }}</option>
+        {% endfor %}
+    </select required>
+   
+    <select name="statut_anim_2" id="statut_anim_2">
+        <option value="statut_anim_2" selected disabled>Statut *</option>
+        {% for elem in statut %}
+        <option value="{{ elem.id }}">{{ elem.status_nom }}</option>
+        {% endfor %}
+    </select required>
+   
+    <label for="gta_anim_2" name="gta_anim_2">Gestion Technique et Administrative
+    <input type="checkbox" name="gta_anim_2" id="gta_anim_2"></label>
+
+    <h6>Adresse</h6>
+    <label for="raison_sociale_anim_2" name="raison_sociale_anim_2">Raison sociale
+    <input type="text" name="raison_sociale_anim_2" id="raison_sociale_anim_2" required></label>
+
+    <label for="adresse_anim_2" name="adresse_anim_2">Numéro et nom de rue
+    <input type="text" name="adresse_anim_2" id="adresse_anim_2"></label>
+
+    <label for="code_postal_anim_2" name="code_postal_anim_2">Code postal
+    <input type="text" name="code_postal_anim_2" id="code_postal_anim_2"></label>
+
+    <label for="ville_anim_2" name="ville_anim_2">Ville
+    <input type="text" name="ville_anim_2" id="ville_anim_2"></label>
+
+    <label for="region_anim_2" name="region_anim_2">Région
+    <input type="text" name="region_anim_2" id="region_anim_2"></label>
+
+    
+    <h6>Contact</h6>
+    <label for="tel_portable_anim_2" name="tel_portable_anim_2">Téléphone portable
+    <input type="text" name="tel_portable_anim_2" id="tel_portable_anim_2" required></label>
+
+    <label for="tel_fixe_anim_2" name="tel_fixe_anim_2">Téléphone fixe
+    <input type="text" name="tel_fixe_anim_2" id="tel_fixe_anim_2" required></label>
+
+    <label for="email_anim_2" name="email_anim_2">Adresse e-mail
+    <input type="text" name="email_anim_2" id="email_anim_2" required></label>
+
+    <h6>Autres</h6>
+    <label for="urssaf_anim_2" name="urssaf_anim_2">Urssaf
+    <input type="text" name="urssaf_anim_2" id="urssaf_anim_2"></label>
+
+    <label for="siret_anim_2" name="siret_anim_2">SIRET
+    <input type="text" name="siret_anim_2" id="siret_anim_2"></label>
+
+    <label for="observations_anim_2" name="observations_anim_2">Observations
+    <input type="text" name="observations_anim_2" id="observations_anim_2"></label>
 
 </div>
+ 
     {# TOM #}
     <h3>Stagiaires</h3>
     <div>
@@ -205,7 +282,7 @@
     </div>
 
 </div>
-    <input type="submit" value="Envoyer">
+    <input type="submit" value="Valider">
 </div>
 
 

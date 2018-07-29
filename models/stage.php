@@ -11,19 +11,8 @@ function create($lieu_stage, $stage_numero, $date_debut, $date_fin, $stage_hpo){
     $response->bindParam(':stage_hpo', $stage_hpo, PDO::PARAM_BOOL);
     $response->bindParam(':date_fin', $date_fin, PDO::PARAM_STR);
     $response->execute();
-    return true; 
-}
-
-function createNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo){
-    global $db;
-    $response = $db->prepare("INSERT INTO stage(lieu_stage_id_id, stage_numero, date, stage_hpo, date_fin) VALUES(:lieu_stage, :stage_numero, :date_debut, :stage_hpo, :date_fin)");
-    $response->bindParam(':lieu_stage', $lieuId, PDO::PARAM_INT);
-    $response->bindParam(':stage_numero', $stage_numero, PDO::PARAM_STR);
-    $response->bindParam(':date_debut', $date_debut, PDO::PARAM_STR);
-    $response->bindParam(':stage_hpo', $stage_hpo, PDO::PARAM_BOOL);
-    $response->bindParam(':date_fin', $date_fin, PDO::PARAM_STR);
-    $response->execute();
-    return true; 
+    return $db->lastInsertId();
+    
 }
 
 //List all stages
@@ -121,7 +110,7 @@ function updateLieux($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_
 
 function listAnim($animateur){
     global $db;
-    $response = $db->prepare("SELECT civilite.nom as civilite, civilite_id_id as civilite_id, animateur.nom, animateur.prenom, fonction_animateur.fonction_nom, fonction_animateur_id_id as fonction_id, statut_animateur.status_nom, statut_id_id as statut_id, animateur.gta, animateur.raison_sociale, animateur.adresse, animateur.code_postal, animateur.commune, animateur.region, animateur.tel_portable, animateur.tel_fixe, animateur.email, animateur.urssaf, animateur.siret, animateur.observations FROM animateur INNER JOIN fonction_animateur ON animateur.fonction_animateur_id_id = fonction_animateur.id INNER JOIN statut_animateur ON animateur.statut_id_id = statut_animateur.id INNER JOIN civilite ON animateur.civilite_id_id = civilite.id WHERE animateur.nom LIKE :animateur");
+    $response = $db->prepare("SELECT animateur.id, civilite.nom as civilite, civilite_id_id as civilite_id, animateur.nom, animateur.prenom, fonction_animateur.fonction_nom, fonction_animateur_id_id as fonction_id, statut_animateur.status_nom, statut_id_id as statut_id, animateur.gta, animateur.raison_sociale, animateur.adresse, animateur.code_postal, animateur.commune, animateur.region, animateur.tel_portable, animateur.tel_fixe, animateur.email, animateur.urssaf, animateur.siret, animateur.observations FROM animateur INNER JOIN fonction_animateur ON animateur.fonction_animateur_id_id = fonction_animateur.id INNER JOIN statut_animateur ON animateur.statut_id_id = statut_animateur.id INNER JOIN civilite ON animateur.civilite_id_id = civilite.id WHERE animateur.nom LIKE :animateur");
     $animateur= $animateur.'%';
     $response->bindParam(':animateur', $animateur, PDO::PARAM_STR);
     $response->execute();
@@ -148,4 +137,21 @@ function statut(){
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function createLinkAnimStage($anims, $idStage){
+    global $db;
+    $response = $db->prepare("INSERT INTO animateur_stage(animateur_id, stage_id) VALUES(:anims, :idStage)");
+    $response->bindParam(':anims', $anims, PDO::PARAM_INT);
+    $response->bindParam(':idStage', $idStage, PDO::PARAM_INT);
+    $response->execute();
+    return true;
+
+}
+
+function deleteLink($id){
+    global $db;
+    $response = $db->prepare('DELETE FROM animateur_stage WHERE stage_id = :id');
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    return true;
+}
 // STAGIAIRES
