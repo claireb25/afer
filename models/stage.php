@@ -140,10 +140,18 @@ function statut(){
 function createLinkAnimStage($anims, $idStage){
     global $db;
     $response = $db->prepare("INSERT INTO animateur_stage(animateur_id, stage_id) VALUES(:anims, :idStage)");
-    $response->bindParam(':anims', $anims, PDO::PARAM_STR);
-    $response->bindParam(':idStage', $idStage, PDO::PARAM_STR);
+    $response->bindParam(':anims', $anims, PDO::PARAM_INT);
+    $response->bindParam(':idStage', $idStage, PDO::PARAM_INT);
     $response->execute();
     return true;
 
+}
+
+function deleteLink($id){
+    global $db;
+    $response = $db->prepare('DELETE FROM animateur_stage WHERE stage_id = :id');
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    return true;
 }
 // STAGIAIRES

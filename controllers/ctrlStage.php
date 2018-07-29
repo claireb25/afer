@@ -68,6 +68,7 @@ if (isset($_GET['action'])){
             break;
         case 'delete':
             deleteElement($_GET['id']);
+            deleteAnimStageLink($_GET['id']);
             redirectStageList();
             break;
     }
@@ -174,16 +175,18 @@ function updateStage($stage_numero, $lieu_stage_id, $date_debut, $date_fin, $hpo
     $stage_numero = trim(htmlentities($stage_numero));
     $hpo = (bool)$hpo;
     $id = (int)$id;
-    editStage($stage_numero, $lieu_stage_id, $date_debut, $date_fin, $hpo, $id);
-    
-   
+    editStage($stage_numero, $lieu_stage_id, $date_debut, $date_fin, $hpo, $id);   
 }
-
 
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
     delete($id);
+}
+
+function deleteAnimStageLink($id){
+    $id = (int)$id;
+    deleteLink($id);
 }
 
 // REDIRECTIONS
