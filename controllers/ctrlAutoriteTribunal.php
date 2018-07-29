@@ -33,11 +33,31 @@ if (isset($_GET['action'])){
             break; 
         case 'edit':
             if (isset($_GET['id'])){
-                showEdit($_GET['id']);
-               
-            }
-            if (isset($_POST['edit_autorite']) && (!empty($_POST['edit_autorite']))){
-                updateAutorite($_POST['edit_autorite'], $_GET['id']);
+                if( !empty( $_GET['id'] ) ){
+                    $id = (int) $_GET['id'];
+                    if( count( $_POST ) > 0 ){
+                        if( isset( $_POST['autorite_nom'] ) ){
+                            $autorite_nom = htmlentities( trim( $_POST['autorite_nom'] ) );               
+                            $reponse = getAutoriteNom( $autorite_nom );
+                
+                            if( $reponse === false ){   
+                                updateAutorite($_POST['autorite_nom'], $id );
+                            }else{
+                                showExistEdit( $autorite_nom, $id );
+                            }                            
+                            
+                        }else{
+                            header('Location: /afer-back/autoritetribunal/list');
+                        }
+                        
+                    }else{
+                        showEdit($_GET['id']);
+                    }
+                }else{
+                    header('Location: /afer-back/autoritetribunal/list');
+                }
+            }else{
+                header('Location: /afer-back/autoritetribunal/list');
             }
            
             break;
@@ -82,7 +102,13 @@ function showEdit($id){
     $autoritetoEdit = getOne($id);
     global $twig;
     $template = $twig->load('editAutoriteTribunal.html.twig');
-    echo $template->render(array('autoritetoEdit'=>$autoritetoEdit));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'autoritetoEdit'=>$autoritetoEdit));
+}
+
+function showExistEdit( $autorite_nom , $id){
+    global $twig;
+    $template = $twig->load('editAutoriteTribunal.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'autoritetoEdit'=>array('id' => $id, 'autorite_nom' => $autorite_nom ) ) );
 }
 
 function updateAutorite($data, $id){
