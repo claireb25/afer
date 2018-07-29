@@ -11,7 +11,8 @@ function create($lieu_stage, $stage_numero, $date_debut, $date_fin, $stage_hpo){
     $response->bindParam(':stage_hpo', $stage_hpo, PDO::PARAM_BOOL);
     $response->bindParam(':date_fin', $date_fin, PDO::PARAM_STR);
     $response->execute();
-    return true; 
+    return $db->lastInsertId();
+    
 }
 
 function createNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo){
@@ -148,4 +149,13 @@ function statut(){
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function createLinkAnimStage($anims, $idStage){
+    global $db;
+    $response = $db->prepare("INSERT INTO animateur_stage(animateur_id, stage_id) VALUES(:anims, :idStage)");
+    $response->bindParam(':anims', $anims, PDO::PARAM_STR);
+    $response->bindParam(':idStage', $idStage, PDO::PARAM_STR);
+    $response->execute();
+    return true;
+
+}
 // STAGIAIRES

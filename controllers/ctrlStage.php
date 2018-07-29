@@ -21,11 +21,15 @@ if (isset($_GET['action'])){
                     $_POST['hpo'] = 0;
                 }
                 if ($_POST['lieu_stage_id'] !== ''){
-                    addNew($_POST['lieu_stage_id'], $_POST['stage_numero'], $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo']);
+                    $idStage = addNew($_POST['lieu_stage_id'], $_POST['stage_numero'], $_POST['date_debut'], $_POST['date_fin'], $_POST['hpo']);
+                   ;
                     updateLieuxStage($_POST['lieu_stage_id'], $_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers'], $_POST['numero_agrement']);
-                    
-                    $animateurs_id = $_POST['animateur_nom_id'];
-                    var_dump($animateurs_id);
+                    if (isset($_POST['animateur_nom_id'])){
+                        $animateurs_id = $_POST['animateur_nom_id'];
+                        foreach($animateurs_id as $anims){
+                            addAnimsToStage($anims,$idStage);  
+                        }
+                    }
                     // redirectStageList();
                 } else {
                     $lieuId = addLieuxStage($_POST['lieu_stage_nom'], $_POST['etablissement_nom'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['tel'], $_POST['latitude'], $_POST['longitude'], $_POST['divers'], $_POST['numero_agrement']);
@@ -91,8 +95,8 @@ function addNew($lieu_stage, $stage_numero, $date_debut, $date_fin, $stage_hpo){
     $date_debut = trim(htmlentities($date_debut));
     $date_fin = trim(htmlentities($date_fin));
     $stage_hpo = (bool)$stage_hpo;
-    create($lieu_stage, $stage_numero, $date_debut, $date_fin, $stage_hpo);
-    // redirectStageList();
+    $idStage = create($lieu_stage, $stage_numero, $date_debut, $date_fin, $stage_hpo);
+    return $idStage;
 }
 
 
@@ -120,6 +124,13 @@ function addNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo)
     $date_fin = trim(htmlentities($date_fin));
     $stage_hpo = (bool)$stage_hpo;
     createNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo);
+}
+
+function addAnimsToStage($anims, $idStage){
+    $anims = (int)$anims;
+    $idStage = (int)$idStage;
+    createLinkAnimStage($anims, $idStage);
+    var_dump($anims, $idStage);
 }
 
 // display new stage page
