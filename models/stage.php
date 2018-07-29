@@ -15,18 +15,6 @@ function create($lieu_stage, $stage_numero, $date_debut, $date_fin, $stage_hpo){
     
 }
 
-function createNewStage($stage_numero, $lieuId, $date_debut, $date_fin, $stage_hpo){
-    global $db;
-    $response = $db->prepare("INSERT INTO stage(lieu_stage_id_id, stage_numero, date, stage_hpo, date_fin) VALUES(:lieu_stage, :stage_numero, :date_debut, :stage_hpo, :date_fin)");
-    $response->bindParam(':lieu_stage', $lieuId, PDO::PARAM_INT);
-    $response->bindParam(':stage_numero', $stage_numero, PDO::PARAM_STR);
-    $response->bindParam(':date_debut', $date_debut, PDO::PARAM_STR);
-    $response->bindParam(':stage_hpo', $stage_hpo, PDO::PARAM_BOOL);
-    $response->bindParam(':date_fin', $date_fin, PDO::PARAM_STR);
-    $response->execute();
-    return true; 
-}
-
 //List all stages
 function listAll(){
     global $db;
