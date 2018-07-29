@@ -2,14 +2,53 @@
 
 {% block content %}
 
-<h1>Modifier : {{ naturetoEdit.nature_nom }}</h1>
+<h1>Modifier la nature tribunal : {{ naturetoEdit.nature_nom }}</h1>
 
+<form action="naturetribunal/edit/{{ naturetoEdit.id }}" method="post" class="form form-nature form-natureTribunal-edit">
+    <div class="form-group">
+        <label for="nature_nom" class="form-label">Nature *</label>
+        <input type="text" class="form-input capitalize" id="nature_nom" name="nature_nom" value="{% if naturetoEdit is defined %}{{ naturetoEdit.nature_nom | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %} 
+            {% if error != 'exist' %}
+                hidden
+            {% endif %}
+        {% else %}
+            hidden             
+        {% endif %}
+        " id="msg-nature_nom" >
+            {% if naturetoEdit.nature_nom is defined %} 
+                {% if error == 'exist' %} 
+                    Veuillez saisir un autre nature car celle que vous venez de saisir existe déjà.
+                {% else %}
+                    {% if naturetoEdit.nature_nom == '' %} 
+                        Veuillez saisir une nature
+                    {% endif %}  
+                {% endif %}                
+            {% endif %}
+        </p>
+    </div>
+  <div class="form-login-group">
+    <button class="form-login-button">Valider</button>
+  </div>
+  </form>
+  <div id="alertUser" >
+  </div>
+  {% if error is defined %}
+          <div class="boxOverlay" >
+              <div class="modal fas fa-exclamation-triangle">
+                  {%if error == 'exist' %}           
+                      <p class="modal-message">Le nature éxiste déjà dans la table Nature tribunal.</p> 
+                  {% else %}         
+                      <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                  {% endif %}
+                  <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
 
-<form action="naturetribunal/edit/{{ naturetoEdit.id }}" method="post" class="form">
-  <div class="form-example">
-    <label for="edit_nature" name="edit_nature">Nature 
-    <input type="text" name="edit_nature" id="name" value="{{ naturetoEdit.nature_nom }}"required></label>
-    <input type="submit" value="Modifier">
-</form>
+    {% block javascript %} 
+      <script src="assets/js/app.js" ></script>
+    {% endblock %}
 
-{% endblock %}
