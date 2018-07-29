@@ -23,6 +23,18 @@ function getOne($id){
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
+
+function getAutoriteNom($autorite_nom){
+    global $db;
+    $response = $db->prepare("SELECT autorite_nom FROM autorite_tribunal WHERE autorite_nom = :autorite_nom");
+    $response->bindParam(':autorite_nom', $autorite_nom, PDO::PARAM_STR);
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
+
+
+
+
 function edit($autorite_nom, $id){
     global $db;
     $response = $db->prepare("UPDATE autorite_tribunal

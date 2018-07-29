@@ -19,7 +19,14 @@ if (isset($_GET['action'])){
             break;
         case 'new':
             if (isset($_POST['autorite_nom']) && (!empty($_POST['autorite_nom']))){
-                addNew($_POST['autorite_nom']);
+                $autorite_nom = htmlentities( trim( $_POST['autorite_nom'] ) );               
+                $reponse = getAutoriteNom( $autorite_nom );
+                
+                if( $reponse === false ){   
+                    addNew($autorite_nom);
+                }else{
+                    showExist( $autorite_nom );
+                }
             } else {
                 showNew();
             }
@@ -58,10 +65,16 @@ function addNew($valeur){
     header('Location: /afer-back/autoritetribunal/list');
 }
 
+function showExist( $autorite_nom ){
+    global $twig;
+    $template = $twig->load('newAutoriteTribunal.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'autorite_nom' => $autorite_nom ) );
+}
+
 function showNew(){
     global $twig;
     $template = $twig->load('newAutoriteTribunal.html.twig');
-    echo $template->render(array());
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
 }
 
 //EDIT 
