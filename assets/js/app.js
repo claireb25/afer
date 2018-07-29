@@ -51,6 +51,15 @@ function main(){
   if( document.querySelector('.form-serviceTribunal-edit') !== null ){
     serviceTribunalForm( 'edit');
   }
+
+
+  if( document.querySelector('.form-natureTribunal-create') !== null ){
+    natureTribunalForm( 'create');
+  }
+
+  if( document.querySelector('.form-natureTribunal-edit') !== null ){
+    natureTribunalForm( 'edit');
+  }
   
 
   
@@ -275,6 +284,42 @@ function serviceTribunalForm( action ){
         }else{
             document.querySelector('#msg-service_nom').classList.add( 'hidden');
             document.querySelector('#msg-service_nom').innerHTML = "";
+        }
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){
+            formService.submit();
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
+        }
+    });
+}
+
+
+function natureTribunalForm( action ){
+    formNature = document.querySelector( '.form-nature' );
+    formNature.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#nature_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-nature_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-nature_nom').innerHTML = "Veuillez saisir le champ nature";
+            test = false;
+        }else{
+            document.querySelector('#msg-nature_nom').classList.add( 'hidden');
+            document.querySelector('#msg-nature_nom').innerHTML = "";
         }
 
        

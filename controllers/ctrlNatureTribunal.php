@@ -19,7 +19,16 @@ if (isset($_GET['action'])){
             break;
         case 'new':
             if (isset($_POST['nature_nom']) && (!empty($_POST['nature_nom']))){
-                addNew($_POST['nature_nom']);
+                    
+                $nature_nom = htmlentities( trim( $_POST['nature_nom'] ) );               
+                $reponse = getNatureNom( $nature_nom );
+                
+                if( $reponse === false ){   
+                    addNew($nature_nom);
+                }else{
+                    showExist( $nature_nom );
+                }
+                
             } else {
                 showNew();
             }
@@ -48,7 +57,7 @@ function makeList(){
     $list = listAll();
     global $twig;
     $template = $twig->load('indexNatureTribunal.html.twig');
-    echo $template->render(array('list'=>$list));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'list'=>$list));
 }
 
 // NEW
@@ -61,7 +70,13 @@ function addNew($valeur){
 function showNew(){
     global $twig;
     $template = $twig->load('newNatureTribunal.html.twig');
-    echo $template->render(array());
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
+}
+
+function showExist( $nature_nom ){
+    global $twig;
+    $template = $twig->load('newNatureTribunal.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'nature_nom' => $nature_nom ) );
 }
 
 //EDIT 
