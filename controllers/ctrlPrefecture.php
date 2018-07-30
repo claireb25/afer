@@ -100,11 +100,25 @@ function update($prefecture_nom, $autorite_prefecture, $service_prefecture, $adr
     edit($nom, $autorite, $service, $adr, $cp, $ville, $id);
    
 }
+
+function showDeleteError( $id ){
+    global $twig;
+    $template = $twig->load('deletePrefecture.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
+}
+
+
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
-    delete($id);
-    redirectPrefectureList();
+    $countPermis = nombreRelationPrefecturePermis( $id );
+    $countStage = nombreRelationPrefectureStage( $id );
+    if( $countPermis == 0 && countStage == 0 ){
+        delete($id);
+        header('Location: /afer-back/prefecture/list');
+    }else{
+        showDeleteError( $id );
+    }    
 }
 
 // REDIRECTIONS
