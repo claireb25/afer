@@ -1,16 +1,26 @@
 <?php
-require './vendor/autoload.php';
+// require './vendor/autoload.php';
 
-use Spipu\Html2Pdf\Html2Pdf;
-
-ob_start();
-require_once 'print_view.php';
-$html = ob_get_clean();
+// use Spipu\Html2Pdf\Html2Pdf;
+// use Spipu\Html2Pdf\Exception\Html2PdfException;
+// use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 
-$html2pdf = new Html2Pdf('P','A4','fr','true','UTF-8');
-$html2pdf->writeHTML($html);
-$html2pdf->output('fiche_émargement_stage.pdf');
+// //Pour recueillir le contenu d'un autre fichier
+// ob_start();
+// require_once 'pdfview_convoc_cas1.html';
+// $content = ob_get_clean();
+// try{
+// 	$pdf = new HTML2PDF('P', 'A4', 'fr');
+// 	$pdf->pdf->SetDisplayMode(10);
+// 	$pdf->WriteHTML($content);
+// 	$pdf->Output('convoc_cas1.pdf');
+// }catch(HTML2PDF_exception $e){
+// 	die($e);
+// }
+// $formatter = new ExceptionFormatter($e);
+//     echo $formatter->getHtmlMessage();
+
 
 
 

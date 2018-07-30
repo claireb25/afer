@@ -1,21 +1,69 @@
-{% extends 'template.html.twig' %}
+{% extends 'template.html.twig' %} {% block content %}
 
-{% block content %}
 
-	
 
 <h1>Liste des préfectures</h1>
 
-<a href="prefecture/new"><button>Nouveau</button></a>
 
-<ul>
-    {% for elems in list %}
-        <li>{{ elems.prefecture_nom }}  <a href="prefecture/edit/{{ elems.id }}"><button>Modifier</button></a>
-                                    <a href="prefecture/delete/{{ elems.id }}"><button>Supprimer</button></a>
-        </li>
-    {% endfor %}
-</ul>
+<table class="tbl-list">
+    <thead>
+        <tr>
+            <th class="tbl-col-header">Préfecture</th>
+            <th class="tbl-col-header">Autorité</th>
+            <th class="tbl-col-header">Service</th>
+            <th class="tbl-col-header">Commune</th>
+            <th class="tbl-col-header">Action</th>
+        </tr>
+        <tr class="tbl-row-search">
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" id="prefecture" placeholder="Rechercher par préfecture">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" id="autorite" placeholder="et/ou Rechercher par autorité">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" id="service" placeholder="et/ou Rechercher par service">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" id="commune" placeholder="et/ou Rechercher par commune">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" disabled class="form-input">
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for elms in list %}
 
-<a href="prefecture/new"><button>Nouveau</button></a>
+        <tr class="tbl-row-list ligne">
+            <td class="tbl-col-list capitalize prefecture">{{elms.prefecture_nom|raw }}</td>
+            <td class="tbl-col-list capitalize autorite">{{elms.autorite_nom|raw }}</td>
+            <td class="tbl-col-list capitalize service">{{elms.service_nom|raw }}</td>
+            <td class="tbl-col-list capitalize commune">{{elms.commune|raw }}</td>
+            <td class="tbl-col-list "> 
+                <a href="prefecture/view/{{elms.id }}" class="tbl-link-look"></a>               
+                <a href="prefecture/edit/{{elms.id }}" class="tbl-link-edit"></a>
+                <a href="prefecture/delete/{{elms.id }}" class="tbl-link-delete" data-value="{{ elms.prefecture_nom }}"></a>
+            </td>
+        </tr>
 
+        {% endfor %}
+    </tbody>
+</table>
+<a href="prefecture/new" class="btn-link">Ajouter</a>
+
+
+<div class="boxOverlay hidden ">
+    <div class="modal modal-yesNo fas fa-exclamation-triangle">
+        <p class="modal-message">Êtes-vous sûre de vouloir supprimmer la préfecture :
+            <span class="capitalize modal-message--value"></span>
+        </p>
+        <button type="button" data-link="" onclick="deleteUser()" class="modal-btn form-login-button modal-btn--inline modal-btn-yes">Oui</button>
+        <button type="button" class="modal-btn form-login-button modal-btn--inline modal-btn-no"> Non</button>
+    </div>
+</div>
+
+{% endblock %} {% block javascript %}
+<script src="assets/js/app.js"></script>
+<script src="assets/js/yo.js"></script>
 {% endblock %}

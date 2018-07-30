@@ -19,18 +19,45 @@ if (isset($_GET['action'])){
             break;
         case 'new':
             if (isset($_POST['autorite_nom']) && (!empty($_POST['autorite_nom']))){
-                addNew($_POST['autorite_nom']);
+                $autorite_nom = htmlentities( trim( $_POST['autorite_nom'] ) );               
+                $reponse = getAutoriteNom( $autorite_nom );
+                
+                if( $reponse === false ){   
+                    addNew($autorite_nom);
+                }else{
+                    showExist( $autorite_nom );
+                }
             } else {
                 showNew();
             }
             break; 
         case 'edit':
             if (isset($_GET['id'])){
-                showEdit($_GET['id']);
-               
-            }
-            if (isset($_POST['edit_autorite']) && (!empty($_POST['edit_autorite']))){
-                updateAutorite($_POST['edit_autorite'], $_GET['id']);
+                if( !empty( $_GET['id'] ) ){
+                    $id = (int) $_GET['id'];
+                    if( count( $_POST ) > 0 ){
+                        if( isset( $_POST['autorite_nom'] ) ){
+                            $autorite_nom = htmlentities( trim( $_POST['autorite_nom'] ) );               
+                            $reponse = getAutoriteNom( $autorite_nom );
+                
+                            if( $reponse === false ){   
+                                updateAutorite($_POST['autorite_nom'], $id );
+                            }else{
+                                showExistEdit( $autorite_nom, $id );
+                            }                            
+                            
+                        }else{
+                            header('Location: /afer-back/autoritetribunal/list');
+                        }
+                        
+                    }else{
+                        showEdit($_GET['id']);
+                    }
+                }else{
+                    header('Location: /afer-back/autoritetribunal/list');
+                }
+            }else{
+                header('Location: /afer-back/autoritetribunal/list');
             }
            
             break;
@@ -48,7 +75,7 @@ function makeList(){
     $list = listAll();
     global $twig;
     $template = $twig->load('indexAutoriteTribunal.html.twig');
-    echo $template->render(array('list'=>$list));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'list'=>$list));
 }
 
 // NEW
@@ -58,10 +85,16 @@ function addNew($valeur){
     header('Location: /afer-back/autoritetribunal/list');
 }
 
+function showExist( $autorite_nom ){
+    global $twig;
+    $template = $twig->load('newAutoriteTribunal.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'autorite_nom' => $autorite_nom ) );
+}
+
 function showNew(){
     global $twig;
     $template = $twig->load('newAutoriteTribunal.html.twig');
-    echo $template->render(array());
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
 }
 
 //EDIT 
@@ -69,7 +102,13 @@ function showEdit($id){
     $autoritetoEdit = getOne($id);
     global $twig;
     $template = $twig->load('editAutoriteTribunal.html.twig');
-    echo $template->render(array('autoritetoEdit'=>$autoritetoEdit));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'autoritetoEdit'=>$autoritetoEdit));
+}
+
+function showExistEdit( $autorite_nom , $id){
+    global $twig;
+    $template = $twig->load('editAutoriteTribunal.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'autoritetoEdit'=>array('id' => $id, 'autorite_nom' => $autorite_nom ) ) );
 }
 
 function updateAutorite($data, $id){
@@ -79,10 +118,25 @@ function updateAutorite($data, $id){
     header('Location: /afer-back/autoritetribunal/list');
    
 }
+
+
+function showDeleteError( $id ){
+    global $twig;
+    $template = $twig->load('deleteAutoriteTribunal.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
+}
+
+
+
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
-    delete($id);
-    header('Location: /afer-back/autoritetribunal/list');
+    $count = nombreRelationAutoriteTribunal( $id );
+    if( $count == 0 ){
+        delete($id);
+        header('Location: /afer-back/autoritetribunal/list');
+    }else{
+        showDeleteError( $id );
+    }    
 }
 

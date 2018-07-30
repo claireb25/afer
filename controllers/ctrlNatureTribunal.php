@@ -19,19 +19,48 @@ if (isset($_GET['action'])){
             break;
         case 'new':
             if (isset($_POST['nature_nom']) && (!empty($_POST['nature_nom']))){
-                addNew($_POST['nature_nom']);
+                    
+                $nature_nom = htmlentities( trim( $_POST['nature_nom'] ) );               
+                $reponse = getNatureNom( $nature_nom );
+                
+                if( $reponse === false ){   
+                    addNew($nature_nom);
+                }else{
+                    showExist( $nature_nom );
+                }
+                
             } else {
                 showNew();
             }
             break; 
         case 'edit':
-            if (isset($_GET['id'])){
-                showEdit($_GET['id']);
-               
+        if (isset($_GET['id'])){
+            if( !empty( $_GET['id'] ) ){
+                $id = (int) $_GET['id'];
+                if( count( $_POST ) > 0 ){
+                    if( isset( $_POST['nature_nom'] ) ){
+                        $nature_nom = htmlentities( trim( $_POST['nature_nom'] ) );               
+                        $reponse = getNatureNom( $nature_nom );
+            
+                        if( $reponse === false ){   
+                            updateNature($_POST['nature_nom'], $id );
+                        }else{
+                            showExistEdit( $nature_nom, $id );
+                        }                            
+                        
+                    }else{
+                        header('Location: /afer-back/naturetribunal/list');
+                    }
+                    
+                }else{
+                    showEdit($_GET['id']);
+                }
+            }else{
+                header('Location: /afer-back/naturetribunal/list');
             }
-            if (isset($_POST['edit_nature']) && (!empty($_POST['edit_nature']))){
-                updateNature($_POST['edit_nature'], $_GET['id']);
-            }
+        }else{
+            header('Location: /afer-back/naturetribunal/list');
+        }
            
             break;
         
@@ -48,7 +77,7 @@ function makeList(){
     $list = listAll();
     global $twig;
     $template = $twig->load('indexNatureTribunal.html.twig');
-    echo $template->render(array('list'=>$list));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'list'=>$list));
 }
 
 // NEW
@@ -61,7 +90,13 @@ function addNew($valeur){
 function showNew(){
     global $twig;
     $template = $twig->load('newNatureTribunal.html.twig');
-    echo $template->render(array());
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
+}
+
+function showExist( $nature_nom ){
+    global $twig;
+    $template = $twig->load('newNatureTribunal.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'nature_nom' => $nature_nom ) );
 }
 
 //EDIT 
@@ -69,7 +104,13 @@ function showEdit($id){
     $naturetoEdit = getOne($id);
     global $twig;
     $template = $twig->load('editNatureTribunal.html.twig');
-    echo $template->render(array('naturetoEdit'=>$naturetoEdit));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'naturetoEdit'=>$naturetoEdit));
+}
+
+function showExistEdit( $nature_nom , $id){
+    global $twig;
+    $template = $twig->load('editNatureTribunal.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'naturetoEdit'=>array('id' => $id, 'nature_nom' => $nature_nom ) ) );
 }
 
 function updateNature($data, $id){
@@ -79,10 +120,22 @@ function updateNature($data, $id){
     header('Location: /afer-back/naturetribunal/list');
    
 }
+
+function showDeleteError( $id ){
+    global $twig;
+    $template = $twig->load('deleteNatureTribunal.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
+}
+
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
-    delete($id);
-    header('Location: /afer-back/naturetribunal/list');
+    $count = nombreRelationNatureTribunal( $id );
+    if( $count == 0 ){
+        delete($id);
+        header('Location: /afer-back/naturetribunal/list');
+    }else{
+        showDeleteError( $id );
+    }    
 }
 

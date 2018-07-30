@@ -76,3 +76,27 @@ function delete($id){
     $response->execute();
     return true; 
 }
+
+
+function nombreRelationPrefecturePermis( $id ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM permis where prefecture_id_id = :id";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+
+    return $result['nombre']; 
+}
+
+
+function nombreRelationPrefectureStage( $id ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM liaison_stagiaire_stage_dossier_cas_bordereau where prefecture_id = :id";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+
+    return $result['nombre']; 
+}

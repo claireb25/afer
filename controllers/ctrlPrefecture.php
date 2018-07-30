@@ -34,7 +34,9 @@ if (isset($_GET['action'])){
             break;
         
         case 'view':
-            $view;
+            if( isset( $_GET['id'] ) ){
+                showView( $_GET['id'] );
+            }
             break;
 
         case 'delete':
@@ -47,7 +49,7 @@ function makeList(){
     $list = listAll();
     global $twig;
     $template = $twig->load('indexPrefecture.html.twig');
-    echo $template->render(array('list'=>$list));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'list'=>$list));
 }
 // NEW
 function addNew($prefecture_nom, $autorite_prefecture, $service_prefecture, $adresse, $code_postal, $commune){
@@ -60,6 +62,17 @@ function addNew($prefecture_nom, $autorite_prefecture, $service_prefecture, $adr
     create($nom, $autorite, $service, $adr, $cp, $ville);
     redirectPrefectureList();
 }
+
+function showView( $id ){  
+    $id = (int) $id;  
+    $toEdit = getOne($id);
+    global $twig;
+    $template = $twig->load('viewPrefecture.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'toEdit'=>$toEdit ) );
+}
+
+
+
 function showNew(){
     $autorite = autorite();
     $service = service();
@@ -87,11 +100,25 @@ function update($prefecture_nom, $autorite_prefecture, $service_prefecture, $adr
     edit($nom, $autorite, $service, $adr, $cp, $ville, $id);
    
 }
+
+function showDeleteError( $id ){
+    global $twig;
+    $template = $twig->load('deletePrefecture.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
+}
+
+
 //DELETE
 function deleteElement($id){
     $id = (int)$id;
-    delete($id);
-    redirectPrefectureList();
+    $countPermis = nombreRelationPrefecturePermis( $id );
+    $countStage = nombreRelationPrefectureStage( $id );
+    if( $countPermis == 0 && countStage == 0 ){
+        delete($id);
+        header('Location: /afer-back/prefecture/list');
+    }else{
+        showDeleteError( $id );
+    }    
 }
 
 // REDIRECTIONS

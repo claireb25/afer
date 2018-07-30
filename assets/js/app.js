@@ -9,7 +9,7 @@ function main(){
 
   if( document.querySelector('.modal-btn-no') !== null ){
     closeModal();
-  }
+  }  
 
   if( document.querySelector('.form-user-create') !== null ){
     userForm( 'create');
@@ -19,9 +19,64 @@ function main(){
     userForm( 'edit');
   }
 
+  if( document.querySelector('.form-servicePrefecture-create') !== null ){
+    servicePrefectureForm( 'create');
+  }
+
+  if( document.querySelector('.form-servicePrefecture-edit') !== null ){
+    servicePrefectureForm( 'edit');
+  }
+
+  if( document.querySelector('.form-autoritePrefecture-create') !== null ){
+    autoritePrefectureForm( 'create');
+  }
+
+  if( document.querySelector('.form-autoritePrefecture-edit') !== null ){
+    autoritePrefectureForm( 'edit');
+  }
+
+  if( document.querySelector('.form-autoriteTribunal-create') !== null ){
+    autoriteTribunalForm( 'create');
+  }
+
+  if( document.querySelector('.form-autoriteTribunal-edit') !== null ){
+    autoriteTribunalForm( 'edit');
+  }
+
+
   if( document.querySelector('.form-serviceTribunal-create') !== null ){
     serviceTribunalForm( 'create');
   }
+
+  if( document.querySelector('.form-serviceTribunal-edit') !== null ){
+    serviceTribunalForm( 'edit');
+  }
+
+
+  if( document.querySelector('.form-natureTribunal-create') !== null ){
+    natureTribunalForm( 'create');
+  }
+
+  if( document.querySelector('.form-natureTribunal-edit') !== null ){
+    natureTribunalForm( 'edit');
+  }
+
+  if( document.querySelector('.form-fonctionAnimateur-create') !== null ){
+    fonctionAnimateurForm( 'create');
+  }
+
+  if( document.querySelector('.form-fonctionAnimateur-edit') !== null ){
+    fonctionAnimateurForm( 'edit');
+  }
+
+  if( document.querySelector('.form-statutAnimateur-create') !== null ){
+    statutAnimateurForm( 'create');
+  }
+
+  if( document.querySelector('.form-statutAnimateur-edit') !== null ){
+    statutAnimateurForm( 'edit');
+  }
+  
 
   
   if( document.querySelector('.tbl-link-delete') !== null ){
@@ -121,6 +176,115 @@ function userForm( action ){
 }
 
 
+function servicePrefectureForm( action ){
+    formService = document.querySelector( '.form-service' );
+    formService.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#service_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-service_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-service_nom').innerHTML = "Veuillez saisir le champ service";
+            test = false;
+        }else{
+            document.querySelector('#msg-service_nom').classList.add( 'hidden');
+            document.querySelector('#msg-service_nom').innerHTML = "";
+        }
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){
+            formService.submit();
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
+        }
+    });
+}
+
+
+function autoritePrefectureForm( action ){
+    formService = document.querySelector( '.form-autorite' );
+    formService.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#autorite_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-autorite_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-autorite_nom').innerHTML = "Veuillez saisir le champ autorité";
+            test = false;
+        }else{
+            document.querySelector('#msg-autorite_nom').classList.add( 'hidden');
+            document.querySelector('#msg-autorite_nom').innerHTML = "";
+        }
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){
+            formService.submit();
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
+        }
+    });
+}
+
+
+function autoriteTribunalForm( action ){
+    formService = document.querySelector( '.form-autorite' );
+    formService.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#autorite_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-autorite_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-autorite_nom').innerHTML = "Veuillez saisir le champ autorité";
+            test = false;
+        }else{
+            document.querySelector('#msg-autorite_nom').classList.add( 'hidden');
+            document.querySelector('#msg-autorite_nom').innerHTML = "";
+        }
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){
+            formService.submit();
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
+        }
+    });
+}
+
+
+
 function serviceTribunalForm( action ){
     formService = document.querySelector( '.form-service' );
     formService.addEventListener('submit', ( e ) =>{
@@ -157,6 +321,112 @@ function serviceTribunalForm( action ){
 }
 
 
+function natureTribunalForm( action ){
+    formNature = document.querySelector( '.form-nature' );
+    formNature.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#nature_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-nature_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-nature_nom').innerHTML = "Veuillez saisir le champ nature";
+            test = false;
+        }else{
+            document.querySelector('#msg-nature_nom').classList.add( 'hidden');
+            document.querySelector('#msg-nature_nom').innerHTML = "";
+        }
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){
+            formNature.submit();
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
+        }
+    });
+}
+
+function fonctionAnimateurForm( action ){
+    formFonction = document.querySelector( '.form-fonction' );
+    formFonction.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#fonction_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-fonction_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-fonction_nom').innerHTML = "Veuillez saisir le champ fonction";
+            test = false;
+        }else{
+            document.querySelector('#msg-fonction_nom').classList.add( 'hidden');
+            document.querySelector('#msg-fonction_nom').innerHTML = "";
+        }
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){
+            formFonction.submit();
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
+        }
+    });
+}
+
+
+function statutAnimateurForm( action ){
+    formStatut = document.querySelector( '.form-statut' );
+    formStatut.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#statut_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-statut_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-statut_nom').innerHTML = "Veuillez saisir le champ statut";
+            test = false;
+        }else{
+            document.querySelector('#msg-statut_nom').classList.add( 'hidden');
+            document.querySelector('#msg-statut_nom').innerHTML = "";
+        }
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){
+            formStatut.submit();
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
+        }
+    });
+}
+
 //affecte l'événement click au bouton changer le mot de passe
 //et il afficher le champs mdp et son label
 function showPassword(){
@@ -174,14 +444,16 @@ function showPassword(){
 //à l'attribut data-link du bouton yes
 function msgDelete(){
     btnDelete = document.querySelectorAll('.tbl-link-delete');
-
+    
     btnDelete.forEach( ( element ) => {
         element.addEventListener('click', (e) =>{
             e.preventDefault();
             const overlay = document.querySelector('.boxOverlay');
+            const txtidentifiant = document.querySelector('.modal-message--value');
             overlay.classList.remove('hidden');
             btnYes = document.querySelector( '.modal-btn-yes' );
             btnYes.setAttribute('data-link', element.getAttribute( 'href' ) );
+            txtidentifiant.innerHTML = element.getAttribute('data-value');
         })
     });
 }

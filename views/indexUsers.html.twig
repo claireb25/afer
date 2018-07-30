@@ -1,4 +1,4 @@
-{% extends 'template.html.twig' %}
+{% extends 'template.html.twig' %} {% block content %}
 
   {% block content %} 
        
@@ -29,22 +29,22 @@
                     <td class="tbl-col-list capitalize" ><a href="users/edit/{{ u.id }}" class="tbl-link-edit"  ></a> {% if u.id != user.id %}  <a href="users/delete/{{ u.id }}" class="tbl-link-delete"  ></a>{% endif %}</td>
                 </tr>
 
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="users/new" class="btn-link"  >Ajouter</a>  
+        {% endfor %}
+    </tbody>
+</table>
+<a href="users/new" class="btn-link">Ajouter</a>
 
-    <div class="boxOverlay hidden " >
-        <div class="modal modal-yesNo fas fa-exclamation-triangle">                   
-            <p class="modal-message">Êtes-vous sûre de vouloir supprimmer l'utilisateur.</p>                 
-            <button type="button"  data-link="" onclick="deleteUser()" class="modal-btn form-login-button modal-btn--inline modal-btn-yes"  >Oui</button> <button type="button" class="modal-btn form-login-button modal-btn--inline modal-btn-no" > Non</button>
-        </div>
+<div class="boxOverlay hidden ">
+    <div class="modal modal-yesNo fas fa-exclamation-triangle">
+        <p class="modal-message">Êtes-vous sûre de vouloir supprimmer l'utilisateur :
+            <span class="capitalize modal-message--value"></span>
+        </p>
+        <button type="button" data-link="" onclick="deleteUser()" class="modal-btn form-login-button modal-btn--inline modal-btn-yes">Oui</button>
+        <button type="button" class="modal-btn form-login-button modal-btn--inline modal-btn-no"> Non</button>
     </div>
+</div>
 
-  {% endblock %}
-
- {% block javascript %} 
-    <script src="assets/js/app.js" ></script>
-    <script src="assets/js/yo.js"></script>
- {% endblock %}
-
+{% endblock %} {% block javascript %}
+<script src="assets/js/app.js"></script>
+<script src="assets/js/yo.js"></script>
+{% endblock %}

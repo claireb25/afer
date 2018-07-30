@@ -2,24 +2,24 @@
 
 {% block content %}
   <h1>Ajout d'un service ( Préfecture )</h1>
-  <form action="serviceprefecture/new" method="post" class="form form-service form-serviceTribunal-create">
+  <form action="serviceprefecture/new" method="post" class="form form-service form-servicePrefecture-create">
     <div class="form-group">
         <label for="service_nom" class="form-label">Service *</label>
-        <input type="text" class="form-input upper" id="service_nom" name="service_nom" value="{% if service is defined %}{{ service.service_nom | raw }}{% endif %}" />
+        <input type="text" class="form-input capitalize" id="service_nom" name="service_nom" value="{% if service_nom is defined %}{{ service_nom | raw }}{% endif %}" />
         <p class="form-msg-error 
-        {% if service is defined %} 
-            {% if service.service_nom != '' %}
+        {% if error is defined %} 
+            {% if error != 'exist' %}
                 hidden
             {% endif %}
         {% else %}
             hidden             
         {% endif %}
         " id="msg-service_nom" >
-            {% if users is defined %} 
+            {% if service_nom is defined %} 
                 {% if error == 'exist' %} 
                     Veuillez saisir un autre service car celui que vous venez de saisir existe déjà.
                 {% else %}
-                    {% if users.identifiant == '' %} 
+                    {% if service_nom == '' %} 
                         Veuillez saisir un service
                     {% endif %}  
                 {% endif %}                
@@ -36,7 +36,7 @@
           <div class="boxOverlay" >
               <div class="modal fas fa-exclamation-triangle">
                   {%if error == 'exist' %}           
-                      <p class="modal-message">L'identifiant éxiste déjà dans la table Utilisateurs.</p> 
+                      <p class="modal-message">Le service éxiste déjà dans la table Service préfecture.</p> 
                   {% else %}         
                       <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
                   {% endif %}
