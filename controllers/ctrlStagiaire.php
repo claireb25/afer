@@ -2,6 +2,10 @@
 require("utils/security.php");
 require_once "models/stagiaire.php";
 
+use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Spipu\Html2Pdf\Exception\ExceptionFormatter;
+
 if (isset($_GET['action'])){ 
     $action= $_GET['action'];
 
@@ -66,8 +70,12 @@ if (isset($_GET['action'])){
             deleteElement($_GET['id']);
             redirectList();
             break;
-        case 'pdf':
-        echo 'Future page pour la génération facture stagiaire';
+        case 'facturepdf':
+        generatePdfFacture($_GET['id']);
+        break;
+
+        case 'convocpdf':
+        generatePdfConvoc($_GET['id']);
         break;
     }
 }
@@ -134,4 +142,54 @@ function deleteElement($id){
 // REDIRECTIONS
 function redirectList(){
     header('Location: /afer-back/stagiaire/list');
+}
+
+//PDF_FACTURE
+function generatePdfFacture($id){
+    global $twig;
+    $id = (int)$id;
+    $template = $twig->load('pdf_facture.html.twig');
+
+    ob_start();
+//require_once 'pdfview_facture.html.twig';
+$civilite = civilite();
+$stagiaire = stagiaireById($id);
+echo $template->render(array('civilite'=>$civilite, 'stagiaire'=>$stagiaire));
+//exit;
+$content = ob_get_clean();
+try{
+	$pdf = new HTML2PDF('P', 'A4', 'fr');
+	$pdf->pdf->SetDisplayMode(10);
+	$pdf->WriteHTML($content);
+	$pdf->Output('facture_stagiaire.pdf');
+}catch(HTML2PDF_exception $e){
+	die($e);
+}
+$formatter = new ExceptionFormatter($e);
+    echo $formatter->getHtmlMessage();
+    
+}
+
+//PDF_CONVOC
+function generatePdfConvoc($id){
+    global $twig;
+    $id = (int)$id;
+    $template = $twig->load('pdf_convoc_cas1.html.twig');
+
+    ob_start();
+//require_once 'pdfview_facture.html.twig';
+echo $template->render();
+//exit;
+$content = ob_get_clean();
+try{
+	$pdf = new HTML2PDF('P', 'A4', 'fr');
+	$pdf->pdf->SetDisplayMode(10);
+	$pdf->WriteHTML($content);
+	$pdf->Output('convoc_cas1_stagiaire.pdf');
+}catch(HTML2PDF_exception $e){
+	die($e);
+}
+$formatter = new ExceptionFormatter($e);
+    echo $formatter->getHtmlMessage();
+    
 }
