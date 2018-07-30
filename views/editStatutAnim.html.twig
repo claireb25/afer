@@ -2,12 +2,12 @@
 
 {% block content %}
 
-<h1>Modifier le statut animateur : {{ statuttoEdit.statut_nom }}</h1>
+<h1>Modifier le statut animateur : {{ statuttoEdit.status_nom }}</h1>
 
-<form action="statutanimateur/edit/{{ statuttoEdit.id }}" method="post" class="form form-fonction form-statutAnimateur-edit">
+<form action="statutanimateur/edit/{{ statuttoEdit.id }}" method="post" class="form form-statut form-statutAnimateur-edit">
     <div class="form-group">
         <label for="statut_nom" class="form-label">Statut *</label>
-        <input type="text" class="form-input capitalize" id="statut_nom" name="statut_nom" value="{% if statuttoEdit is defined %}{{ statuttoEdit.statut_nom | raw }}{% endif %}" />
+        <input type="text" class="form-input capitalize" id="statut_nom" name="statut_nom" value="{% if statuttoEdit is defined %}{{ statuttoEdit.status_nom | raw }}{% endif %}" />
         <p class="form-msg-error 
         {% if error is defined %} 
             {% if error != 'exist' %}
@@ -17,11 +17,11 @@
             hidden             
         {% endif %}
         " id="msg-statut_nom" >
-            {% if statuttoEdit.statut_nom is defined %} 
+            {% if statuttoEdit.status_nom is defined %} 
                 {% if error == 'exist' %} 
                     Veuillez saisir un autre statut car celui que vous venez de saisir existe déjà.
                 {% else %}
-                    {% if statuttoEdit.statut_nom == '' %} 
+                    {% if statuttoEdit.status_nom == '' %} 
                         Veuillez saisir un statut
                     {% endif %}  
                 {% endif %}                
@@ -38,7 +38,7 @@
           <div class="boxOverlay" >
               <div class="modal fas fa-exclamation-triangle">
                   {%if error == 'exist' %}           
-                      <p class="modal-message">Le statut éxiste déjà dans la table Statut animateur.</p> 
+                      <p class="modal-message">Le statut existe déjà dans la table Statut animateur.</p> 
                   {% else %}         
                       <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
                   {% endif %}

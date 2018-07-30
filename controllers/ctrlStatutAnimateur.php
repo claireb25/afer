@@ -34,11 +34,32 @@ if (isset($_GET['action'])){
             break; 
         case 'edit':
             if (isset($_GET['id'])){
-                showEdit($_GET['id']);
-               
-            }
-            if (isset($_POST['edit_statut']) && (!empty($_POST['edit_statut']))){
-                updateStatut($_POST['edit_statut'], $_GET['id']);
+                if( !empty( $_GET['id'] ) ){
+                    $id = (int) $_GET['id'];
+                    if( count( $_POST ) > 0 ){
+                        if( isset( $_POST['statut_nom'] ) ){
+                            $statut_nom = htmlentities( trim( $_POST['statut_nom'] ) );               
+                            $reponse = getStatutNom( $statut_nom );
+                
+                            if( $reponse === false ){
+                                edit($_POST['statut_nom'], $id );
+                                header('Location: /afer-back/statutanimateur/list');
+                            }else{
+                                showExistEdit( $statut_nom, $id );
+                            }                            
+                            
+                        }else{
+                            header('Location: /afer-back/statutanimateur/list');
+                        }
+                        
+                    }else{
+                        showEdit($_GET['id']);
+                    }
+                }else{
+                    header('Location: /afer-back/statutanimateur/list');
+                }
+            }else{
+                header('Location: /afer-back/statutanimateur/list');
             }
            
             break;
@@ -80,10 +101,16 @@ function showExist( $statut_nom ){
 
 //EDIT 
 function showEdit($id){
+    global $twig;
     $statuttoEdit = getOne($id);
+    $template = $twig->load('editStatutAnim.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'statuttoEdit'=>$statuttoEdit));
+}
+
+function showExistEdit( $statut_nom , $id){
     global $twig;
     $template = $twig->load('editStatutAnim.html.twig');
-    echo $template->render(array('statuttoEdit'=>$statuttoEdit));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'statuttoEdit'=>array('id' => $id, 'fonction_nom' => $statut_nom ) ) );
 }
 
 function showDeleteError( $id ){
