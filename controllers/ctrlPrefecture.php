@@ -34,7 +34,9 @@ if (isset($_GET['action'])){
             break;
         
         case 'view':
-            $view;
+            if( isset( $_GET['id'] ) ){
+                showView( $_GET['id'] );
+            }
             break;
 
         case 'delete':
@@ -60,6 +62,17 @@ function addNew($prefecture_nom, $autorite_prefecture, $service_prefecture, $adr
     create($nom, $autorite, $service, $adr, $cp, $ville);
     redirectPrefectureList();
 }
+
+function showView( $id ){  
+    $id = (int) $id;  
+    $toEdit = getOne($id);
+    global $twig;
+    $template = $twig->load('viewPrefecture.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'toEdit'=>$toEdit ) );
+}
+
+
+
 function showNew(){
     $autorite = autorite();
     $service = service();

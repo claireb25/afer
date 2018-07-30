@@ -418,6 +418,10 @@ a:hover {
   text-transform: capitalize;
 }
 
+.bold{
+  font-weight: bold;
+}
+
 .modal-yesNo{
   text-align : center;
 }
