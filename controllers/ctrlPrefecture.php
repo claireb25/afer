@@ -15,10 +15,18 @@ if (isset($_GET['action'])){
             break;
 
         case 'new':
-            if (count($_POST) > 0){
-                addNew($_POST['prefecture_nom'], $_POST['nature_prefecture'], $_POST['autorite_prefecture'], $_POST['service_prefecture'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune']);
-            } 
-            else {
+            if (isset($_POST['prefecture_nom']) && (!empty($_POST['prefecture_nom']))){
+                        
+                $nature_nom = htmlentities( trim( $_POST['nature_nom'] ) );               
+                $reponse = getNatureNom( $nature_nom );
+                
+                if( $reponse === false ){   
+                    addNew($nature_nom);
+                }else{
+                    showExist( $nature_nom );
+                }
+                
+            } else {
                 showNew();
             }
             break; 
@@ -78,7 +86,7 @@ function showNew(){
     $service = service();
     global $twig;
     $template = $twig->load('newPrefecture.html.twig');
-    echo $template->render(array('autorite'=>$autorite, 'service'=>$service));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"]),'autorite'=>$autorite, 'service'=>$service));
 }
 //EDIT 
 function showEdit($id){

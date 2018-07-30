@@ -76,6 +76,14 @@ function main(){
   if( document.querySelector('.form-statutAnimateur-edit') !== null ){
     statutAnimateurForm( 'edit');
   }
+
+  if( document.querySelector('.form-prefecture-create') !== null ){
+    prefectureForm( 'create');
+  }
+
+  if( document.querySelector('.form-prefecture-edit') !== null ){
+    prefectureForm( 'edit');
+  }
   
 
   
@@ -423,6 +431,77 @@ function statutAnimateurForm( action ){
             html += '</div>';
             html += '</div>';
             document.querySelector('#alertUser').innerHTML =   html;
+        }
+    });
+}
+
+
+
+function prefectureForm( action ){
+    formPrefecture = document.querySelector( '.form-prefecture' );
+    formPrefecture.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#prefecture_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-prefecture_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-prefecture_nom').innerHTML = "Veuillez saisir le champ préfecture";
+            test = false;
+        }else{
+            document.querySelector('#msg-prefecture_nom').classList.add( 'hidden');
+            document.querySelector('#msg-prefecture_nom').innerHTML = "";
+        }
+
+        let code_postal = /^(([0-8][0-9])|(9[0-5]))[0-9]{3}$/;
+        if( document.querySelector('#code_postal').value.trim().length === 0 || code_postal.test( document.querySelector('#code_postal').value.trim() ) === false ){
+            document.querySelector('#msg-code_postal').classList.remove( 'hidden');
+            document.querySelector('#msg-code_postal').innerHTML = "Veuillez saisir le champ code postal";
+            test = false;
+        }else{
+            document.querySelector('#msg-code_postal').classList.add( 'hidden');
+            document.querySelector('#msg-code_postal').innerHTML = "";
+        }
+
+        
+        if( document.querySelector('#commune').value.trim().length === 0 ){
+            document.querySelector('#msg-commune').classList.remove( 'hidden');
+            document.querySelector('#msg-commune').innerHTML = "Veuillez saisir le champ commune";
+            test = false;
+        }else{
+            document.querySelector('#msg-commune').classList.add( 'hidden');
+            document.querySelector('#msg-commune').innerHTML = "";
+        }
+
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){            
+            if( document.querySelector('#autorite_prefecture').value !== 'autorite_prefecture' && document.querySelector('#service_prefecture').value !== 'service_prefecture'){
+               // formPrefecture.submit();
+            }else{
+                console.log('ici');
+                html = '<div class="boxOverlay" >';
+                html += '<div class="modal fas fa-exclamation-triangle">';
+                html += '<p class="modal-message">Aucune autorité et/ou service n\'ont été définies, êtes-vous sur de vouloir continuer ?</p>';
+                html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html;  
+            }        
+            
+        }else{
+           
+                html = '<div class="boxOverlay" >';
+                html += '<div class="modal fas fa-exclamation-triangle">';
+                html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+                html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html;            
         }
     });
 }

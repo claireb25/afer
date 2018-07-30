@@ -1,36 +1,103 @@
 {% extends 'template.html.twig' %}
 
 {% block content %}
-<form action="prefecture/new" method="post" class="form">
-  <div class="form-example">
+  <h1>Ajout d'une préfecture</h1>
+  <form action="prefecture/new" method="post" class="form form-prefecture form-prefecture-create">
+    <div class="form-group">
+        <label for="prefecture_nom" class="form-label">Préfecture *</label>
+        <input type="text" class="form-input capitalize" id="prefecture_nom" name="prefecture_nom" value="{% if prefecture_nom is defined %}{{ prefecture_nom | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %} 
+            {% if error != 'exist' %}
+                hidden
+            {% endif %}
+        {% else %}
+            hidden             
+        {% endif %}
+        " id="msg-prefecture_nom" >
+            {% if statut_nom is defined %} 
+                {% if error == 'exist' %} 
+                    Veuillez saisir une autre prefecture car celle que vous venez de saisir existe déjà.
+                {% else %}
+                    {% if statut_nom == '' %} 
+                        Veuillez saisir une préfecture
+                    {% endif %}  
+                {% endif %}                
+            {% endif %}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="adresse" class="form-label">Adresse</label>
+        <input type="text" class="form-input capitalize" id="adresse" name="asresse" value="{% if adresse is defined %}{{ adresse | raw }}{% endif %}" />        
+    </div>
+    <div class="form-group">
+        <label for="code_pôstal" class="form-label">Code postal *</label>
+        <input type="text" class="form-input capitalize" id="code_postal" name="code_postal" value="{% if code_postal is defined %}{{ code_pstal | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %}             
+                hidden                
+        {% endif %}
+        " id="msg-code_postal" >
+            {% if code_postal is defined %}                 
+                    {% if code_postal == '' %} 
+                        Veuillez saisir un code postal
+                    {% endif %}                                
+            {% endif %}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="commune" class="form-label">Commune *</label>
+        <input type="text" class="form-input capitalize" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %}             
+                hidden                
+        {% endif %}
+        " id="msg-commune" >
+            {% if commune is defined %}                 
+                    {% if commune == '' %} 
+                        Veuillez saisir une commune
+                    {% endif %}                                
+            {% endif %}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="autorite_prefecture" class="form-label">Autorité</label>
+         <select id="autorite_prefecture" name="autorite_prefecture" id="autorite_prefecture" class="form-input capitalize" >
+            <option value="autorite_prefecture" selected disabled>Autorité</option>   
+            {% for elem in autorite %}
+            <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
+            {% endfor %}
+        </select>       
+    </div>
+    <div class="form-group">
+        <label for="service_prefecture" class="form-label">Service</label>
+         <select name="service_prefecture" id="service_prefecture" class="form-input capitalize" >
+            <option value="service_prefecture" selected disabled>Service</option>   
+            {% for elem in service %}
+            <option value="{{ elem.id }}">{{ elem.service_nom }}</option>
+            {% endfor %}
+        </select>       
+    </div>
+  <div class="form-login-group">
+    <button class="form-login-button">Valider</button>
+  </div>
+  </form>
+  <div id="alertUser" >
+  </div>
+  {% if error is defined %}
+          <div class="boxOverlay" >
+              <div class="modal fas fa-exclamation-triangle">
+                  {%if error == 'exist' %}           
+                      <p class="modal-message">Le statut existe déjà dans la table Statut animateur.</p> 
+                  {% else %}         
+                      <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                  {% endif %}
+                  <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
 
-    <label for="prefecture_nom" name="prefecture_nom">Nom de la préfecture</label>
-    <input type="text" name="prefecture_nom" id="name" required>
-    
-    <select name="autorite_prefecture">
-        <option value="autorite_prefecture" selected disabled>Autorité</option>   
-        {% for elem in autorite %}
-        <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
-        {% endfor %}
-    </select>
-
-    <select name="service_prefecture">
-        <option value="service_prefecture" selected disabled>Service</option> 
-        {% for elem in service %}
-        <option value="{{ elem.id }}">{{ elem.service_nom }}</option>
-        {% endfor %}
-    </select>
-
-    <label for="adresse" name="adresse">Adresse</label>
-    <input type="text" name="adresse" id="name" required>
-
-    <label for="code_postal" name="code_postal">Code Postal</label>
-    <input type="text" name="code_postal" id="name" required>
-
-    <label for="commune" name="commune">Ville</label>
-    <input type="text" name="commune" id="name" required>
-
-    <input type="submit" value="Envoyer">
-</form>
-
-{% endblock %}
+    {% block javascript %} 
+      <script src="assets/js/app.js" ></script>
+    {% endblock %}
