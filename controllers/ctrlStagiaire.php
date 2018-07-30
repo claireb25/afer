@@ -175,7 +175,6 @@ function generatePdfConvoc($id){
     global $twig;
     $id = (int)$id;
     $template = $twig->load('pdf_convoc_cas1.html.twig');
-
     ob_start();
 //require_once 'pdfview_facture.html.twig';
 echo $template->render();
