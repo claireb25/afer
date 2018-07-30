@@ -1,11 +1,54 @@
-{% extends "template.html.twig" %}
+{% extends 'template.html.twig' %}
 
 {% block content %}
 
-    <h1>Éditer fonction animateur : {{ list.fonction_nom }}</h1>
-    <form action="/afer-back/fonctionanimateur/edit/{{ list.id }}" method="post">
-        <label for="fonction_nom">Nom de la fonction</label>
-        <input type="text" name="fonction_nom" value="{{ list.fonction_nom }}">
-        <button type="submit">Envoyer</button>
-    </form>
-{% endblock %}
+<h1>Modifier la fonction animateur : {{ list.fonction_nom }}</h1>
+
+<form action="fonctionanimateur/edit/{{ list.id }}" method="post" class="form form-fonction form-fonctionAnimateur-edit">
+    <div class="form-group">
+        <label for="fonction_nom" class="form-label">Fonction *</label>
+        <input type="text" class="form-input capitalize" id="fonction_nom" name="fonction_nom" value="{% if list is defined %}{{ list.fonction_nom | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %} 
+            {% if error != 'exist' %}
+                hidden
+            {% endif %}
+        {% else %}
+            hidden             
+        {% endif %}
+        " id="msg-fonction_nom" >
+            {% if list.fonction_nom is defined %} 
+                {% if error == 'exist' %} 
+                    Veuillez saisir un autre fonction car celle que vous venez de saisir existe déjà.
+                {% else %}
+                    {% if list.fonction_nom == '' %} 
+                        Veuillez saisir une fonction
+                    {% endif %}  
+                {% endif %}                
+            {% endif %}
+        </p>
+    </div>
+  <div class="form-login-group">
+    <button class="form-login-button">Valider</button>
+  </div>
+  </form>
+  <div id="alertUser" >
+  </div>
+  {% if error is defined %}
+          <div class="boxOverlay" >
+              <div class="modal fas fa-exclamation-triangle">
+                  {%if error == 'exist' %}           
+                      <p class="modal-message">Le fonction éxiste déjà dans la table Fonction animateur.</p> 
+                  {% else %}         
+                      <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                  {% endif %}
+                  <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
+
+    {% block javascript %} 
+      <script src="assets/js/app.js" ></script>
+    {% endblock %}
+

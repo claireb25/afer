@@ -1,20 +1,53 @@
-{% extends 'template.html.twig' %}
+{% extends 'template.html.twig' %} {% block content %}
 
-{% block content %}
 
-	
 
-<h1>Liste des statuts</h1>
+<h1>Liste des status (Animateurs)</h1>
 
-<a href="statutanimateur/new"><button>Nouveau</button></a>
 
-<ul>
-    {% for elems in list %}
-        <li>{{ elems.status_nom }}  <a href="statutanimateur/edit/{{ elems.id }}"><button>Modifier</button></a>
-                                    <a href="statutanimateur/delete/{{ elems.id }}"><button>Supprimer</button></a></li>
-    {% endfor %}
-</ul>
+<table class="tbl-list">
+    <thead>
+        <tr>
+            <th class="tbl-col-header">Fonction</th>
+            <th class="tbl-col-header">Action</th>
+        </tr>
+        <tr class="tbl-row-search">
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" id="status" placeholder="Rechercher par status">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" disabled class="form-input">
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for elms in list %}
 
-<a href="statutanimateur/new"><button>Nouveau</button></a>
+        <tr class="tbl-row-list ligne">
+            <td class="tbl-col-list capitalize fonction">{{elms.status_nom|raw }}</td>
+            <td class="tbl-col-list ">                
+                <a href="statutanimateur/edit/{{elms.id }}" class="tbl-link-edit"></a>
+                <a href="statutanimateur/delete/{{elms.id }}" class="tbl-link-delete" data-value="{{ elms.status_nom }}"></a>
+            </td>
+        </tr>
 
+        {% endfor %}
+    </tbody>
+</table>
+<a href="statutanimateur/new" class="btn-link">Ajouter</a>
+
+
+<div class="boxOverlay hidden ">
+    <div class="modal modal-yesNo fas fa-exclamation-triangle">
+        <p class="modal-message">Êtes-vous sûre de vouloir supprimmer le status :
+            <span class="capitalize modal-message--value"></span>
+        </p>
+        <button type="button" data-link="" onclick="deleteUser()" class="modal-btn form-login-button modal-btn--inline modal-btn-yes">Oui</button>
+        <button type="button" class="modal-btn form-login-button modal-btn--inline modal-btn-no"> Non</button>
+    </div>
+</div>
+
+{% endblock %} {% block javascript %}
+<script src="assets/js/app.js"></script>
+<script src="assets/js/yo.js"></script>
 {% endblock %}

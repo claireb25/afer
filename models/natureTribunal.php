@@ -23,6 +23,16 @@ function getOne($id){
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
+
+function getNatureNom($nature_nom){
+    global $db;
+    $response = $db->prepare("SELECT nature_nom FROM nature_tribunal WHERE nature_nom = :nature_nom");
+    $response->bindParam(':nature_nom', $nature_nom, PDO::PARAM_STR);
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
+
+
 function edit($nature_nom, $id){
     global $db;
     $response = $db->prepare("UPDATE nature_tribunal
@@ -44,4 +54,17 @@ function delete($id){
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return true; 
+}
+
+
+//retourne le nombre de préfecture rattaché a ce service
+function nombreRelationNatureTribunal( $id ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM tribunal where nature_tribunal_id_id = :id";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+
+    return $result['nombre']; 
 }

@@ -23,6 +23,16 @@ function getOne($id){
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
+
+function getStatutNom($status_nom){
+    global $db;
+    $response = $db->prepare("SELECT status_nom FROM statut_animateur WHERE status_nom = :status_nom");
+    $response->bindParam(':status_nom', $status_nom, PDO::PARAM_STR);
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
+
+
 function edit($status_nom, $id){
     global $db;
     $response = $db->prepare("UPDATE statut_animateur
@@ -39,9 +49,20 @@ function edit($status_nom, $id){
 
 function delete($id){
     global $db;
-    $response = $db->prepare("DELETE FROM statut_animateur
-    WHERE id = :id");
+    $response = $db->prepare("DELETE FROM statut_animateur WHERE id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return true; 
+}
+
+
+function nombreRelationStatutAnimateur( $id ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM animateur where statut_id_id = :id";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+
+    return $result['nombre']; 
 }
