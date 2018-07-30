@@ -481,13 +481,13 @@ function prefectureForm( action ){
         //informer des erreurs
         if( test === true ){            
             if( document.querySelector('#autorite_prefecture').value !== 'autorite_prefecture' && document.querySelector('#service_prefecture').value !== 'service_prefecture'){
-               // formPrefecture.submit();
+               formPrefecture.submit();
             }else{
-                console.log('ici');
-                html = '<div class="boxOverlay" >';
-                html += '<div class="modal fas fa-exclamation-triangle">';
-                html += '<p class="modal-message">Aucune autorité et/ou service n\'ont été définies, êtes-vous sur de vouloir continuer ?</p>';
-                html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+                html ='<div class="boxOverlay  ">';
+                html += '<div class="modal modal-yesNo fas fa-exclamation-triangle">';
+                html += '<p class="modal-message">Êtes-vous sûre de vouloir continuer sans définir une autorité et/ou un service ?</p>';
+                html += '<button type="button" data-link="prefecture/new" onclick="document.querySelector( \'.form-prefecture\' ).submit();" class="modal-btn form-login-button modal-btn--inline modal-btn-yes">Oui</button>  ';
+                html += '<button type="button" onclick="closeModal()" class="modal-btn form-login-button modal-btn--inline modal-btn-no"> Non</button>';
                 html += '</div>';
                 html += '</div>';
                 document.querySelector('#alertUser').innerHTML =   html;  

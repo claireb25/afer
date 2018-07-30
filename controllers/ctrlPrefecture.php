@@ -14,16 +14,67 @@ if (isset($_GET['action'])){
             makeList();            
             break;
 
-        case 'new':
-            if (isset($_POST['prefecture_nom']) && (!empty($_POST['prefecture_nom']))){
-                        
-                $nature_nom = htmlentities( trim( $_POST['nature_nom'] ) );               
-                $reponse = getNatureNom( $nature_nom );
+        case 'new':            
+            if ( count( $_POST )  > 0 ){
+                $prefecture_nom = '';
+                $adresse = '';
+                $code_postal = '';
+                $commune = '';
+                $service_prefecture = '';
+                $autorite_prefecture = '';
+                if( isset( $_POST['prefecture_nom'] ) ){
+                    if( !empty( $_POST['prefecture_nom'] ) ){
+                        $prefecture_nom = htmlentities( trim( $_POST['prefecture_nom'] ) );
+                    }
+                }
+
+                if( isset( $_POST['adresse'] ) ){
+                    if( !empty( $_POST['adresse'] ) ){
+                        $adresse = htmlentities( trim( $_POST['adresse'] ) );
+                    }
+                }
+
+
+                if( isset( $_POST['code_postal'] ) ){
+                    if( !empty( $_POST['code_postal'] ) ){
+                        $code_postal = htmlentities( trim( $_POST['code_postal'] ) );
+                    }
+                }
+
+                if( isset( $_POST['commune'] ) ){
+                    if( !empty( $_POST['commune'] ) ){
+                        $commune = htmlentities( trim( $_POST['commune'] ) );
+                    }
+                }
+
+                if( isset( $_POST['autorite_prefecture'] ) ){
+                    if( !empty( $_POST['autorite_prefecture'] ) ){
+                        $autorite_prefecture = htmlentities( trim( $_POST['autorite_prefecture'] ) );
+                        $autorite_prefecture = (int) $autorite_prefecture;
+                    }
+                }
+
+                if( isset( $_POST['service_prefecture'] ) ){
+                    if( !empty( $_POST['service_prefecture'] ) ){
+                        $service_prefecture = htmlentities( trim( $_POST['service_prefecture'] ) );
+                        $service_prefecture = (int) $service_prefecture;
+                    }
+                }
+
+                if( $autorite_prefecture == "" ){
+                    $autorite_prefecture = null;
+                }
+
+                if( $service_prefecture == "" ){
+                    $service_prefecture = null;
+                }
+                               
+                $reponse = (int) getCountPrefecture( $prefecture_nom,  $adresse, $code_postal, $commune, $autorite_prefecture, $service_prefecture );
                 
-                if( $reponse === false ){   
-                    addNew($nature_nom);
+                if( $reponse === 0 ){   
+                    addNew( $prefecture_nom,  $adresse, $code_postal, $commune, $autorite_prefecture, $service_prefecture );
                 }else{
-                    showExist( $nature_nom );
+                    showExist( $prefecture_nom, $autorite_prefecture, $service_prefecture, $adresse, $code_postal, $commune );
                 }
                 
             } else {
@@ -60,14 +111,8 @@ function makeList(){
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'list'=>$list));
 }
 // NEW
-function addNew($prefecture_nom, $autorite_prefecture, $service_prefecture, $adresse, $code_postal, $commune){
-    $nom = htmlentities($prefecture_nom);
-    $autorite = (int)$autorite_prefecture;
-    $service = (int)$service_prefecture;
-    $adr = htmlentities($adresse);
-    $cp = htmlentities($code_postal);
-    $ville = htmlentities($commune);
-    create($nom, $autorite, $service, $adr, $cp, $ville);
+function addNew($prefecture_nom,  $adresse, $code_postal, $commune, $autorite_prefecture, $service_prefecture){
+    create($prefecture_nom,  $adresse, $code_postal, $commune, $autorite_prefecture, $service_prefecture);
     redirectPrefectureList();
 }
 
@@ -88,6 +133,17 @@ function showNew(){
     $template = $twig->load('newPrefecture.html.twig');
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"]),'autorite'=>$autorite, 'service'=>$service));
 }
+
+
+function showExist( $prefecture_nom, $autorite_prefecture, $service_prefecture, $adresse, $code_postal, $commune ){
+    global $twig;
+    $autorite = autorite();
+    $service = service();
+    $template = $twig->load('newPrefecture.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'prefecture_nom' => $prefecture_nom, 'adresse' => $adresse, "code_postal" => $code_postal, "commune" => $commune, "autorite" => $autorite, "service_prefecture" => $service_prefecture, "autorite_prefecture" => $autorite_prefecture,  "service" => $service ) );
+}
+
+
 //EDIT 
 function showEdit($id){
     $autorite = autorite();

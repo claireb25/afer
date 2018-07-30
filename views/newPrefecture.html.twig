@@ -28,11 +28,11 @@
     </div>
     <div class="form-group">
         <label for="adresse" class="form-label">Adresse</label>
-        <input type="text" class="form-input capitalize" id="adresse" name="asresse" value="{% if adresse is defined %}{{ adresse | raw }}{% endif %}" />        
+        <input type="text" class="form-input capitalize" id="adresse" name="adresse" value="{% if adresse is defined %}{{ adresse | raw }}{% endif %}" />        
     </div>
     <div class="form-group">
         <label for="code_pôstal" class="form-label">Code postal *</label>
-        <input type="text" class="form-input capitalize" id="code_postal" name="code_postal" value="{% if code_postal is defined %}{{ code_pstal | raw }}{% endif %}" />
+        <input type="text" class="form-input capitalize" id="code_postal" name="code_postal" value="{% if code_postal is defined %}{{ code_postal | raw }}{% endif %}" />
         <p class="form-msg-error 
         {% if error is defined %}             
                 hidden                
@@ -63,24 +63,47 @@
     <div class="form-group">
         <label for="autorite_prefecture" class="form-label">Autorité</label>
          <select id="autorite_prefecture" name="autorite_prefecture" id="autorite_prefecture" class="form-input capitalize" >
-            <option value="autorite_prefecture" selected disabled>Autorité</option>   
-            {% for elem in autorite %}
-            <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
-            {% endfor %}
+            {% if error is defined %}
+                <option value="autorite_prefecture"  disabled>Autorité</option>   
+                {% for elem in autorite %}
+                    {% if elem.id == autorite_prefecture %}
+                        <option value="{{ elem.id }}" selected>{{ elem.autorite_nom }}</option>
+                    {% else %}
+                        <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <option value="autorite_prefecture" selected disabled>Autorité</option>   
+                {% for elem in autorite %}
+                <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
+                {% endfor %}
+        {% endif %}
         </select>       
     </div>
     <div class="form-group">
         <label for="service_prefecture" class="form-label">Service</label>
          <select name="service_prefecture" id="service_prefecture" class="form-input capitalize" >
+        {% if error is defined %}
+            <option value="service_prefecture"  disabled>Service</option>   
+            {% for elem in service %}
+                {% if elem.id == service_prefecture %}
+                    <option value="{{ elem.id }}" selected>{{ elem.service_nom }}</option>
+                {% else %}
+                    <option value="{{ elem.id }}">{{ elem.service_nom }}</option>
+                {% endif %}
+            {% endfor %}
+        {% else %}
             <option value="service_prefecture" selected disabled>Service</option>   
             {% for elem in service %}
             <option value="{{ elem.id }}">{{ elem.service_nom }}</option>
             {% endfor %}
+        {% endif %}
+            
         </select>       
     </div>
-  <div class="form-login-group">
-    <button class="form-login-button">Valider</button>
-  </div>
+    <div class="form-login-group">
+        <button class="form-login-button">Valider</button>
+    </div>
   </form>
   <div id="alertUser" >
   </div>
@@ -88,7 +111,7 @@
           <div class="boxOverlay" >
               <div class="modal fas fa-exclamation-triangle">
                   {%if error == 'exist' %}           
-                      <p class="modal-message">Le statut existe déjà dans la table Statut animateur.</p> 
+                      <p class="modal-message">La préfecture avec la même autorité, service et adresse existe déjà dans la table Préfecture.</p> 
                   {% else %}         
                       <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
                   {% endif %}
