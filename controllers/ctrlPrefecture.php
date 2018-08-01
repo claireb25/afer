@@ -84,12 +84,72 @@ if (isset($_GET['action'])){
 
         case 'edit':
             if (count($_POST) > 0){
-                update($_POST['edit_prefecture_nom'], $_POST['edit_autorite_prefecture'], $_POST['service_prefecture'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_GET['id']); 
-                redirectPrefectureList();
-            } 
-            else {
+                $id = (int) $_GET['id'];
+                $prefecture_nom = '';
+                $adresse = '';
+                $code_postal = '';
+                $commune = '';
+                $service_prefecture = '';
+                $autorite_prefecture = '';
+                if( isset( $_POST['prefecture_nom'] ) ){
+                    if( !empty( $_POST['prefecture_nom'] ) ){
+                        $prefecture_nom = htmlentities( trim( $_POST['prefecture_nom'] ) );
+                    }
+                }
+
+                if( isset( $_POST['adresse'] ) ){
+                    if( !empty( $_POST['adresse'] ) ){
+                        $adresse = htmlentities( trim( $_POST['adresse'] ) );
+                    }
+                }
+
+
+                if( isset( $_POST['code_postal'] ) ){
+                    if( !empty( $_POST['code_postal'] ) ){
+                        $code_postal = htmlentities( trim( $_POST['code_postal'] ) );
+                    }
+                }
+
+                if( isset( $_POST['commune'] ) ){
+                    if( !empty( $_POST['commune'] ) ){
+                        $commune = htmlentities( trim( $_POST['commune'] ) );
+                    }
+                }
+
+                if( isset( $_POST['autorite_prefecture'] ) ){
+                    if( !empty( $_POST['autorite_prefecture'] ) ){
+                        $autorite_prefecture = htmlentities( trim( $_POST['autorite_prefecture'] ) );
+                        $autorite_prefecture = (int) $autorite_prefecture;
+                    }
+                }
+
+                if( isset( $_POST['service_prefecture'] ) ){
+                    if( !empty( $_POST['service_prefecture'] ) ){
+                        $service_prefecture = htmlentities( trim( $_POST['service_prefecture'] ) );
+                        $service_prefecture = (int) $service_prefecture;
+                    }
+                }
+
+                if( $autorite_prefecture == "" ){
+                    $autorite_prefecture = null;
+                }
+
+                if( $service_prefecture == "" ){
+                    $service_prefecture = null;
+                }
+
+                $reponse = (int) getCountPrefectureEdit( $prefecture_nom,  $adresse, $code_postal, $commune, $autorite_prefecture, $service_prefecture, $id );
+
+                if( $reponse === 0 ){   
+                    update( $prefecture_nom,  $autorite_prefecture, $service_prefecture, $adresse, $code_postal, $commune, $id  );
+                    redirectPrefectureList();
+                }else{
+                    showExistEdit( $prefecture_nom, $autorite_prefecture, $service_prefecture, $adresse, $code_postal, $commune, $id );
+                }
+            }else{
                 showEdit($_GET['id']);
             }
+            
             break;
         
         case 'view':
@@ -144,14 +204,24 @@ function showExist( $prefecture_nom, $autorite_prefecture, $service_prefecture, 
 }
 
 
+function showExistEdit( $prefecture_nom, $autorite_prefecture, $service_prefecture, $adresse, $code_postal, $commune, $id ){
+    global $twig;
+    $autorite = autorite();
+    $service = service();
+    $template = $twig->load('editPrefecture.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'toEdit' => array( 'prefecture_nom' => $prefecture_nom, 'adresse' => $adresse, "code_postal" => $code_postal, "commune" => $commune,  "service_nom" => $service_prefecture, "autorite_nom" => $autorite_prefecture, 'id' => $id),  "autorite" => $autorite, "service" => $service ) );
+}
+
+
 //EDIT 
 function showEdit($id){
+    $id = (int) $id;
     $autorite = autorite();
     $service = service();
     $toEdit = getOne($id);
     global $twig;
     $template = $twig->load('editPrefecture.html.twig');
-    echo $template->render(array('toEdit'=>$toEdit, 'autorite'=>$autorite, 'service'=>$service));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'toEdit'=>$toEdit, 'autorite'=>$autorite, 'service'=>$service));
 }
 function update($prefecture_nom, $autorite_prefecture, $service_prefecture, $adresse, $code_postal, $commune, $id){
     $nom = htmlentities($prefecture_nom);

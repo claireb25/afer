@@ -130,3 +130,20 @@ function getCountPrefecture( $prefecture_nom, $adresse, $code_postal, $commune, 
     $result = $response->fetch( PDO::FETCH_ASSOC);
     return $result['nombre']; 
 }
+
+
+function getCountPrefectureEdit( $prefecture_nom, $adresse, $code_postal, $commune,  $autorite_prefecture, $service_prefecture, $id ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM prefecture where prefecture_nom = :prefecture_nom and adresse = :adresse and code_postal = :code_postal and  commune = :commune and  autorite_prefecture_id_id = :autorite_prefecture and service_prefecture_id_id = :service_prefecture and id != :id";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':prefecture_nom', $prefecture_nom, PDO::PARAM_STR);
+    $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
+    $response->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
+    $response->bindParam(':commune', $commune, PDO::PARAM_STR);
+    $response->bindParam(':service_prefecture', $service_prefecture, PDO::PARAM_INT);
+    $response->bindParam(':autorite_prefecture', $autorite_prefecture, PDO::PARAM_INT);
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+    return $result['nombre']; 
+}
