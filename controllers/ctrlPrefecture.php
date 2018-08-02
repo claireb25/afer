@@ -161,6 +161,8 @@ if (isset($_GET['action'])){
         case 'delete':
             deleteElement($_GET['id']);
             break;
+
+       
     }
 }
 // LIST
