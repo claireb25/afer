@@ -426,6 +426,10 @@ a:hover {
   text-align : center;
 }
 
+.small-select{
+  width:70%;
+}
+
 
 
 /********************************************** Tableau des pages /list **************************************/

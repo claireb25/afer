@@ -73,6 +73,23 @@ html, .login, .content{
     
 }
 
+.inline-btn{
+    display: inline-block;
+    height: 40px;
+    position: relative;
+    top: -1px;
+    color: #fff;
+    background-color: #045269;
+    border:none;
+    cursor:pointer;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.small-btn{
+    width: auto;
+}
+
 .modal-btn--inline{
   display : inline-block;
 }

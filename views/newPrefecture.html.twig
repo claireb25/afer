@@ -62,7 +62,7 @@
     </div>
     <div class="form-group">
         <label for="autorite_prefecture" class="form-label">Autorité</label>
-         <select id="autorite_prefecture" name="autorite_prefecture" id="autorite_prefecture" class="form-input capitalize" >
+         <select id="autorite_prefecture" name="autorite_prefecture" id="autorite_prefecture" class="form-input small-select capitalize" >
             {% if error is defined %}
                 <option value="autorite_prefecture"  disabled>Autorité</option>   
                 {% for elem in autorite %}
@@ -78,11 +78,12 @@
                 <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
                 {% endfor %}
         {% endif %}
-        </select>      
+        </select>  
+        <button type="button" class="form-button small-btn inline-btn btn-add-autorite">+</button>    
     </div>
     <div class="form-group">
-        <label for="service_prefecture" class="form-label">Service</label>
-         <select name="service_prefecture" id="service_prefecture" class="form-input capitalize" >
+        <label for="service_prefecture" class="form-label  ">Service</label>
+         <select name="service_prefecture" id="service_prefecture" class="form-input capitalize small-select" >
         {% if error is defined %}
             <option value="service_prefecture"  disabled>Service</option>   
             {% for elem in service %}
@@ -99,7 +100,8 @@
             {% endfor %}
         {% endif %}
             
-        </select>       
+        </select> 
+        <button type="button" class="form-button small-btn inline-btn btn-add-service">+</button>        
     </div>
     <div class="form-login-group">
         <button class="form-login-button">Valider</button>
