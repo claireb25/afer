@@ -1,4 +1,5 @@
 //cette fontion est appelée après chargement de la page
+
 function main(){
 
     //elle va vérifier si les élément son présent dans la,page
@@ -9,7 +10,15 @@ function main(){
 
   if( document.querySelector('.modal-btn-no') !== null ){
     closeModal();
-  }  
+  } 
+  
+  if( document.querySelector('.btn-add-autorite') !== null ){
+    addAutorite();
+  }
+
+  if( document.querySelector('.btn-add-service') !== null ){
+    addService();
+  }
 
   if( document.querySelector('.form-user-create') !== null ){
     userForm( 'create');
@@ -34,6 +43,8 @@ function main(){
   if( document.querySelector('.form-autoritePrefecture-edit') !== null ){
     autoritePrefectureForm( 'edit');
   }
+
+  
 
   if( document.querySelector('.form-autoriteTribunal-create') !== null ){
     autoriteTribunalForm( 'create');
@@ -106,10 +117,12 @@ function closeModal(){
         document.querySelector('.modal-btn-ok').addEventListener('click', () => {
             overlay.classList.add('hidden');
         });
-    }else{
+    }else if(document.querySelector('.modal-btn-no') !== null ){
         document.querySelector('.modal-btn-no').addEventListener('click', () => {
             overlay.classList.add('hidden');
         });
+    }else{
+        overlay.classList.add('hidden');
     }
     
     
@@ -555,6 +568,137 @@ function deleteUser(){
 }
 
 
+
+function addAutorite(){
+    const btn = document.querySelector('.btn-add-autorite').addEventListener('click', () =>{
+        fetch('/afer-back/autoriteprefecture/newjson')
+        .then( ( reponse ) => {
+            return reponse.json();
+        })
+        .then( ( reponse ) => {
+            if( reponse.error.length === 0 ){
+                html ='<div class="boxOverlay  ">';
+                html += '<div class="modal modal-ajout">';
+                html +=  reponse.data;
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html; 
+                validAutoriteJsonEdit(); 
+            }
+        });
+    });
+}
+
+function validAutoriteJsonEdit(){
+    formAutorite = document.querySelector( '.form-autorite' );
+    formAutorite.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+        if( document.querySelector('#autorite_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-autorite_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-autorite_nom').innerHTML = "Veuillez saisir le champ Autorité";
+            test = false;
+        }else{
+            document.querySelector('#msg-autorite_nom').classList.add( 'hidden');
+            document.querySelector('#msg-autorite_nom').innerHTML = "";
+        }
+
+        if( test === true ){
+            
+            formData = new FormData();
+            formData.append('autorite_nom', document.querySelector('#autorite_nom').value.trim() );
+            header = {
+                method: "POST",
+                body: formData
+            };
+
+            fetch('/afer-back/autoriteprefecture/newjson', header)
+            .then( (response ) => {
+                return response.json();
+            })
+            .then( (response) =>{              
+                if( response.error === 'exist' ){
+                    document.querySelector('#msg-autorite_nom').classList.remove( 'hidden');
+                    document.querySelector('#msg-autorite_nom').innerHTML = "Cette autorité existe déjà";
+                }else if( response.error === 'add' ){
+                    const selectAutorite = document.querySelector('#autorite_prefecture');
+                    const option = document.createElement("option");
+                    option.setAttribute('value', response.data.id )
+                    option.text = response.data.autorite_nom;
+                    selectAutorite.add(option);
+                    selectAutorite.selectedIndex =  selectAutorite.length - 1 ;
+                    closeModal();
+                }
+            });
+        }
+    });
+}
+
+function addService(){
+    const btn = document.querySelector('.btn-add-service').addEventListener('click', () =>{
+        fetch('/afer-back/serviceprefecture/newjson')
+        .then( ( reponse ) => {
+            return reponse.json();
+        })
+        .then( ( reponse ) => {
+            if( reponse.error.length === 0 ){
+                html ='<div class="boxOverlay  ">';
+                html += '<div class="modal modal-ajout">';
+                html +=  reponse.data;
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html; 
+                validServiceJsonEdit(); 
+            }
+        });
+    });
+}
+
+
+function validServiceJsonEdit(){
+    formService = document.querySelector( '.form-service' );
+    formService.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+        if( document.querySelector('#service_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-service_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-service_nom').innerHTML = "Veuillez saisir le champ Service";
+            test = false;
+        }else{
+            document.querySelector('#msg-service_nom').classList.add( 'hidden');
+            document.querySelector('#msg-service_nom').innerHTML = "";
+        }
+
+        if( test === true ){
+            
+            formData = new FormData();
+            formData.append('service_nom', document.querySelector('#service_nom').value.trim() );
+            header = {
+                method: "POST",
+                body: formData
+            };
+
+            fetch('/afer-back/serviceprefecture/newjson', header)
+            .then( (response ) => {
+                return response.json();
+            })
+            .then( (response) =>{              
+                if( response.error === 'exist' ){
+                    document.querySelector('#msg-service_nom').classList.remove( 'hidden');
+                    document.querySelector('#msg-service_nom').innerHTML = "Cet service existe déjà";
+                }else if( response.error === 'add' ){
+                    const selectService = document.querySelector('#service_prefecture');
+                    const option = document.createElement("option");
+                    option.setAttribute('value', response.data.id )
+                    option.text = response.data.service_nom;
+                    selectService.add(option);
+                    selectService.selectedIndex =  selectService.length - 1 ;
+                    closeModal();
+                }
+            });
+        }
+    });
+}
 //execute la fonction main au chargement
 main();
 

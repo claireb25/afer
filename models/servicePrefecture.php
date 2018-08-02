@@ -32,6 +32,13 @@ function getServiceNom($service_nom){
     return $response->fetch(PDO::FETCH_ASSOC);
 }
 
+function lastRow(){
+    global $db;
+    $response = $db->prepare("SELECT id, service_nom FROM service_prefecture order by id desc");
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
+
 
 function edit($service_nom, $id){
     global $db;

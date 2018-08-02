@@ -1,0 +1,13 @@
+<p class="push-right"  ><a href="#" onclick="closeModal(); return false;" >Fermer</a></p>
+<h1>Ajout d'un service (Préfecture)</h1>
+  <form action="serviceprefecture/new" method="post" class="form form-service form-servicePrefecture-json" >
+    <div class="form-group">
+        <label for="service_nom" class="form-label">Service *</label>
+        <input type="text" class="form-input capitalize" id="service_nom" name="service_nom" value="" />
+        <p class="form-msg-error hidden" id="msg-service_nom" >Veuillez saisir une service</p>
+    </div>
+    <div class="form-login-group">
+        <button class="form-login-button">Valider</button>
+    </div>
+  </form>
+  
