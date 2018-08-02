@@ -430,7 +430,9 @@ a:hover {
   width:70%;
 }
 
-
+.push-right{
+  text-align:right;
+}
 
 /********************************************** Tableau des pages /list **************************************/
 .list-title {

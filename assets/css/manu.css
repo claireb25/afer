@@ -137,6 +137,10 @@ html, .login, .content{
     font-size: 45px;
 }
 
+.modal-ajout::before{
+    display:none;
+}
+
 .modal-message{
     text-align:center;
     width: 90%;

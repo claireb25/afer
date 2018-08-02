@@ -24,6 +24,13 @@ function getOne($id){
     return $response->fetch(PDO::FETCH_ASSOC);
 }
 
+function lastRow(){
+    global $db;
+    $response = $db->prepare("SELECT id, autorite_nom FROM autorite_prefecture order by id desc");
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
+
 function getAutoriteNom($autorite_nom){
     global $db;
     $response = $db->prepare("SELECT autorite_nom FROM autorite_prefecture WHERE autorite_nom = :autorite_nom");
