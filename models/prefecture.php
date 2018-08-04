@@ -28,6 +28,8 @@ function create($prefecture_nom,  $adresse, $code_postal, $commune, $autorite_pr
     
     return true; 
 }
+
+
 //LIST
 function listAll(){
     global $db;
@@ -37,6 +39,8 @@ function listAll(){
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 function autorite(){
     global $db;
     $response = $db->prepare("SELECT id, autorite_nom FROM autorite_prefecture");
@@ -59,19 +63,25 @@ function getOne($id){
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
+
+
 function edit($nom, $autorite, $srv, $adr, $cp, $ville, $id){
     global $db;
-    $response = $db->prepare("UPDATE prefecture SET 
-    autorite_prefecture_id_id = :autorite,
-    service_prefecture_id_id = :srv,
-    prefecture_nom = :nom, 
-    adresse = :adr,
-    code_postal = :cp, 
-    commune = :ville 
-    WHERE prefecture.id = :id");
+    $response = $db->prepare("UPDATE prefecture SET autorite_prefecture_id_id = :autorite,   service_prefecture_id_id = :srv,   prefecture_nom = :nom,     adresse = :adr,    code_postal = :cp,     commune = :ville     WHERE prefecture.id = :id" );
     $response->bindParam(':nom', $nom, PDO::PARAM_STR);
-    $response->bindParam(':autorite', $autorite, PDO::PARAM_INT);
-    $response->bindParam(':srv', $srv, PDO::PARAM_INT);
+
+    if( $autorite == null ){
+        $response->bindValue(':autorite', NULL , PDO::PARAM_INT);
+    }else{
+        $response->bindParam(':autorite', $autorite, PDO::PARAM_INT);
+    }
+
+    if( $srv == null ){
+        $response->bindValue(':srv', NULL , PDO::PARAM_INT);
+    }else{
+        $response->bindParam(':srv', $srv, PDO::PARAM_INT);
+    }
+    
     $response->bindParam(':adr', $adr, PDO::PARAM_STR);
     $response->bindParam(':cp', $cp, PDO::PARAM_STR);
     $response->bindParam(':ville', $ville, PDO::PARAM_STR);

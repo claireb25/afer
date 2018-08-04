@@ -78,11 +78,12 @@
                     {% endif %}
                 {% endfor %}
         {% endif %}
-        </select>       
+        </select>
+        <button type="button" class="form-button small-btn inline-btn btn-add-autorite">+</button>        
     </div>
     <div class="form-group">
         <label for="service_prefecture" class="form-label">Service</label>
-         <select name="service_prefecture" id="service_prefecture" class="form-input capitalize" >
+         <select name="service_prefecture" id="service_prefecture" class="form-input small-select capitalize " >
         {% if toEdit.service_nom is null %}
                 <option value="service_prefecture"  selected disabled>Service</option>   
                 {% for elem in service %}                    
@@ -99,7 +100,8 @@
                 {% endfor %}
         {% endif %}
             
-        </select>       
+        </select>
+        <button type="button" class="form-button small-btn inline-btn btn-add-service">+</button>       
     </div>
     <div class="form-login-group">
         <button class="form-login-button">Valider</button>

@@ -139,7 +139,6 @@ if (isset($_GET['action'])){
                 }
 
                 $reponse = (int) getCountPrefectureEdit( $prefecture_nom,  $adresse, $code_postal, $commune, $autorite_prefecture, $service_prefecture, $id );
-
                 if( $reponse === 0 ){   
                     update( $prefecture_nom,  $autorite_prefecture, $service_prefecture, $adresse, $code_postal, $commune, $id  );
                     redirectPrefectureList();
@@ -225,13 +224,15 @@ function showEdit($id){
     $template = $twig->load('editPrefecture.html.twig');
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'toEdit'=>$toEdit, 'autorite'=>$autorite, 'service'=>$service));
 }
+
+
 function update($prefecture_nom, $autorite_prefecture, $service_prefecture, $adresse, $code_postal, $commune, $id){
-    $nom = htmlentities($prefecture_nom);
+    $nom = $prefecture_nom;
     $autorite = (int)$autorite_prefecture;
     $service = (int)$service_prefecture;
-    $adr = htmlentities($adresse);
-    $cp = htmlentities($code_postal);
-    $ville = htmlentities($commune);
+    $adr = $adresse;
+    $cp =  $code_postal;
+    $ville =  $commune;
     $id = (int)$id;
     edit($nom, $autorite, $service, $adr, $cp, $ville, $id);
    
