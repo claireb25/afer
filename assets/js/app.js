@@ -20,6 +20,18 @@ function main(){
     addService();
   }
 
+  if( document.querySelector('.btn-add-nature') !== null ){
+    addNature();
+  }
+
+  if( document.querySelector('.btn-add-autorite-tribunal') !== null ){
+    addAutoriteTribunal();
+  }
+
+  if( document.querySelector('.btn-add-service-tribunal') !== null ){
+    addServiceTribunal();
+  }
+
   if( document.querySelector('.form-user-create') !== null ){
     userForm( 'create');
   }
@@ -94,6 +106,14 @@ function main(){
 
   if( document.querySelector('.form-prefecture-edit') !== null ){
     prefectureForm( 'edit');
+  }
+
+  if( document.querySelector('.form-tribunal-create') !== null ){
+    tribunalForm( 'create');
+  }
+
+  if( document.querySelector('.form-tribunal-edit') !== null ){
+    tribunalForm( 'edit');
   }
   
 
@@ -519,6 +539,78 @@ function prefectureForm( action ){
     });
 }
 
+
+
+function tribunalForm( action ){
+    formTribunal = document.querySelector( '.form-tribunal' );
+    formTribunal.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#tribunal_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-tribunal_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-tribunal_nom').innerHTML = "Veuillez saisir le champ tribunal";
+            test = false;
+        }else{
+            document.querySelector('#msg-tribunal_nom').classList.add( 'hidden');
+            document.querySelector('#msg-tribunal_nom').innerHTML = "";
+        }
+
+        let code_postal = /^(([0-8][0-9])|(9[0-5]))[0-9]{3}$/;
+        if( document.querySelector('#code_postal').value.trim().length === 0 || code_postal.test( document.querySelector('#code_postal').value.trim() ) === false ){
+            document.querySelector('#msg-code_postal').classList.remove( 'hidden');
+            document.querySelector('#msg-code_postal').innerHTML = "Veuillez saisir le champ code postal";
+            test = false;
+        }else{
+            document.querySelector('#msg-code_postal').classList.add( 'hidden');
+            document.querySelector('#msg-code_postal').innerHTML = "";
+        }
+
+        
+        if( document.querySelector('#commune').value.trim().length === 0 ){
+            document.querySelector('#msg-commune').classList.remove( 'hidden');
+            document.querySelector('#msg-commune').innerHTML = "Veuillez saisir le champ commune";
+            test = false;
+        }else{
+            document.querySelector('#msg-commune').classList.add( 'hidden');
+            document.querySelector('#msg-commune').innerHTML = "";
+        }
+
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){            
+            if( document.querySelector('#autorite_tribunal').value !== 'autorite_tribunal' && document.querySelector('#service_tribunal').value !== 'service_tribunal' && document.querySelector('#nature_tribunal').value !== 'nature_tribunal'){
+               formTribunal.submit();
+            }else{
+                html ='<div class="boxOverlay  ">';
+                html += '<div class="modal modal-yesNo fas fa-exclamation-triangle">';
+                html += '<p class="modal-message">Êtes-vous sûre de vouloir continuer sans définir une autorité et/ou un service et/ou une nature ?</p>';
+                html += '<button type="button" data-link="tribunal/new" onclick="document.querySelector( \'.form-tribunal\' ).submit();" class="modal-btn form-login-button modal-btn--inline modal-btn-yes">Oui</button>  ';
+                html += '<button type="button" onclick="closeModal()" class="modal-btn form-login-button modal-btn--inline modal-btn-no"> Non</button>';
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html;  
+            }        
+            
+        }else{
+           
+                html = '<div class="boxOverlay" >';
+                html += '<div class="modal fas fa-exclamation-triangle">';
+                html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+                html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html;            
+        }
+    });
+}
+
+
 //affecte l'événement click au bouton changer le mot de passe
 //et il afficher le champs mdp et son label
 function showPassword(){
@@ -688,6 +780,207 @@ function validServiceJsonEdit(){
                     document.querySelector('#msg-service_nom').innerHTML = "Cet service existe déjà";
                 }else if( response.error === 'add' ){
                     const selectService = document.querySelector('#service_prefecture');
+                    const option = document.createElement("option");
+                    option.setAttribute('value', response.data.id )
+                    option.text = response.data.service_nom;
+                    selectService.add(option);
+                    selectService.selectedIndex =  selectService.length - 1 ;
+                    closeModal();
+                }
+            });
+        }
+    });
+}
+
+
+function addNature(){
+    const btn = document.querySelector('.btn-add-nature').addEventListener('click', () =>{
+        fetch('/afer-back/naturetribunal/newjson')
+        .then( ( reponse ) => {
+            return reponse.json();
+        })
+        .then( ( reponse ) => {
+            if( reponse.error.length === 0 ){
+                html ='<div class="boxOverlay  ">';
+                html += '<div class="modal modal-ajout">';
+                html +=  reponse.data;
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html; 
+                validNatureJsonEdit(); 
+            }
+        });
+    });
+}
+
+
+function validNatureJsonEdit(){
+    formService = document.querySelector( '.form-nature' );
+    formService.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+        if( document.querySelector('#nature_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-nature_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-nature_nom').innerHTML = "Veuillez saisir le champ Nature";
+            test = false;
+        }else{
+            document.querySelector('#msg-nature_nom').classList.add( 'hidden');
+            document.querySelector('#msg-nature_nom').innerHTML = "";
+        }
+
+        if( test === true ){
+            
+            formData = new FormData();
+            formData.append('nature_nom', document.querySelector('#nature_nom').value.trim() );
+            header = {
+                method: "POST",
+                body: formData
+            };
+
+            fetch('/afer-back/naturetribunal/newjson', header)
+            .then( (response ) => {
+                return response.json();
+            })
+            .then( (response) =>{              
+                if( response.error === 'exist' ){
+                    document.querySelector('#msg-nature_nom').classList.remove( 'hidden');
+                    document.querySelector('#msg-nature_nom').innerHTML = "Cette nature existe déjà";
+                }else if( response.error === 'add' ){
+                    const selectNature = document.querySelector('#nature_tribunal');
+                    const option = document.createElement("option");
+                    option.setAttribute('value', response.data.id )
+                    option.text = response.data.nature_nom;
+                    selectNature.add(option);
+                    selectNature.selectedIndex =  selectNature.length - 1 ;
+                    closeModal();
+                }
+            });
+        }
+    });
+}
+
+
+function addAutoriteTribunal(){
+    const btn = document.querySelector('.btn-add-autorite-tribunal').addEventListener('click', () =>{
+        fetch('/afer-back/autoritetribunal/newjson')
+        .then( ( reponse ) => {
+            return reponse.json();
+        })
+        .then( ( reponse ) => {
+            if( reponse.error.length === 0 ){
+                html ='<div class="boxOverlay  ">';
+                html += '<div class="modal modal-ajout">';
+                html +=  reponse.data;
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html; 
+                validAutoriteTribunalJsonEdit(); 
+            }
+        });
+    });
+}
+
+
+function validAutoriteTribunalJsonEdit(){
+    formAutorite = document.querySelector( '.form-autorite' );
+    formAutorite.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+        if( document.querySelector('#autorite_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-autorite_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-autorite_nom').innerHTML = "Veuillez saisir le champ Autorité";
+            test = false;
+        }else{
+            document.querySelector('#msg-autorite_nom').classList.add( 'hidden');
+            document.querySelector('#msg-autorite_nom').innerHTML = "";
+        }
+
+        if( test === true ){
+            
+            formData = new FormData();
+            formData.append('autorite_nom', document.querySelector('#autorite_nom').value.trim() );
+            header = {
+                method: "POST",
+                body: formData
+            };
+
+            fetch('/afer-back/autoritetribunal/newjson', header)
+            .then( (response ) => {
+                return response.json();
+            })
+            .then( (response) =>{              
+                if( response.error === 'exist' ){
+                    document.querySelector('#msg-autorite_nom').classList.remove( 'hidden');
+                    document.querySelector('#msg-autorite_nom').innerHTML = "Cette autorité existe déjà";
+                }else if( response.error === 'add' ){
+                    const selectAutorite = document.querySelector('#autorite_tribunal');
+                    const option = document.createElement("option");
+                    option.setAttribute('value', response.data.id )
+                    option.text = response.data.autorite_nom;
+                    selectAutorite.add(option);
+                    selectAutorite.selectedIndex =  selectAutorite.length - 1 ;
+                    closeModal();
+                }
+            });
+        }
+    });
+}
+
+
+function addServiceTribunal(){
+    const btn = document.querySelector('.btn-add-service-tribunal').addEventListener('click', () =>{
+        fetch('/afer-back/servicetribunal/newjson')
+        .then( ( reponse ) => {
+            return reponse.json();
+        })
+        .then( ( reponse ) => {
+            if( reponse.error.length === 0 ){
+                html ='<div class="boxOverlay  ">';
+                html += '<div class="modal modal-ajout">';
+                html +=  reponse.data;
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html; 
+                validServiceTribunalJsonEdit(); 
+            }
+        });
+    });
+}
+
+
+function validServiceTribunalJsonEdit(){
+    formService = document.querySelector( '.form-service' );
+    formService.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+        if( document.querySelector('#service_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-service_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-service_nom').innerHTML = "Veuillez saisir le champ Service";
+            test = false;
+        }else{
+            document.querySelector('#msg-service_nom').classList.add( 'hidden');
+            document.querySelector('#msg-service_nom').innerHTML = "";
+        }
+
+        if( test === true ){
+            
+            formData = new FormData();
+            formData.append('service_nom', document.querySelector('#service_nom').value.trim() );
+            header = {
+                method: "POST",
+                body: formData
+            };
+
+            fetch('/afer-back/servicetribunal/newjson', header)
+            .then( (response ) => {
+                return response.json();
+            })
+            .then( (response) =>{              
+                if( response.error === 'exist' ){
+                    document.querySelector('#msg-service_nom').classList.remove( 'hidden');
+                    document.querySelector('#msg-service_nom').innerHTML = "Ce service existe déjà";
+                }else if( response.error === 'add' ){
+                    const selectService = document.querySelector('#service_tribunal');
                     const option = document.createElement("option");
                     option.setAttribute('value', response.data.id )
                     option.text = response.data.service_nom;

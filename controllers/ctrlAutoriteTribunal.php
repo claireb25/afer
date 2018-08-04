@@ -68,6 +68,31 @@ if (isset($_GET['action'])){
         case 'delete':
             deleteElement($_GET['id']);
             break;
+
+        case 'newjson' :
+        if( count( $_POST ) > 0 ){
+            if( isset( $_POST['autorite_nom'] ) ){
+                $autorite_nom = htmlentities( trim( $_POST['autorite_nom'] ) );               
+                $reponse = getAutoriteNom( $autorite_nom );                    
+                if( $reponse === false ){                   
+                    create($autorite_nom);
+                    $lastRow = lastRow();
+                    $lastRow['autorite_nom'] = html_entity_decode( $lastRow['autorite_nom'] );
+                    $data = array('error' => 'add', 'data' => $lastRow );
+                    echo json_encode( $data );
+                }else{
+                    $data = array( 'error' => 'exist' );
+                    echo json_encode( $data );
+                }                            
+                
+            }else{
+                header('Location: /afer-back/autoritetribunal/list');
+            }
+        }else{
+            showNewJson();
+        }
+                
+        break;
     }
 }
 // LIST
@@ -95,6 +120,15 @@ function showNew(){
     global $twig;
     $template = $twig->load('newAutoriteTribunal.html.twig');
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
+}
+
+function showNewJson(){
+    global $twig;
+    $template = $twig->load('newJsonAutoriteTribunal.html.twig');
+    $form = $template->render();
+    $data = array('error' => '', 'data' => $form );
+    echo json_encode( $data );
+    
 }
 
 //EDIT 

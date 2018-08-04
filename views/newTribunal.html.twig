@@ -1,36 +1,149 @@
 {% extends 'template.html.twig' %}
 
 {% block content %}
-<form action="tribunal/new" method="post" class="form">
-  <div class="form-example">
-    <label for="tribunal_nom" name="tribunal_nom">Nom du tribunal</label>
-    <input type="text" name="tribunal_nom" id="name" required>
-    
-    <select name="nature_tribunal">
-        <option value="nature_tribunal" selected disabled>Nature</option>
-        {% for elem in nature %}
-        <option value="{{ elem.id }}">{{ elem.nature_nom }}</option>
-        {% endfor %}
-    </select>
-    <select name="autorite_tribunal">
-        <option value="autorite_tribunal" selected disabled>Autorité</option>   
-        {% for elem in autorite %}
-        <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
-        {% endfor %}
-    </select>
-    <select name="service_tribunal">
-        <option value="service_tribunal" selected disabled>Service</option> 
-        {% for elem in service %}
-        <option value="{{ elem.id }}">{{ elem.service_nom }}</option>
-        {% endfor %}
-    </select>
-    <label for="adresse" name="adresse">Adresse</label>
-    <input type="text" name="adresse" id="name" required>
-    <label for="code_postal" name="code_postal">Code Postal</label>
-    <input type="text" name="code_postal" id="name" required>
-    <label for="commune" name="commune">Ville</label>
-    <input type="text" name="commune" id="name" required>
-    <input type="submit" value="Valider">
-</form>
+  <h1>Ajout d'un tribunal</h1>
+  <form action="tribunal/new" method="post" class="form form-tribunal form-tribunal-create">
+    <div class="form-group">
+        <label for="tribunal_nom" class="form-label">Tribunal *</label>
+        <input type="text" class="form-input capitalize" id="tribunal_nom" name="tribunal_nom" value="{% if tribunal_nom is defined %}{{ tribunal_nom | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %} 
+            {% if error != 'exist' %}
+                hidden
+            {% endif %}
+        {% else %}
+            hidden             
+        {% endif %}
+        " id="msg-tribunal_nom" >
+            {% if tribunal_nom is defined %} 
+                {% if error == 'exist' %} 
+                    Veuillez saisir un autre tribunal car celui que vous venez de saisir existe déjà.
+                {% else %}
+                    {% if statut_nom == '' %} 
+                        Veuillez saisir un tribunal
+                    {% endif %}  
+                {% endif %}                
+            {% endif %}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="adresse" class="form-label">Adresse</label>
+        <input type="text" class="form-input capitalize" id="adresse" name="adresse" value="{% if adresse is defined %}{{ adresse | raw }}{% endif %}" />        
+    </div>
+    <div class="form-group">
+        <label for="code_postal" class="form-label">Code postal *</label>
+        <input type="text" class="form-input capitalize" id="code_postal" name="code_postal" value="{% if code_postal is defined %}{{ code_postal | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %}             
+                hidden                
+        {% endif %}
+        " id="msg-code_postal" >
+            {% if code_postal is defined %}                 
+                    {% if code_postal == '' %} 
+                        Veuillez saisir un code postal
+                    {% endif %}                                
+            {% endif %}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="commune" class="form-label">Commune *</label>
+        <input type="text" class="form-input capitalize" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %}             
+                hidden                
+        {% endif %}
+        " id="msg-commune" >
+            {% if commune is defined %}                 
+                    {% if commune == '' %} 
+                        Veuillez saisir une commune
+                    {% endif %}                                
+            {% endif %}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="nature_tribunal" class="form-label">Nature</label>
+         <select id="nature_tribunal" name="nature_tribunal" id="nature_tribunal" class="form-input small-select capitalize" >
+            {% if error is defined %}
+                <option value="nature_tribunal"  disabled>Nature</option>   
+                {% for elem in nature %}
+                    {% if elem.id == nature_tribunal %}
+                        <option value="{{ elem.id }}" selected>{{ elem.nature_nom }}</option>
+                    {% else %}
+                        <option value="{{ elem.id }}">{{ elem.nature_nom }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <option value="nature_tribunal" selected disabled>nature</option>   
+                {% for elem in nature %}
+                <option value="{{ elem.id }}">{{ elem.nature_nom }}</option>
+                {% endfor %}
+        {% endif %}
+        </select>  
+        <button type="button" class="form-button small-btn inline-btn btn-add-nature">+</button>    
+    </div>
+    <div class="form-group">
+        <label for="autorite_tribunal" class="form-label">Autorité</label>
+         <select id="autorite_tribunal" name="autorite_tribunal" id="autorite_tribunal" class="form-input small-select capitalize" >
+            {% if error is defined %}
+                <option value="autorite_tribunal"  disabled>Autorité</option>   
+                {% for elem in autorite %}
+                    {% if elem.id == autorite_tribunal %}
+                        <option value="{{ elem.id }}" selected>{{ elem.autorite_nom }}</option>
+                    {% else %}
+                        <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <option value="autorite_tribunal" selected disabled>Autorité</option>   
+                {% for elem in autorite %}
+                <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
+                {% endfor %}
+        {% endif %}
+        </select>  
+        <button type="button" class="form-button small-btn inline-btn btn-add-autorite-tribunal">+</button>    
+    </div>
+    <div class="form-group">
+        <label for="service_tribunal" class="form-label  ">Service</label>
+         <select name="service_tribunal" id="service_tribunal" class="form-input capitalize small-select" >
+        {% if error is defined %}
+            <option value="service_tribunal"  disabled>Service</option>   
+            {% for elem in service %}
+                {% if elem.id == service_tribunal %}
+                    <option value="{{ elem.id }}" selected>{{ elem.service_nom }}</option>
+                {% else %}
+                    <option value="{{ elem.id }}">{{ elem.service_nom }}</option>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <option value="service_tribunal" selected disabled>Service</option>   
+            {% for elem in service %}
+            <option value="{{ elem.id }}">{{ elem.service_nom }}</option>
+            {% endfor %}
+        {% endif %}
+            
+        </select> 
+        <button type="button" class="form-button small-btn inline-btn btn-add-service-tribunal">+</button>        
+    </div>
+    <div class="form-login-group">
+        <button class="form-login-button">Valider</button>
+    </div>
+  </form>
+  <div id="alertUser" >
+  </div>
+  {% if error is defined %}
+          <div class="boxOverlay" >
+              <div class="modal fas fa-exclamation-triangle">
+                  {%if error == 'exist' %}           
+                      <p class="modal-message">Le tribunal avec la même autorité, service, nature et adresse existe déjà dans la table Tribunal.</p> 
+                  {% else %}         
+                      <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                  {% endif %}
+                  <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
 
-{% endblock %}
+    {% block javascript %} 
+      <script src="assets/js/app.js" ></script>
+    {% endblock %}

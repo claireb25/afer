@@ -32,6 +32,13 @@ function getNatureNom($nature_nom){
     return $response->fetch(PDO::FETCH_ASSOC);
 }
 
+function lastRow(){
+    global $db;
+    $response = $db->prepare("SELECT id, nature_nom FROM nature_tribunal order by id desc");
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
+
 
 function edit($nature_nom, $id){
     global $db;

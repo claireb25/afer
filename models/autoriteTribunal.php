@@ -32,7 +32,12 @@ function getAutoriteNom($autorite_nom){
     return $response->fetch(PDO::FETCH_ASSOC);
 }
 
-
+function lastRow(){
+    global $db;
+    $response = $db->prepare("SELECT id, autorite_nom FROM autorite_tribunal order by id desc");
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
 
 
 function edit($autorite_nom, $id){
