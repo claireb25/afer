@@ -109,7 +109,7 @@ function makeList(){
 
 // NEW
 function addNew($valeur){
-    $service_nom = htmlentities($valeur);
+    $service_nom = $valeur;
     create($service_nom);
     header('Location: /afer-back/serviceprefecture/list');
 }
@@ -150,7 +150,7 @@ function showEdit($id){
 }
 
 function updateService($data, $id){
-    $service_nom = htmlentities($data);
+    $service_nom = $data;
     $id = (int)$id;
     edit($service_nom, $id);
     header('Location: /afer-back/serviceprefecture/list');

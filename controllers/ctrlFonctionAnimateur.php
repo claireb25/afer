@@ -99,8 +99,7 @@ function showList(){
 }
 
 function addNew($valeur){
-    global $twig;
-    htmlentities($valeur);
+    global $twig;    
     create('fonction_animateur(fonction_nom)', $valeur);
     header("Location: /afer-back/fonctionanimateur/list");
 }

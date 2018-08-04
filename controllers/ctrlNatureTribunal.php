@@ -107,7 +107,7 @@ function makeList(){
 
 // NEW
 function addNew($valeur){
-    $nature_nom = htmlentities($valeur);
+    $nature_nom = $valeur;
     create($nature_nom);
     header('Location: /afer-back/naturetribunal/list');
 }
@@ -148,7 +148,7 @@ function showExistEdit( $nature_nom , $id){
 }
 
 function updateNature($data, $id){
-    $nature_nom = htmlentities($data);
+    $nature_nom = $data;
     $id = (int)$id;
     edit($nature_nom, $id);
     header('Location: /afer-back/naturetribunal/list');

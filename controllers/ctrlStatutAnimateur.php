@@ -82,7 +82,7 @@ function makeList(){
 
 // NEW
 function addNew($valeur){
-    $status_nom = htmlentities($valeur);
+    $status_nom = $valeur;
     create($status_nom);
     header('Location: /afer-back/statutanimateur/list');
 }
@@ -133,7 +133,7 @@ function deleteElement($id){
 }
 
 function updateStatut($data, $id){
-    $status_nom = htmlentities($data);
+    $status_nom = $data;
     $id = (int)$id;
     edit($status_nom, $id);
     header('Location: /afer-back/statutanimateur/list');

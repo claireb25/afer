@@ -105,7 +105,7 @@ function makeList(){
 
 // NEW
 function addNew($valeur){
-    $autorite_nom = htmlentities($valeur);
+    $autorite_nom = $valeur;
     create($autorite_nom);
     header('Location: /afer-back/autoritetribunal/list');
 }
@@ -146,7 +146,7 @@ function showExistEdit( $autorite_nom , $id){
 }
 
 function updateAutorite($data, $id){
-    $autorite_nom = htmlentities($data);
+    $autorite_nom = $data;
     $id = (int)$id;
     edit($autorite_nom, $id);
     header('Location: /afer-back/autoritetribunal/list');
