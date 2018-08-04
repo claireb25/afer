@@ -1,67 +1,22 @@
-{% extends 'template.html.twig' %}
+{# {% extends 'template.html.twig' %}
 
 {% block content %}
 
 
-<form action="animateur/new" method="post" class="form">
-  <div class="form-example">
-    <h3>Informations</h3>
-    <select name="civilite">
-        <option value="civilite" selected disabled>Civilité</option>
-        {% for elem in civilite %}
-        <option value="{{ elem.id }}">{{ elem.nom }}</option>
-        {% endfor %}
-    </select>
 
-    <label for="nom" name="nom">Nom *
-    <input type="text" name="nom" id="name" required></label>
-    <label for="prenom" name="prenom">Prénom *
-    <input type="text" name="prenom" id="prenom" required></label>
 
-    <select name="fonction">
-        <option value="fonction" selected disabled>Fonction *</option>
-        {% for elem in fonction %}
-        <option value="{{ elem.id }}">{{ elem.fonction_nom }}</option>
-        {% endfor %}
-    </select required>
+    
+    
    
-    <select name="statut">
-        <option value="statut" selected disabled>Statut *</option>
-        {% for elem in statut %}
-        <option value="{{ elem.id }}">{{ elem.status_nom }}</option>
-        {% endfor %}
-    </select required>
    
-    <label for="gta" name="gta">Gestion Technique et Administrative
-    <input type="checkbox" name="gta" id="name"></label>
+    
 
-    <h3>Adresse</h3>
-    <label for="raison_sociale" name="raison_sociale">Raison sociale
-    <input type="text" name="raison_sociale" id="raison_sociale" required></label>
-
-    <label for="adresse" name="adresse">Numéro et nom de rue
-    <input type="text" name="adresse" id="adresse"></label>
-
-    <label for="code_postal" name="code_postal">Code postal
-    <input type="text" name="code_postal" id="code_postal"></label>
-
-    <label for="ville" name="ville">Ville
-    <input type="text" name="ville" id="ville"></label>
-
-    <label for="region" name="region">Région
-    <input type="text" name="region" id="region"></label>
+    
+   
 
     
 
-    <h3>Contact</h3>
-    <label for="tel_portable" name="tel_portable">Téléphone portable
-    <input type="text" name="tel_portable" id="tel_portable" required></label>
-
-    <label for="tel_fixe" name="tel_fixe">Téléphone fixe
-    <input type="text" name="tel_fixe" id="tel_fixe" required></label>
-
-    <label for="email" name="email">Adresse e-mail
-    <input type="text" name="email" id="email" required></label>
+    
 
     <h3>Autres</h3>
     <label for="urssaf" name="urssaf">Urssaf
@@ -76,4 +31,353 @@
     <input type="submit" value="Valider">
 </form>
 
-{% endblock %}
+{% endblock %} #}
+
+{% extends 'template.html.twig' %}
+
+{% block content %}
+  <h1>Ajout d'un animateur</h1>
+  <form action="animateur/new" method="post" class="form form-animateur form-animateur-create">
+    <div class="form-container">
+        <div class="form-block">
+            <h2>Civilité</h2>
+            <div class="form-group">
+                <label for="tribunal_nom" class="form-label">Civilité *</label>
+                <select name="civilite" id="civilte" class="form-input capitalize small-select" >
+                    {% if error is defined %}
+                        <option value="civilite"  disabled>Civilité</option>   
+                        {% for elem in civilite %}
+                            {% if elem.id == civilte %}
+                                <option value="{{ elem.id }}" selected>{{ elem.nom }}</option>
+                            {% else %}
+                                <option value="{{ elem.id }}">{{ elem.nom }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <option value="civilte" selected disabled>Civilité</option>   
+                        {% for elem in civilite %}
+                        <option value="{{ elem.id }}">{{ elem.nom }}</option>
+                        {% endfor %}
+                    {% endif %}
+                        
+                </select> 
+                <button type="button" class="form-button small-btn inline-btn btn-add-civilite">+</button>
+                <p class="form-msg-error 
+                {% if error is defined %}             
+                        hidden                
+                {% endif %}
+                " id="msg-civilite" >
+                    {% if civilite is defined %}                 
+                            {% if civilite == '' %} 
+                                Veuillez choisir une civilité
+                            {% endif %}                                
+                    {% endif %}
+                </p>
+            </div>
+            <div class="form-group">
+                <label for="nom" class="form-label">Nom *</label>
+                <input type="text" class="form-input capitalize" id="nom" name="nom" value="{% if nom is defined %}{{ nom | raw }}{% endif %}" />
+                <p class="form-msg-error 
+                {% if error is not defined %}                    
+                    hidden             
+                {% endif %}
+                " id="msg-nom" >
+                    {% if error is not defined %}                         
+                            {% if nom == '' %} 
+                                Veuillez saisir un nom
+                            {% endif %}                                       
+                    {% endif %}
+                </p>
+            </div>
+            <div class="form-group">
+                <label for="prenom" class="form-label">Prénom *</label>
+                <input type="text" class="form-input capitalize" id="prenom" name="prenom" value="{% if prenom is defined %}{{ prenom | raw }}{% endif %}" />
+                <p class="form-msg-error 
+                {% if error is not defined %}                    
+                    hidden             
+                {% endif %}
+                " id="msg-prenom" >
+                    {% if error is not defined %}                         
+                            {% if prenom == '' %} 
+                                Veuillez saisir un prénom
+                            {% endif %}                                       
+                    {% endif %}
+                </p>
+            </div>
+            <div class="form-group">
+                <label for="adresse" class="form-label">Numéro et nom de rue *</label>
+                <input type="text" class="form-input capitalize" id="adresse" name="adresse" value="{% if adresse is defined %}{{ adresse | raw }}{% endif %}" />
+                <p class="form-msg-error 
+                {% if error is not defined %}                    
+                    hidden             
+                {% endif %}
+                " id="msg-adresse" >
+                    {% if error is not defined %}                         
+                            {% if adresse == '' %} 
+                                Veuillez saisir une adresse
+                            {% endif %}                                       
+                    {% endif %}
+                </p>
+            </div>  
+            <div class="form-group">
+                <label for="code_postal" class="form-label">Code postal *</label>
+                <input type="text" class="form-input capitalize" id="code_postal" name="code_postal" value="{% if code_postal is defined %}{{ code_postal | raw }}{% endif %}" />
+                <p class="form-msg-error 
+                {% if error is not defined %}                    
+                    hidden             
+                {% endif %}
+                " id="msg-code_postal" >
+                    {% if error is not defined %}                         
+                            {% if code_postal == '' %} 
+                                Veuillez saisir un code postal
+                            {% endif %}                                       
+                    {% endif %}
+                </p>
+            </div>
+            <div class="form-group">
+                <label for="commune" class="form-label">Commune *</label>
+                <input type="text" class="form-input capitalize" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
+                <p class="form-msg-error 
+                {% if error is not defined %}                    
+                    hidden             
+                {% endif %}
+                " id="msg-commune" >
+                    {% if error is not defined %}                         
+                            {% if commune == '' %} 
+                                Veuillez saisir une commune
+                            {% endif %}                                       
+                    {% endif %}
+                </p>
+            </div>
+            <div class="form-group">
+                <label for="region" class="form-label">Région</label>
+                <input type="text" class="form-input capitalize" id="region" name="region" value="{% if region is defined %}{{ region | raw }}{% endif %}" />                
+            </div>              
+        </div>
+        <div class="form-block">
+            <h2>Autres</h2>
+            <div class="form-group">
+                <label for="gta" class="form-label">Gestion Technique et Administrative</label>
+                <input type="checkbox" class="form-input capitalize" id="gta" name="gta" value="{% if gta is defined %}{{ gta | raw }}{% endif %}" />                
+            </div>
+            <div class="form-group">
+                <label for="raison_sociale" class="form-label">Raison sociale</label>
+                <input type="text" class="form-input capitalize" id="raison_sociale" name="raison_sociale" value="{% if email is defined %}{{ raison_sociale | raw }}{% endif %}" />                
+            </div>
+            <div class="form-group">
+                <label for="fonction_animateur" class="form-label">Fonction</label>
+                <select id="fonction_animateur" name="fonction_animateur" class="form-input small-select capitalize" >
+                {% if error is defined %}
+                        <option value="fonction"  disabled>Fonction</option>   
+                    {% for elem in fonction %}
+                        {% if elem.id == fonction_animateur %}
+                            <option value="{{ elem.id }}" selected>{{ elem.fonction_nom }}</option>
+                        {% else %}
+                            <option value="{{ elem.id }}">{{ elem.fonction_nom  }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    {% else %}
+                        <option value="fonction" selected disabled>Fonction</option>   
+                        {% for elem in fonction %}
+                        <option value="{{ elem.id }}">{{ elem.fonction_nom  }}</option>
+                        {% endfor %}
+                {% endif %}
+                </select>  
+                <button type="button" class="form-button small-btn inline-btn btn-add-fonction">+</button>    
+            </div>
+            <div class="form-group">
+                <label for="statut_animateur" class="form-label">Statut</label>
+                <select id="statut_animateur" name="statut_animateur" class="form-input small-select capitalize" >
+                {% if error is defined %}
+                        <option value="statut"  disabled>Statut</option>   
+                    {% for elem in statut %}
+                        {% if elem.id == statut_animateur %}
+                            <option value="{{ elem.id }}" selected>{{ elem.status_nom }}</option>
+                        {% else %}
+                            <option value="{{ elem.id }}">{{ elem.status_nom  }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    {% else %}
+                        <option value="statut" selected disabled>Statut</option>   
+                        {% for elem in statut %}
+                        <option value="{{ elem.id }}">{{ elem.status_nom  }}</option>
+                        {% endfor %}
+                {% endif %}
+                </select>  
+                <button type="button" class="form-button small-btn inline-btn btn-add-statut">+</button>    
+            </div>
+            <div class="form-group">
+                <label for="urssaf" class="form-label">URSSAF</label>
+                <input type="text" class="form-input capitalize" id="urssaf" name="urssaf" value="{% if urssaf is defined %}{{ urssaf | raw }}{% endif %}" />                
+            </div>
+            <div class="form-group">
+                <label for="siret" class="form-label">SIRET</label>
+                <input type="text" class="form-input capitalize" id="siret" name="siret" value="{% if siret is defined %}{{ siret | raw }}{% endif %}" />                
+            </div>
+            <h2>Contact</h2>
+            <div class="form-group">
+                <label for="tel_portable" class="form-label">Téléphone portable</label>
+                <input type="text" class="form-input capitalize" id="tel_portable" name="tel_portable" value="{% if tel_portable is defined %}{{ tel_portable | raw }}{% endif %}" />                
+            </div>
+            <div class="form-group">
+                <label for="tel_fixe" class="form-label">Téléphone fixe</label>
+                <input type="text" class="form-input capitalize" id="tel_fixe" name="tel_fixe" value="{% if tel_fixe is defined %}{{ tel_fixe | raw }}{% endif %}" />                
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-input capitalize" id="email" name="email" value="{% if email is defined %}{{ email | raw }}{% endif %}" />                
+            </div>
+        </div>
+    </div>
+    <h2>Observations</h2>
+    <div class="form-group">
+        <textarea rows="8" type="text" class="form-textarea capitalize" id="observation" name="observation" value="{% if observation is defined %}{{ observation | raw }}{% endif %}" ></textarea>                
+    </div>
+  {#<div class="form-block">
+  </div>
+  <div class="form-block">
+  </div> #}
+    {# <div class="form-group">
+        <label for="tribunal_nom" class="form-label">Tribunal *</label>
+        <input type="text" class="form-input capitalize" id="tribunal_nom" name="tribunal_nom" value="{% if tribunal_nom is defined %}{{ tribunal_nom | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %} 
+            {% if error != 'exist' %}
+                hidden
+            {% endif %}
+        {% else %}
+            hidden             
+        {% endif %}
+        " id="msg-tribunal_nom" >
+            {% if tribunal_nom is defined %} 
+                {% if error == 'exist' %} 
+                    Veuillez saisir un autre tribunal car celui que vous venez de saisir existe déjà.
+                {% else %}
+                    {% if statut_nom == '' %} 
+                        Veuillez saisir un tribunal
+                    {% endif %}  
+                {% endif %}                
+            {% endif %}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="adresse" class="form-label">Adresse</label>
+        <input type="text" class="form-input capitalize" id="adresse" name="adresse" value="{% if adresse is defined %}{{ adresse | raw }}{% endif %}" />        
+    </div>
+    <div class="form-group">
+        <label for="code_postal" class="form-label">Code postal *</label>
+        <input type="text" class="form-input capitalize" id="code_postal" name="code_postal" value="{% if code_postal is defined %}{{ code_postal | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %}             
+                hidden                
+        {% endif %}
+        " id="msg-code_postal" >
+            {% if code_postal is defined %}                 
+                    {% if code_postal == '' %} 
+                        Veuillez saisir un code postal
+                    {% endif %}                                
+            {% endif %}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="commune" class="form-label">Commune *</label>
+        <input type="text" class="form-input capitalize" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %}             
+                hidden                
+        {% endif %}
+        " id="msg-commune" >
+            {% if commune is defined %}                 
+                    {% if commune == '' %} 
+                        Veuillez saisir une commune
+                    {% endif %}                                
+            {% endif %}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="nature_tribunal" class="form-label">Nature</label>
+         <select id="nature_tribunal" name="nature_tribunal" id="nature_tribunal" class="form-input small-select capitalize" >
+            {% if error is defined %}
+                <option value="nature_tribunal"  disabled>Nature</option>   
+                {% for elem in nature %}
+                    {% if elem.id == nature_tribunal %}
+                        <option value="{{ elem.id }}" selected>{{ elem.nature_nom }}</option>
+                    {% else %}
+                        <option value="{{ elem.id }}">{{ elem.nature_nom }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <option value="nature_tribunal" selected disabled>nature</option>   
+                {% for elem in nature %}
+                <option value="{{ elem.id }}">{{ elem.nature_nom }}</option>
+                {% endfor %}
+        {% endif %}
+        </select>  
+        <button type="button" class="form-button small-btn inline-btn btn-add-nature">+</button>    
+    </div>
+    <div class="form-group">
+        <label for="autorite_tribunal" class="form-label">Autorité</label>
+         <select id="autorite_tribunal" name="autorite_tribunal" id="autorite_tribunal" class="form-input small-select capitalize" >
+            {% if error is defined %}
+                <option value="autorite_tribunal"  disabled>Autorité</option>   
+                {% for elem in autorite %}
+                    {% if elem.id == autorite_tribunal %}
+                        <option value="{{ elem.id }}" selected>{{ elem.autorite_nom }}</option>
+                    {% else %}
+                        <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <option value="autorite_tribunal" selected disabled>Autorité</option>   
+                {% for elem in autorite %}
+                <option value="{{ elem.id }}">{{ elem.autorite_nom }}</option>
+                {% endfor %}
+        {% endif %}
+        </select>  
+        <button type="button" class="form-button small-btn inline-btn btn-add-autorite-tribunal">+</button>    
+    </div>
+    <div class="form-group">
+        <label for="service_tribunal" class="form-label  ">Service</label>
+         <select name="service_tribunal" id="service_tribunal" class="form-input capitalize small-select" >
+        {% if error is defined %}
+            <option value="service_tribunal"  disabled>Service</option>   
+            {% for elem in service %}
+                {% if elem.id == service_tribunal %}
+                    <option value="{{ elem.id }}" selected>{{ elem.service_nom }}</option>
+                {% else %}
+                    <option value="{{ elem.id }}">{{ elem.service_nom }}</option>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <option value="service_tribunal" selected disabled>Service</option>   
+            {% for elem in service %}
+            <option value="{{ elem.id }}">{{ elem.service_nom }}</option>
+            {% endfor %}
+        {% endif %}
+            
+        </select> 
+        <button type="button" class="form-button small-btn inline-btn btn-add-service-tribunal">+</button>        
+    </div>
+    <div class="form-login-group">
+        <button class="form-login-button">Valider</button>
+    </div>
+  </form> #}
+  <div id="alertUser" >
+  </div>
+  {% if error is defined %}
+          <div class="boxOverlay" >
+              <div class="modal fas fa-exclamation-triangle">
+                  {%if error == 'exist' %}           
+                      <p class="modal-message">Le tribunal avec la même autorité, service, nature et adresse existe déjà dans la table Tribunal.</p> 
+                  {% else %}         
+                      <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                  {% endif %}
+                  <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
+
+    {% block javascript %} 
+      <script src="assets/js/app.js" ></script>
+    {% endblock %}

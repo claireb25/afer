@@ -88,7 +88,7 @@ function showNew(){
     $statut = statut();
     global $twig;
     $template = $twig->load('newAnimateur.html.twig');
-    echo $template->render(array('civilite'=>$civilite, 'fonction'=> $fonction, 'statut' => $statut));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'civilite'=>$civilite, 'fonction'=> $fonction, 'statut' => $statut));
 }
 // EDIT 
 function showEdit($id){
