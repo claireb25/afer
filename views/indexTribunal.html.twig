@@ -2,91 +2,73 @@
 
 
 
-<h1 class="list-title">Liste des tribunaux</h1>
-<div class="container-new-button">
-    <a class="new-button plus" href="tribunal/new">
-        <span class="bg" id="plus"></span>
-        <span class="symbol"></span>
-    </a>
-    <p class="title-new-button">
-        <h3>Nouveau</h3>
-    </p>
-</div>
-<section class="list-table">
-    <table>
-        <thead>
-            <tr>
-                <th>Nom Tribunal</th>
-                <th>Nature</th>
-                <th>Autorité</th>
-                <th>Service</th>
-                <th>Adresse</th>
-                <th>Code postal</th>
-                <th>Ville</th>
-                {# A jeter !
-                <th>
-                    <a class="circle-button">
-                        <img class="th" src="assets/media/flaticons/see.png" alt="voir" width="30">
-                        <div class="test">
-                        <p class="legend-button">voir</p>
-                        </div>
-                    </a>
+<h1>Liste des Tribunaux</h1>
 
-                </th>
-                <th>
-                    <a class="circle-button">
-                        <img class="th" src="assets/media/flaticons/edit.png" alt="modifier" width="30">
-                        <p class="legend-button">modifier</p>
-                    </a>
 
-                </th>
-                <th>
-                    <a class="circle-button">
-                        <img class="th" src="assets/media/flaticons/delete.png" alt="supprimer" width="30">
-                        <p class="legend-button">supprimer</p>
-                    </a>
-                </th>
-                #}
-            </tr>
-        </thead>
-        {% for elems in list %}
+<table class="tbl-list">
+    <thead>
         <tr>
-            <td>{{ elems.tribunal_nom }}</td>
-            <td>{{ elems.nature_nom}}</td>
-            <td> {{ elems.autorite_nom }}</td>
-            <td>{{ elems.service_nom }}</td>
-            <td>{{ elems.adresse }}</td>
-            <td>{{ elems.code_postal }}</td>
-            <td>{{ elems.commune }}</td>
-            {# A jeter !
-            <td>
-                <a class="link" href="tribunal/delete/{{ elems.id }}">
-                    <img class="test" src="assets/media/flaticons/see-action.png" title="voir le formulaire" width="25">
-                </a>
-            </td>
-            <td>
-                <a class="link" href="tribunal/edit/{{ elems.id }}">
-                    <img class="test" src="assets/media/flaticons/edit-action.png" title="modifier le formulaire" width="25">
-                </a>
-            </td>
-            <td>
-                <a class="link" href="tribunal/delete/{{ elems.id }}">
-                    <img class="test" src="assets/media/flaticons/delete-action.png" title="supprimer le formulaire" width="25">
-                </a>
-            </td>
-            #}
+            <th class="tbl-col-header">Tribunal</th>
+            <th class="tbl-col-header">Nature</th>
+            <th class="tbl-col-header">Autorité</th>
+            <th class="tbl-col-header">Service</th>
+            <th class="tbl-col-header">Commune</th>
+            <th class="tbl-col-header">Action</th>
         </tr>
+        <tr class="tbl-row-search">
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" id="tribunal" placeholder="Rechercher par tribunal">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" id="nature" placeholder="et/ou rechercher par nature">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" id="autorite" placeholder="et/ou Rechercher par autorité">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" id="service" placeholder="et/ou Rechercher par service">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" id="commune" placeholder="et/ou Rechercher par commune">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" disabled class="form-input">
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for elms in list %}
+
+        <tr class="tbl-row-list ligne">
+            <td class="tbl-col-list capitalize prefecture">{{elms.autorite_nom|raw }}</td>
+            <td class="tbl-col-list capitalize nature">{{elms.nature_nom|raw }}</td>
+            <td class="tbl-col-list capitalize autorite">{{elms.autorite_nom|raw }}</td>
+            <td class="tbl-col-list capitalize service">{{elms.service_nom|raw }}</td>
+            <td class="tbl-col-list capitalize commune">{{elms.commune|raw }}</td>
+            <td class="tbl-col-list "> 
+                <a href="tribunal/view/{{elms.id }}" class="tbl-link-look"></a>               
+                <a href="tribunal/edit/{{elms.id }}" class="tbl-link-edit"></a>
+                <a href="tribunal/delete/{{elms.id }}" class="tbl-link-delete" data-value="{{ elms.tribunal_nom }}"></a>
+            </td>
+        </tr>
+
         {% endfor %}
-    </table>
-</section>
-<div class="container-new-button">
-    <a class="new-button plus" href="tribunal/new">
-        <span class="bg" id="plus"></span>
-        <span class="symbol"></span>
-    </a>
-    <p class="title-new-button">
-        <h3>Nouveau</h3>
-    </p>
+    </tbody>
+</table>
+<a href="tribunal/new" class="btn-link">Ajouter</a>
+
+
+<div class="boxOverlay hidden ">
+    <div class="modal modal-yesNo fas fa-exclamation-triangle">
+        <p class="modal-message">Êtes-vous sûre de vouloir supprimmer le tribunal :
+            <span class="capitalize modal-message--value"></span>
+        </p>
+        <button type="button" data-link="" onclick="deleteUser()" class="modal-btn form-login-button modal-btn--inline modal-btn-yes">Oui</button>
+        <button type="button" class="modal-btn form-login-button modal-btn--inline modal-btn-no"> Non</button>
+    </div>
 </div>
 
+{% endblock %} {% block javascript %}
+<script src="assets/js/app.js"></script>
+<script src="assets/js/yo.js"></script>
 {% endblock %}

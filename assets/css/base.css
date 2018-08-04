@@ -158,14 +158,18 @@ header nav ul li:nth-child(4) .bouton-bigmenu:before {
 }
 
 header nav ul li:nth-child(5) .bouton-bigmenu:before {
-  content: "\1f4f0";
+  content: "\1f4d5";
 }
 
 header nav ul li:nth-child(6) .bouton-bigmenu:before {
-  content: "\2699";
+  content: "\1f4f0";
 }
 
 header nav ul li:nth-child(7) .bouton-bigmenu:before {
+  content: "\2699";
+}
+
+header nav ul li:nth-child(8) .bouton-bigmenu:before {
   content: "\1f511";
 }
 
