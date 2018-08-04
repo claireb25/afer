@@ -250,7 +250,7 @@ function deleteElement($id){
     $id = (int)$id;
     $countPermis = nombreRelationPrefecturePermis( $id );
     $countStage = nombreRelationPrefectureStage( $id );
-    if( $countPermis == 0 && countStage == 0 ){
+    if( $countPermis == 0 && $countStage == 0 ){
         delete($id);
         header('Location: /afer-back/prefecture/list');
     }else{

@@ -150,7 +150,7 @@ function getCountTribunal( $tribunal_nom,  $adresse, $code_postal, $commune, $au
 }
 
 
-function getCountPrefectureEdit( $tribunal_nom, $adresse, $code_postal, $commune,  $autorite_tribunal, $service_tribunal, $nature_tribunal, $id ){
+function getCountTribunalEdit( $tribunal_nom, $adresse, $code_postal, $commune,  $autorite_tribunal, $service_tribunal, $nature_tribunal, $id ){
     global $db;
     $sql = "SELECT COUNT(id) AS nombre FROM tribunal where tribunal_nom = :tribunal_nom and adresse = :adresse and code_postal = :code_postal and  commune = :commune and  autorite_tribunal_id_id = :autorite_tribunal and service_tribunal_id_id = :service_tribunal and nature_tribunal_id_id = :nature_tribunal and id != :id";
     $response = $db->prepare( $sql );
@@ -164,5 +164,29 @@ function getCountPrefectureEdit( $tribunal_nom, $adresse, $code_postal, $commune
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     $result = $response->fetch( PDO::FETCH_ASSOC);
+    return $result['nombre']; 
+}
+
+
+function nombreRelationTribunalInfraction( $id ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM infraction where tribunal_id_id = :id";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+
+    return $result['nombre']; 
+}
+
+
+function nombreRelationTribunalStage( $id ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM liaison_stagiaire_stage_dossier_cas_bordereau where tribunal_id = :id";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+
     return $result['nombre']; 
 }
