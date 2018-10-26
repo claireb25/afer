@@ -7,7 +7,7 @@
 <form action="autoritetribunal/edit/{{ autoritetoEdit.id }}" method="post" class="form form-autorite form-autoriteTribunal-edit">
     <div class="form-group">
         <label for="autorite_nom" class="form-label">Autorité *</label>
-        <input type="text" class="form-input capitalize" id="autorite_nom" name="autorite_nom" value="{% if autoritetoEdit is defined %}{{ autoritetoEdit.autorite_nom | raw }}{% endif %}" />
+        <input type="text" class="form-input firstLetterUpper" id="autorite_nom" name="autorite_nom" value="{% if autoritetoEdit is defined %}{{ autoritetoEdit.autorite_nom | raw }}{% endif %}" />
         <p class="form-msg-error 
         {% if error is defined %} 
             {% if error != 'exist' %}
