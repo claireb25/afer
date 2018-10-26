@@ -22,7 +22,7 @@
         {% for elems in list %}
 
             <tr class="tbl-row-list ligne" >
-                <td class="tbl-col-list capitalize service">{{elems.autorite_nom|raw }}</td>
+                <td class="tbl-col-list firstLetterUpper service">{{elems.autorite_nom|raw }}</td>
                 <td class="tbl-col-list " ><a href="autoriteprefecture/edit/{{elems.id }}" class="tbl-link-edit"  ></a>   <a href="autoriteprefecture/delete/{{ elems.id }}" class="tbl-link-delete" data-value="{{ elems.autorite_nom }}" ></a></td>
             </tr>
 

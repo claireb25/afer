@@ -5,7 +5,7 @@
   <form action="autoriteprefecture/new" method="post" class="form form-autorite form-autoritePrefecture-create">
     <div class="form-group">
         <label for="autorite_nom" class="form-label">Autorité *</label>
-        <input type="text" class="form-input capitalize" id="autorite_nom" name="autorite_nom" value="{% if autorite_nom is defined %}{{ autorite_nom | raw }}{% endif %}" />
+        <input type="text" class="form-input firstLetterUpper" id="autorite_nom" name="autorite_nom" value="{% if autorite_nom is defined %}{{ autorite_nom | raw }}{% endif %}" />
         <p class="form-msg-error 
         {% if error is defined %} 
             {% if error != 'exist' %}
