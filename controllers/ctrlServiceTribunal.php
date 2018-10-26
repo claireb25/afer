@@ -49,17 +49,17 @@ if (isset($_GET['action'])){
                         }                            
                         
                     }else{
-                        header('Location: /afer-back/servicetribunal/list');
+                        header('Location: /servicetribunal/list');
                     }
                     
                 }else{
                     showEdit($_GET['id']);
                 }
             }else{
-                header('Location: /afer-back/servicetribunal/list');
+                header('Location: /servicetribunal/list');
             }
         }else{
-            header('Location: /afer-back/servicetribunal/list');
+            header('Location: /servicetribunal/list');
         }
            
             break;
@@ -88,7 +88,7 @@ if (isset($_GET['action'])){
                 }                            
                 
             }else{
-                header('Location: /afer-back/servicetribunal/list');
+                header('Location: /servicetribunal/list');
             }
         }else{
             showNewJson();
@@ -109,7 +109,7 @@ function makeList(){
 function addNew($valeur){
     $service_nom = $valeur;
     create($service_nom);
-    header('Location: /afer-back/servicetribunal/list');
+    header('Location: /servicetribunal/list');
 }
 
 function showNew(){
@@ -152,7 +152,7 @@ function updateService($data, $id){
     $service_nom = $data;
     $id = (int)$id;
     edit($service_nom, $id);
-    header('Location: /afer-back/servicetribunal/list');
+    header('Location: /servicetribunal/list');
    
 }
 
@@ -172,7 +172,7 @@ function deleteElement($id){
     $count = nombreRelationServiceTribunal( $id );
     if( $count == 0 ){
         delete($id);
-        header('Location: /afer-back/servicetribunal/list');
+        header('Location: /servicetribunal/list');
     }else{
         showDeleteError( $id );
     }    
