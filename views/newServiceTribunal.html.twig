@@ -5,7 +5,7 @@
   <form action="servicetribunal/new" method="post" class="form form-service form-serviceTribunal-create">
     <div class="form-group">
         <label for="service_nom" class="form-label">Service *</label>
-        <input type="text" class="form-input capitalize" id="service_nom" name="service_nom" value="{% if service_nom is defined %}{{ service_nom | raw }}{% endif %}" />
+        <input type="text" class="form-input firstLetterUpper" id="service_nom" name="service_nom" value="{% if service_nom is defined %}{{ service_nom | raw }}{% endif %}" />
         <p class="form-msg-error 
         {% if error is defined %} 
             {% if error != 'exist' %}
