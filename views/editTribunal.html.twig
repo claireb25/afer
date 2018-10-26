@@ -59,28 +59,7 @@
                     {% endif %}                                
             {% endif %}
         </p>
-    </div>
-    <div class="form-group">
-        <label for="nature_tribunal" class="form-label">Nature</label>
-         <select id="nature_tribunal"  name="nature_tribunal" id="nature_tribunal" class="form-input small-select capitalize" >
-            {% if toEdit.nature_nom is null %}
-                <option value="nature_tribunal"  selected disabled>Nature</option>   
-                {% for elem in nature %}                    
-                    <option value="{{ elem.id }}" >{{ elem.nature_nom| raw  }}</option>                    
-                {% endfor %}
-            {% else %}
-                <option value="nature_tribunal"  disabled>Nature</option>   
-                {% for elem in nature %}
-                    {% if elem.nature_nom == toEdit.nature_nom %}
-                        <option value="{{ elem.id }}" selected >{{ elem.nature_nom| raw }}</option>
-                    {% else %}
-                        <option value="{{ elem.id }}"  >{{ elem.nature_nom| raw  }}</option>
-                    {% endif %}
-                {% endfor %}
-        {% endif %}
-        </select>
-        <button type="button" class="form-button small-btn inline-btn btn-add-nature">+</button>        
-    </div>
+    </div>    
     <div class="form-group">
         <label for="autorite_tribunal" class="form-label">Autorité</label>
          <select id="autorite_tribunal"  name="autorite_tribunal" id="autorite_tribunal" class="form-input small-select capitalize" >
