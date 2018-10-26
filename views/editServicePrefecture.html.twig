@@ -7,7 +7,7 @@
 <form action="serviceprefecture/edit/{{ servicetoEdit.id }}" method="post" class="form form-service form-servicePrefecture-edit">
     <div class="form-group">
         <label for="service_nom" class="form-label">Service *</label>
-        <input type="text" class="form-input capitalize" id="service_nom" name="service_nom" value="{% if servicetoEdit is defined %}{{ servicetoEdit.service_nom | raw }}{% endif %}" />
+        <input type="text" class="form-input firstLetterUpper" id="service_nom" name="service_nom" value="{% if servicetoEdit is defined %}{{ servicetoEdit.service_nom | raw }}{% endif %}" />
         <p class="form-msg-error 
         {% if error is defined %} 
             {% if error != 'exist' %}

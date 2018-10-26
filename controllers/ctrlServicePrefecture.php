@@ -50,17 +50,17 @@ if (isset($_GET['action'])){
                             }                            
                             
                         }else{
-                            header('Location: /afer-back/serviceprefecture/list');
+                            header('Location: /serviceprefecture/list');
                         }
                         
                     }else{
                         showEdit($_GET['id']);
                     }
                 }else{
-                    header('Location: /afer-back/serviceprefecture/list');
+                    header('Location: /serviceprefecture/list');
                 }
             }else{
-                header('Location: /afer-back/serviceprefecture/list');
+                header('Location: /serviceprefecture/list');
             }
             
            
@@ -90,7 +90,7 @@ if (isset($_GET['action'])){
                 }                            
                 
             }else{
-                header('Location: /afer-back/autoriteprefecture/list');
+                header('Location: /autoriteprefecture/list');
             }
         }else{
             showNewJson();
@@ -111,7 +111,7 @@ function makeList(){
 function addNew($valeur){
     $service_nom = $valeur;
     create($service_nom);
-    header('Location: /afer-back/serviceprefecture/list');
+    header('Location: /serviceprefecture/list');
 }
 
 function showNew(){
@@ -153,7 +153,7 @@ function updateService($data, $id){
     $service_nom = $data;
     $id = (int)$id;
     edit($service_nom, $id);
-    header('Location: /afer-back/serviceprefecture/list');
+    header('Location: /serviceprefecture/list');
    
 }
 
@@ -170,7 +170,7 @@ function deleteElement($id){
     $count = nombreRelationServicePrefecture( $id );
     if( $count == 0 ){
         delete($id);
-        header('Location: /afer-back/serviceprefecture/list');
+        header('Location: /serviceprefecture/list');
     }else{
         showDeleteError( $id );
     }    

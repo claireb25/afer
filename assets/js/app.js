@@ -126,6 +126,10 @@ function main(){
       showPassword();
   }
 
+  if( document.querySelector('.firstLetterUpper') !== null ){
+      firstLetterMaj();
+  }
+
 
 }
 
@@ -992,6 +996,22 @@ function validServiceTribunalJsonEdit(){
         }
     });
 }
+
+
+function firstLetterMaj(){
+    const inputSaisie = document.querySelectorAll('.firstLetterUpper' );
+
+    inputSaisie.forEach( ( element ) => {
+        element.addEventListener( 'keyup', () => {
+            if( element.value.length > 0 ){
+                element.value = element.value.trim();
+                element.value = element.value[0].toUpperCase() + element.value.substring(1);
+            }                
+        });
+    });
+}
+
+
 //execute la fonction main au chargement
 main();
 
