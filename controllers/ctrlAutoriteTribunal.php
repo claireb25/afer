@@ -47,17 +47,17 @@ if (isset($_GET['action'])){
                             }                            
                             
                         }else{
-                            header('Location: /afer-back/autoritetribunal/list');
+                            header('Location: /autoritetribunal/list');
                         }
                         
                     }else{
                         showEdit($_GET['id']);
                     }
                 }else{
-                    header('Location: /afer-back/autoritetribunal/list');
+                    header('Location: /autoritetribunal/list');
                 }
             }else{
-                header('Location: /afer-back/autoritetribunal/list');
+                header('Location: /autoritetribunal/list');
             }
            
             break;
@@ -86,7 +86,7 @@ if (isset($_GET['action'])){
                 }                            
                 
             }else{
-                header('Location: /afer-back/autoritetribunal/list');
+                header('Location: /autoritetribunal/list');
             }
         }else{
             showNewJson();
@@ -107,7 +107,7 @@ function makeList(){
 function addNew($valeur){
     $autorite_nom = $valeur;
     create($autorite_nom);
-    header('Location: /afer-back/autoritetribunal/list');
+    header('Location: /autoritetribunal/list');
 }
 
 function showExist( $autorite_nom ){
@@ -149,7 +149,7 @@ function updateAutorite($data, $id){
     $autorite_nom = $data;
     $id = (int)$id;
     edit($autorite_nom, $id);
-    header('Location: /afer-back/autoritetribunal/list');
+    header('Location: /autoritetribunal/list');
    
 }
 
@@ -168,7 +168,7 @@ function deleteElement($id){
     $count = nombreRelationAutoriteTribunal( $id );
     if( $count == 0 ){
         delete($id);
-        header('Location: /afer-back/autoritetribunal/list');
+        header('Location: /autoritetribunal/list');
     }else{
         showDeleteError( $id );
     }    
