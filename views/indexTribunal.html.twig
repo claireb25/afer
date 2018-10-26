@@ -9,7 +9,6 @@
     <thead>
         <tr>
             <th class="tbl-col-header">Tribunal</th>
-            <th class="tbl-col-header">Nature</th>
             <th class="tbl-col-header">Autorité</th>
             <th class="tbl-col-header">Service</th>
             <th class="tbl-col-header">Commune</th>
@@ -18,10 +17,7 @@
         <tr class="tbl-row-search">
             <td class="tbl-col-search">
                 <input type="text" class="form-input" id="tribunal" placeholder="Rechercher par tribunal">
-            </td>
-            <td class="tbl-col-search">
-                <input type="text" class="form-input" id="nature" placeholder="et/ou rechercher par nature">
-            </td>
+            </td>            
             <td class="tbl-col-search">
                 <input type="text" class="form-input" id="autorite" placeholder="et/ou Rechercher par autorité">
             </td>
@@ -40,8 +36,7 @@
         {% for elms in list %}
 
         <tr class="tbl-row-list ligne">
-            <td class="tbl-col-list capitalize prefecture">{{elms.tribunal_nom|raw }}</td>
-            <td class="tbl-col-list capitalize nature">{{elms.nature_nom|raw }}</td>
+            <td class="tbl-col-list capitalize prefecture">{{elms.tribunal_nom|raw }}</td>            
             <td class="tbl-col-list capitalize autorite">{{elms.autorite_nom|raw }}</td>
             <td class="tbl-col-list capitalize service">{{elms.service_nom|raw }}</td>
             <td class="tbl-col-list capitalize commune">{{elms.commune|raw }}</td>
