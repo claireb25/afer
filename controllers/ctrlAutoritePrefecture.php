@@ -48,17 +48,17 @@ if (isset($_GET['action'])){
                         }                            
                         
                     }else{
-                        header('Location: /afer-back/autoriteprefecture/list');
+                        header('Location: /autoriteprefecture/list');
                     }
                     
                 }else{
                     showEdit($_GET['id']);
                 }
             }else{
-                header('Location: /afer-back/autoriteprefecture/list');
+                header('Location: /autoriteprefecture/list');
             }
         }else{
-            header('Location: /afer-back/autoriteprefecture/list');
+            header('Location: /autoriteprefecture/list');
         }
            
             break;
@@ -87,7 +87,7 @@ if (isset($_GET['action'])){
                     }                            
                     
                 }else{
-                    header('Location: /afer-back/autoriteprefecture/list');
+                    header('Location: /autoriteprefecture/list');
                 }
             }else{
                 showNewJson();
@@ -108,7 +108,7 @@ function makeList(){
 function addNew($valeur){
     $autorite_nom = $valeur;
     create($autorite_nom);
-    header('Location: /afer-back/autoriteprefecture/list');
+    header('Location: /autoriteprefecture/list');
 }
 
 function showNew(){
@@ -150,7 +150,7 @@ function updateAutorite($data, $id){
     $autorite_nom = $data;
     $id = (int)$id;
     edit($autorite_nom, $id);
-    header('Location: /afer-back/autoriteprefecture/list');
+    header('Location: /autoriteprefecture/list');
    
 }
 
@@ -166,7 +166,7 @@ function deleteElement($id){
     $count = nombreRelationAutoritePrefecture( $id );
     if( $count == 0 ){
         delete($id);
-        header('Location: /afer-back/autoriteprefecture/list');
+        header('Location: /autoriteprefecture/list');
     }else{
         showDeleteError( $id );
     }    
