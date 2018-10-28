@@ -20,9 +20,7 @@ function main(){
     addService();
   }
 
-  if( document.querySelector('.btn-add-nature') !== null ){
-    addNature();
-  }
+  
 
   if( document.querySelector('.btn-add-autorite-tribunal') !== null ){
     addAutoriteTribunal();
@@ -76,13 +74,7 @@ function main(){
   }
 
 
-  if( document.querySelector('.form-natureTribunal-create') !== null ){
-    natureTribunalForm( 'create');
-  }
-
-  if( document.querySelector('.form-natureTribunal-edit') !== null ){
-    natureTribunalForm( 'edit');
-  }
+  
 
   if( document.querySelector('.form-fonctionAnimateur-create') !== null ){
     fonctionAnimateurForm( 'create');
@@ -366,40 +358,7 @@ function serviceTribunalForm( action ){
 }
 
 
-function natureTribunalForm( action ){
-    formNature = document.querySelector( '.form-nature' );
-    formNature.addEventListener('submit', ( e ) =>{
-        e.preventDefault();
-        test = true;
 
-
-        //gestion des messages d'erreurs
-        if( document.querySelector('#nature_nom').value.trim().length === 0 ){
-            document.querySelector('#msg-nature_nom').classList.remove( 'hidden');
-            document.querySelector('#msg-nature_nom').innerHTML = "Veuillez saisir le champ nature";
-            test = false;
-        }else{
-            document.querySelector('#msg-nature_nom').classList.add( 'hidden');
-            document.querySelector('#msg-nature_nom').innerHTML = "";
-        }
-
-       
-        //di pas de soucis dans le formulaire
-        //on l'envoi sinon on injecte le modal pour
-        //informer des erreurs
-        if( test === true ){
-            formNature.submit();
-          }else{
-            html = '<div class="boxOverlay" >';
-            html += '<div class="modal fas fa-exclamation-triangle">';
-            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
-            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
-            html += '</div>';
-            html += '</div>';
-            document.querySelector('#alertUser').innerHTML =   html;
-        }
-    });
-}
 
 function fonctionAnimateurForm( action ){
     formFonction = document.querySelector( '.form-fonction' );
@@ -588,12 +547,12 @@ function tribunalForm( action ){
         //on l'envoi sinon on injecte le modal pour
         //informer des erreurs
         if( test === true ){            
-            if( document.querySelector('#autorite_tribunal').value !== 'autorite_tribunal' && document.querySelector('#service_tribunal').value !== 'service_tribunal' && document.querySelector('#nature_tribunal').value !== 'nature_tribunal'){
+            if( document.querySelector('#autorite_tribunal').value !== 'autorite_tribunal' && document.querySelector('#service_tribunal').value !== 'service_tribunal' ){
                formTribunal.submit();
             }else{
                 html ='<div class="boxOverlay  ">';
                 html += '<div class="modal modal-yesNo fas fa-exclamation-triangle">';
-                html += '<p class="modal-message">Êtes-vous sûre de vouloir continuer sans définir une autorité et/ou un service et/ou une nature ?</p>';
+                html += '<p class="modal-message">Êtes-vous sûre de vouloir continuer sans définir une autorité et/ou un service ?</p>';
                 html += '<button type="button" data-link="tribunal/new" onclick="document.querySelector( \'.form-tribunal\' ).submit();" class="modal-btn form-login-button modal-btn--inline modal-btn-yes">Oui</button>  ';
                 html += '<button type="button" onclick="closeModal()" class="modal-btn form-login-button modal-btn--inline modal-btn-no"> Non</button>';
                 html += '</div>';
@@ -797,71 +756,9 @@ function validServiceJsonEdit(){
 }
 
 
-function addNature(){
-    const btn = document.querySelector('.btn-add-nature').addEventListener('click', () =>{
-        fetch('/afer-back/naturetribunal/newjson')
-        .then( ( reponse ) => {
-            return reponse.json();
-        })
-        .then( ( reponse ) => {
-            if( reponse.error.length === 0 ){
-                html ='<div class="boxOverlay  ">';
-                html += '<div class="modal modal-ajout">';
-                html +=  reponse.data;
-                html += '</div>';
-                html += '</div>';
-                document.querySelector('#alertUser').innerHTML =   html; 
-                validNatureJsonEdit(); 
-            }
-        });
-    });
-}
 
 
-function validNatureJsonEdit(){
-    formService = document.querySelector( '.form-nature' );
-    formService.addEventListener('submit', ( e ) =>{
-        e.preventDefault();
-        test = true;
-        if( document.querySelector('#nature_nom').value.trim().length === 0 ){
-            document.querySelector('#msg-nature_nom').classList.remove( 'hidden');
-            document.querySelector('#msg-nature_nom').innerHTML = "Veuillez saisir le champ Nature";
-            test = false;
-        }else{
-            document.querySelector('#msg-nature_nom').classList.add( 'hidden');
-            document.querySelector('#msg-nature_nom').innerHTML = "";
-        }
 
-        if( test === true ){
-            
-            formData = new FormData();
-            formData.append('nature_nom', document.querySelector('#nature_nom').value.trim() );
-            header = {
-                method: "POST",
-                body: formData
-            };
-
-            fetch('/afer-back/naturetribunal/newjson', header)
-            .then( (response ) => {
-                return response.json();
-            })
-            .then( (response) =>{              
-                if( response.error === 'exist' ){
-                    document.querySelector('#msg-nature_nom').classList.remove( 'hidden');
-                    document.querySelector('#msg-nature_nom').innerHTML = "Cette nature existe déjà";
-                }else if( response.error === 'add' ){
-                    const selectNature = document.querySelector('#nature_tribunal');
-                    const option = document.createElement("option");
-                    option.setAttribute('value', response.data.id )
-                    option.text = response.data.nature_nom;
-                    selectNature.add(option);
-                    selectNature.selectedIndex =  selectNature.length - 1 ;
-                    closeModal();
-                }
-            });
-        }
-    });
-}
 
 
 function addAutoriteTribunal(){
