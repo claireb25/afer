@@ -308,26 +308,6 @@ INSERT INTO `mode_envoi_inscription` (`id`, `mode`) VALUES
 (1, 'courrier'),
 (2, 'e-mail');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `nature_tribunal`
---
-
-CREATE TABLE `nature_tribunal` (
-  `id` int(11) NOT NULL,
-  `nature_nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `nature_tribunal`
---
-
-INSERT INTO `nature_tribunal` (`id`, `nature_nom`) VALUES
-(1, 'superNature'),
-(3, 'TGI');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `permis`
@@ -562,7 +542,6 @@ CREATE TABLE `suivi_dossier_mode_envoi_inscription` (
 
 CREATE TABLE `tribunal` (
   `id` int(11) NOT NULL,
-  `nature_tribunal_id_id` int(11) DEFAULT NULL,
   `autorite_tribunal_id_id` int(11) DEFAULT NULL,
   `service_tribunal_id_id` int(11) DEFAULT NULL,
   `tribunal_nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -575,9 +554,9 @@ CREATE TABLE `tribunal` (
 -- Dumping data for table `tribunal`
 --
 
-INSERT INTO `tribunal` (`id`, `nature_tribunal_id_id`, `autorite_tribunal_id_id`, `service_tribunal_id_id`, `tribunal_nom`, `adresse`, `code_postal`, `commune`) VALUES
-(5, 3, 4, 3, 'Tribunal de Dole', '6 rue des charmilles', '25870', 'Dole'),
-(6, 3, 4, 3, 'Tribunal de Lons-le-Saunier', '57 rue de Vesoul', '39000', 'Dole');
+INSERT INTO `tribunal` (`id`,  `autorite_tribunal_id_id`, `service_tribunal_id_id`, `tribunal_nom`, `adresse`, `code_postal`, `commune`) VALUES
+(5,  4, 3, 'Tribunal de Dole', '6 rue des charmilles', '25870', 'Dole'),
+(6,  4, 3, 'Tribunal de Lons-le-Saunier', '57 rue de Vesoul', '39000', 'Dole');
 
 -- --------------------------------------------------------
 
@@ -730,11 +709,6 @@ ALTER TABLE `mode_envoi_convoc`
 ALTER TABLE `mode_envoi_inscription`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `nature_tribunal`
---
-ALTER TABLE `nature_tribunal`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `permis`
@@ -817,7 +791,6 @@ ALTER TABLE `suivi_dossier_mode_envoi_inscription`
 --
 ALTER TABLE `tribunal`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_DC8C3AAF2A34D77F` (`nature_tribunal_id_id`),
   ADD KEY `IDX_DC8C3AAFBEFB0DC0` (`autorite_tribunal_id_id`),
   ADD KEY `IDX_DC8C3AAFD6DDE9B6` (`service_tribunal_id_id`);
 
@@ -902,11 +875,7 @@ ALTER TABLE `mode_envoi_convoc`
 --
 ALTER TABLE `mode_envoi_inscription`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `nature_tribunal`
---
-ALTER TABLE `nature_tribunal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `permis`
 --
@@ -1059,7 +1028,6 @@ ALTER TABLE `suivi_dossier_mode_envoi_inscription`
 -- Constraints for table `tribunal`
 --
 ALTER TABLE `tribunal`
-  ADD CONSTRAINT `FK_DC8C3AAF2A34D77F` FOREIGN KEY (`nature_tribunal_id_id`) REFERENCES `nature_tribunal` (`id`),
   ADD CONSTRAINT `FK_DC8C3AAFBEFB0DC0` FOREIGN KEY (`autorite_tribunal_id_id`) REFERENCES `autorite_tribunal` (`id`),
   ADD CONSTRAINT `FK_DC8C3AAFD6DDE9B6` FOREIGN KEY (`service_tribunal_id_id`) REFERENCES `service_tribunal` (`id`);
 
