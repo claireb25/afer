@@ -22,7 +22,6 @@ if (isset($_GET['action'])){
             $commune = '';
             $service_tribunal = '';
             $autorite_tribunal = '';
-            $nature_tribunal = '';
 
             if( isset( $_POST['tribunal_nom'] ) ){
                 if( !empty( $_POST['tribunal_nom'] ) ){
@@ -64,12 +63,7 @@ if (isset($_GET['action'])){
             }
 
 
-            if( isset( $_POST['nature_tribunal'] ) ){
-                if( !empty( $_POST['nature_tribunal'] ) ){
-                    $nature_tribunal = htmlentities( trim( $_POST['nature_tribunal'] ) );
-                    $nature_tribunal = (int) $nature_tribunal;
-                }
-            }
+           
 
             if( $autorite_tribunal == "" ){
                 $autorite_tribunal = null;
@@ -80,19 +74,17 @@ if (isset($_GET['action'])){
             }
 
 
-            if( $nature_tribunal == "" ){
-                $nature_tribunal = null;
-            }
+           
             
             
             
-            $reponse = (int) getCountTribunal( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal, $nature_tribunal );
+            $reponse = (int) getCountTribunal( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal);
             
             
             if( $reponse === 0 ){                   
-                addNew( $tribunal_nom, $nature_tribunal, $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune    );
+                addNew( $tribunal_nom, $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune    );
             }else{
-                showExist( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal, $nature_tribunal );
+                showExist( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal );
             }
             
         } else {
@@ -109,7 +101,6 @@ if (isset($_GET['action'])){
                 $commune = '';
                 $service_tribunal = '';
                 $autorite_tribunal = '';
-                $nature_tribunal = '';
 
                 if( isset( $_POST['tribunal_nom'] ) ){
                     if( !empty( $_POST['tribunal_nom'] ) ){
@@ -150,12 +141,7 @@ if (isset($_GET['action'])){
                     }
                 }
 
-                if( isset( $_POST['nature_tribunal'] ) ){
-                    if( !empty( $_POST['nature_tribunal'] ) ){
-                        $nature_tribunal = htmlentities( trim( $_POST['nature_tribunal'] ) );
-                        $nature_tribunal = (int) $nature_tribunal;
-                    }
-                }
+               
 
                 if( $autorite_tribunal == "" ){
                     $autorite_tribunal = null;
@@ -166,16 +152,14 @@ if (isset($_GET['action'])){
                 }
 
 
-                if( $nature_tribunal == "" ){
-                    $nature_tribunal = null;
-                }
+                
 
-                $reponse = (int) getCountTribunalEdit( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal, $nature_tribunal, $id );
+                $reponse = (int) getCountTribunalEdit( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal, $id );
                 if( $reponse === 0 ){   
-                    update( $tribunal_nom,  $nature_tribunal, $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune, $id  );
+                    update( $tribunal_nom,   $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune, $id  );
                     redirectTribunalList();
                 }else{
-                    showExistEdit( $tribunal_nom,  $nature_tribunal, $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune, $id );
+                    showExistEdit( $tribunal_nom,   $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune, $id );
                 }
             }else{
                 showEdit($_GET['id']);
@@ -212,33 +196,30 @@ function showView( $id ){
 }
 
 // NEW
-function addNew($tribunal_nom, $nature_tribunal, $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune){ //adds a new tribunal
+function addNew($tribunal_nom,  $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune){ //adds a new tribunal
     $nom = $tribunal_nom;
-    $nature = $nature_tribunal;
     $autorite = $autorite_tribunal;
     $service = $service_tribunal;
     $adr = $adresse;
     $cp = $code_postal;
     $ville = $commune;
-    create($nom, $nature, $autorite, $service, $adr, $cp, $ville);
+    create($nom,  $autorite, $service, $adr, $cp, $ville);
     redirectTribunalList();
 }
 function showNew(){
     $autorite = autorite();
     $service = service();
-    $nature = nature();
     global $twig;
     $template = $twig->load('newTribunal.html.twig');
-    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'autorite'=>$autorite, 'service'=>$service, 'nature'=>$nature));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'autorite'=>$autorite, 'service'=>$service));
 }
 
-function showExist( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal, $nature_tribunal ){
+function showExist( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal ){
     global $twig;
     $autorite = autorite();
     $service = service();
-    $nature = nature();
     $template = $twig->load('newTribunal.html.twig');
-    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'tribunal_nom' => $tribunal_nom, 'adresse' => $adresse, "code_postal" => $code_postal, "commune" => $commune, "autorite" => $autorite, "service_tribunal" => $service_tribunal, "autorite_tribunal" => $autorite_tribunal,  "service" => $service, "nature_tribunal" => $nature_tribunal,  "nature" => $nature ) );
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'tribunal_nom' => $tribunal_nom, 'adresse' => $adresse, "code_postal" => $code_postal, "commune" => $commune, "autorite" => $autorite, "service_tribunal" => $service_tribunal, "autorite_tribunal" => $autorite_tribunal,  "service" => $service ) );
 }
 
 
@@ -254,22 +235,20 @@ function showExistEdit( $prefecture_nom, $autorite_prefecture, $service_prefectu
 function showEdit($id){
     $autorite = autorite();
     $service = service();
-    $nature = nature();
     $toEdit = getOne($id);
     global $twig;
     $template = $twig->load('editTribunal.html.twig');
-    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'toEdit'=>$toEdit, 'autorite'=>$autorite, 'service'=>$service, 'nature'=>$nature));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'toEdit'=>$toEdit, 'autorite'=>$autorite, 'service'=>$service));
 }
-function update($tribunal_nom, $nature_tribunal, $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune, $id){
+function update($tribunal_nom,  $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune, $id){
     $nom = $tribunal_nom;
-    $nature = $nature_tribunal;
     $autorite = $autorite_tribunal;
     $service = $service_tribunal;
     $adr = $adresse;
     $cp = $code_postal;
     $ville = $commune;
     $id = $id;
-    edit($nom, $nature, $autorite, $service, $adr, $cp, $ville, $id);
+    edit($nom,  $autorite, $service, $adr, $cp, $ville, $id);
    
 }
 
