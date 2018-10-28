@@ -1,18 +1,14 @@
 <?php 
 require_once("utils/db.php");
 // NEW
-function create($nom, $nature, $autorite, $service, $adr, $cp, $ville){
+function create($nom,  $autorite, $service, $adr, $cp, $ville){
     
     
     global $db;
-    $response = $db->prepare("INSERT INTO tribunal(nature_tribunal_id_id, autorite_tribunal_id_id, service_tribunal_id_id, tribunal_nom, adresse, code_postal, commune) VALUES(:nature, :autorite, :service, :nom, :adr, :cp, :ville)");
+    $response = $db->prepare("INSERT INTO tribunal( autorite_tribunal_id_id, service_tribunal_id_id, tribunal_nom, adresse, code_postal, commune) VALUES( :autorite, :service, :nom, :adr, :cp, :ville)");
     $response->bindParam(':nom', $nom, PDO::PARAM_STR);
     
-    if( $nature == null ){
-        $response->bindValue(':nature', NULL , PDO::PARAM_INT);
-    }else{
-        $response->bindParam(':nature', $nature, PDO::PARAM_INT);
-    }
+    
 
     if( $autorite == null ){
         $response->bindValue(':autorite', NULL , PDO::PARAM_INT);
@@ -39,8 +35,7 @@ function create($nom, $nature, $autorite, $service, $adr, $cp, $ville){
 //LIST
 function listAll(){
     global $db;
-    $response = $db->prepare("SELECT tribunal.id, nature_tribunal.nature_nom, autorite_tribunal.autorite_nom, service_tribunal.service_nom, tribunal_nom, adresse, code_postal, commune FROM `tribunal` 
-    left JOIN nature_tribunal ON tribunal.nature_tribunal_id_id = nature_tribunal.id
+    $response = $db->prepare("SELECT tribunal.id,  autorite_tribunal.autorite_nom, service_tribunal.service_nom, tribunal_nom, adresse, code_postal, commune FROM `tribunal` 
     left JOIN autorite_tribunal ON tribunal.autorite_tribunal_id_id = autorite_tribunal.id
     left JOIN service_tribunal ON tribunal.service_tribunal_id_id = service_tribunal.id");
     $response->execute();
@@ -58,17 +53,11 @@ function service(){
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
-function nature(){
-    global $db;
-    $response = $db->prepare("SELECT id, nature_nom FROM nature_tribunal");
-    $response->execute();
-    return $response->fetchAll(PDO::FETCH_ASSOC);
-}
+
 //EDIT
 function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT tribunal.id, nature_tribunal.nature_nom, autorite_tribunal.autorite_nom, service_tribunal.service_nom, tribunal_nom, adresse, code_postal, commune FROM tribunal 
-    left JOIN nature_tribunal ON tribunal.nature_tribunal_id_id = nature_tribunal.id 
+    $response = $db->prepare("SELECT tribunal.id,  autorite_tribunal.autorite_nom, service_tribunal.service_nom, tribunal_nom, adresse, code_postal, commune FROM tribunal  
     left JOIN autorite_tribunal ON tribunal.autorite_tribunal_id_id = autorite_tribunal.id 
     left JOIN service_tribunal ON tribunal.service_tribunal_id_id = service_tribunal.id 
     WHERE tribunal.id = :id");
@@ -80,9 +69,9 @@ function getOne($id){
 
 
 
-function edit($nom, $nature, $autorite, $srv, $adr, $cp, $ville, $id){
+function edit($nom,  $autorite, $srv, $adr, $cp, $ville, $id){
     global $db;
-    $response = $db->prepare("UPDATE tribunal SET nature_tribunal_id_id = :nature,
+    $response = $db->prepare("UPDATE tribunal SET  
     autorite_tribunal_id_id = :autorite,
     service_tribunal_id_id = :srv,
     tribunal_nom = :nom, 
@@ -92,11 +81,7 @@ function edit($nom, $nature, $autorite, $srv, $adr, $cp, $ville, $id){
     WHERE tribunal.id = :id");
     $response->bindParam(':nom', $nom, PDO::PARAM_STR);
     
-    if( $nature == null ){
-        $response->bindValue(':nature', NULL , PDO::PARAM_INT);
-    }else{
-        $response->bindParam(':nature', $nature, PDO::PARAM_INT);
-    }
+    
 
     if( $autorite == null ){
         $response->bindValue(':autorite', NULL , PDO::PARAM_INT);
@@ -133,9 +118,9 @@ function delete($id){
 
 
 
-function getCountTribunal( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal, $nature_tribunal ){
+function getCountTribunal( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal ){
     global $db;
-    $sql = "SELECT COUNT(id) AS nombre FROM tribunal where tribunal_nom = :tribunal_nom and adresse = :adresse and code_postal = :code_postal and  commune = :commune and  autorite_tribunal_id_id = :autorite_tribunal and service_tribunal_id_id = :service_tribunal and nature_tribunal_id_id = :nature_tribunal ";
+    $sql = "SELECT COUNT(id) AS nombre FROM tribunal where tribunal_nom = :tribunal_nom and adresse = :adresse and code_postal = :code_postal and  commune = :commune and  autorite_tribunal_id_id = :autorite_tribunal and service_tribunal_id_id = :service_tribunal  ";
     $response = $db->prepare( $sql );
     $response->bindParam(':tribunal_nom', $tribunal_nom, PDO::PARAM_STR);
     $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
@@ -143,16 +128,15 @@ function getCountTribunal( $tribunal_nom,  $adresse, $code_postal, $commune, $au
     $response->bindParam(':commune', $commune, PDO::PARAM_STR);
     $response->bindParam(':service_tribunal', $service_tribunal, PDO::PARAM_INT);
     $response->bindParam(':autorite_tribunal', $autorite_tribunal, PDO::PARAM_INT);
-    $response->bindParam(':nature_tribunal', $nature_tribunal, PDO::PARAM_INT);
     $response->execute();
     $result = $response->fetch( PDO::FETCH_ASSOC);
     return $result['nombre']; 
 }
 
 
-function getCountTribunalEdit( $tribunal_nom, $adresse, $code_postal, $commune,  $autorite_tribunal, $service_tribunal, $nature_tribunal, $id ){
+function getCountTribunalEdit( $tribunal_nom, $adresse, $code_postal, $commune,  $autorite_tribunal, $service_tribunal,  $id ){
     global $db;
-    $sql = "SELECT COUNT(id) AS nombre FROM tribunal where tribunal_nom = :tribunal_nom and adresse = :adresse and code_postal = :code_postal and  commune = :commune and  autorite_tribunal_id_id = :autorite_tribunal and service_tribunal_id_id = :service_tribunal and nature_tribunal_id_id = :nature_tribunal and id != :id";
+    $sql = "SELECT COUNT(id) AS nombre FROM tribunal where tribunal_nom = :tribunal_nom and adresse = :adresse and code_postal = :code_postal and  commune = :commune and  autorite_tribunal_id_id = :autorite_tribunal and service_tribunal_id_id = :service_tribunal  and id != :id";
     $response = $db->prepare( $sql );
     $response->bindParam(':tribunal_nom', $tribunal_nom, PDO::PARAM_STR);
     $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
@@ -160,7 +144,6 @@ function getCountTribunalEdit( $tribunal_nom, $adresse, $code_postal, $commune, 
     $response->bindParam(':commune', $commune, PDO::PARAM_STR);
     $response->bindParam(':service_tribunal', $service_tribunal, PDO::PARAM_INT);
     $response->bindParam(':autorite_tribunal', $autorite_tribunal, PDO::PARAM_INT);
-    $response->bindParam(':nature_tribunal', $nature_tribunal, PDO::PARAM_INT);
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     $result = $response->fetch( PDO::FETCH_ASSOC);
