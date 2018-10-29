@@ -639,6 +639,7 @@ function addAutorite(){
                 html += '</div>';
                 document.querySelector('#alertUser').innerHTML =   html; 
                 validAutoriteJsonEdit(); 
+                firstLetterMaj();
             }
         });
     });
@@ -703,7 +704,8 @@ function addService(){
                 html += '</div>';
                 html += '</div>';
                 document.querySelector('#alertUser').innerHTML =   html; 
-                validServiceJsonEdit(); 
+                validServiceJsonEdit();
+                firstLetterMaj(); 
             }
         });
     });
@@ -843,6 +845,7 @@ function addServiceTribunal(){
                 html += '</div>';
                 document.querySelector('#alertUser').innerHTML =   html; 
                 validServiceTribunalJsonEdit(); 
+                firstLetterMaj();
             }
         });
     });
@@ -901,7 +904,7 @@ function firstLetterMaj(){
     inputSaisie.forEach( ( element ) => {
         element.addEventListener( 'keyup', () => {
             if( element.value.length > 0 ){
-                element.value = element.value.trim();
+                element.value = element.value.trimStart();
                 element.value = element.value[0].toUpperCase() + element.value.substring(1);
             }                
         });
