@@ -7,7 +7,7 @@
 <form action="fonctionanimateur/edit/{{ list.id }}" method="post" class="form form-fonction form-fonctionAnimateur-edit">
     <div class="form-group">
         <label for="fonction_nom" class="form-label">Fonction *</label>
-        <input type="text" class="form-input capitalize" id="fonction_nom" name="fonction_nom" value="{% if list is defined %}{{ list.fonction_nom | raw }}{% endif %}" />
+        <input type="text" class="form-input firstLetterUpper" id="fonction_nom" name="fonction_nom" value="{% if list is defined %}{{ list.fonction_nom | raw }}{% endif %}" />
         <p class="form-msg-error 
         {% if error is defined %} 
             {% if error != 'exist' %}
