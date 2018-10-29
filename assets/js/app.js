@@ -626,7 +626,7 @@ function deleteUser(){
 
 function addAutorite(){
     const btn = document.querySelector('.btn-add-autorite').addEventListener('click', () =>{
-        fetch('/afer-back/autoriteprefecture/newjson')
+        fetch('/autoriteprefecture/newjson')
         .then( ( reponse ) => {
             return reponse.json();
         })
@@ -667,7 +667,7 @@ function validAutoriteJsonEdit(){
                 body: formData
             };
 
-            fetch('/afer-back/autoriteprefecture/newjson', header)
+            fetch('/autoriteprefecture/newjson', header)
             .then( (response ) => {
                 return response.json();
             })
@@ -691,7 +691,7 @@ function validAutoriteJsonEdit(){
 
 function addService(){
     const btn = document.querySelector('.btn-add-service').addEventListener('click', () =>{
-        fetch('/afer-back/serviceprefecture/newjson')
+        fetch('/serviceprefecture/newjson')
         .then( ( reponse ) => {
             return reponse.json();
         })
@@ -733,7 +733,7 @@ function validServiceJsonEdit(){
                 body: formData
             };
 
-            fetch('/afer-back/serviceprefecture/newjson', header)
+            fetch('/serviceprefecture/newjson', header)
             .then( (response ) => {
                 return response.json();
             })
@@ -763,7 +763,7 @@ function validServiceJsonEdit(){
 
 function addAutoriteTribunal(){
     const btn = document.querySelector('.btn-add-autorite-tribunal').addEventListener('click', () =>{
-        fetch('/afer-back/autoritetribunal/newjson')
+        fetch('/autoritetribunal/newjson')
         .then( ( reponse ) => {
             return reponse.json();
         })
@@ -805,7 +805,7 @@ function validAutoriteTribunalJsonEdit(){
                 body: formData
             };
 
-            fetch('/afer-back/autoritetribunal/newjson', header)
+            fetch('/autoritetribunal/newjson', header)
             .then( (response ) => {
                 return response.json();
             })
@@ -830,7 +830,7 @@ function validAutoriteTribunalJsonEdit(){
 
 function addServiceTribunal(){
     const btn = document.querySelector('.btn-add-service-tribunal').addEventListener('click', () =>{
-        fetch('/afer-back/servicetribunal/newjson')
+        fetch('/servicetribunal/newjson')
         .then( ( reponse ) => {
             return reponse.json();
         })
@@ -872,7 +872,7 @@ function validServiceTribunalJsonEdit(){
                 body: formData
             };
 
-            fetch('/afer-back/servicetribunal/newjson', header)
+            fetch('/servicetribunal/newjson', header)
             .then( (response ) => {
                 return response.json();
             })

@@ -252,7 +252,7 @@ function deleteElement($id){
     $countStage = nombreRelationPrefectureStage( $id );
     if( $countPermis == 0 && $countStage == 0 ){
         delete($id);
-        header('Location: /afer-back/prefecture/list');
+        header('Location: /prefecture/list');
     }else{
         showDeleteError( $id );
     }    
@@ -261,5 +261,5 @@ function deleteElement($id){
 // REDIRECTIONS
 
 function redirectPrefectureList(){
-    header('Location: /afer-back/prefecture/list');
+    header('Location: /prefecture/list');
 }
