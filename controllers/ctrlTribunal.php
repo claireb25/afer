@@ -265,7 +265,7 @@ function deleteElement($id){
     $countStage = nombreRelationTribunalStage( $id );
     if( $countInfraction == 0 && $countStage == 0 ){
         delete($id);
-        header('Location: /afer-back/tribunal/list');
+        header('Location: /tribunal/list');
     }else{
         showDeleteError( $id );
     }    
@@ -274,5 +274,5 @@ function deleteElement($id){
 // REDIRECTIONS
 
 function redirectTribunalList(){
-    header('Location: /afer-back/tribunal/list');
+    header('Location: /tribunal/list');
 }
