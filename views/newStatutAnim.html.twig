@@ -5,7 +5,7 @@
   <form action="statutanimateur/new" method="post" class="form form-statut form-statutAnimateur-create">
     <div class="form-group">
         <label for="statut_nom" class="form-label">Statut *</label>
-        <input type="text" class="form-input capitalize" id="statut_nom" name="statut_nom" value="{% if statut_nom is defined %}{{ statut_nom | raw }}{% endif %}" />
+        <input type="text" class="form-input firstLetterUpper" id="statut_nom" name="statut_nom" value="{% if statut_nom is defined %}{{ statut_nom | raw }}{% endif %}" />
         <p class="form-msg-error 
         {% if error is defined %} 
             {% if error != 'exist' %}
