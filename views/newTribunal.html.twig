@@ -5,7 +5,7 @@
   <form action="tribunal/new" method="post" class="form form-tribunal form-tribunal-create">
     <div class="form-group">
         <label for="tribunal_nom" class="form-label">Tribunal *</label>
-        <input type="text" class="form-input capitalize" id="tribunal_nom" name="tribunal_nom" value="{% if tribunal_nom is defined %}{{ tribunal_nom | raw }}{% endif %}" />
+        <input type="text" class="form-input firstLetterUpper" id="tribunal_nom" name="tribunal_nom" value="{% if tribunal_nom is defined %}{{ tribunal_nom | raw }}{% endif %}" />
         <p class="form-msg-error 
         {% if error is defined %} 
             {% if error != 'exist' %}
@@ -28,11 +28,11 @@
     </div>
     <div class="form-group">
         <label for="adresse" class="form-label">Numéro et nom de rue *</label>
-        <input type="text" class="form-input capitalize" id="adresse" name="adresse" value="{% if adresse is defined %}{{ adresse | raw }}{% endif %}" />        
+        <input type="text" class="form-input " id="adresse" name="adresse" value="{% if adresse is defined %}{{ adresse | raw }}{% endif %}" />        
     </div>
     <div class="form-group">
         <label for="code_postal" class="form-label">Code postal *</label>
-        <input type="text" class="form-input capitalize" id="code_postal" name="code_postal" value="{% if code_postal is defined %}{{ code_postal | raw }}{% endif %}" />
+        <input type="text" class="form-input " id="code_postal" name="code_postal" value="{% if code_postal is defined %}{{ code_postal | raw }}{% endif %}" />
         <p class="form-msg-error 
         {% if error is defined %}             
                 hidden                
@@ -47,7 +47,7 @@
     </div>
     <div class="form-group">
         <label for="commune" class="form-label">Commune *</label>
-        <input type="text" class="form-input capitalize" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
+        <input type="text" class="form-input shift" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
         <p class="form-msg-error 
         {% if error is defined %}             
                 hidden                
