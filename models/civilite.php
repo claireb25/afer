@@ -45,3 +45,12 @@ function delete($id){
     $response->execute();
     return true; 
 }
+
+
+function getNom($nom){
+    global $db;
+    $response = $db->prepare("SELECT nom FROM civilite WHERE nom = :nom");
+    $response->bindParam(':nom', $nom, PDO::PARAM_STR);
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}

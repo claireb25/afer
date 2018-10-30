@@ -18,8 +18,15 @@ if (isset($_GET['action'])){
             makeList();            
             break;
         case 'new':
-            if (isset($_POST['civilite']) && (!empty($_POST['civilite']))){
-                addNew($_POST['civilite']);
+            if (isset($_POST['nom']) && (!empty($_POST['nom']))){
+                $nom = htmlentities( trim( $_POST['nom'] ) );               
+                $reponse = getNom( $nom );
+                
+                if( $reponse === false ){   
+                    addNew($nom);
+                }else{
+                    showExist( $nom );
+                }
             } else {
                 showNew();
             }
@@ -53,15 +60,21 @@ function makeList(){
 
 // NEW
 function addNew($valeur){
-    $service_nom = htmlentities($valeur);
-    create($service_nom);
-    header('Location: /afer-back/civilite/list');
+    $nom = htmlentities($valeur);
+    create($nom);
+    header('Location: /civilite/list');
 }
 
 function showNew(){
     global $twig;
     $template = $twig->load('newCivilite.html.twig');
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ) );
+}
+
+function showExist( $nom ){
+    global $twig;
+    $template = $twig->load('newCivilite.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'nom' => $nom ) );
 }
 
 //EDIT 
