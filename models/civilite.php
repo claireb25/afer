@@ -54,3 +54,16 @@ function getNom($nom){
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
+
+
+//retourne le nombre de préfecture rattaché a ce service
+function nombreRelationCiviliteAnimateur( $id ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM animateur where civilite_id_id = :id";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+
+    return $result['nombre']; 
+}
