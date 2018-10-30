@@ -48,7 +48,7 @@ function makeList(){
     $list = listAll();
     global $twig;
     $template = $twig->load('indexCivilite.html.twig');
-    echo $template->render(array('list'=>$list));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'list'=>$list));
 }
 
 // NEW
