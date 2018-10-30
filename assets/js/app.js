@@ -107,6 +107,10 @@ function main(){
   if( document.querySelector('.form-tribunal-edit') !== null ){
     tribunalForm( 'edit');
   }
+
+  if( document.querySelector('.form-civilite-create') !== null ){
+    civiliteForm( 'create');
+  }
   
 
   
@@ -577,6 +581,43 @@ function tribunalForm( action ){
                 html += '</div>';
                 html += '</div>';
                 document.querySelector('#alertUser').innerHTML =   html;            
+        }
+    });
+}
+
+
+
+function civiliteForm( action ){
+    formCivilite = document.querySelector( '.form-civilite' );
+    formCivilite.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#nom').value.trim().length === 0 ){
+            document.querySelector('#msg-nom').classList.remove( 'hidden');
+            document.querySelector('#msg-nom').innerHTML = "Veuillez saisir le champ civilité";
+            test = false;
+        }else{
+            document.querySelector('#msg-nom').classList.add( 'hidden');
+            document.querySelector('#msg-nom').innerHTML = "";
+        }
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){
+            formCivilite.submit();
+          }else{
+            html = '<div class="boxOverlay" >';
+            html += '<div class="modal fas fa-exclamation-triangle">';
+            html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+            html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+            html += '</div>';
+            html += '</div>';
+            document.querySelector('#alertUser').innerHTML =   html;
         }
     });
 }
