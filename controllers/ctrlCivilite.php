@@ -61,7 +61,7 @@ function addNew($valeur){
 function showNew(){
     global $twig;
     $template = $twig->load('newCivilite.html.twig');
-    echo $template->render(array());
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ) ) );
 }
 
 //EDIT 

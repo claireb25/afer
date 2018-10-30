@@ -1,12 +1,51 @@
 {% extends 'template.html.twig' %}
 
 {% block content %}
+  <h1>Ajout d'une civilité (Divers)</h1>
+  <form action="civilite/new" method="post" class="form form-civilite form-civilite-create">
+    <div class="form-group">
+        <label for="nom" class="form-label">Civilité *</label>
+        <input type="text" class="form-input firstLetterUpper" id="nom" name="nom" value="{% if nom is defined %}{{ nom | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %} 
+            {% if error != 'exist' %}
+                hidden
+            {% endif %}
+        {% else %}
+            hidden             
+        {% endif %}
+        " id="msg-nom" >
+            {% if nom is defined %} 
+                {% if error == 'exist' %} 
+                    Veuillez saisir une autre civilité car celle que vous venez de saisir existe déjà.
+                {% else %}
+                    {% if nom == '' %} 
+                        Veuillez saisir une civilité
+                    {% endif %}  
+                {% endif %}                
+            {% endif %}
+        </p>
+    </div>
+  <div class="form-login-group">
+    <button class="form-login-button">Valider</button>
+  </div>
+  </form>
+  <div id="alertUser" >
+  </div>
+  {% if error is defined %}
+          <div class="boxOverlay" >
+              <div class="modal fas fa-exclamation-triangle">
+                  {%if error == 'exist' %}           
+                      <p class="modal-message">La civilité éxiste déjà dans la table civilité.</p> 
+                  {% else %}         
+                      <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                  {% endif %}
+                  <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
 
-<form action="civilite/new" method="post" class="form">
-  <div class="form-example">
-    <label for="civilite" name="civilite">Civilité
-    <input type="text" name="civilite" id="name" required></label>
-    <input type="submit" value="Envoyer">
-</form>
-
-{% endblock %}
+    {% block javascript %} 
+      <script src="assets/js/app.js" ></script>
+    {% endblock %}
