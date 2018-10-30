@@ -36,124 +36,146 @@
 {% extends 'template.html.twig' %}
 
 {% block content %}
-  <h1>Ajout d'un animateur</h1>
-  <form action="animateur/new" method="post" class="form form-animateur form-animateur-create">
-    <div class="form-container">
-        <div class="form-block">
-            <h2>Civilité</h2>
-            <div class="form-group">
-                <label for="tribunal_nom" class="form-label">Civilité *</label>
-                <select name="civilite" id="civilte" class="form-input capitalize small-select" >
-                    {% if error is defined %}
-                        <option value="civilite"  disabled>Civilité</option>   
-                        {% for elem in civilite %}
-                            {% if elem.id == civilte %}
-                                <option value="{{ elem.id }}" selected>{{ elem.nom }}</option>
-                            {% else %}
-                                <option value="{{ elem.id }}">{{ elem.nom }}</option>
+    <h1>Ajout d'un animateur</h1>
+        <form action="animateur/new" method="post" class="form form-animateur form-animateur-create larg" >
+            
+            <div>
+                <h3>Civilité
+                    <span class="entypo-down-open"></span>
+                </h3>
+                <div style="display:none" >
+                    <div class="form-group form-group-padding" >
+                        <label for="tribunal_nom" class="form-label">Informations d'identités *</label>
+                        <select name="civilite" id="civilte" class="form-input capitalize small-select" >
+                        {% if error is defined %}
+                            <option value="civilite"  disabled>Civilité</option>   
+                            {% for elem in civilite %}
+                                {% if elem.id == civilte %}
+                                    <option value="{{ elem.id }}" selected>{{ elem.nom }}</option>
+                                {% else %}
+                                    <option value="{{ elem.id }}">{{ elem.nom }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <option value="civilte" selected disabled>Civilité</option>   
+                            {% for elem in civilite %}
+                            <option value="{{ elem.id }}">{{ elem.nom }}</option>
+                            {% endfor %}
+                        {% endif %}                        
+                        </select> 
+                        <button type="button" class="form-button small-btn inline-btn btn-add-civilite">+</button>
+                        <p class="form-msg-error 
+                            {% if error is defined %}             
+                                hidden                
                             {% endif %}
-                        {% endfor %}
-                    {% else %}
-                        <option value="civilte" selected disabled>Civilité</option>   
-                        {% for elem in civilite %}
-                        <option value="{{ elem.id }}">{{ elem.nom }}</option>
-                        {% endfor %}
-                    {% endif %}
-                        
-                </select> 
-                <button type="button" class="form-button small-btn inline-btn btn-add-civilite">+</button>
-                <p class="form-msg-error 
-                {% if error is defined %}             
-                        hidden                
-                {% endif %}
-                " id="msg-civilite" >
-                    {% if civilite is defined %}                 
-                            {% if civilite == '' %} 
-                                Veuillez choisir une civilité
-                            {% endif %}                                
-                    {% endif %}
-                </p>
+                            " id="msg-civilite" >
+                            {% if civilite is defined %}                 
+                                    {% if civilite == '' %} 
+                                        Veuillez choisir une civilité
+                                    {% endif %}                                
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="nom" class="form-label">Nom *</label>
+                        <input type="text" class="form-input  form-input-padding-right-none shift" id="nom" name="nom" value="{% if nom is defined %}{{ nom | raw }}{% endif %}" />
+                        <p class="form-msg-error 
+                        {% if error is not defined %}                    
+                            hidden             
+                        {% endif %}
+                        " id="msg-nom" >
+                            {% if error is not defined %}                         
+                                    {% if nom == '' %} 
+                                        Veuillez saisir un nom
+                                    {% endif %}                                       
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="prenom" class="form-label">Prénom *</label>
+                        <input type="text" class="form-input firstLetterUpper form-input-padding-right-none" id="prenom" name="prenom" value="{% if prenom is defined %}{{ prenom | raw }}{% endif %}" />
+                        <p class="form-msg-error 
+                            {% if error is not defined %}                    
+                                hidden             
+                            {% endif %}
+                            " id="msg-prenom" >
+                            {% if error is not defined %}                         
+                                    {% if prenom == '' %} 
+                                        Veuillez saisir un prénom
+                                    {% endif %}                                       
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="adresse" class="form-label">Numéro et nom de rue *</label>
+                        <input type="text" class="form-input form-input-padding-right-none" id="adresse" name="adresse" value="{% if adresse is defined %}{{ adresse | raw }}{% endif %}" />
+                        <p class="form-msg-error 
+                        {% if error is not defined %}                    
+                            hidden             
+                        {% endif %}
+                        " id="msg-adresse" >
+                            {% if error is not defined %}                         
+                                    {% if adresse == '' %} 
+                                        Veuillez saisir une adresse
+                                    {% endif %}                                       
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="code_postal" class="form-label">Code postal *</label>
+                        <input type="text" class="form-input form-input-padding-right-none" id="code_postal" name="code_postal" value="{% if code_postal is defined %}{{ code_postal | raw }}{% endif %}" />
+                        <p class="form-msg-error 
+                        {% if error is not defined %}                    
+                            hidden             
+                        {% endif %}
+                        " id="msg-code_postal" >
+                            {% if error is not defined %}                         
+                                    {% if code_postal == '' %} 
+                                        Veuillez saisir un code postal
+                                    {% endif %}                                       
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="commune" class="form-label">Commune *</label>
+                        <input type="text" class="form-input shift form-input-padding-right-none" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
+                        <p class="form-msg-error 
+                        {% if error is not defined %}                    
+                            hidden             
+                        {% endif %}
+                        " id="msg-commune" >
+                            {% if error is not defined %}                         
+                                    {% if commune == '' %} 
+                                        Veuillez saisir une commune
+                                    {% endif %}                                       
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="region" class="form-label">Région</label>
+                        <input type="text" class="form-input shift form-input-padding-right-none" id="region" name="region" value="{% if region is defined %}{{ region | raw }}{% endif %}" />                
+                    </div>   
+                </div>
             </div>
-            <div class="form-group">
-                <label for="nom" class="form-label">Nom *</label>
-                <input type="text" class="form-input capitalize" id="nom" name="nom" value="{% if nom is defined %}{{ nom | raw }}{% endif %}" />
-                <p class="form-msg-error 
-                {% if error is not defined %}                    
-                    hidden             
-                {% endif %}
-                " id="msg-nom" >
-                    {% if error is not defined %}                         
-                            {% if nom == '' %} 
-                                Veuillez saisir un nom
-                            {% endif %}                                       
-                    {% endif %}
-                </p>
+            <div>
+                <h3>Stage 28/09/2018
+                    <span class="entypo-down-open"></span>
+                </h3>
+                <div style="display:none" >
+
+                </div>
             </div>
-            <div class="form-group">
-                <label for="prenom" class="form-label">Prénom *</label>
-                <input type="text" class="form-input capitalize" id="prenom" name="prenom" value="{% if prenom is defined %}{{ prenom | raw }}{% endif %}" />
-                <p class="form-msg-error 
-                {% if error is not defined %}                    
-                    hidden             
-                {% endif %}
-                " id="msg-prenom" >
-                    {% if error is not defined %}                         
-                            {% if prenom == '' %} 
-                                Veuillez saisir un prénom
-                            {% endif %}                                       
-                    {% endif %}
-                </p>
+            <div>
+                <h3>Stage 07/10/2018
+                    <span class="entypo-down-open"></span>
+                </h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus iste quia incidunt ad provident ullam
+                    quo assumenda expedita quae sapiente ipsa qui esse similique! Modi obcaecati natus sapiente quaerat omnis.</p>
             </div>
-            <div class="form-group">
-                <label for="adresse" class="form-label">Numéro et nom de rue *</label>
-                <input type="text" class="form-input capitalize" id="adresse" name="adresse" value="{% if adresse is defined %}{{ adresse | raw }}{% endif %}" />
-                <p class="form-msg-error 
-                {% if error is not defined %}                    
-                    hidden             
-                {% endif %}
-                " id="msg-adresse" >
-                    {% if error is not defined %}                         
-                            {% if adresse == '' %} 
-                                Veuillez saisir une adresse
-                            {% endif %}                                       
-                    {% endif %}
-                </p>
-            </div>  
-            <div class="form-group">
-                <label for="code_postal" class="form-label">Code postal *</label>
-                <input type="text" class="form-input capitalize" id="code_postal" name="code_postal" value="{% if code_postal is defined %}{{ code_postal | raw }}{% endif %}" />
-                <p class="form-msg-error 
-                {% if error is not defined %}                    
-                    hidden             
-                {% endif %}
-                " id="msg-code_postal" >
-                    {% if error is not defined %}                         
-                            {% if code_postal == '' %} 
-                                Veuillez saisir un code postal
-                            {% endif %}                                       
-                    {% endif %}
-                </p>
-            </div>
-            <div class="form-group">
-                <label for="commune" class="form-label">Commune *</label>
-                <input type="text" class="form-input capitalize" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
-                <p class="form-msg-error 
-                {% if error is not defined %}                    
-                    hidden             
-                {% endif %}
-                " id="msg-commune" >
-                    {% if error is not defined %}                         
-                            {% if commune == '' %} 
-                                Veuillez saisir une commune
-                            {% endif %}                                       
-                    {% endif %}
-                </p>
-            </div>
-            <div class="form-group">
-                <label for="region" class="form-label">Région</label>
-                <input type="text" class="form-input capitalize" id="region" name="region" value="{% if region is defined %}{{ region | raw }}{% endif %}" />                
-            </div>              
-        </div>
+        </form>
+  {#<h1>Ajout d'un animateur</h1>
+  <form action="animateur/new" method="post" class="form form-animateur form-animateur-create">
+    <div class="form-container">        
         <div class="form-block">
             <h2>Autres</h2>
             <div class="form-group">
