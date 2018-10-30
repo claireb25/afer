@@ -111,6 +111,10 @@ function main(){
   if( document.querySelector('.form-civilite-create') !== null ){
     civiliteForm( 'create');
   }
+
+  if( document.querySelector('.form-civilite-edit') !== null ){
+    civiliteForm( 'edit');
+  }
   
 
   

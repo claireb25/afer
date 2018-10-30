@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h1>Modifier la civilité : {{ civilite.nom }}</h1>
+<h1>Modifier la civilité : {{ civilitetoEdit.nom }}</h1>
 
-<form action="civilite/edit/{{ civilite.id }}" method="post" class="form form-civilite form-autoriteTribunal-edit">
+<form action="civilite/edit/{{ civilitetoEdit.id }}" method="post" class="form form-civilite form-civilite-edit">
     <div class="form-group">
         <label for="nom" class="form-label">Civilité *</label>
         <input type="text" class="form-input firstLetterUpper" id="nom" name="nom" value="{% if civilitetoEdit is defined %}{{ civilitetoEdit.nom | raw }}{% endif %}" />
