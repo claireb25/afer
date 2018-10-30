@@ -938,6 +938,27 @@ function validServiceTribunalJsonEdit(){
 }
 
 
+function addCivilite(){
+    const btn = document.querySelector('.btn-add-civilite').addEventListener('click', () =>{
+        fetch('/civilite/newjson')
+        .then( ( reponse ) => {
+            return reponse.json();
+        })
+        .then( ( reponse ) => {
+            if( reponse.error.length === 0 ){
+                html ='<div class="boxOverlay  ">';
+                html += '<div class="modal modal-ajout">';
+                html +=  reponse.data;
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html; 
+                validCiviliteJsonEdit(); 
+            }
+        });
+    });
+}
+
+
 function firstLetterMaj(){
     const inputSaisie = document.querySelectorAll('.firstLetterUpper' );
 
