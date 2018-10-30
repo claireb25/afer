@@ -309,6 +309,11 @@ a:hover {
   padding : 15px;
 }
 
+div.form-group-padding{
+  padding-top : 15px;
+  padding-bottom : 15px;
+}
+
 .form-input{
   padding: 0 15px;
   height: 40px;
@@ -320,6 +325,10 @@ a:hover {
   text-align: left;
   font-family: 'Arial';
   width:100%;
+}
+
+.form-input-padding-right-none, textarea.form-textearea-padding-right-none{
+  padding-right : 0;
 }
 
 .form-textarea{

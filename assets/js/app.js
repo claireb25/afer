@@ -124,7 +124,11 @@ function main(){
 
   if( document.querySelector('.shift') !== null ){
     allLetterMaj();
-}
+  }
+
+  if( document.querySelector('.noshift') !== null ){
+    noLetterMaj();
+  }
 
 
 }
@@ -804,7 +808,7 @@ function addAutoriteTribunal(){
 
 function validAutoriteTribunalJsonEdit(){
     formAutorite = document.querySelector( '.form-autorite' );
-    
+    saisieAutorite = document.querySelector('.form-autorite .firstLetterUpper');
     formAutorite.addEventListener('submit', ( e ) =>{
         e.preventDefault();
         test = true;
@@ -847,6 +851,13 @@ function validAutoriteTribunalJsonEdit(){
         }
     });
 
+    saisieAutorite.addEventListener( 'keyup', () => {
+        if( saisieAutorite.value.length > 0 ){
+            saisieAutorite.value = saisieAutorite.value.trimStart();
+            saisieAutorite.value = saisieAutorite.value[0].toUpperCase() + saisieAutorite.value.substring(1);
+        }                
+    });
+
     
 }
 
@@ -875,6 +886,7 @@ function addServiceTribunal(){
 
 function validServiceTribunalJsonEdit(){
     formService = document.querySelector( '.form-service' );
+    saisieService = document.querySelector('.form-service .firstLetterUpper');
     formService.addEventListener('submit', ( e ) =>{
         e.preventDefault();
         test = true;
@@ -916,6 +928,13 @@ function validServiceTribunalJsonEdit(){
             });
         }
     });
+
+    saisieService.addEventListener( 'keyup', () => {
+        if( saisieService.value.length > 0 ){
+            saisieService.value = saisieService.value.trimStart();
+            saisieService.value = saisieService.value[0].toUpperCase() + saisieService.value.substring(1);
+        }                
+    });
 }
 
 
@@ -940,6 +959,19 @@ function allLetterMaj(){
             if( element.value.length > 0 ){
                 element.value = element.value.trimStart();
                 element.value = element.value.toUpperCase();
+            }                
+        });
+    });
+}
+
+function noLetterMaj(){
+    const inputSaisie = document.querySelectorAll('.noshift' );
+
+    inputSaisie.forEach( ( element ) => {
+        element.addEventListener( 'keyup', () => {
+            if( element.value.length > 0 ){
+                element.value = element.value.trimStart();
+                element.value = element.value.toLowerCase();
             }                
         });
     });

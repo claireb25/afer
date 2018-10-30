@@ -5,7 +5,7 @@
   <form action="tribunal/edit/{{toEdit.id}}" method="post" class="form form-tribunal form-tribunal-edit">
     <div class="form-group">
         <label for="tribunal_nom" class="form-label">Tribunal *</label>
-        <input type="text" class="form-input capitalize" id="tribunal_nom" name="tribunal_nom" value="{{toEdit.tribunal_nom | raw }}" />
+        <input type="text" class="form-input firstLetterUpper" id="tribunal_nom" name="tribunal_nom" value="{{toEdit.tribunal_nom | raw }}" />
         <p class="form-msg-error 
         {% if error is defined %} 
             {% if error != 'exist' %}
@@ -28,11 +28,11 @@
     </div>
     <div class="form-group">
         <label for="adresse" class="form-label">Adresse</label>
-        <input type="text" class="form-input capitalize" id="adresse" name="adresse" value="{{ toEdit.adresse| raw  }}" />        
+        <input type="text" class="form-input " id="adresse" name="adresse" value="{{ toEdit.adresse| raw  }}" />        
     </div>
     <div class="form-group">
         <label for="code_postal" class="form-label">Code postal *</label>
-        <input type="text" class="form-input capitalize" id="code_postal" name="code_postal" value="{{ toEdit.code_postal| raw  }}" />
+        <input type="text" class="form-input " id="code_postal" name="code_postal" value="{{ toEdit.code_postal| raw  }}" />
         <p class="form-msg-error 
         {% if error is not defined %}             
                 hidden                
@@ -47,7 +47,7 @@
     </div>
     <div class="form-group">
         <label for="commune" class="form-label">Commune *</label>
-        <input type="text" class="form-input capitalize" id="commune" name="commune" value="{{ toEdit.commune| raw }}" />
+        <input type="text" class="form-input shift" id="commune" name="commune" value="{{ toEdit.commune| raw }}" />
         <p class="form-msg-error 
         {% if error is not defined %}             
                 hidden                
