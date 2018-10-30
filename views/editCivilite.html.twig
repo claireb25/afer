@@ -2,14 +2,53 @@
 
 {% block content %}
 
-<h1>Modifier : {{ toEdit.nature_nom }}</h1>
+<h1>Modifier la civilité : {{ civilite.nom }}</h1>
 
+<form action="civilite/edit/{{ civilite.id }}" method="post" class="form form-civilite form-autoriteTribunal-edit">
+    <div class="form-group">
+        <label for="nom" class="form-label">Civilité *</label>
+        <input type="text" class="form-input firstLetterUpper" id="nom" name="nom" value="{% if civilitetoEdit is defined %}{{ civilitetoEdit.nom | raw }}{% endif %}" />
+        <p class="form-msg-error 
+        {% if error is defined %} 
+            {% if error != 'exist' %}
+                hidden
+            {% endif %}
+        {% else %}
+            hidden             
+        {% endif %}
+        " id="msg-nom" >
+            {% if civilitetoEdit.nom is defined %} 
+                {% if error == 'exist' %} 
+                    Veuillez saisir une autre civilité car celle que vous venez de saisir existe déjà.
+                {% else %}
+                    {% if civilitetoEdit.nom == '' %} 
+                        Veuillez saisir une civilité
+                    {% endif %}  
+                {% endif %}                
+            {% endif %}
+        </p>
+    </div>
+  <div class="form-login-group">
+    <button class="form-login-button">Valider</button>
+  </div>
+  </form>
+  <div id="alertUser" >
+  </div>
+  {% if error is defined %}
+          <div class="boxOverlay" >
+              <div class="modal fas fa-exclamation-triangle">
+                  {%if error == 'exist' %}           
+                      <p class="modal-message">La civilité éxiste déjà dans la table Civilité.</p> 
+                  {% else %}         
+                      <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                  {% endif %}
+                  <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
 
-<form action="civilite/edit/{{ toEdit.id }}" method="post" class="form">
-  <div class="form-example">
-    <label for="edit_civilite" name="edit_civilite">Nature 
-    <input type="text" name="edit_civilite" id="name" value="{{ toEdit.nom }}"required></label>
-    <input type="submit" value="Modifier">
-</form>
+    {% block javascript %} 
+      <script src="assets/js/app.js" ></script>
+    {% endblock %}
 
-{% endblock %}
