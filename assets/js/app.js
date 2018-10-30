@@ -122,6 +122,10 @@ function main(){
       firstLetterMaj();
   }
 
+  if( document.querySelector('.shift') !== null ){
+    allLetterMaj();
+}
+
 
 }
 
@@ -639,7 +643,6 @@ function addAutorite(){
                 html += '</div>';
                 document.querySelector('#alertUser').innerHTML =   html; 
                 validAutoriteJsonEdit(); 
-                firstLetterMaj();
             }
         });
     });
@@ -647,6 +650,7 @@ function addAutorite(){
 
 function validAutoriteJsonEdit(){
     formAutorite = document.querySelector( '.form-autorite' );
+    saisieAutorite = document.querySelector('.form-autorite .firstLetterUpper');
     formAutorite.addEventListener('submit', ( e ) =>{
         e.preventDefault();
         test = true;
@@ -688,6 +692,13 @@ function validAutoriteJsonEdit(){
             });
         }
     });
+
+    saisieAutorite.addEventListener( 'keyup', () => {
+        if( saisieAutorite.value.length > 0 ){
+            saisieAutorite.value = saisieAutorite.value.trimStart();
+            saisieAutorite.value = saisieAutorite.value[0].toUpperCase() + saisieAutorite.value.substring(1);
+        }                
+    });
 }
 
 function addService(){
@@ -705,7 +716,6 @@ function addService(){
                 html += '</div>';
                 document.querySelector('#alertUser').innerHTML =   html; 
                 validServiceJsonEdit();
-                firstLetterMaj(); 
             }
         });
     });
@@ -714,6 +724,7 @@ function addService(){
 
 function validServiceJsonEdit(){
     formService = document.querySelector( '.form-service' );
+    saisieService = document.querySelector('.form-service .firstLetterUpper');
     formService.addEventListener('submit', ( e ) =>{
         e.preventDefault();
         test = true;
@@ -755,6 +766,13 @@ function validServiceJsonEdit(){
             });
         }
     });
+
+    saisieService.addEventListener( 'keyup', () => {
+        if( saisieService.value.length > 0 ){
+            saisieService.value = saisieService.value.trimStart();
+            saisieService.value = saisieService.value[0].toUpperCase() + saisieService.value.substring(1);
+        }                
+    });
 }
 
 
@@ -786,6 +804,7 @@ function addAutoriteTribunal(){
 
 function validAutoriteTribunalJsonEdit(){
     formAutorite = document.querySelector( '.form-autorite' );
+    
     formAutorite.addEventListener('submit', ( e ) =>{
         e.preventDefault();
         test = true;
@@ -827,6 +846,8 @@ function validAutoriteTribunalJsonEdit(){
             });
         }
     });
+
+    
 }
 
 
@@ -906,6 +927,19 @@ function firstLetterMaj(){
             if( element.value.length > 0 ){
                 element.value = element.value.trimStart();
                 element.value = element.value[0].toUpperCase() + element.value.substring(1);
+            }                
+        });
+    });
+}
+
+function allLetterMaj(){
+    const inputSaisie = document.querySelectorAll('.shift' );
+
+    inputSaisie.forEach( ( element ) => {
+        element.addEventListener( 'keyup', () => {
+            if( element.value.length > 0 ){
+                element.value = element.value.trimStart();
+                element.value = element.value.toUpperCase();
             }                
         });
     });
