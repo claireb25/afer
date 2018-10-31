@@ -1062,6 +1062,81 @@ function validCiviliteJsonEdit(){
 }
 
 
+function addFonctionAnimateur(){
+    const btn = document.querySelector('.btn-add-civilite').addEventListener('click', () =>{
+        fetch('/civilite/newjson')
+        .then( ( reponse ) => {
+            return reponse.json();
+        })
+        .then( ( reponse ) => {
+            if( reponse.error.length === 0 ){
+                html ='<div class="boxOverlay  ">';
+                html += '<div class="modal modal-ajout">';
+                html +=  reponse.data;
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html; 
+                validFonctionAnimateurJsonEdit(); 
+            }
+        });
+    });
+}
+
+
+function validFonctionAnimateurJsonEdit(){
+    formCivilite = document.querySelector( '.form-civilite' );
+    saisieCivilite = document.querySelector('.form-civilite .firstLetterUpper');
+    formCivilite.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+        if( document.querySelector('#civilite-nom').value.trim().length === 0 ){
+            document.querySelector('#msg-civilite-nom').classList.remove( 'hidden');
+            document.querySelector('#msg-civilite-nom').innerHTML = "Veuillez saisir le champ Civilité";
+            test = false;
+        }else{
+            document.querySelector('#msg-civilite-nom').classList.add( 'hidden');
+            document.querySelector('#msg-civilite-nom').innerHTML = "";
+        }
+
+        if( test === true ){
+            
+            formData = new FormData();
+            formData.append('nom', document.querySelector('#civilite-nom').value.trim() );
+            header = {
+                method: "POST",
+                body: formData
+            };
+
+            fetch('/civilite/newjson', header)
+            .then( (response ) => {
+                return response.json();
+            })
+            .then( (response) =>{             
+                if( response.error === 'exist' ){
+                    document.querySelector('#msg-civilite-nom').classList.remove( 'hidden');
+                    document.querySelector('#msg-civilite-nom').innerHTML = "Cette civilité existe déjà";
+                }else if( response.error === 'add' ){
+                    const selectCivilite = document.querySelector('#civilite');
+                    const option = document.createElement("option");
+                    option.setAttribute('value', response.data.id )
+                    option.text = response.data.nom;
+                    selectCivilite.add(option);
+                    selectCivilite.selectedIndex =  selectCivilite.length - 1 ;
+                    closeModal();
+                }
+            });
+        }
+    });
+
+    saisieService.addEventListener( 'keyup', () => {
+        if( saisieService.value.length > 0 ){
+            saisieService.value = saisieService.value.trimStart();
+            saisieService.value = saisieService.value[0].toUpperCase() + saisieService.value.substring(1);
+        }                
+    });
+}
+
+
 function firstLetterMaj(){
     const inputSaisie = document.querySelectorAll('.firstLetterUpper' );
 
