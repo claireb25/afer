@@ -20,6 +20,10 @@ function main(){
     addService();
   }
 
+  if( document.querySelector('.btn-add-civilite') !== null ){
+    addCivilite();
+  }
+
   
 
   if( document.querySelector('.btn-add-autorite-tribunal') !== null ){

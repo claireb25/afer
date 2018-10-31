@@ -68,6 +68,31 @@ if (isset($_GET['action'])){
         case 'delete':
             deleteElement($_GET['id']);
             break;
+
+        case 'newjson' :
+        if( count( $_POST ) > 0 ){
+            if( isset( $_POST['nom'] ) ){
+                $nom = htmlentities( trim( $_POST['nom'] ) );               
+                $reponse = getNom( $nom );                    
+                if( $reponse === false ){                   
+                    create($nom);
+                    $lastRow = lastRow();
+                    $lastRow['nom'] = html_entity_decode( $lastRow['nom'] );
+                    $data = array('error' => 'add', 'data' => $lastRow );
+                    echo json_encode( $data );
+                }else{
+                    $data = array( 'error' => 'exist' );
+                    echo json_encode( $data );
+                }                            
+                
+            }else{
+                header('Location: /civilite/list');
+            }
+        }else{
+            showNewJson();
+        }
+                
+        break;
     }
 }
 // LIST
@@ -95,6 +120,15 @@ function showExist( $nom ){
     global $twig;
     $template = $twig->load('newCivilite.html.twig');
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'nom' => $nom ) );
+}
+
+function showNewJson(){
+    global $twig;
+    $template = $twig->load('newJsonCivilite.html.twig');
+    $form = $template->render();
+    $data = array('error' => '', 'data' => $form );
+    echo json_encode( $data );
+    
 }
 
 //EDIT 
