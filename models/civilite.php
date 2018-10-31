@@ -23,6 +23,18 @@ function getOne($id){
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
+
+
+
+function lastRow(){
+    global $db;
+    $response = $db->prepare("SELECT id, nom FROM civilite order by id desc");
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
+
+
+
 function edit($civilite, $id){
     global $db;
     $response = $db->prepare("UPDATE civilite

@@ -1036,7 +1036,7 @@ function validCiviliteJsonEdit(){
             .then( (response ) => {
                 return response.json();
             })
-            .then( (response) =>{              
+            .then( (response) =>{             
                 if( response.error === 'exist' ){
                     document.querySelector('#msg-civilite-nom').classList.remove( 'hidden');
                     document.querySelector('#msg-civilite-nom').innerHTML = "Cette civilité existe déjà";
