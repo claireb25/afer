@@ -1090,43 +1090,44 @@ function addFonctionAnimateur(){
 
 function validFonctionAnimateurJsonEdit(){
     formFonctionAnimateur = document.querySelector( '.form-fonctionAnimateur' );
-    saisieFonctionAnimteur = document.querySelector('.form-fonctionAnimateur .firstLetterUpper');
-    formFonctionAnimteur.addEventListener('submit', ( e ) =>{
+    saisieFonctionAnimateur = document.querySelector('.form-fonctionAnimateur .firstLetterUpper');
+    formFonctionAnimateur.addEventListener('submit', ( e ) =>{
         e.preventDefault();
         test = true;
-        if( document.querySelector('#fonctionAnimteur-nom').value.trim().length === 0 ){
-            document.querySelector('#msg-fonctionAnimteur-nom').classList.remove( 'hidden');
-            document.querySelector('#msg-fonctionAnimteur-nom').innerHTML = "Veuillez saisir le champ fonction";
+        if( document.querySelector('#fonctionAnimateur_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-fonctionAnimateur_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-fonctionAnimateur_nom').innerHTML = "Veuillez saisir le champ fonction";
             test = false;
         }else{
-            document.querySelector('#msg-fonctionAnimteur-nom').classList.add( 'hidden');
-            document.querySelector('#msg-fonctionAnimteur-nom').innerHTML = "";
+            document.querySelector('#msg-fonctionAnimateur_nom').classList.add( 'hidden');
+            document.querySelector('#msg-fonctionAnimateur_nom').innerHTML = "";
         }
 
         if( test === true ){
             
             formData = new FormData();
-            formData.append('nom', document.querySelector('#civilite-nom').value.trim() );
+            formData.append('nom', document.querySelector('#fonctionAnimateur_nom').value.trim() );
             header = {
                 method: "POST",
                 body: formData
             };
 
-            fetch('/civilite/newjson', header)
+            fetch('/fonctionanimateur/newjson', header)
             .then( (response ) => {
                 return response.json();
             })
-            .then( (response) =>{             
+            .then( (response) =>{  
+                console.log(response)  ;         
                 if( response.error === 'exist' ){
-                    document.querySelector('#msg-civilite-nom').classList.remove( 'hidden');
-                    document.querySelector('#msg-civilite-nom').innerHTML = "Cette civilité existe déjà";
+                    document.querySelector('#msg-fonctionAnimateur_nom').classList.remove( 'hidden');
+                    document.querySelector('#msg-fonctionAnimateur_nom').innerHTML = "Cette fonction existe déjà";
                 }else if( response.error === 'add' ){
-                    const selectCivilite = document.querySelector('#civilite');
+                    const selectFonction = document.querySelector('#fonction_animateur');
                     const option = document.createElement("option");
                     option.setAttribute('value', response.data.id )
-                    option.text = response.data.nom;
-                    selectCivilite.add(option);
-                    selectCivilite.selectedIndex =  selectCivilite.length - 1 ;
+                    option.text = response.data.fonction_nom;
+                    selectFonction.add(option);
+                    selectFonction.selectedIndex =  selectFonction.length - 1 ;
                     closeModal();
                 }
             });

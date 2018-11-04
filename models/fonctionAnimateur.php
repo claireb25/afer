@@ -2,16 +2,16 @@
 
 require("utils/db.php");
 
-function listAll($tables){
+function listAll(){
     global $db;
-    $response = $db->prepare("SELECT * FROM $tables");
+    $response = $db->prepare("SELECT * FROM fonction_animateur");
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function listOne($tables, $id){
+function listOne($id){
     global $db;
-    $response = $db->prepare("SELECT * FROM $tables WHERE id = $id");
+    $response = $db->prepare("SELECT * FROM fonction_animateur WHERE id = $id");
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
@@ -20,6 +20,13 @@ function getFonctionNom($fonction_nom){
     global $db;
     $response = $db->prepare("SELECT fonction_nom FROM fonction_animateur WHERE fonction_nom = :fonction_nom");
     $response->bindParam(':fonction_nom', $fonction_nom, PDO::PARAM_STR);
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
+
+function lastRow(){
+    global $db;
+    $response = $db->prepare("SELECT id, fonction_nom FROM fonction_animateur order by id desc");
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
@@ -33,9 +40,9 @@ function edit($nouvelleValeur, $id){
     return true; 
 }
 
-function create($tables, $val){
+function create($val){
     global $db;
-    $response = $db->prepare("INSERT INTO $tables VALUES(:val)");
+    $response = $db->prepare("INSERT INTO fonction_animateur(fonction_nom) VALUES(:val)");
     $response->bindParam(':val', $val, PDO::PARAM_STR);
     $response->execute();
     return true; 

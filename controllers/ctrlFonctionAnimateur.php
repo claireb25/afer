@@ -78,13 +78,13 @@ if (isset($_GET['action'])){
 
         case 'newjson' :
         if( count( $_POST ) > 0 ){
-            if( isset( $_POST['fonctionAnimateur_nom'] ) ){
-                $fonctionAnimateur_nom = htmlentities( trim( $_POST['fonctionAnimateur_nom'] ) );               
-                $reponse = getFonctionAnimateurNom( $fonctionAnimateur_nom );                    
+            if( isset( $_POST['nom'] ) ){
+                $fonctionAnimateur_nom = trim( $_POST['nom']);               
+                $reponse = getFonctionNom( $fonctionAnimateur_nom );                    
                 if( $reponse === false ){                   
                     create($fonctionAnimateur_nom);
                     $lastRow = lastRow();
-                    $lastRow['fonctionAnimateur_nom'] = html_entity_decode( $lastRow['fonctionAnimateur_nom'] );
+                    $lastRow['fonction_nom'] = html_entity_decode( $lastRow['fonction_nom'] );
                     $data = array('error' => 'add', 'data' => $lastRow );
                     echo json_encode( $data );
                 }else{
