@@ -1063,10 +1063,10 @@ function validCiviliteJsonEdit(){
         }
     });
 
-    saisieService.addEventListener( 'keyup', () => {
-        if( saisieService.value.length > 0 ){
-            saisieService.value = saisieService.value.trimStart();
-            saisieService.value = saisieService.value[0].toUpperCase() + saisieService.value.substring(1);
+    saisieCivilite.addEventListener( 'keyup', () => {
+        if( saisieCivilite.value.length > 0 ){
+            saisieCivilite.value = saisieCivilite.value.trimStart();
+            saisieCivilite.value = saisieCivilite.value[0].toUpperCase() + saisieCivilite.value.substring(1);
         }                
     });
 }
@@ -1139,10 +1139,10 @@ function validFonctionAnimateurJsonEdit(){
         }
     });
 
-    saisieService.addEventListener( 'keyup', () => {
-        if( saisieService.value.length > 0 ){
-            saisieService.value = saisieService.value.trimStart();
-            saisieService.value = saisieService.value[0].toUpperCase() + saisieService.value.substring(1);
+    saisieFonctionAnimateur.addEventListener( 'keyup', () => {
+        if( saisieFonctionAnimateur.value.length > 0 ){
+            saisieFonctionAnimateur.value = saisieFonctionAnimateur.value.trimStart();
+            saisieFonctionAnimateur.value = saisieFonctionAnimateur.value[0].toUpperCase() + saisieFonctionAnimateur.value.substring(1);
         }                
     });
 }
@@ -1171,55 +1171,54 @@ function addStatutAnimateur(){
 
 
 function validStatutAnimateurJsonEdit(){
-    formFonctionAnimateur = document.querySelector( '.form-fonctionAnimateur' );
-    saisieFonctionAnimateur = document.querySelector('.form-fonctionAnimateur .firstLetterUpper');
-    formFonctionAnimateur.addEventListener('submit', ( e ) =>{
+    formStatutAnimateur = document.querySelector( '.form-statutAnimateur' );
+    saisieStatutAnimateur = document.querySelector('.form-statutAnimateur .firstLetterUpper');
+    formStatutAnimateur.addEventListener('submit', ( e ) =>{
         e.preventDefault();
         test = true;
-        if( document.querySelector('#fonctionAnimateur_nom').value.trim().length === 0 ){
-            document.querySelector('#msg-fonctionAnimateur_nom').classList.remove( 'hidden');
-            document.querySelector('#msg-fonctionAnimateur_nom').innerHTML = "Veuillez saisir le champ fonction";
+        if( document.querySelector('#statutAnimateur_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-statutAnimateur_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-statutAnimateur_nom').innerHTML = "Veuillez saisir le champ statut";
             test = false;
         }else{
-            document.querySelector('#msg-fonctionAnimateur_nom').classList.add( 'hidden');
-            document.querySelector('#msg-fonctionAnimateur_nom').innerHTML = "";
+            document.querySelector('#msg-statutAnimateur_nom').classList.add( 'hidden');
+            document.querySelector('#msg-statutAnimateur_nom').innerHTML = "";
         }
 
         if( test === true ){
             
             formData = new FormData();
-            formData.append('nom', document.querySelector('#fonctionAnimateur_nom').value.trim() );
+            formData.append('nom', document.querySelector('#statutAnimateur_nom').value.trim() );
             header = {
                 method: "POST",
                 body: formData
             };
 
-            fetch('/fonctionanimateur/newjson', header)
+            fetch('/statutanimateur/newjson', header)
             .then( (response ) => {
                 return response.json();
             })
-            .then( (response) =>{  
-                console.log(response)  ;         
+            .then( (response) =>{       
                 if( response.error === 'exist' ){
-                    document.querySelector('#msg-fonctionAnimateur_nom').classList.remove( 'hidden');
-                    document.querySelector('#msg-fonctionAnimateur_nom').innerHTML = "Cette fonction existe déjà";
+                    document.querySelector('#msg-statutAnimateur_nom').classList.remove( 'hidden');
+                    document.querySelector('#msg-statutAnimateur_nom').innerHTML = "Ce statut existe déjà";
                 }else if( response.error === 'add' ){
-                    const selectFonction = document.querySelector('#fonction_animateur');
+                    const selectStatut = document.querySelector('#statut_animateur');
                     const option = document.createElement("option");
                     option.setAttribute('value', response.data.id )
                     option.text = response.data.fonction_nom;
-                    selectFonction.add(option);
-                    selectFonction.selectedIndex =  selectFonction.length - 1 ;
+                    selectStatut.add(option);
+                    selectStatut.selectedIndex =  selectStatut.length - 1 ;
                     closeModal();
                 }
             });
         }
     });
 
-    saisieService.addEventListener( 'keyup', () => {
-        if( saisieService.value.length > 0 ){
-            saisieService.value = saisieService.value.trimStart();
-            saisieService.value = saisieService.value[0].toUpperCase() + saisieService.value.substring(1);
+    saisieStatut.addEventListener( 'keyup', () => {
+        if( saisieStatut.value.length > 0 ){
+            saisieStatut.value = saisieStatut.value.trimStart();
+            saisieStatut.value = saisieStatut.value[0].toUpperCase() + saisieStatut.value.substring(1);
         }                
     });
 }
