@@ -75,6 +75,31 @@ if (isset($_GET['action'])){
                 deleteElement($_GET['id']);
             }
             break;
+
+        case 'newjson' :
+        if( count( $_POST ) > 0 ){
+            if( isset( $_POST['fonctionAnimateur_nom'] ) ){
+                $fonctionAnimateur_nom = htmlentities( trim( $_POST['fonctionAnimateur_nom'] ) );               
+                $reponse = getFonctionAnimateurNom( $fonctionAnimateur_nom );                    
+                if( $reponse === false ){                   
+                    create($fonctionAnimateur_nom);
+                    $lastRow = lastRow();
+                    $lastRow['fonctionAnimateur_nom'] = html_entity_decode( $lastRow['fonctionAnimateur_nom'] );
+                    $data = array('error' => 'add', 'data' => $lastRow );
+                    echo json_encode( $data );
+                }else{
+                    $data = array( 'error' => 'exist' );
+                    echo json_encode( $data );
+                }                            
+                
+            }else{
+                header('Location: /fonctionanimateur/list');
+            }
+        }else{
+            showNewJson();
+        }
+                
+        break;
     }
 }
 
@@ -102,6 +127,16 @@ function addNew($valeur){
     global $twig;    
     create('fonction_animateur(fonction_nom)', $valeur);
     header("Location: /afer-back/fonctionanimateur/list");
+}
+
+
+function showNewJson(){
+    global $twig;
+    $template = $twig->load('newJsonFonctionAnimateur.html.twig');
+    $form = $template->render();
+    $data = array('error' => '', 'data' => $form );
+    echo json_encode( $data );
+    
 }
 
 function showExist( $fonction_nom ){

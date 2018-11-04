@@ -34,6 +34,11 @@ function main(){
     addServiceTribunal();
   }
 
+
+  if( document.querySelector('.btn-add-fonction') !== null ){
+    addFonctionAnimateur();
+  }
+
   if( document.querySelector('.form-user-create') !== null ){
     userForm( 'create');
   }
@@ -1063,8 +1068,8 @@ function validCiviliteJsonEdit(){
 
 
 function addFonctionAnimateur(){
-    const btn = document.querySelector('.btn-add-civilite').addEventListener('click', () =>{
-        fetch('/civilite/newjson')
+    const btn = document.querySelector('.btn-add-fonction').addEventListener('click', () =>{
+        fetch('/fonctionanimateur/newjson')
         .then( ( reponse ) => {
             return reponse.json();
         })
@@ -1084,18 +1089,18 @@ function addFonctionAnimateur(){
 
 
 function validFonctionAnimateurJsonEdit(){
-    formCivilite = document.querySelector( '.form-civilite' );
-    saisieCivilite = document.querySelector('.form-civilite .firstLetterUpper');
-    formCivilite.addEventListener('submit', ( e ) =>{
+    formFonctionAnimateur = document.querySelector( '.form-fonctionAnimateur' );
+    saisieFonctionAnimteur = document.querySelector('.form-fonctionAnimateur .firstLetterUpper');
+    formFonctionAnimteur.addEventListener('submit', ( e ) =>{
         e.preventDefault();
         test = true;
-        if( document.querySelector('#civilite-nom').value.trim().length === 0 ){
-            document.querySelector('#msg-civilite-nom').classList.remove( 'hidden');
-            document.querySelector('#msg-civilite-nom').innerHTML = "Veuillez saisir le champ Civilité";
+        if( document.querySelector('#fonctionAnimteur-nom').value.trim().length === 0 ){
+            document.querySelector('#msg-fonctionAnimteur-nom').classList.remove( 'hidden');
+            document.querySelector('#msg-fonctionAnimteur-nom').innerHTML = "Veuillez saisir le champ fonction";
             test = false;
         }else{
-            document.querySelector('#msg-civilite-nom').classList.add( 'hidden');
-            document.querySelector('#msg-civilite-nom').innerHTML = "";
+            document.querySelector('#msg-fonctionAnimteur-nom').classList.add( 'hidden');
+            document.querySelector('#msg-fonctionAnimteur-nom').innerHTML = "";
         }
 
         if( test === true ){
