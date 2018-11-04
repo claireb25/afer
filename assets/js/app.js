@@ -22,9 +22,7 @@ function main(){
 
   if( document.querySelector('.btn-add-civilite') !== null ){
     addCivilite();
-  }
-
-  
+  }  
 
   if( document.querySelector('.btn-add-autorite-tribunal') !== null ){
     addAutoriteTribunal();
@@ -38,6 +36,13 @@ function main(){
   if( document.querySelector('.btn-add-fonction') !== null ){
     addFonctionAnimateur();
   }
+
+
+  if( document.querySelector('.btn-add-statut') !== null ){
+    addStatutAnimateur();
+  }
+
+
 
   if( document.querySelector('.form-user-create') !== null ){
     userForm( 'create');
@@ -1089,6 +1094,83 @@ function addFonctionAnimateur(){
 
 
 function validFonctionAnimateurJsonEdit(){
+    formFonctionAnimateur = document.querySelector( '.form-fonctionAnimateur' );
+    saisieFonctionAnimateur = document.querySelector('.form-fonctionAnimateur .firstLetterUpper');
+    formFonctionAnimateur.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+        if( document.querySelector('#fonctionAnimateur_nom').value.trim().length === 0 ){
+            document.querySelector('#msg-fonctionAnimateur_nom').classList.remove( 'hidden');
+            document.querySelector('#msg-fonctionAnimateur_nom').innerHTML = "Veuillez saisir le champ fonction";
+            test = false;
+        }else{
+            document.querySelector('#msg-fonctionAnimateur_nom').classList.add( 'hidden');
+            document.querySelector('#msg-fonctionAnimateur_nom').innerHTML = "";
+        }
+
+        if( test === true ){
+            
+            formData = new FormData();
+            formData.append('nom', document.querySelector('#fonctionAnimateur_nom').value.trim() );
+            header = {
+                method: "POST",
+                body: formData
+            };
+
+            fetch('/fonctionanimateur/newjson', header)
+            .then( (response ) => {
+                return response.json();
+            })
+            .then( (response) =>{  
+                console.log(response)  ;         
+                if( response.error === 'exist' ){
+                    document.querySelector('#msg-fonctionAnimateur_nom').classList.remove( 'hidden');
+                    document.querySelector('#msg-fonctionAnimateur_nom').innerHTML = "Cette fonction existe déjà";
+                }else if( response.error === 'add' ){
+                    const selectFonction = document.querySelector('#fonction_animateur');
+                    const option = document.createElement("option");
+                    option.setAttribute('value', response.data.id )
+                    option.text = response.data.fonction_nom;
+                    selectFonction.add(option);
+                    selectFonction.selectedIndex =  selectFonction.length - 1 ;
+                    closeModal();
+                }
+            });
+        }
+    });
+
+    saisieService.addEventListener( 'keyup', () => {
+        if( saisieService.value.length > 0 ){
+            saisieService.value = saisieService.value.trimStart();
+            saisieService.value = saisieService.value[0].toUpperCase() + saisieService.value.substring(1);
+        }                
+    });
+}
+
+
+
+function addStatutAnimateur(){
+    const btn = document.querySelector('.btn-add-statut').addEventListener('click', () =>{
+        fetch('/statutanimateur/newjson')
+        .then( ( reponse ) => {
+            return reponse.json();
+        })
+        .then( ( reponse ) => {
+            if( reponse.error.length === 0 ){
+                html ='<div class="boxOverlay  ">';
+                html += '<div class="modal modal-ajout">';
+                html +=  reponse.data;
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html; 
+                validStatutAnimateurJsonEdit(); 
+            }
+        });
+    });
+}
+
+
+function validStatutAnimateurJsonEdit(){
     formFonctionAnimateur = document.querySelector( '.form-fonctionAnimateur' );
     saisieFonctionAnimateur = document.querySelector('.form-fonctionAnimateur .firstLetterUpper');
     formFonctionAnimateur.addEventListener('submit', ( e ) =>{

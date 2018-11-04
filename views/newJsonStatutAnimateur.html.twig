@@ -1,0 +1,13 @@
+<p class="push-right"  ><a href="#" onclick="closeModal(); return false;" >Fermer</a></p>
+<h1>Ajout d'un statut (Animateur)</h1>
+  <form action="statutanimateur/new" method="post" class="form form-statutAnimateur form-statutAnimateur-json" >
+    <div class="form-group">
+        <label for="statutAnimateur_nom" class="form-label">Statut *</label>
+        <input type="text" class="form-input firstLetterUpper" id="statutAnimateur_nom" name="statutAnimateur_nom" value="" />
+        <p class="form-msg-error hidden" id="msg-statutAnimateur_nom" >Veuillez saisir un statut</p>
+    </div>
+    <div class="form-login-group">
+        <button class="form-login-button">Valider</button>
+    </div>
+  </form>
+  
