@@ -1198,7 +1198,8 @@ function validStatutAnimateurJsonEdit(){
             .then( (response ) => {
                 return response.json();
             })
-            .then( (response) =>{       
+            .then( (response) =>{  
+                     
                 if( response.error === 'exist' ){
                     document.querySelector('#msg-statutAnimateur_nom').classList.remove( 'hidden');
                     document.querySelector('#msg-statutAnimateur_nom').innerHTML = "Ce statut existe déjà";
@@ -1206,7 +1207,7 @@ function validStatutAnimateurJsonEdit(){
                     const selectStatut = document.querySelector('#statut_animateur');
                     const option = document.createElement("option");
                     option.setAttribute('value', response.data.id )
-                    option.text = response.data.fonction_nom;
+                    option.text = response.data.status_nom;
                     selectStatut.add(option);
                     selectStatut.selectedIndex =  selectStatut.length - 1 ;
                     closeModal();
@@ -1215,10 +1216,10 @@ function validStatutAnimateurJsonEdit(){
         }
     });
 
-    saisieStatut.addEventListener( 'keyup', () => {
-        if( saisieStatut.value.length > 0 ){
-            saisieStatut.value = saisieStatut.value.trimStart();
-            saisieStatut.value = saisieStatut.value[0].toUpperCase() + saisieStatut.value.substring(1);
+    saisieStatutAnimateur.addEventListener( 'keyup', () => {
+        if( saisieStatutAnimateur.value.length > 0 ){
+            saisieStatutAnimateur.value = saisieStatutAnimateur.value.trimStart();
+            saisieStatutAnimateur.value = saisieStatutAnimateur.value[0].toUpperCase() + saisieStatutAnimateur.value.substring(1);
         }                
     });
 }

@@ -32,6 +32,13 @@ function getStatutNom($status_nom){
     return $response->fetch(PDO::FETCH_ASSOC);
 }
 
+function lastRow(){
+    global $db;
+    $response = $db->prepare("SELECT id, status_nom FROM statut_animateur order by id desc");
+    $response->execute();
+    return $response->fetch(PDO::FETCH_ASSOC);
+}
+
 
 function edit($status_nom, $id){
     global $db;

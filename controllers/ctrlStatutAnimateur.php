@@ -79,7 +79,7 @@ if (isset($_GET['action'])){
                 if( $reponse === false ){                   
                     create($statutAnimateur_nom);
                     $lastRow = lastRow();
-                    $lastRow['statut_nom'] = html_entity_decode( $lastRow['statut_nom'] );
+                    $lastRow['status_nom'] = html_entity_decode( $lastRow['status_nom'] );
                     $data = array('error' => 'add', 'data' => $lastRow );
                     echo json_encode( $data );
                 }else{
