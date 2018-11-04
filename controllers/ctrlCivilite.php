@@ -72,7 +72,7 @@ if (isset($_GET['action'])){
         case 'newjson' :
         if( count( $_POST ) > 0 ){
             if( isset( $_POST['nom'] ) ){
-                $nom = htmlentities( trim( $_POST['nom'] ) );               
+                $nom = trim( $_POST['nom'] );               
                 $reponse = getNom( $nom );                    
                 if( $reponse === false ){                   
                     create($nom);
