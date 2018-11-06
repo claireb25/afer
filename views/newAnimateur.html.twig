@@ -8,7 +8,7 @@
                 <h3>Information d'identité
                     <span class="entypo-down-open"></span>
                 </h3>
-                <div style="display:none" >
+                <div id="valeurObligatoire" style="display:none" >
                     <div class="form-group form-group-padding" >
                         <label for="tribunal_nom" class="form-label">Civilités *</label>
                         <select name="civilite" id="civilite" class="form-input capitalize small-select" >
@@ -22,7 +22,7 @@
                                 {% endif %}
                             {% endfor %}
                         {% else %}
-                            <option value="civilte" selected disabled>Civilité</option>   
+                            <option value="civilite" selected disabled>Civilité</option>   
                             {% for elem in civilite %}
                             <option value="{{ elem.id }}">{{ elem.nom }}</option>
                             {% endfor %}

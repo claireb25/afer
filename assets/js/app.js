@@ -129,7 +129,19 @@ function main(){
   if( document.querySelector('.form-civilite-edit') !== null ){
     civiliteForm( 'edit');
   }
+
   
+
+  if( document.querySelector('.form-animateur-create') !== null ){
+    animateurForm( 'create');
+  }
+
+  if( document.querySelector('.form-animateur-edit') !== null ){
+    animateurForm( 'edit');
+  }
+
+
+
 
   
   if( document.querySelector('.tbl-link-delete') !== null ){
@@ -599,6 +611,97 @@ function tribunalForm( action ){
                 html += '</div>';
                 html += '</div>';
                 document.querySelector('#alertUser').innerHTML =   html;            
+        }
+    });
+}
+
+
+function animateurForm( action ){
+    formAnimateur = document.querySelector( '.form-animateur' );
+    formAnimateur.addEventListener('submit', ( e ) =>{
+        e.preventDefault();
+        test = true;
+
+
+        //gestion des messages d'erreurs
+        if( document.querySelector('#civilite').value === "civilite" ){
+            document.querySelector('#msg-civilite').classList.remove( 'hidden');
+            document.querySelector('#msg-civilite').innerHTML = "Veuillez choisir une valeur dans le champ civilité";
+            test = false;
+        }else{
+            document.querySelector('#msg-civilite').classList.add( 'hidden');
+            document.querySelector('#msg-civilite').innerHTML = "";
+        }
+
+
+        
+        if( document.querySelector('#nom').value.trim().length === 0 ){
+            document.querySelector('#msg-nom').classList.remove( 'hidden');
+            document.querySelector('#msg-nom').innerHTML = "Veuillez saisir le champ nom";
+            test = false;
+        }else{
+            document.querySelector('#msg-nom').classList.add( 'hidden');
+            document.querySelector('#msg-nom').innerHTML = "";
+        }
+
+        if( document.querySelector('#prenom').value.trim().length === 0 ){
+            document.querySelector('#msg-prenom').classList.remove( 'hidden');
+            document.querySelector('#msg-prenom').innerHTML = "Veuillez saisir le champ prenom";
+            test = false;
+        }else{
+            document.querySelector('#msg-prenom').classList.add( 'hidden');
+            document.querySelector('#msg-prenom').innerHTML = "";
+        }
+
+        if( document.querySelector('#adresse').value.trim().length === 0 ){
+            document.querySelector('#msg-adresse').classList.remove( 'hidden');
+            document.querySelector('#msg-adresse').innerHTML = "Veuillez saisir le champ adresse";
+            test = false;
+        }else{
+            document.querySelector('#msg-adresse').classList.add( 'hidden');
+            document.querySelector('#msg-adresse').innerHTML = "";
+        }
+
+        let code_postal = /^(([0-8][0-9])|(9[0-5]))[0-9]{3}$/;
+        if( document.querySelector('#code_postal').value.trim().length === 0 || code_postal.test( document.querySelector('#code_postal').value.trim() ) === false ){
+            document.querySelector('#msg-code_postal').classList.remove( 'hidden');
+            document.querySelector('#msg-code_postal').innerHTML = "Veuillez saisir le champ code postal";
+            test = false;
+        }else{
+            document.querySelector('#msg-code_postal').classList.add( 'hidden');
+            document.querySelector('#msg-code_postal').innerHTML = "";
+        }
+
+        
+        if( document.querySelector('#commune').value.trim().length === 0 ){
+            document.querySelector('#msg-commune').classList.remove( 'hidden');
+            document.querySelector('#msg-commune').innerHTML = "Veuillez saisir le champ commune";
+            test = false;
+        }else{
+            document.querySelector('#msg-commune').classList.add( 'hidden');
+            document.querySelector('#msg-commune').innerHTML = "";
+        }
+
+
+       
+        //di pas de soucis dans le formulaire
+        //on l'envoi sinon on injecte le modal pour
+        //informer des erreurs
+        if( test === true ){            
+            
+               formAnimateur.submit();
+                  
+            
+        }else{
+           
+                html = '<div class="boxOverlay" >';
+                html += '<div class="modal fas fa-exclamation-triangle">';
+                html += '<p class="modal-message">Merci de saisir les champs signalés par un message d\'erreur.</p>';
+                html += '<button type="button" onclick="document.querySelector(\'.boxOverlay\').classList.add(\'hidden\');" class="modal-btn form-login-button" >OK</button>';
+                html += '</div>';
+                html += '</div>';
+                document.querySelector('#alertUser').innerHTML =   html;
+                document.querySelector('#valeurObligatoire').setAttribute('style', "");             
         }
     });
 }

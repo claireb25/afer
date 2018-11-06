@@ -244,12 +244,12 @@ a:hover {
   transition: all .5s;
 }
 
-.larg div p {
+/* .larg div p {
   display: none;
   margin-left: 10px;
   padding: 0 15px;
   border-left: 1px solid #ccc;
-}
+} */
 
 /****************************** SmallMenu (bouton réglages) *********************************************/
 
