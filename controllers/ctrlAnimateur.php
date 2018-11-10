@@ -137,12 +137,16 @@ if (isset($_GET['action'])){
             
             
 
-            if( $autorite_tribunal == "" ){
-                $autorite_tribunal = null;
+            if( $civilite == "" ){
+                $civilite = null;
             }
 
-            if( $service_tribunal == "" ){
-                $service_tribunal = null;
+            if( $fonction_animateur == "" ){
+                $fonction_animateur = null;
+            }
+
+            if( $statut_animateur == "" ){
+                $statut_animateur = null;
             }
 
 
