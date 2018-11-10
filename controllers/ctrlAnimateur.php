@@ -35,9 +35,23 @@ if (isset($_GET['action'])){
             $observation = '';
 
 
-            if( isset( $_POST['tribunal_nom'] ) ){
-                if( !empty( $_POST['tribunal_nom'] ) ){
-                    $tribunal_nom = htmlentities( trim( $_POST['tribunal_nom'] ) );
+            if( isset( $_POST['civilite'] ) ){
+                if( !empty( $_POST['civilite'] ) ){
+                    $civilite = htmlentities( trim( $_POST['civilite'] ) );
+                    $service_tribunal = (int) $service_tribunal;
+                }
+            }
+
+            if( isset( $_POST['nom'] ) ){
+                if( !empty( $_POST['nom'] ) ){
+                    $nom = htmlentities( trim( $_POST['nom'] ) );
+                }
+            }
+
+
+            if( isset( $_POST['prenom'] ) ){
+                if( !empty( $_POST['prenom'] ) ){
+                    $prenom = htmlentities( trim( $_POST['prenom'] ) );
                 }
             }
 
@@ -46,7 +60,6 @@ if (isset($_GET['action'])){
                     $adresse = htmlentities( trim( $_POST['adresse'] ) );
                 }
             }
-
 
             if( isset( $_POST['code_postal'] ) ){
                 if( !empty( $_POST['code_postal'] ) ){
@@ -60,21 +73,68 @@ if (isset($_GET['action'])){
                 }
             }
 
-            if( isset( $_POST['autorite_tribunal'] ) ){
-                if( !empty( $_POST['autorite_tribunal'] ) ){
-                    $autorite_tribunal = htmlentities( trim( $_POST['autorite_tribunal'] ) );
-                    $autorite_tribunal = (int) $autorite_tribunal;
+            if( isset( $_POST['region'] ) ){
+                if( !empty( $_POST['region'] ) ){
+                    $region = htmlentities( trim( $_POST['region'] ) );
                 }
             }
 
-            if( isset( $_POST['service_tribunal'] ) ){
-                if( !empty( $_POST['service_tribunal'] ) ){
-                    $service_tribunal = htmlentities( trim( $_POST['service_tribunal'] ) );
-                    $service_tribunal = (int) $service_tribunal;
+            if( isset( $_POST['raison_sociale'] ) ){
+                if( !empty( $_POST['raison_sociale'] ) ){
+                    $raison_sociale = htmlentities( trim( $_POST['raison_sociale'] ) );
                 }
             }
 
+            if( isset( $_POST['fonction_animateur'] ) ){
+                if( !empty( $_POST['fonction_animateur'] ) ){
+                    $fonction_animateur = htmlentities( trim( $_POST['fonction_animateur'] ) );
+                    $fonction_animateur = (int) $fonction_animateur;
+                }
+            }
 
+            if( isset( $_POST['statut_animateur'] ) ){
+                if( !empty( $_POST['statut_animateur'] ) ){
+                    $statut_animateur = htmlentities( trim( $_POST['statut_animateur'] ) );
+                    $statut_animateur = (int) $statut_animateur;
+                }
+            }
+            
+            if( isset( $_POST['urssaf'] ) ){
+                if( !empty( $_POST['urssaf'] ) ){
+                    $urssaf = htmlentities( trim( $_POST['urssaf'] ) );
+                }
+            }
+
+            if( isset( $_POST['siret'] ) ){
+                if( !empty( $_POST['siret'] ) ){
+                    $siret = htmlentities( trim( $_POST['siret'] ) );
+                }
+            }
+
+            if( isset( $_POST['tel_portable'] ) ){
+                if( !empty( $_POST['tel_portable'] ) ){
+                    $tel_portable = htmlentities( trim( $_POST['tel_portable'] ) );
+                }
+            }
+
+            if( isset( $_POST['tel_fixe'] ) ){
+                if( !empty( $_POST['tel_fixe'] ) ){
+                    $tel_fixe = htmlentities( trim( $_POST['tel_fixe'] ) );
+                }
+            }
+            
+            if( isset( $_POST['email'] ) ){
+                if( !empty( $_POST['email'] ) ){
+                    $email = htmlentities( trim( $_POST['email'] ) );
+                }
+            }
+
+            if( isset( $_POST['observation'] ) ){
+                if( !empty( $_POST['observation'] ) ){
+                    $observation = htmlentities( trim( $_POST['observation'] ) );
+                }
+            }
+            
             
 
             if( $autorite_tribunal == "" ){
