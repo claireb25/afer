@@ -154,7 +154,7 @@ if (isset($_GET['action'])){
             
             
             
-            $reponse = (int) getCountTribunal( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal);
+            $reponse = (int) getCountAnimateur( $nom,  $prenom, $adresse, $code_postal, $commune );
             
             
             if( $reponse === 0 ){                   

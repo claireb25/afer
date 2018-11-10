@@ -98,3 +98,18 @@ function delete($id){
     $response->execute();
     return true; 
 }
+
+
+function getCountAnimateur( $nom,  $prenom, $adresse, $code_postal, $commune ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM animateur where nom = :nom and prenom = :prenom and adresse = :adresse and code_postal = :code_postal and  commune = :commune  ";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':nom', $nom, PDO::PARAM_STR);
+    $response->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+    $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
+    $response->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
+    $response->bindParam(':commune', $commune, PDO::PARAM_STR);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+    return $result['nombre']; 
+}
