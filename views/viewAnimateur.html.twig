@@ -1,0 +1,18 @@
+{% extends 'template.html.twig' %}
+
+{% block content %}
+  <h1>Tribunal : {{toEdit.tribunal_nom}}</h1>
+  <div class="larg" >
+
+       
+        <p><span class="bold" >Service :</span> {{ toEdit.service_nom|raw }}</p>
+        <p><span class="bold" >Autorité :</span> {{ toEdit.autorite_nom|raw }}</p>
+        <p><span class="bold" >Adresse :</span> {{ toEdit.adresse|raw }}</p>
+        <p><span class="bold" >Code postal :</span> {{ toEdit.code_postal|raw }}</p>
+        <p><span class="bold">Commune :</span> {{ toEdit.commune|raw }}</p>
+        <a href="prefecture/edit/{{toEdit.id}}" class="btn-link">Modifier</a>
+  </div>
+  
+{% endblock %}
+
+    
