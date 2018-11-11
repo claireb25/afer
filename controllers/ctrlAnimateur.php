@@ -223,6 +223,18 @@ function showNew(){
     $template = $twig->load('newAnimateur.html.twig');
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'civilite'=>$civilite, 'fonction'=> $fonction, 'statut' => $statut));
 }
+
+function showExist( $civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation ){
+    global $twig;
+    
+    $listeCivilite = civilite();
+    $listeFonction = fonction();
+    $listeStatut = statut();
+    
+    $template = $twig->load('newAnimateur.html.twig');
+
+    echo $template->render( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'civilite' => $civilite, 'nom' => $nom, 'prenom' => $prenom, 'adresse' => $adresse, 'code_postal' => $code_postal, 'commune' => $commune, 'region' => $region, 'gta' => $gta, 'raison_sociale' => $raison_sociale, 'fonction_animateur' => $fonction_animateur, 'statut_animateur' => $statut_animateur, 'urssaf' => $urssaf, 'siret' => $siret, 'tel_portable' => $tel_portable, 'tel_fixe' => $tel_fixe, 'email' => $email, 'observation' => $observation, 'listeCivilite' => $listeCivilite, 'listeFonction' => $listeFonction, 'listeStatut' => $listeStatut  )  );
+}
 // EDIT 
 function showEdit($id){
     $civilite = civilite();

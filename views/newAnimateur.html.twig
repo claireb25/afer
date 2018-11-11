@@ -14,8 +14,8 @@
                         <select name="civilite" id="civilite" class="form-input capitalize small-select" >
                         {% if error is defined %}
                             <option value="civilite"  disabled>Civilité</option>   
-                            {% for elem in civilite %}
-                                {% if elem.id == civilte %}
+                            {% for elem in listeCivilite %}
+                                {% if elem.id == civilite %}
                                     <option value="{{ elem.id }}" selected>{{ elem.nom }}</option>
                                 {% else %}
                                     <option value="{{ elem.id }}">{{ elem.nom }}</option>
@@ -129,7 +129,7 @@
                 <div style="display:none" >
                     <div class="form-group form-group-padding">
                         <label for="gta" class="form-label">Gestion Technique et Administrative</label>
-                        <input type="checkbox" class="form-input " id="gta" name="gta" value="true" {% if gta is defined %}selected{% endif %} />                
+                        <input type="checkbox" class="form-input " id="gta" name="gta" value="true" {% if gta is defined %}{% if gta == true %}checked{%endif%}{% endif %} />                
                     </div>
                     <div class="form-group form-group-padding">
                         <label for="raison_sociale" class="form-label ">Raison sociale</label>
@@ -140,8 +140,8 @@
                         <select id="fonction_animateur" name="fonction_animateur" class="form-input small-select " >
                         {% if error is defined %}
                                 <option value="fonction"  disabled>Fonction</option>   
-                            {% for elem in fonction %}
-                                {% if elem.id == fonction_animateur %}
+                            {% for elem in listeFonction %}
+                                {% if elem.id == fonction %}
                                     <option value="{{ elem.id }}" selected>{{ elem.fonction_nom }}</option>
                                 {% else %}
                                     <option value="{{ elem.id }}">{{ elem.fonction_nom  }}</option>
@@ -161,8 +161,8 @@
                         <select id="statut_animateur" name="statut_animateur" class="form-input small-select " >
                         {% if error is defined %}
                                 <option value="statut"  disabled>Statut</option>   
-                            {% for elem in statut %}
-                                {% if elem.id == statut_animateur %}
+                            {% for elem in listeStatut %}
+                                {% if elem.id == statut %}
                                     <option value="{{ elem.id }}" selected>{{ elem.status_nom }}</option>
                                 {% else %}
                                     <option value="{{ elem.id }}">{{ elem.status_nom  }}</option>
@@ -212,7 +212,7 @@
                 </h3>
                 <div style="display:none" >
                     <div class="form-group form-group-padding">
-                        <textarea rows="8" type="text" class="form-textarea form-textearea-padding-right-none " id="observation" name="observation" value="{% if observation is defined %}{{ observation | raw }}{% endif %}" ></textarea>                
+                        <textarea rows="8" type="text" class="form-textarea form-textearea-padding-right-none " id="observation" name="observation" >{% if observation is defined %}{{ observation | raw }}{% endif %}</textarea>                
                     </div>
                 </div>
             </div>

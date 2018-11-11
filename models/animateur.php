@@ -50,18 +50,21 @@ function listAll(){
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
+
 function civilite(){
     global $db;
     $response = $db->prepare("SELECT id, nom FROM civilite");
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
+
 function fonction(){
     global $db;
     $response = $db->prepare("SELECT id, fonction_nom FROM fonction_animateur");
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
+
 function statut(){
     global $db;
     $response = $db->prepare("SELECT id, status_nom FROM statut_animateur");
