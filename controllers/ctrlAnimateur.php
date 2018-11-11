@@ -23,7 +23,7 @@ if (isset($_GET['action'])){
             $code_postal = '';
             $commune = '';
             $region = '';
-            $gta = '';
+            $gta = false;
             $raison_sociale = '';
             $fonction_animateur = '';
             $statut_animateur = '';
@@ -38,7 +38,7 @@ if (isset($_GET['action'])){
             if( isset( $_POST['civilite'] ) ){
                 if( !empty( $_POST['civilite'] ) ){
                     $civilite = htmlentities( trim( $_POST['civilite'] ) );
-                    $service_tribunal = (int) $service_tribunal;
+                    $civilite = (int) $civilite;
                 }
             }
 
@@ -76,6 +76,13 @@ if (isset($_GET['action'])){
             if( isset( $_POST['region'] ) ){
                 if( !empty( $_POST['region'] ) ){
                     $region = htmlentities( trim( $_POST['region'] ) );
+                }
+            }
+
+
+            if( isset( $_POST['gta'] ) ){
+                if( !empty( $_POST['gta'] ) ){
+                    $gta = true;
                 }
             }
 
@@ -134,6 +141,8 @@ if (isset($_GET['action'])){
                     $observation = htmlentities( trim( $_POST['observation'] ) );
                 }
             }
+
+           
             
             
 
@@ -158,9 +167,9 @@ if (isset($_GET['action'])){
             
             
             if( $reponse === 0 ){                   
-                addNew( $tribunal_nom, $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune    );
+                addNew( $civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation );
             }else{
-                showExist( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal );
+                showExist( $civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation );
             }
             
         } else {
@@ -201,27 +210,11 @@ function makeList(){
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'list'=>$list));
 }
 //NEW
-function addNew($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations){
-    $civilite = (int)$civilite;
-    $nom = htmlentities($nom);
-    $prenom = htmlentities($prenom);
-    $fonction = (int)$fonction;
-    $statut = (int)$statut;
-    $gta = (bool)$gta;
-    $raison_sociale = htmlentities($raison_sociale);
-    $adresse = htmlentities($adresse);
-    $code_postal = htmlentities($code_postal);
-    $ville = htmlentities($ville);
-    $region = htmlentities($region);
-    $tel_portable = htmlentities($tel_portable);
-    $tel_fixe = htmlentities($tel_fixe);
-    $email = htmlentities($email);
-    $urssaf = htmlentities($urssaf);
-    $siret = htmlentities($siret);
-    $observations = htmlentities($observations);
-    create($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations);
+function addNew($civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation){
+    create($civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation);
     redirectAnimateurList();
 }
+
 function showNew(){
     $civilite = civilite();
     $fonction = fonction();
@@ -277,5 +270,5 @@ function deleteElement($id){
 // REDIRECTIONS
 
 function redirectAnimateurList(){
-    header('Location: /afer-back/animateur/list');
+    header('Location: /animateur/list');
 }

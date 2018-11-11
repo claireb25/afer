@@ -129,7 +129,7 @@
                 <div style="display:none" >
                     <div class="form-group form-group-padding">
                         <label for="gta" class="form-label">Gestion Technique et Administrative</label>
-                        <input type="checkbox" class="form-input " id="gta" name="gta" value="{% if gta is defined %}{{ gta | raw }}{% endif %}" />                
+                        <input type="checkbox" class="form-input " id="gta" name="gta" value="true" {% if gta is defined %}selected{% endif %} />                
                     </div>
                     <div class="form-group form-group-padding">
                         <label for="raison_sociale" class="form-label ">Raison sociale</label>

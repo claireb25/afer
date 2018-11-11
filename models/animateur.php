@@ -1,26 +1,45 @@
 <?php 
 require_once("utils/db.php");
 // NEW
-function create($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations){
+function create($civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation){
+    
     global $db;
-    $response = $db->prepare("INSERT INTO animateur(civilite_id_id, fonction_animateur_id_id, statut_id_id, nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email, urssaf, siret, observations) VALUES(:civilite, :fonction, :statut, :nom, :prenom, :gta, :raison_sociale, :adresse, :code_postal, :ville, :region, :tel_portable, :tel_fixe, :email, :urssaf, :siret, :observations)");
-    $response->bindParam(':civilite', $civilite, PDO::PARAM_INT);
+    
+    
+    $response = $db->prepare("INSERT INTO animateur(civilite_id_id, fonction_animateur_id_id, statut_id_id, nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email, urssaf, siret, observations) VALUES(:civilite, :fonction_animateur, :statut_animateur, :nom, :prenom, :gta, :raison_sociale, :adresse, :code_postal, :commune, :region, :tel_portable, :tel_fixe, :email, :urssaf, :siret, :observation)");
+    
+    if( $civilite == null ){
+        $response->bindValue(':civilite', NULL , PDO::PARAM_INT);
+    }else{
+        $response->bindParam(':civilite', $civilite, PDO::PARAM_INT);
+    }
+
+    if( $fonction_animateur == null ){
+        $response->bindValue(':fonction_animateur', NULL , PDO::PARAM_INT);
+    }else{
+        $response->bindParam(':fonction_animateur', $fonction_animateur, PDO::PARAM_INT);
+    }
+
+    if( $statut_animateur == null ){
+        $response->bindValue(':statut_animateur', NULL , PDO::PARAM_INT);
+    }else{
+        $response->bindParam(':statut_animateur', $statut_animateur, PDO::PARAM_INT);
+    }
+    
     $response->bindParam(':nom', $nom, PDO::PARAM_STR);
     $response->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-    $response->bindParam(':fonction', $fonction, PDO::PARAM_INT);
-    $response->bindParam(':statut', $statut, PDO::PARAM_INT);
-    $response->bindParam(':gta', $gta, PDO::PARAM_BOOL);
+    $response->bindParam(':gta', $gta, PDO::PARAM_INT);
     $response->bindParam(':raison_sociale', $raison_sociale, PDO::PARAM_STR);
     $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
     $response->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
-    $response->bindParam(':ville', $ville, PDO::PARAM_STR);
+    $response->bindParam(':commune', $commune, PDO::PARAM_STR);
     $response->bindParam(':region', $region, PDO::PARAM_STR);
     $response->bindParam(':tel_portable', $tel_portable, PDO::PARAM_STR);
     $response->bindParam(':tel_fixe', $tel_fixe, PDO::PARAM_STR);
     $response->bindParam(':email', $email, PDO::PARAM_STR);
     $response->bindParam(':urssaf', $urssaf, PDO::PARAM_STR);
     $response->bindParam(':siret', $siret, PDO::PARAM_STR);
-    $response->bindParam(':observations', $observations, PDO::PARAM_STR);
+    $response->bindParam(':observation', $observation, PDO::PARAM_STR);
     $response->execute();
     return true; 
 }
