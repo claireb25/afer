@@ -76,12 +76,14 @@ function statut(){
 //EDIT
 function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT animateur.id, animateur.civilite_id_id, civilite.nom, animateur.fonction_animateur_id_id, fonction_animateur.fonction_nom, animateur.statut_id_id, statut_animateur.status_nom, animateur.nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email, urssaf, siret, observations FROM animateur INNER JOIN civilite ON animateur.civilite_id_id = civilite.id INNER JOIN fonction_animateur ON animateur.fonction_animateur_id_id = fonction_animateur.id INNER JOIN statut_animateur ON statut_id_id = statut_animateur.id 
+    $response = $db->prepare("SELECT animateur.id, animateur.civilite_id_id, civilite.nom as civilite_nom , animateur.fonction_animateur_id_id, fonction_animateur.fonction_nom, animateur.statut_id_id, statut_animateur.status_nom, animateur.nom, prenom, gta, raison_sociale, adresse, code_postal, commune, region, tel_portable, tel_fixe, email, urssaf, siret, observations FROM animateur INNER JOIN civilite ON animateur.civilite_id_id = civilite.id INNER JOIN fonction_animateur ON animateur.fonction_animateur_id_id = fonction_animateur.id INNER JOIN statut_animateur ON statut_id_id = statut_animateur.id 
     WHERE animateur.id = :id");
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
+
+
 function edit($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations, $id){
     global $db;
     $response = $db->prepare("UPDATE animateur SET civilite_id_id = :civilite, fonction_animateur_id_id = :fonction,statut_id_id = :statut, nom = :nom, prenom = :prenom, gta = :gta, raison_sociale = :raison_sociale, adresse = :adresse, code_postal = :code_postal, commune = :ville, region = :region, tel_portable = :tel_portable,tel_fixe = :tel_fixe, email = :email, urssaf = :urssaf, siret = :siret, observations = :observations WHERE animateur.id = :id");

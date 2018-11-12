@@ -103,7 +103,7 @@
                     </div>
                     <div class="form-group form-group-padding">
                         <label for="commune" class="form-label">Commune *</label>
-                        <input type="text" class="form-input shift form-input-padding-right-none" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
+                        <input type="text" class="form-input firstLetterUpper form-input-padding-right-none" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
                         <p class="form-msg-error 
                         {% if error is not defined %}                    
                             hidden             
@@ -118,7 +118,7 @@
                     </div>
                     <div class="form-group form-group-padding">
                         <label for="region" class="form-label">Région</label>
-                        <input type="text" class="form-input shift form-input-padding-right-none" id="region" name="region" value="{% if region is defined %}{{ region | raw }}{% endif %}" />                
+                        <input type="text" class="form-input firstLetterUpper form-input-padding-right-none" id="region" name="region" value="{% if region is defined %}{{ region | raw }}{% endif %}" />                
                     </div>   
                 </div>
             </div>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="form-group form-group-padding">
                         <label for="raison_sociale" class="form-label ">Raison sociale</label>
-                        <input type="text" class="form-input shift form-input-padding-right-none" id="raison_sociale" name="raison_sociale" value="{% if email is defined %}{{ raison_sociale | raw }}{% endif %}" />             
+                        <input type="text" class="form-input firstLetterUpper form-input-padding-right-none" id="raison_sociale" name="raison_sociale" value="{% if email is defined %}{{ raison_sociale | raw }}{% endif %}" />             
                     </div>
                     <div class="form-group form-group-padding">
                         <label for="fonction_animateur" class="form-label">Fonction</label>

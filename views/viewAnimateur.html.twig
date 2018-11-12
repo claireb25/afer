@@ -1,16 +1,31 @@
 {% extends 'template.html.twig' %}
 
 {% block content %}
-  <h1>Tribunal : {{toEdit.tribunal_nom}}</h1>
+  <h1>Animateur : {{toEdit.civilite_nom}} {{toEdit.nom}} {{toEdit.prenom}} - {{toEdit.commune}}</h1>
   <div class="larg" >
 
        
-        <p><span class="bold" >Service :</span> {{ toEdit.service_nom|raw }}</p>
-        <p><span class="bold" >Autorité :</span> {{ toEdit.autorite_nom|raw }}</p>
+        <p><span class="bold" >Civilité :</span> {{ toEdit.civilite_nom|raw }}</p>
+        <p><span class="bold" >Nom :</span> {{ toEdit.nom|raw }}</p>
+        <p><span class="bold" >Prénom :</span> {{ toEdit.prenom|raw }}</p>
         <p><span class="bold" >Adresse :</span> {{ toEdit.adresse|raw }}</p>
-        <p><span class="bold" >Code postal :</span> {{ toEdit.code_postal|raw }}</p>
+        <p><span class="bold">Code postal :</span> {{ toEdit.code_postal|raw }}</p>
         <p><span class="bold">Commune :</span> {{ toEdit.commune|raw }}</p>
-        <a href="prefecture/edit/{{toEdit.id}}" class="btn-link">Modifier</a>
+        <p><span class="bold">Région :</span> {{ toEdit.region|raw }}</p>
+        <p><span class="bold">Gestion technique et administrative :</span> {% if  toEdit.gta == 1 %} Oui {% else %} Non {% endif %}</p>
+        <p><span class="bold">Raison sociale :</span> {{ toEdit.raison_sociale|raw }}</p>
+        <p><span class="bold">Fonction :</span> {{ toEdit.fonction_nom|raw }}</p>
+        <p><span class="bold">Statut :</span> {{ toEdit.status_nom|raw }}</p>
+        <p><span class="bold">URSSAF :</span> {{ toEdit.urssaf|raw }}</p>
+        <p><span class="bold">Siret :</span> {{ toEdit.siret|raw }}</p>
+        <p><span class="bold">Téléphone fixe :</span> {{ toEdit.tel_fixe|raw }}</p>
+        <p><span class="bold">Téléphone mobile :</span> {{ toEdit.tel_portable|raw }}</p>
+        <p><span class="bold">Email :</span> {{ toEdit.email|raw }}</p>
+        <p><span class="bold">Observations :</p>
+        <div>
+           {{ toEdit.observations|raw }}
+        </div>
+        <a href="animateur/edit/{{toEdit.id}}" class="btn-link">Modifier</a>
   </div>
   
 {% endblock %}
