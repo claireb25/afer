@@ -121,6 +121,17 @@ function delete($id){
     return true; 
 }
 
+function nombreRelationAnimateurStage( $id ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM animateur_stage where animateur_id = :id";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+
+    return $result['nombre']; 
+}
+
 
 function getCountAnimateur( $nom,  $prenom, $adresse, $code_postal, $commune ){
     global $db;
