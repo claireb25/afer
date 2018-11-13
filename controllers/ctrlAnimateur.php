@@ -176,23 +176,81 @@ if (isset($_GET['action'])){
             showNew();
         }
             break; 
+        
         case 'edit':
-            if (count($_POST) > 0){   
-                if (isset($_POST['gta'])){
-                    $_POST['gta'] = 1;
-                    update($_POST['civilite'], $_POST['nom'], $_POST['prenom'], $_POST['fonction'], $_POST['statut'], $_POST['gta'], $_POST['raison_sociale'], $_POST['adresse'], $_POST['code_postal'], $_POST['ville'], $_POST['region'], $_POST['tel_portable'], $_POST['tel_fixe'], $_POST['email'], $_POST['urssaf'], $_POST['siret'], $_POST['observations'], $_GET['id']);
+        if (count($_POST) > 0){
+            $id = (int) $_GET['id'];
+            $tribunal_nom = '';
+            $adresse = '';
+            $code_postal = '';
+            $commune = '';
+            $service_tribunal = '';
+            $autorite_tribunal = '';
 
-                } else {
-                    $_POST['gta'] = 0;
-                    update($_POST['civilite'], $_POST['nom'], $_POST['prenom'], $_POST['fonction'], $_POST['statut'], $_POST['gta'], $_POST['raison_sociale'], $_POST['adresse'], $_POST['code_postal'], $_POST['ville'], $_POST['region'], $_POST['tel_portable'], $_POST['tel_fixe'], $_POST['email'], $_POST['urssaf'], $_POST['siret'],$_POST['observations'], $_GET['id']);
+            if( isset( $_POST['tribunal_nom'] ) ){
+                if( !empty( $_POST['tribunal_nom'] ) ){
+                    $tribunal_nom = htmlentities( trim( $_POST['tribunal_nom'] ) );
                 }
-                // redirectAnimateurList(); 
-            } else {
-                showEdit($_GET['id']);
-              
             }
+
+            if( isset( $_POST['adresse'] ) ){
+                if( !empty( $_POST['adresse'] ) ){
+                    $adresse = htmlentities( trim( $_POST['adresse'] ) );
+                }
+            }
+
+
+            if( isset( $_POST['code_postal'] ) ){
+                if( !empty( $_POST['code_postal'] ) ){
+                    $code_postal = htmlentities( trim( $_POST['code_postal'] ) );
+                }
+            }
+
+            if( isset( $_POST['commune'] ) ){
+                if( !empty( $_POST['commune'] ) ){
+                    $commune = htmlentities( trim( $_POST['commune'] ) );
+                }
+            }
+
+            if( isset( $_POST['autorite_tribunal'] ) ){
+                if( !empty( $_POST['autorite_tribunal'] ) ){
+                    $autorite_tribunal = htmlentities( trim( $_POST['autorite_tribunal'] ) );
+                    $autorite_tribunal = (int) $autorite_tribunal;
+                }
+            }
+
+            if( isset( $_POST['service_tribunal'] ) ){
+                if( !empty( $_POST['service_tribunal'] ) ){
+                    $service_tribunal = htmlentities( trim( $_POST['service_tribunal'] ) );
+                    $service_tribunal = (int) $service_tribunal;
+                }
+            }
+
+           
+
+            if( $autorite_tribunal == "" ){
+                $autorite_tribunal = null;
+            }
+
+            if( $service_tribunal == "" ){
+                $service_tribunal = null;
+            }
+
+
             
-            break;
+
+            $reponse = (int) getCountTribunalEdit( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal, $id );
+            if( $reponse === 0 ){   
+                update( $tribunal_nom,   $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune, $id  );
+                redirectTribunalList();
+            }else{
+                showExistEdit( $tribunal_nom,   $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune, $id );
+            }
+        }else{
+            showEdit($_GET['id']);
+        }
+        
+        break;
         
             case 'view':
             if( isset( $_GET['id'] ) ){
@@ -237,18 +295,20 @@ function showExist( $civilite, $nom, $prenom, $adresse, $code_postal, $commune, 
 
     echo $template->render( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'civilite' => $civilite, 'nom' => $nom, 'prenom' => $prenom, 'adresse' => $adresse, 'code_postal' => $code_postal, 'commune' => $commune, 'region' => $region, 'gta' => $gta, 'raison_sociale' => $raison_sociale, 'fonction_animateur' => $fonction_animateur, 'statut_animateur' => $statut_animateur, 'urssaf' => $urssaf, 'siret' => $siret, 'tel_portable' => $tel_portable, 'tel_fixe' => $tel_fixe, 'email' => $email, 'observation' => $observation, 'listeCivilite' => $listeCivilite, 'listeFonction' => $listeFonction, 'listeStatut' => $listeStatut  )  );
 }
+
+
 // EDIT 
 function showEdit($id){
-    $civilite = civilite();
-    $fonction = fonction();
-    $statut = statut();
+    $listeCivilite = civilite();
+    $listeFonction = fonction();
+    $listeStatut = statut();
     $toEdit = getOne($id);
     global $twig;
     $template = $twig->load('editAnimateur.html.twig');
-    echo $template->render(array('toEdit'=>$toEdit, 'civilite'=>$civilite, 'fonction'=> $fonction, 'statut' => $statut));
-    // var_dump($toEdit);
-    // var_dump($civilite);
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'toEdit'=>$toEdit, 'listeCivilite'=>$listeCivilite, 'listeFonction'=> $listeFonction, 'listeStatut' => $listeStatut));
 }
+
+
 function update($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations, $id){
     $civilite = (int)$civilite;
     $nom = htmlentities($nom);

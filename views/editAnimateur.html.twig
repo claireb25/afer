@@ -1,83 +1,241 @@
 {% extends 'template.html.twig' %}
 
 {% block content %}
+    <h1>Ajout d'un animateur</h1>
+        <form action="animateur/new" method="post" class="form form-animateur form-animateur-create larg" >
+            
+            <div>
+                <h3>Information d'identité
+                    <span class="entypo-down-open"></span>
+                </h3>
+                <div id="valeurObligatoire" style="display:none" >
+                    <div class="form-group form-group-padding" >
+                        <label for="tribunal_nom" class="form-label">Civilités *</label>
+                        <select name="civilite" id="civilite" class="form-input capitalize small-select" >
+                        {% if toEdit.civilite is null %}
+                            <option value="civilite"  selected disabled>Civilité</option>   
+                            {% for elem in listeCivilite %}                    
+                                <option value="{{ elem.id }}" >{{ elem.nom |raw }}</option>                    
+                            {% endfor %}
+                        {% else %}
+                            <option value="civilite"  disabled>Civilité</option>   
+                            {% for elem in listeCivilite %}
+                                {% if elem.nom == toEdit.civilite %}
+                                    <option value="{{ elem.id }}" selected >{{ elem.nom | raw }}</option>
+                                {% else %}
+                                    <option value="{{ elem.id }}"  >{{ elem.nom | raw }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}  
+                        </select> 
+                        <button type="button" class="form-button small-btn inline-btn btn-add-civilite">+</button>
+                        <p class="form-msg-error 
+                            {% if error is defined %}             
+                                hidden                
+                            {% endif %}
+                            " id="msg-civilite" >
+                            {% if toEdit.civilite is defined %}                 
+                                    {% if toEdit.civilite  < 1  %} 
+                                        Veuillez choisir une civilité
+                                    {% endif %}                                
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="nom" class="form-label">Nom *</label>
+                        <input type="text" class="form-input  form-input-padding-right-none shift" id="nom" name="nom" value="{% if toEdit.nom is defined %}{{ toEdit.nom | raw }}{% endif %}" />
+                        <p class="form-msg-error 
+                        {% if error is not defined %}                    
+                            hidden             
+                        {% endif %}
+                        " id="msg-nom" >
+                            {% if error is not defined %}                         
+                                    {% if toEdit.nom == '' %} 
+                                        Veuillez saisir un nom
+                                    {% endif %}                                       
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="prenom" class="form-label">Prénom *</label>
+                        <input type="text" class="form-input firstLetterUpper form-input-padding-right-none" id="prenom" name="prenom" value="{% if toEdit.prenom is defined %}{{ toEdit.prenom | raw }}{% endif %}" />
+                        <p class="form-msg-error 
+                            {% if error is not defined %}                    
+                                hidden             
+                            {% endif %}
+                            " id="msg-prenom" >
+                            {% if error is not defined %}                         
+                                    {% if toEdit.prenom == '' %} 
+                                        Veuillez saisir un prénom
+                                    {% endif %}                                       
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="adresse" class="form-label">Numéro et nom de rue *</label>
+                        <input type="text" class="form-input form-input-padding-right-none" id="adresse" name="adresse" value="{% if toEdit.adresse is defined %}{{ toEdit.adresse | raw }}{% endif %}" />
+                        <p class="form-msg-error 
+                        {% if error is not defined %}                    
+                            hidden             
+                        {% endif %}
+                        " id="msg-adresse" >
+                            {% if error is not defined %}                         
+                                    {% if toEdit.adresse == '' %} 
+                                        Veuillez saisir une adresse
+                                    {% endif %}                                       
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="code_postal" class="form-label">Code postal *</label>
+                        <input type="text" class="form-input form-input-padding-right-none" id="code_postal" name="code_postal" value="{% if toEdit.code_postal is defined %}{{ toEdit.code_postal | raw }}{% endif %}" />
+                        <p class="form-msg-error 
+                        {% if error is not defined %}                    
+                            hidden             
+                        {% endif %}
+                        " id="msg-code_postal" >
+                            {% if error is not defined %}                         
+                                    {% if toEdit.code_postal == '' %} 
+                                        Veuillez saisir un code postal
+                                    {% endif %}                                       
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="commune" class="form-label">Commune *</label>
+                        <input type="text" class="form-input firstLetterUpper form-input-padding-right-none" id="commune" name="commune" value="{% if toEdit.commune is defined %}{{ toEdit.commune | raw }}{% endif %}" />
+                        <p class="form-msg-error 
+                        {% if error is not defined %}                    
+                            hidden             
+                        {% endif %}
+                        " id="msg-commune" >
+                            {% if error is not defined %}                         
+                                    {% if toEdit.commune == '' %} 
+                                        Veuillez saisir une commune
+                                    {% endif %}                                       
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="region" class="form-label">Région</label>
+                        <input type="text" class="form-input firstLetterUpper form-input-padding-right-none" id="region" name="region" value="{% if toEdit.region is defined %}{{ toEdit.region | raw }}{% endif %}" />                
+                    </div>   
+                </div>
+            </div>
+            <div>
+                <h3>Status d'entreprise
+                    <span class="entypo-down-open"></span>
+                </h3>
+                <div style="display:none" >
+                    <div class="form-group form-group-padding">
+                        <label for="gta" class="form-label">Gestion Technique et Administrative</label>
+                        <input type="checkbox" class="form-input " id="gta" name="gta" value="true" {% if gta is defined %}{% if gta == true %}checked{%endif%}{% endif %} />                
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="raison_sociale" class="form-label ">Raison sociale</label>
+                        <input type="text" class="form-input firstLetterUpper form-input-padding-right-none" id="raison_sociale" name="raison_sociale" value="{% if toEdit.raison_sociale is defined %}{{ toEdit.raison_sociale | raw }}{% endif %}" />             
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="fonction_animateur" class="form-label">Fonction</label>
+                        <select id="fonction_animateur" name="fonction_animateur" class="form-input small-select " >
+                        {% if toEdit.fonction_nom is null %}
+                            <option value="fonction"  selected disabled>Fonction</option>   
+                            {% for elem in listeFonction %}                    
+                                <option value="{{ elem.id }}" >{{ elem.fonction_nom |raw }}</option>                    
+                            {% endfor %}
+                        {% else %}
+                            <option value="fonction"  disabled>Fonction</option>   
+                            {% for elem in listeFonction %}
+                                {% if elem.fonction_nom == toEdit.fonction_nom %}
+                                    <option value="{{ elem.id }}" selected >{{ elem.fonction_nom | raw }}</option>
+                                {% else %}
+                                    <option value="{{ elem.id }}"  >{{ elem.fonction_nom | raw }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}  
+                        </select>  
+                        <button type="button" class="form-button small-btn inline-btn btn-add-fonction">+</button>    
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="statut_animateur" class="form-label">Statut</label>
+                        <select id="statut_animateur" name="statut_animateur" class="form-input small-select " >
+                        {% if toEdit.status_nom is null %}
+                            <option value="statut"  selected disabled>Statut</option>   
+                            {% for elem in listeStatut %}                    
+                                <option value="{{ elem.id }}" >{{ elem.status_nom |raw }}</option>                    
+                            {% endfor %}
+                        {% else %}
+                            <option value="statut"  disabled>Statut</option>   
+                            {% for elem in listeStatut %}
+                                {% if elem.status_nom == toEdit.status_nom %}
+                                    <option value="{{ elem.id }}" selected >{{ elem.status_nom | raw }}</option>
+                                {% else %}
+                                    <option value="{{ elem.id }}"  >{{ elem.status_nom | raw }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}  
+                        </select>  
+                        <button type="button" class="form-button small-btn inline-btn btn-add-statut">+</button>    
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="urssaf" class="form-label">URSSAF</label>
+                        <input type="text" class="form-input form-input-padding-right-none " id="urssaf" name="urssaf" value="{% if toEdit.urssaf is defined %}{{ toEdit.urssaf | raw }}{% endif %}" />                
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="siret" class="form-label">SIRET</label>
+                        <input type="text" class="form-input form-input-padding-right-none " id="siret" name="siret" value="{% if toEdit.siret is defined %}{{ toEdit.siret | raw }}{% endif %}" />                
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Contact
+                    <span class="entypo-down-open"></span>
+                </h3>
+                <div style="display:none" >
+                    <div class="form-group form-group-padding">
+                        <label for="tel_portable" class="form-label">Téléphone portable</label>
+                        <input type="text" class="form-input form-input-padding-right-none " id="tel_portable" name="tel_portable" value="{% if toEdit.tel_portable is defined %}{{ toEdit.tel_portable | raw }}{% endif %}" />                
+                    </div>
+                     <div class="form-group form-group-padding">
+                        <label for="tel_fixe" class="form-label">Téléphone fixe</label>
+                        <input type="text" class="form-input form-input-padding-right-none" id="tel_fixe" name="tel_fixe" value="{% if toEdit.tel_fixe is defined %}{{ toEdit.tel_fixe | raw }}{% endif %}" />                
+                    </div>
+                    <div class="form-group form-group-padding">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-input noshift form-input-padding-right-none" id="email" name="email" value="{% if toEdit.email is defined %}{{ toEdit.email | raw }}{% endif %}" />                
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Observations
+                    <span class="entypo-down-open"></span>
+                </h3>
+                <div style="display:none" >
+                    <div class="form-group form-group-padding">
+                        <textarea rows="8" type="text" class="form-textarea form-textearea-padding-right-none " id="observation" name="observation" >{% if toEdit.observations is defined %}{{ toEdit.observations | raw }}{% endif %}</textarea>                
+                    </div>
+                </div>
+            </div>
+            <div class="form-login-group">
+                <button class="form-login-button">Valider</button>
+            </div>
+        </form>  
+    <div id="alertUser" >
+    </div>
+  {% if error is defined %}
+          <div class="boxOverlay" >
+              <div class="modal fas fa-exclamation-triangle">
+                  {%if error == 'exist' %}           
+                      <p class="modal-message">L'animateur avec la même nom, prénom, adresse, code postal et villeexiste déjà dans la table Animateur.</p> 
+                  {% else %}         
+                      <p class="modal-message">Merci de saisir les champs signalés par un message d'erreur.</p> 
+                  {% endif %}
+                  <button type="button" class="modal-btn form-login-button modal-btn-ok" >OK</button>
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
 
-<h1>Modifier l'animateur : {{ toEdit.prenom }} {{ toEdit.nom }}</h1>
-
-
-<form action="animateur/edit/{{ toEdit.id }}" method="post" class="form">
-  <div class="form-example">
-    <h3>Informations</h3>
-    <select name="civilite">   
-        {% for elem in civilite %}
-        <option value="{{ elem.id }}" {% if toEdit.civilite_id_id == elem.id %} selected {% endif %}>{{ elem.nom }}</option>
-        {% endfor %}
-    </select>
-
-
-    <label for="nom" name="nom">Nom
-    <input type="text" name="nom" id="nom" value="{{ toEdit.nom }}"></label>
-
-    <label for="prenom" name="prenom">Prénom
-    <input type="text" name="prenom" id="prenom" value="{{ toEdit.prenom }}"></label>
-
-     <select name="fonction">
-        {% for elem in fonction %}
-            <option  value="{{ elem.id }}" {% if toEdit.fonction_animateur_id_id == elem.id %} selected {% endif %} >{{ elem.fonction_nom }}</option>    
-        {% endfor %}
-        
-    </select>
-    <select name="statut">
-        {% for elem in statut %}
-        <option selected="" value="{{ elem.id }}"  {% if toEdit.statut_animateur_id_id == elem.id %} selected {% endif %}>{{ elem.status_nom }}</option>
-        {% endfor %}
-    </select>
-
-    <label for="gta" name="gta">Gestion Technique et Administrative</label>
-    <input type="checkbox" name="gta" id="name" {% if toEdit.gta == 1 %} checked {% endif %}>
-
-    <h3>Adresse</h3>
-
-    <label for="raison_sociale" name="raison_sociale">Raison sociale
-    <input type="text" name="raison_sociale" id="raison_sociale" value="{{ toEdit.raison_sociale }}"></label>
-
-    <label for="adresse" name="adresse">Numéro et nom de rue
-    <input type="text" name="adresse" id="adresse" value="{{ toEdit.adresse }}"></label>
-
-    <label for="code_postal" name="code_postal">Code postal
-    <input type="text" name="code_postal" id="code_postal" value="{{ toEdit.code_postal }}"></label>
-
-    <label for="ville" name="ville">Ville
-    <input type="text" name="ville" id="ville" value="{{ toEdit.commune }}"></label>
-
-    <label for="region" name="region">Région
-    <input type="text" name="region" id="region" value="{{ toEdit.region }}"></label>
-
-
-    <h3>Contact</h3>
-
-    <label for="tel_portable" name="tel_portable">Téléphone portable
-    <input type="text" name="tel_portable" id="tel_portable" value="{{ toEdit.tel_portable }}"></label>
-
-    <label for="tel_fixe" name="tel_fixe">Téléphone fixe
-    <input type="text" name="tel_fixe" id="tel_fixe" value="{{ toEdit.tel_fixe }}"></label>
-
-    <label for="email" name="email">Adresse e-mail
-    <input type="text" name="email" id="email" value="{{ toEdit.email }}"></label>
-
-
-    <h3>Autres</h3>
-
-    <label for="urssaf" name="urssaf">Urssaf
-    <input type="text" name="urssaf" id="urssaf" value="{{ toEdit.urssaf }}"></label>
-
-    <label for="siret" name="siret">SIRET
-    <input type="text" name="siret" id="siret" value="{{ toEdit.siret }}"></label>
-
-    <label for="observations" name="observations">Observations
-    <input type="text" name="observations" id="observations" value="{{ toEdit.observations }}"></label>
-
-    <input type="submit" value="Modifier">
-</form>
-
-{% endblock %}
+    {% block javascript %} 
+      <script src="assets/js/app.js" ></script>
+    {% endblock %}
