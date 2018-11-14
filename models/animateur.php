@@ -163,3 +163,14 @@ function getCountAnimateurEdit( $nom,  $prenom, $adresse, $code_postal, $commune
     $result = $response->fetch( PDO::FETCH_ASSOC);
     return $result['nombre']; 
 }
+
+
+function searchCommune( $valueSearch ){
+    global $db;
+    
+    $sql = "SELECT commune FROM animateur  where commune like :valueSearch ";
+    $response = $db->prepare( $sql );
+    $response->bindValue(':valueSearch', $valueSearch.'%', PDO::PARAM_STR);
+    $response->execute();
+    return $response->fetchAll(PDO::FETCH_ASSOC); 
+}

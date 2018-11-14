@@ -345,11 +345,20 @@ if (isset($_GET['action'])){
         
         break;
         
-            case 'view':
-            if( isset( $_GET['id'] ) ){
-                showView( $_GET['id'] );
-            }
-            break;
+        case 'view':
+        if( isset( $_GET['id'] ) ){
+            showView( $_GET['id'] );
+        }
+        break;
+
+        case 'newjson':
+
+            $itemSearch = htmlentities( trim( $_POST['itemSearch'] ) );
+            $valueSearch = htmlentities( trim( $_POST['valueSearch'] ) );
+            search( $itemSearch, $valueSearch ) ;
+
+        break;
+
         case 'delete':
             deleteElement($_GET['id']);
             break;
@@ -455,4 +464,25 @@ function showView( $id ){
     global $twig;
     $template = $twig->load('viewAnimateur.html.twig');
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'toEdit'=>$toEdit ) );
+}
+
+
+
+function search( $itemSearch, $valueSearch ){
+
+    $reponse = array( 'error' => false , 'list' => null );
+    
+    switch( $itemSearch ){
+        
+        case 'commune' :
+            $reponse['list'] = searchCommune( $valueSearch );
+            break;
+
+        default :
+            $reponse['error'] = true;
+
+    }
+
+
+    echo json_encode( $reponse );
 }
