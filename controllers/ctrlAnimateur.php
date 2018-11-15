@@ -480,9 +480,10 @@ function search( $itemSearch, $valueSearch ){
 
         default :
             $reponse['error'] = true;
+            break;
 
     }
 
 
-    echo json_encode( $reponse );
+    echo json_encode(  $reponse );
 }

@@ -1389,9 +1389,13 @@ function autocomplete(){
                     method :  'POST',
                     body : formData
                 })
-                .then( ( result ) => result.text() )
+                .then( ( result ) => result.json() )
                 .then( ( result ) => {
-                    console.log( result );
+                    if( result.error === false ){
+                        if( result.list.length ){
+                            console.log( result.list );
+                        }
+                    }
                 })
             }                
         });
