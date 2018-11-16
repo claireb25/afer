@@ -116,6 +116,10 @@
         case "stagiairestage":
             require("controllers/ctrlStagiaireStage.php");
             break;
+            
+        case "error":
+            require('controllers/ctrl404.php');
+        break; 
 
             case "404":
             require('controllers/ctrl404.php');

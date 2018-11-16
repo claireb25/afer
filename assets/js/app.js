@@ -164,6 +164,10 @@ function main(){
     noLetterMaj();
   }
 
+  if( document.querySelector('.autocomplete') !== null ){
+    autocomplete();
+  }
+
 
 }
 
@@ -1365,6 +1369,38 @@ function noLetterMaj(){
             }                
         });
     });
+}
+
+
+
+function autocomplete(){
+    const autoComplete = document.querySelectorAll('.autocomplete');
+
+    autoComplete.forEach( ( element ) => {
+        element.addEventListener( 'keyup', () => {
+            if( element.value.length > 2 ){
+                let itemSearch = element.getAttribute('id');
+                let valueSearch = element.value;
+                let formData = new FormData();
+                formData.append('itemSearch', itemSearch );
+                formData.append('valueSearch', valueSearch);
+
+                fetch('/animateur/newjson', {
+                    method :  'POST',
+                    body : formData
+                })
+                .then( ( result ) => result.json() )
+                .then( ( result ) => {
+                    if( result.error === false ){
+                        if( result.list.length ){
+                            console.log( result.list );
+                        }
+                    }
+                })
+            }                
+        });
+    });
+
 }
 
 

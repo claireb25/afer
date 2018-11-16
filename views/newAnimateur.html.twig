@@ -103,7 +103,10 @@
                     </div>
                     <div class="form-group form-group-padding">
                         <label for="commune" class="form-label">Commune *</label>
-                        <input type="text" class="form-input firstLetterUpper form-input-padding-right-none" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
+                        <input type="text" class="form-input firstLetterUpper form-input-padding-right-none autocomplete" id="commune" name="commune" value="{% if commune is defined %}{{ commune | raw }}{% endif %}" />
+                        <div class="listeAutoComplete hidden" >
+
+                        </div>
                         <p class="form-msg-error 
                         {% if error is not defined %}                    
                             hidden             

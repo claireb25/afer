@@ -84,29 +84,27 @@ function getOne($id){
 }
 
 
-function edit($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations, $id){
+function edit($civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation, $id){
     global $db;
-    $response = $db->prepare("UPDATE animateur SET civilite_id_id = :civilite, fonction_animateur_id_id = :fonction,statut_id_id = :statut, nom = :nom, prenom = :prenom, gta = :gta, raison_sociale = :raison_sociale, adresse = :adresse, code_postal = :code_postal, commune = :ville, region = :region, tel_portable = :tel_portable,tel_fixe = :tel_fixe, email = :email, urssaf = :urssaf, siret = :siret, observations = :observations WHERE animateur.id = :id");
+    $response = $db->prepare("UPDATE animateur SET civilite_id_id = :civilite, fonction_animateur_id_id = :fonction,statut_id_id = :statut, nom = :nom, prenom = :prenom, gta = :gta, raison_sociale = :raison_sociale, adresse = :adresse, code_postal = :code_postal, commune = :ville, region = :region, tel_portable = :tel_portable,tel_fixe = :tel_fixe, email = :email, urssaf = :urssaf, siret = :siret, observations = :observation WHERE animateur.id = :id");
     $response->bindParam(':civilite', $civilite, PDO::PARAM_INT);
     $response->bindParam(':nom', $nom, PDO::PARAM_STR);
     $response->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-    $response->bindParam(':fonction', $fonction, PDO::PARAM_INT);
-    $response->bindParam(':statut', $statut, PDO::PARAM_INT);
+    $response->bindParam(':fonction', $fonction_animateur, PDO::PARAM_INT);
+    $response->bindParam(':statut', $statut_animateur, PDO::PARAM_INT);
     $response->bindParam(':gta', $gta, PDO::PARAM_BOOL);
     $response->bindParam(':raison_sociale', $raison_sociale, PDO::PARAM_STR);
     $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
     $response->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
-    $response->bindParam(':ville', $ville, PDO::PARAM_STR);
+    $response->bindParam(':ville', $commune, PDO::PARAM_STR);
     $response->bindParam(':region', $region, PDO::PARAM_STR);
     $response->bindParam(':tel_portable', $tel_portable, PDO::PARAM_STR);
     $response->bindParam(':tel_fixe', $tel_fixe, PDO::PARAM_STR);
     $response->bindParam(':email', $email, PDO::PARAM_STR);
     $response->bindParam(':urssaf', $urssaf, PDO::PARAM_STR);
     $response->bindParam(':siret', $siret, PDO::PARAM_STR);
-    $response->bindParam(':observations', $observations, PDO::PARAM_STR);
+    $response->bindParam(':observation', $observation, PDO::PARAM_STR);
     $response->bindParam(':id', $id, PDO::PARAM_INT);
-    var_dump($civilite);
-    var_dump($nom);
     $response->execute();
     return true; 
 }
@@ -123,6 +121,17 @@ function delete($id){
     return true; 
 }
 
+function nombreRelationAnimateurStage( $id ){
+    global $db;
+    $sql = "SELECT COUNT(id) AS nombre FROM animateur_stage where animateur_id = :id";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+
+    return $result['nombre']; 
+}
+
 
 function getCountAnimateur( $nom,  $prenom, $adresse, $code_postal, $commune ){
     global $db;
@@ -136,4 +145,32 @@ function getCountAnimateur( $nom,  $prenom, $adresse, $code_postal, $commune ){
     $response->execute();
     $result = $response->fetch( PDO::FETCH_ASSOC);
     return $result['nombre']; 
+}
+
+
+function getCountAnimateurEdit( $nom,  $prenom, $adresse, $code_postal, $commune, $id ){
+    global $db;
+    
+    $sql = "SELECT COUNT(id) AS nombre FROM animateur where nom = :nom and prenom = :prenom and adresse = :adresse and code_postal = :code_postal and  commune = :commune and id != :id ";
+    $response = $db->prepare( $sql );
+    $response->bindParam(':nom', $nom, PDO::PARAM_STR);
+    $response->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+    $response->bindParam(':adresse', $adresse, PDO::PARAM_STR);
+    $response->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
+    $response->bindParam(':commune', $commune, PDO::PARAM_STR);
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    $result = $response->fetch( PDO::FETCH_ASSOC);
+    return $result['nombre']; 
+}
+
+
+function searchCommune( $valueSearch ){
+    global $db;
+    
+    $sql = "SELECT commune FROM animateur  where commune like :valueSearch ";
+    $response = $db->prepare( $sql );
+    $response->bindValue(':valueSearch', $valueSearch.'%', PDO::PARAM_STR);
+    $response->execute();
+    return $response->fetchAll(PDO::FETCH_ASSOC); 
 }

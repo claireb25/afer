@@ -179,17 +179,49 @@ if (isset($_GET['action'])){
         
         case 'edit':
         if (count($_POST) > 0){
-            $id = (int) $_GET['id'];
-            $tribunal_nom = '';
+            $id = '';
+            $civilite = '';
+            $nom = '';
+            $prenom = '';
             $adresse = '';
             $code_postal = '';
             $commune = '';
-            $service_tribunal = '';
-            $autorite_tribunal = '';
+            $region = '';
+            $gta = false;
+            $raison_sociale = '';
+            $fonction_animateur = '';
+            $statut_animateur = '';
+            $urssaf = '';
+            $siret = '';
+            $tel_portable = '';
+            $tel_fixe = '';
+            $email = '';
+            $observation = '';
 
-            if( isset( $_POST['tribunal_nom'] ) ){
-                if( !empty( $_POST['tribunal_nom'] ) ){
-                    $tribunal_nom = htmlentities( trim( $_POST['tribunal_nom'] ) );
+            if( isset( $_GET['id'] ) ){
+                if( !empty( $_GET['id'] ) ){
+                    $id = htmlentities( trim( $_GET['id'] ) );
+                    $id = (int) $id;
+                }
+            }
+
+            if( isset( $_POST['civilite'] ) ){
+                if( !empty( $_POST['civilite'] ) ){
+                    $civilite = htmlentities( trim( $_POST['civilite'] ) );
+                    $civilite = (int) $civilite;
+                }
+            }
+
+            if( isset( $_POST['nom'] ) ){
+                if( !empty( $_POST['nom'] ) ){
+                    $nom = htmlentities( trim( $_POST['nom'] ) );
+                }
+            }
+
+
+            if( isset( $_POST['prenom'] ) ){
+                if( !empty( $_POST['prenom'] ) ){
+                    $prenom = htmlentities( trim( $_POST['prenom'] ) );
                 }
             }
 
@@ -198,7 +230,6 @@ if (isset($_GET['action'])){
                     $adresse = htmlentities( trim( $_POST['adresse'] ) );
                 }
             }
-
 
             if( isset( $_POST['code_postal'] ) ){
                 if( !empty( $_POST['code_postal'] ) ){
@@ -212,39 +243,101 @@ if (isset($_GET['action'])){
                 }
             }
 
-            if( isset( $_POST['autorite_tribunal'] ) ){
-                if( !empty( $_POST['autorite_tribunal'] ) ){
-                    $autorite_tribunal = htmlentities( trim( $_POST['autorite_tribunal'] ) );
-                    $autorite_tribunal = (int) $autorite_tribunal;
+            if( isset( $_POST['region'] ) ){
+                if( !empty( $_POST['region'] ) ){
+                    $region = htmlentities( trim( $_POST['region'] ) );
                 }
             }
 
-            if( isset( $_POST['service_tribunal'] ) ){
-                if( !empty( $_POST['service_tribunal'] ) ){
-                    $service_tribunal = htmlentities( trim( $_POST['service_tribunal'] ) );
-                    $service_tribunal = (int) $service_tribunal;
+
+            if( isset( $_POST['gta'] ) ){
+                if( !empty( $_POST['gta'] ) ){
+                    $gta = true;
+                }
+            }
+
+            if( isset( $_POST['raison_sociale'] ) ){
+                if( !empty( $_POST['raison_sociale'] ) ){
+                    $raison_sociale = htmlentities( trim( $_POST['raison_sociale'] ) );
+                }
+            }
+
+            if( isset( $_POST['fonction_animateur'] ) ){
+                if( !empty( $_POST['fonction_animateur'] ) ){
+                    $fonction_animateur = htmlentities( trim( $_POST['fonction_animateur'] ) );
+                    $fonction_animateur = (int) $fonction_animateur;
+                }
+            }
+
+            if( isset( $_POST['statut_animateur'] ) ){
+                if( !empty( $_POST['statut_animateur'] ) ){
+                    $statut_animateur = htmlentities( trim( $_POST['statut_animateur'] ) );
+                    $statut_animateur = (int) $statut_animateur;
+                }
+            }
+            
+            if( isset( $_POST['urssaf'] ) ){
+                if( !empty( $_POST['urssaf'] ) ){
+                    $urssaf = htmlentities( trim( $_POST['urssaf'] ) );
+                }
+            }
+
+            if( isset( $_POST['siret'] ) ){
+                if( !empty( $_POST['siret'] ) ){
+                    $siret = htmlentities( trim( $_POST['siret'] ) );
+                }
+            }
+
+            if( isset( $_POST['tel_portable'] ) ){
+                if( !empty( $_POST['tel_portable'] ) ){
+                    $tel_portable = htmlentities( trim( $_POST['tel_portable'] ) );
+                }
+            }
+
+            if( isset( $_POST['tel_fixe'] ) ){
+                if( !empty( $_POST['tel_fixe'] ) ){
+                    $tel_fixe = htmlentities( trim( $_POST['tel_fixe'] ) );
+                }
+            }
+            
+            if( isset( $_POST['email'] ) ){
+                if( !empty( $_POST['email'] ) ){
+                    $email = htmlentities( trim( $_POST['email'] ) );
+                }
+            }
+
+            if( isset( $_POST['observation'] ) ){
+                if( !empty( $_POST['observation'] ) ){
+                    $observation = htmlentities( trim( $_POST['observation'] ) );
                 }
             }
 
            
+            
+            
 
-            if( $autorite_tribunal == "" ){
-                $autorite_tribunal = null;
+            if( $civilite == "" ){
+                $civilite = null;
             }
 
-            if( $service_tribunal == "" ){
-                $service_tribunal = null;
+            if( $fonction_animateur == "" ){
+                $fonction_animateur = null;
             }
+
+            if( $statut_animateur == "" ){
+                $statut_animateur = null;
+            }
+
 
 
             
+            $reponse = (int) getCountAnimateurEdit( $nom,  $prenom, $adresse, $code_postal, $commune , $id );
 
-            $reponse = (int) getCountTribunalEdit( $tribunal_nom,  $adresse, $code_postal, $commune, $autorite_tribunal, $service_tribunal, $id );
             if( $reponse === 0 ){   
-                update( $tribunal_nom,   $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune, $id  );
-                redirectTribunalList();
+                update( $civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation, $id  );
+                redirectAnimateurList();
             }else{
-                showExistEdit( $tribunal_nom,   $autorite_tribunal, $service_tribunal, $adresse, $code_postal, $commune, $id );
+                showExistEdit( $civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation, $id );
             }
         }else{
             showEdit($_GET['id']);
@@ -252,11 +345,20 @@ if (isset($_GET['action'])){
         
         break;
         
-            case 'view':
-            if( isset( $_GET['id'] ) ){
-                showView( $_GET['id'] );
-            }
-            break;
+        case 'view':
+        if( isset( $_GET['id'] ) ){
+            showView( $_GET['id'] );
+        }
+        break;
+
+        case 'newjson':
+
+            $itemSearch = htmlentities( trim( $_POST['itemSearch'] ) );
+            $valueSearch = htmlentities( trim( $_POST['valueSearch'] ) );
+            search( $itemSearch, $valueSearch ) ;
+
+        break;
+
         case 'delete':
             deleteElement($_GET['id']);
             break;
@@ -297,6 +399,19 @@ function showExist( $civilite, $nom, $prenom, $adresse, $code_postal, $commune, 
 }
 
 
+function showExistEdit( $civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation, $id ){
+    global $twig;
+    
+    $listeCivilite = civilite();
+    $listeFonction = fonction();
+    $listeStatut = statut();
+    
+    $template = $twig->load('editAnimateur.html.twig');
+
+    echo $template->render( array( "user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ), 'error' => 'exist', 'toEdit' => array( 'civilite' => $civilite, 'nom' => $nom, 'prenom' => $prenom, 'adresse' => $adresse, 'code_postal' => $code_postal, 'commune' => $commune, 'region' => $region, 'gta' => $gta, 'raison_sociale' => $raison_sociale, 'fonction_animateur' => $fonction_animateur, 'statut_animateur' => $statut_animateur, 'urssaf' => $urssaf, 'siret' => $siret, 'tel_portable' => $tel_portable, 'tel_fixe' => $tel_fixe, 'email' => $email, 'observation' => $observation, 'id' => $id ) , 'listeCivilite' => $listeCivilite, 'listeFonction' => $listeFonction, 'listeStatut' => $listeStatut  )  );
+}
+
+
 // EDIT 
 function showEdit($id){
     $listeCivilite = civilite();
@@ -309,36 +424,31 @@ function showEdit($id){
 }
 
 
-function update($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations, $id){
-    $civilite = (int)$civilite;
-    $nom = htmlentities($nom);
-    $prenom = htmlentities($prenom);
-    $fonction = (int)$fonction;
-    $statut = (int)$statut;
-    $gta = (bool)$gta;
-    $raison_sociale = htmlentities($raison_sociale);
-    $adresse = htmlentities($adresse);
-    $code_postal = htmlentities($code_postal);
-    $ville = htmlentities($ville);
-    $region = htmlentities($region);
-    $tel_portable = htmlentities($tel_portable);
-    $tel_fixe = htmlentities($tel_fixe);
-    $email = htmlentities($email);
-    $urssaf = htmlentities($urssaf);
-    $siret = htmlentities($siret);
-    $observations = htmlentities($observations);
-    $id = (int)$id;
+function update($civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation, $id){    
     
-    edit($civilite, $nom, $prenom, $fonction, $statut, $gta, $raison_sociale, $adresse, $code_postal, $ville, $region, $tel_portable, $tel_fixe, $email, $urssaf, $siret, $observations, $id);
+    edit($civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation, $id);
    
 }
 
 
 //DELETE
+function showDeleteError( $id ){
+    global $twig;
+    $template = $twig->load('deleteAnimateur.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] )));
+}
+
+//DELETE
 function deleteElement($id){
     $id = (int)$id;
-    delete($id);
-    redirectAnimateurList();
+    
+    $countStage = nombreRelationAnimateurStage( $id );
+    if( $countStage == 0 ){
+        delete($id);
+        header('Location: /animateur/list');
+    }else{
+        showDeleteError( $id );
+    }    
 }
 
 // REDIRECTIONS
@@ -354,4 +464,26 @@ function showView( $id ){
     global $twig;
     $template = $twig->load('viewAnimateur.html.twig');
     echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'toEdit'=>$toEdit ) );
+}
+
+
+
+function search( $itemSearch, $valueSearch ){
+
+    $reponse = array( 'error' => false , 'list' => null );
+    
+    switch( $itemSearch ){
+        
+        case 'commune' :
+            $reponse['list'] = searchCommune( $valueSearch );
+            break;
+
+        default :
+            $reponse['error'] = true;
+            break;
+
+    }
+
+
+    echo json_encode(  $reponse );
 }
