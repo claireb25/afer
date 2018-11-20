@@ -1395,10 +1395,22 @@ function autocomplete(){
                         if( result.list.length ){                            
                             elemHtmlAutoComplete.classList.remove('hidden');
                             elemHtmlAutoComplete.innerHTML = '';
-                            for( let i of result.list ){
-                                elemHtmlAutoComplete.innerHTML += "<p>" + i.commune + "</p>";
+                            for( let i in result.list ){
+                                for( let z in result.list[i] ){
+                                    elemHtmlAutoComplete.innerHTML += '<p><a href="#" class="autocomplete--choix" >' + result.list[i][z] + '</a></p>';
+                                }
                             }
                         }
+
+                        const choiceLink = document.querySelectorAll('.autocomplete--choix');
+                        choiceLink.forEach( (elemLink) => {
+                            elemLink.addEventListener('click' , (e) => {
+                                e.preventDefault();
+                                element.value = elemLink.textContent;
+                                elemHtmlAutoComplete.classList.add('hidden');
+                                elemHtmlAutoComplete.innerHTML = '';
+                            })
+                        })
                     }
                 })
             }else{
