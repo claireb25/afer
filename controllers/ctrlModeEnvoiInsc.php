@@ -53,9 +53,9 @@ function makeList(){
 
 // NEW
 function addNew($valeur){
-    $mode_envoi = htmlentities($valeur);
+    $mode_envoi = $valeur;
     create($mode_envoi);
-    header('Location: /afer-back/modeenvoiinscription/list');
+    header('Location: /modeenvoiinscription/list');
 }
 
 function showNew(){
@@ -73,16 +73,16 @@ function showEdit($mode_envoi){
 }
 
 function update($data, $id){
-    $mode_envoi = htmlentities($data);
+    $mode_envoi = $data;
     $id = (int)$id;
     edit($mode_envoi, $id);
-    header('Location: /afer-back/modeenvoiinscription/list');
+    header('Location: /modeenvoiinscription/list');
    
 }
 //DELETE
 function deleteElement($nom_col){
-    $nom_col = htmlentities($nom_col);
+    $nom_col = $nom_col;
     delete($nom_col);
-    header('Location: /afer-back/modeenvoiinscription/list');
+    header('Location: /modeenvoiinscription/list');
 }
 

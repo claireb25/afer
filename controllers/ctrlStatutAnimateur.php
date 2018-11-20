@@ -19,7 +19,7 @@ if (isset($_GET['action'])){
         case 'new':
             if (isset($_POST['statut_nom']) && (!empty($_POST['statut_nom']))){
                             
-                $statut_nom = htmlentities( trim( $_POST['statut_nom'] ) );               
+                $statut_nom =  trim( $_POST['statut_nom']  );               
                 $reponse = getStatutNom( $statut_nom );
                 
                 if( $reponse === false ){   
@@ -38,7 +38,7 @@ if (isset($_GET['action'])){
                     $id = (int) $_GET['id'];
                     if( count( $_POST ) > 0 ){
                         if( isset( $_POST['statut_nom'] ) ){
-                            $statut_nom = htmlentities( trim( $_POST['statut_nom'] ) );               
+                            $statut_nom =  trim( $_POST['statut_nom']  );               
                             $reponse = getStatutNom( $statut_nom );
                 
                             if( $reponse === false ){
@@ -79,7 +79,7 @@ if (isset($_GET['action'])){
                 if( $reponse === false ){                   
                     create($statutAnimateur_nom);
                     $lastRow = lastRow();
-                    $lastRow['status_nom'] = html_entity_decode( $lastRow['status_nom'] );
+                    $lastRow['status_nom'] =  $lastRow['status_nom'] ;
                     $data = array('error' => 'add', 'data' => $lastRow );
                     echo json_encode( $data );
                 }else{
@@ -109,7 +109,7 @@ function makeList(){
 function addNew($valeur){
     $status_nom = $valeur;
     create($status_nom);
-    header('Location: /afer-back/statutanimateur/list');
+    header('Location: /statutanimateur/list');
 }
 
 function showNew(){
@@ -170,6 +170,6 @@ function updateStatut($data, $id){
     $status_nom = $data;
     $id = (int)$id;
     edit($status_nom, $id);
-    header('Location: /afer-back/statutanimateur/list');
+    header('Location: /statutanimateur/list');
    
 }

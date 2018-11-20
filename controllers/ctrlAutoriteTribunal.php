@@ -19,7 +19,7 @@ if (isset($_GET['action'])){
             break;
         case 'new':
             if (isset($_POST['autorite_nom']) && (!empty($_POST['autorite_nom']))){
-                $autorite_nom = htmlentities( trim( $_POST['autorite_nom'] ) );               
+                $autorite_nom =  trim( $_POST['autorite_nom']  );               
                 $reponse = getAutoriteNom( $autorite_nom );
                 
                 if( $reponse === false ){   
@@ -37,7 +37,7 @@ if (isset($_GET['action'])){
                     $id = (int) $_GET['id'];
                     if( count( $_POST ) > 0 ){
                         if( isset( $_POST['autorite_nom'] ) ){
-                            $autorite_nom = htmlentities( trim( $_POST['autorite_nom'] ) );               
+                            $autorite_nom =  trim( $_POST['autorite_nom']  );               
                             $reponse = getAutoriteNom( $autorite_nom );
                 
                             if( $reponse === false ){   
@@ -77,7 +77,7 @@ if (isset($_GET['action'])){
                 if( $reponse === false ){                   
                     create($autorite_nom);
                     $lastRow = lastRow();
-                    $lastRow['autorite_nom'] = html_entity_decode( $lastRow['autorite_nom'] );
+                    $lastRow['autorite_nom'] =  $lastRow['autorite_nom'] ;
                     $data = array('error' => 'add', 'data' => $lastRow );
                     echo json_encode( $data );
                 }else{

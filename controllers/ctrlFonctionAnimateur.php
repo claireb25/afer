@@ -21,7 +21,7 @@ if (isset($_GET['action'])){
         case 'new':
             if (isset($_POST['fonction_nom']) && (!empty($_POST['fonction_nom']))){
                         
-                $fonction_nom = htmlentities( trim( $_POST['fonction_nom'] ) );               
+                $fonction_nom = trim( $_POST['fonction_nom']  );               
                 $reponse = getFonctionNom( $fonction_nom );
                 
                 if( $reponse === false ){   
@@ -41,7 +41,7 @@ if (isset($_GET['action'])){
                     $id = (int) $_GET['id'];
                     if( count( $_POST ) > 0 ){
                         if( isset( $_POST['fonction_nom'] ) ){
-                            $fonction_nom = htmlentities( trim( $_POST['fonction_nom'] ) );               
+                            $fonction_nom =  trim( $_POST['fonction_nom']  );               
                             $reponse = getFonctionNom( $fonction_nom );
                 
                             if( $reponse === false ){
@@ -84,7 +84,7 @@ if (isset($_GET['action'])){
                 if( $reponse === false ){                   
                     create($fonctionAnimateur_nom);
                     $lastRow = lastRow();
-                    $lastRow['fonction_nom'] = html_entity_decode( $lastRow['fonction_nom'] );
+                    $lastRow['fonction_nom'] =  $lastRow['fonction_nom'] ;
                     $data = array('error' => 'add', 'data' => $lastRow );
                     echo json_encode( $data );
                 }else{

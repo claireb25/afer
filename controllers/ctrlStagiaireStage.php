@@ -68,11 +68,6 @@ function showNew(){
     $casStage = casStage();
     $tribunal = tribunal();
     $prefecture = prefecture();
-    var_dump($stagiaire);echo('</br>');echo('</br>');
-    var_dump($stage);echo('</br>');echo('</br>');
-    var_dump($casStage);echo('</br>');echo('</br>');
-    var_dump($tribunal);echo('</br>');echo('</br>');
-    var_dump($prefecture);echo('</br>');echo('</br>');
     global $twig;
     $template = $twig->load('test.html.twig');
     echo $template->render(array('stagiaire'=>$stagiaire, 'stage'=>$stage, 'cas_stage'=>$casStage,'tribunal'=>$tribunal, 'prefecture'=>$prefecture));
@@ -91,8 +86,8 @@ function showEdit($id){
 }
 
 function update($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $stagiaire, $id){
-    $lieuInfraction = htmlentities($lieuInfraction);
-    $numeroParquet = htmlentities($numeroParquet);
+    $lieuInfraction = $lieuInfraction;
+    $numeroParquet = $numeroParquet;
     $id = (int)$id;
     $typeInfraction = typeInfraction();
     editInfraction($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $stagiaire, $id);

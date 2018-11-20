@@ -86,9 +86,9 @@ function makeList(){
 // when adding a new stage 
 function addNew($lieu_stage, $stage_numero, $date_debut, $date_fin, $stage_hpo){
     $lieu_stage = (int)$lieu_stage;
-    $stage_numero = trim(htmlentities($stage_numero));
-    $date_debut = trim(htmlentities($date_debut));
-    $date_fin = trim(htmlentities($date_fin));
+    $stage_numero = trim($stage_numero);
+    $date_debut = trim($date_debut);
+    $date_fin = trim($date_fin);
     $stage_hpo = (bool)$stage_hpo;
     $idStage = create($lieu_stage, $stage_numero, $date_debut, $date_fin, $stage_hpo);
     return $idStage;
@@ -97,16 +97,16 @@ function addNew($lieu_stage, $stage_numero, $date_debut, $date_fin, $stage_hpo){
 
 // when adding a new stage and lieu doesn't exist
 function addLieuxStage($lieu_stage_nom, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers, $numero_agrement){
-    $lieu_stage_nom = trim(htmlentities($lieu_stage_nom));
-    $etablissement_nom = trim(htmlentities($etablissement_nom));
-    $adresse = trim(htmlentities($adresse));
-    $code_postale = trim(htmlentities($code_postal));
-    $commune = trim(htmlentities($commune));
-    $tel = trim(htmlentities($tel));
-    $latitude = trim(htmlentities($latitude));
-    $longitude = trim(htmlentities($longitude));
-    $divers = trim(htmlentities($divers));
-    $numero_agrement = trim(htmlentities($numero_agrement));
+    $lieu_stage_nom = trim($lieu_stage_nom);
+    $etablissement_nom = trim($etablissement_nom);
+    $adresse = trim($adresse);
+    $code_postale = trim($code_postal);
+    $commune = trim($commune);
+    $tel = trim($tel);
+    $latitude = trim($latitude);
+    $longitude = trim($longitude);
+    $divers = trim($divers);
+    $numero_agrement = trim($numero_agrement);
     $lieuId = createLieu($lieu_stage_nom, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers, $numero_agrement);
     return $lieuId;
 }
@@ -148,16 +148,16 @@ function autoCompleteAnim($animateur){
 // when creating a new stage, update of all preselected data from lieu_stage in case of change by user
 function updateLieuxStage($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers, $numero_agrement){
     $lieu_id = (int)$lieu_id;
-    $lieu_stage = trim(htmlentities($lieu_stage));
-    $etablissement_nom = trim(htmlentities($etablissement_nom));
-    $adresse = trim(htmlentities($adresse));
-    $code_postal = trim(htmlentities($code_postal));
-    $commune = trim(htmlentities($commune));
-    $tel = trim(htmlentities($tel));
-    $latitude = trim(htmlentities($latitude));
-    $longitude = trim(htmlentities($longitude));
-    $divers = trim(htmlentities($divers));   
-    $numero_agrement = trim(htmlentities($numero_agrement)); 
+    $lieu_stage = trim($lieu_stage);
+    $etablissement_nom = trim($etablissement_nom);
+    $adresse = trim($adresse);
+    $code_postal = trim($code_postal);
+    $commune = trim($commune);
+    $tel = trim($tel);
+    $latitude = trim($latitude);
+    $longitude = trim($longitude);
+    $divers = trim($divers);   
+    $numero_agrement = trim($numero_agrement); 
     updateLieux($lieu_id, $lieu_stage, $etablissement_nom, $adresse, $code_postal, $commune, $tel, $latitude, $longitude, $divers, $numero_agrement);
 }
 
@@ -172,7 +172,7 @@ function showEdit($id){
 // update a stage 
 function updateStage($stage_numero, $lieu_stage_id, $date_debut, $date_fin, $hpo, $id){
     $lieu_stage_id = (int)$lieu_stage_id;
-    $stage_numero = trim(htmlentities($stage_numero));
+    $stage_numero = trim($stage_numero);
     $hpo = (bool)$hpo;
     $id = (int)$id;
     editStage($stage_numero, $lieu_stage_id, $date_debut, $date_fin, $hpo, $id);   
@@ -192,5 +192,5 @@ function deleteAnimStageLink($id){
 // REDIRECTIONS
 
 function redirectStageList(){
-    header('Location: /afer-back/stage/list');
+    header('Location: /stage/list');
 }

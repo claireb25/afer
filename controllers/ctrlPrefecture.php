@@ -24,39 +24,39 @@ if (isset($_GET['action'])){
                 $autorite_prefecture = '';
                 if( isset( $_POST['prefecture_nom'] ) ){
                     if( !empty( $_POST['prefecture_nom'] ) ){
-                        $prefecture_nom = htmlentities( trim( $_POST['prefecture_nom'] ) );
+                        $prefecture_nom =  trim( $_POST['prefecture_nom']  );
                     }
                 }
 
                 if( isset( $_POST['adresse'] ) ){
                     if( !empty( $_POST['adresse'] ) ){
-                        $adresse = htmlentities( trim( $_POST['adresse'] ) );
+                        $adresse =  trim( $_POST['adresse']  );
                     }
                 }
 
 
                 if( isset( $_POST['code_postal'] ) ){
                     if( !empty( $_POST['code_postal'] ) ){
-                        $code_postal = htmlentities( trim( $_POST['code_postal'] ) );
+                        $code_postal =  trim( $_POST['code_postal']  );
                     }
                 }
 
                 if( isset( $_POST['commune'] ) ){
                     if( !empty( $_POST['commune'] ) ){
-                        $commune = htmlentities( trim( $_POST['commune'] ) );
+                        $commune =  trim( $_POST['commune']  );
                     }
                 }
 
                 if( isset( $_POST['autorite_prefecture'] ) ){
                     if( !empty( $_POST['autorite_prefecture'] ) ){
-                        $autorite_prefecture = htmlentities( trim( $_POST['autorite_prefecture'] ) );
+                        $autorite_prefecture = trim( $_POST['autorite_prefecture']  );
                         $autorite_prefecture = (int) $autorite_prefecture;
                     }
                 }
 
                 if( isset( $_POST['service_prefecture'] ) ){
                     if( !empty( $_POST['service_prefecture'] ) ){
-                        $service_prefecture = htmlentities( trim( $_POST['service_prefecture'] ) );
+                        $service_prefecture =  trim( $_POST['service_prefecture']  );
                         $service_prefecture = (int) $service_prefecture;
                     }
                 }
@@ -93,39 +93,39 @@ if (isset($_GET['action'])){
                 $autorite_prefecture = '';
                 if( isset( $_POST['prefecture_nom'] ) ){
                     if( !empty( $_POST['prefecture_nom'] ) ){
-                        $prefecture_nom = htmlentities( trim( $_POST['prefecture_nom'] ) );
+                        $prefecture_nom =  trim( $_POST['prefecture_nom']  );
                     }
                 }
 
                 if( isset( $_POST['adresse'] ) ){
                     if( !empty( $_POST['adresse'] ) ){
-                        $adresse = htmlentities( trim( $_POST['adresse'] ) );
+                        $adresse =  trim( $_POST['adresse']  );
                     }
                 }
 
 
                 if( isset( $_POST['code_postal'] ) ){
                     if( !empty( $_POST['code_postal'] ) ){
-                        $code_postal = htmlentities( trim( $_POST['code_postal'] ) );
+                        $code_postal =  trim( $_POST['code_postal']  );
                     }
                 }
 
                 if( isset( $_POST['commune'] ) ){
                     if( !empty( $_POST['commune'] ) ){
-                        $commune = htmlentities( trim( $_POST['commune'] ) );
+                        $commune =  trim( $_POST['commune']  );
                     }
                 }
 
                 if( isset( $_POST['autorite_prefecture'] ) ){
                     if( !empty( $_POST['autorite_prefecture'] ) ){
-                        $autorite_prefecture = htmlentities( trim( $_POST['autorite_prefecture'] ) );
+                        $autorite_prefecture =  trim( $_POST['autorite_prefecture']  );
                         $autorite_prefecture = (int) $autorite_prefecture;
                     }
                 }
 
                 if( isset( $_POST['service_prefecture'] ) ){
                     if( !empty( $_POST['service_prefecture'] ) ){
-                        $service_prefecture = htmlentities( trim( $_POST['service_prefecture'] ) );
+                        $service_prefecture =  trim( $_POST['service_prefecture']  );
                         $service_prefecture = (int) $service_prefecture;
                     }
                 }

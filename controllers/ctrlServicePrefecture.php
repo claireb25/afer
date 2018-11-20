@@ -21,7 +21,7 @@ if (isset($_GET['action'])){
         case 'new':
             if (isset($_POST['service_nom']) && (!empty($_POST['service_nom']))){
                
-                $service_nom = htmlentities( trim( $_POST['service_nom'] ) );               
+                $service_nom = trim( $_POST['service_nom']  );               
                 $reponse = getServiceNom( $service_nom );
                 
                 if( $reponse === false ){   
@@ -40,7 +40,7 @@ if (isset($_GET['action'])){
                     $id = (int) $_GET['id'];
                     if( count( $_POST ) > 0 ){
                         if( isset( $_POST['service_nom'] ) ){
-                            $service_nom = htmlentities( trim( $_POST['service_nom'] ) );               
+                            $service_nom =  trim( $_POST['service_nom']  );               
                             $reponse = getServiceNom( $service_nom );
                 
                             if( $reponse === false ){   
@@ -81,7 +81,7 @@ if (isset($_GET['action'])){
                 if( $reponse === false ){                   
                     create($service_nom);
                     $lastRow = lastRow();
-                    $lastRow['service_nom'] = html_entity_decode( $lastRow['service_nom'] );
+                    $lastRow['service_nom'] =  $lastRow['service_nom'] ;
                     $data = array('error' => 'add', 'data' => $lastRow );
                     echo json_encode( $data );
                 }else{

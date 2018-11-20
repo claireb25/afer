@@ -57,15 +57,15 @@ function makeList(){
 
 // NEW
 function addNew($lieuNom, $etablissementNom, $adresse, $codePostal, $commune, $tel, $latitude, $longitude, $divers){
-    $lieuNom = htmlentities($lieuNom);
-    $etablissementNom = htmlentities($etablissementNom);
-    $adresse = htmlentities($adresse);
-    $codePostal = htmlentities($codePostal);
-    $commune = htmlentities($commune);
-    $tel = htmlentities($tel);
-    $latitude = htmlentities($latitude);
-    $longitude = htmlentities($longitude);
-    $divers = htmlentities($divers);
+    $lieuNom = $lieuNom;
+    $etablissementNom = $etablissementNom;
+    $adresse = $adresse;
+    $codePostal = $codePostal;
+    $commune = $commune;
+    $tel = $tel;
+    $latitude = $latitude;
+    $longitude = $longitude;
+    $divers = $divers;
     create($lieuNom, $etablissementNom, $adresse, $codePostal, $commune, $tel, $latitude, $longitude, $divers);
     header('Location: /afer-back/lieustage/list');
 }
@@ -86,15 +86,15 @@ function showEdit($id){
 }
 
 function updateType($lieuNom, $etablissementNom, $adresse, $codePostal, $commune, $tel, $latitude, $longitude, $divers, $id){
-    $lieuNom = htmlentities($lieuNom);
-    $etablissementNom = htmlentities($etablissementNom);
-    $adresse = htmlentities($adresse);
-    $codePostal = htmlentities($codePostal);
-    $commune = htmlentities($commune);
-    $tel = htmlentities($tel);
-    $latitude = htmlentities($latitude);
-    $longitude = htmlentities($longitude);
-    $divers = htmlentities($divers);
+    $lieuNom = $lieuNom;
+    $etablissementNom = $etablissementNom;
+    $adresse = $adresse;
+    $codePostal = $codePostal;
+    $commune =$commune;
+    $tel = $tel;
+    $latitude = $latitude;
+    $longitude = $longitude;
+    $divers = $divers;
     edit($lieuNom, $etablissementNom, $adresse, $codePostal, $commune, $tel, $latitude, $longitude, $divers, $id);
     header('Location: /afer-back/lieustage/list');   
 }

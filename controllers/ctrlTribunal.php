@@ -25,39 +25,39 @@ if (isset($_GET['action'])){
 
             if( isset( $_POST['tribunal_nom'] ) ){
                 if( !empty( $_POST['tribunal_nom'] ) ){
-                    $tribunal_nom = htmlentities( trim( $_POST['tribunal_nom'] ) );
+                    $tribunal_nom =  trim( $_POST['tribunal_nom']  );
                 }
             }
 
             if( isset( $_POST['adresse'] ) ){
                 if( !empty( $_POST['adresse'] ) ){
-                    $adresse = htmlentities( trim( $_POST['adresse'] ) );
+                    $adresse =  trim( $_POST['adresse']  );
                 }
             }
 
 
             if( isset( $_POST['code_postal'] ) ){
                 if( !empty( $_POST['code_postal'] ) ){
-                    $code_postal = htmlentities( trim( $_POST['code_postal'] ) );
+                    $code_postal =  trim( $_POST['code_postal']  );
                 }
             }
 
             if( isset( $_POST['commune'] ) ){
                 if( !empty( $_POST['commune'] ) ){
-                    $commune = htmlentities( trim( $_POST['commune'] ) );
+                    $commune =  trim( $_POST['commune']  );
                 }
             }
 
             if( isset( $_POST['autorite_tribunal'] ) ){
                 if( !empty( $_POST['autorite_tribunal'] ) ){
-                    $autorite_tribunal = htmlentities( trim( $_POST['autorite_tribunal'] ) );
+                    $autorite_tribunal =  trim( $_POST['autorite_tribunal']  );
                     $autorite_tribunal = (int) $autorite_tribunal;
                 }
             }
 
             if( isset( $_POST['service_tribunal'] ) ){
                 if( !empty( $_POST['service_tribunal'] ) ){
-                    $service_tribunal = htmlentities( trim( $_POST['service_tribunal'] ) );
+                    $service_tribunal =  trim( $_POST['service_tribunal']  );
                     $service_tribunal = (int) $service_tribunal;
                 }
             }
@@ -104,39 +104,39 @@ if (isset($_GET['action'])){
 
                 if( isset( $_POST['tribunal_nom'] ) ){
                     if( !empty( $_POST['tribunal_nom'] ) ){
-                        $tribunal_nom = htmlentities( trim( $_POST['tribunal_nom'] ) );
+                        $tribunal_nom =trim( $_POST['tribunal_nom']  );
                     }
                 }
 
                 if( isset( $_POST['adresse'] ) ){
                     if( !empty( $_POST['adresse'] ) ){
-                        $adresse = htmlentities( trim( $_POST['adresse'] ) );
+                        $adresse = trim( $_POST['adresse']  );
                     }
                 }
 
 
                 if( isset( $_POST['code_postal'] ) ){
                     if( !empty( $_POST['code_postal'] ) ){
-                        $code_postal = htmlentities( trim( $_POST['code_postal'] ) );
+                        $code_postal =  trim( $_POST['code_postal']  );
                     }
                 }
 
                 if( isset( $_POST['commune'] ) ){
                     if( !empty( $_POST['commune'] ) ){
-                        $commune = htmlentities( trim( $_POST['commune'] ) );
+                        $commune =  trim( $_POST['commune']  );
                     }
                 }
 
                 if( isset( $_POST['autorite_tribunal'] ) ){
                     if( !empty( $_POST['autorite_tribunal'] ) ){
-                        $autorite_tribunal = htmlentities( trim( $_POST['autorite_tribunal'] ) );
+                        $autorite_tribunal =  trim( $_POST['autorite_tribunal']  );
                         $autorite_tribunal = (int) $autorite_tribunal;
                     }
                 }
 
                 if( isset( $_POST['service_tribunal'] ) ){
                     if( !empty( $_POST['service_tribunal'] ) ){
-                        $service_tribunal = htmlentities( trim( $_POST['service_tribunal'] ) );
+                        $service_tribunal =  trim( $_POST['service_tribunal']  );
                         $service_tribunal = (int) $service_tribunal;
                     }
                 }

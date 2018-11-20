@@ -96,13 +96,13 @@ function autoCompleteStagiaire($keyword){
 
 // NEW
 function addNew($civilite, $nom, $nomNaissance, $prenom, $dateNaissance, $lieuNaissance, $adresse, $codePostal, $commune, $pays, $telPortable, $telFixe, $email, $carteAvantagesJeunes, $partenaires, $adherents){
-    $nom = htmlentities($nom);
-    $nomNaissance = htmlentities($nomNaissance);
-    $prenom = htmlentities($prenom);
-    $lieuNaissance = htmlentities($lieuNaissance);
-    $adresse = htmlentities($adresse);
-    $commune = htmlentities($commune);
-    $pays = htmlentities($pays);
+    $nom = $nom;
+    $nomNaissance = $nomNaissance;
+    $prenom = $prenom;
+    $lieuNaissance = $lieuNaissance;
+    $adresse = $adresse;
+    $commune = $commune;
+    $pays = $pays);
     create($civilite, $nom, $nomNaissance, $prenom, $dateNaissance, $lieuNaissance, $adresse, $codePostal, $commune, $pays, $telPortable, $telFixe, $email, $carteAvantagesJeunes, $partenaires, $adherents);
 }
 
@@ -123,13 +123,13 @@ function showEdit($id){
 }
 
 function update($civilite, $nom, $nomNaissance, $prenom, $dateNaissance, $lieuNaissance, $adresse, $codePostal, $commune, $pays, $telPortable, $telFixe, $email, $carteAvantagesJeunes, $partenaires, $adherents, $id){
-    $nom = htmlentities($nom);
-    $nomNaissance = htmlentities($nomNaissance);
-    $prenom = htmlentities($prenom);
-    $lieuNaissance = htmlentities($lieuNaissance);
-    $adresse = htmlentities($adresse);
-    $commune = htmlentities($commune);
-    $pays = htmlentities($pays);
+    $nom = $nom;
+    $nomNaissance =$nomNaissance;
+    $prenom = $prenom;
+    $lieuNaissance = $lieuNaissance;
+    $adresse = $adresse;
+    $commune = $commune;
+    $pays = $pays);
     editStagiaire($civilite, $nom, $nomNaissance, $prenom, $dateNaissance, $lieuNaissance, $adresse, $codePostal, $commune, $pays, $telPortable, $telFixe, $email, $carteAvantagesJeunes, $partenaires, $adherents, $id);
 }
 
@@ -141,7 +141,7 @@ function deleteElement($id){
 
 // REDIRECTIONS
 function redirectList(){
-    header('Location: /afer-back/stagiaire/list');
+    header('Location: /stagiaire/list');
 }
 
 //PDF_FACTURE

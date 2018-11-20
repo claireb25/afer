@@ -53,7 +53,7 @@ function makeList(){
 
 // NEW
 function addNew($prix_montant){
-    $prix = htmlentities($prix_montant);
+    $prix = $prix_montant;
     create($prix);
     header('Location: /afer-back/prix/list');
 }
@@ -73,7 +73,7 @@ function showEdit($id){
 }
 
 function update($prix_montant, $id){
-    $prix = htmlentities($prix_montant);
+    $prix = $prix_montant;
     $id = (int)$id;
     edit($prix, $id);
     header('Location: /afer-back/prix/list');

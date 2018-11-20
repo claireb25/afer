@@ -37,45 +37,45 @@ if (isset($_GET['action'])){
 
             if( isset( $_POST['civilite'] ) ){
                 if( !empty( $_POST['civilite'] ) ){
-                    $civilite = htmlentities( trim( $_POST['civilite'] ) );
+                    $civilite = trim( $_POST['civilite']  );
                     $civilite = (int) $civilite;
                 }
             }
 
             if( isset( $_POST['nom'] ) ){
                 if( !empty( $_POST['nom'] ) ){
-                    $nom = htmlentities( trim( $_POST['nom'] ) );
+                    $nom = trim( $_POST['nom']  );
                 }
             }
 
 
             if( isset( $_POST['prenom'] ) ){
                 if( !empty( $_POST['prenom'] ) ){
-                    $prenom = htmlentities( trim( $_POST['prenom'] ) );
+                    $prenom = trim( $_POST['prenom']  );
                 }
             }
 
             if( isset( $_POST['adresse'] ) ){
                 if( !empty( $_POST['adresse'] ) ){
-                    $adresse = htmlentities( trim( $_POST['adresse'] ) );
+                    $adresse = trim( $_POST['adresse']  );
                 }
             }
 
             if( isset( $_POST['code_postal'] ) ){
                 if( !empty( $_POST['code_postal'] ) ){
-                    $code_postal = htmlentities( trim( $_POST['code_postal'] ) );
+                    $code_postal = trim( $_POST['code_postal']  );
                 }
             }
 
             if( isset( $_POST['commune'] ) ){
                 if( !empty( $_POST['commune'] ) ){
-                    $commune = htmlentities( trim( $_POST['commune'] ) );
+                    $commune = trim( $_POST['commune']  );
                 }
             }
 
             if( isset( $_POST['region'] ) ){
                 if( !empty( $_POST['region'] ) ){
-                    $region = htmlentities( trim( $_POST['region'] ) );
+                    $region = trim( $_POST['region']  );
                 }
             }
 
@@ -88,57 +88,57 @@ if (isset($_GET['action'])){
 
             if( isset( $_POST['raison_sociale'] ) ){
                 if( !empty( $_POST['raison_sociale'] ) ){
-                    $raison_sociale = htmlentities( trim( $_POST['raison_sociale'] ) );
+                    $raison_sociale = trim( $_POST['raison_sociale']  );
                 }
             }
 
             if( isset( $_POST['fonction_animateur'] ) ){
                 if( !empty( $_POST['fonction_animateur'] ) ){
-                    $fonction_animateur = htmlentities( trim( $_POST['fonction_animateur'] ) );
+                    $fonction_animateur = trim( $_POST['fonction_animateur']  );
                     $fonction_animateur = (int) $fonction_animateur;
                 }
             }
 
             if( isset( $_POST['statut_animateur'] ) ){
                 if( !empty( $_POST['statut_animateur'] ) ){
-                    $statut_animateur = htmlentities( trim( $_POST['statut_animateur'] ) );
+                    $statut_animateur = trim( $_POST['statut_animateur']  );
                     $statut_animateur = (int) $statut_animateur;
                 }
             }
             
             if( isset( $_POST['urssaf'] ) ){
                 if( !empty( $_POST['urssaf'] ) ){
-                    $urssaf = htmlentities( trim( $_POST['urssaf'] ) );
+                    $urssaf = trim( $_POST['urssaf']  );
                 }
             }
 
             if( isset( $_POST['siret'] ) ){
                 if( !empty( $_POST['siret'] ) ){
-                    $siret = htmlentities( trim( $_POST['siret'] ) );
+                    $siret = trim( $_POST['siret']  );
                 }
             }
 
             if( isset( $_POST['tel_portable'] ) ){
                 if( !empty( $_POST['tel_portable'] ) ){
-                    $tel_portable = htmlentities( trim( $_POST['tel_portable'] ) );
+                    $tel_portable = trim( $_POST['tel_portable']  );
                 }
             }
 
             if( isset( $_POST['tel_fixe'] ) ){
                 if( !empty( $_POST['tel_fixe'] ) ){
-                    $tel_fixe = htmlentities( trim( $_POST['tel_fixe'] ) );
+                    $tel_fixe = trim( $_POST['tel_fixe']  );
                 }
             }
             
             if( isset( $_POST['email'] ) ){
                 if( !empty( $_POST['email'] ) ){
-                    $email = htmlentities( trim( $_POST['email'] ) );
+                    $email = trim( $_POST['email']  );
                 }
             }
 
             if( isset( $_POST['observation'] ) ){
                 if( !empty( $_POST['observation'] ) ){
-                    $observation = htmlentities( trim( $_POST['observation'] ) );
+                    $observation = trim( $_POST['observation']  );
                 }
             }
 
@@ -200,52 +200,52 @@ if (isset($_GET['action'])){
 
             if( isset( $_GET['id'] ) ){
                 if( !empty( $_GET['id'] ) ){
-                    $id = htmlentities( trim( $_GET['id'] ) );
+                    $id = trim( $_GET['id']  );
                     $id = (int) $id;
                 }
             }
 
             if( isset( $_POST['civilite'] ) ){
                 if( !empty( $_POST['civilite'] ) ){
-                    $civilite = htmlentities( trim( $_POST['civilite'] ) );
+                    $civilite = trim( $_POST['civilite']  );
                     $civilite = (int) $civilite;
                 }
             }
 
             if( isset( $_POST['nom'] ) ){
                 if( !empty( $_POST['nom'] ) ){
-                    $nom = htmlentities( trim( $_POST['nom'] ) );
+                    $nom = trim( $_POST['nom']  );
                 }
             }
 
 
             if( isset( $_POST['prenom'] ) ){
                 if( !empty( $_POST['prenom'] ) ){
-                    $prenom = htmlentities( trim( $_POST['prenom'] ) );
+                    $prenom = trim( $_POST['prenom']  );
                 }
             }
 
             if( isset( $_POST['adresse'] ) ){
                 if( !empty( $_POST['adresse'] ) ){
-                    $adresse = htmlentities( trim( $_POST['adresse'] ) );
+                    $adresse = trim( $_POST['adresse']  );
                 }
             }
 
             if( isset( $_POST['code_postal'] ) ){
                 if( !empty( $_POST['code_postal'] ) ){
-                    $code_postal = htmlentities( trim( $_POST['code_postal'] ) );
+                    $code_postal = trim( $_POST['code_postal']  );
                 }
             }
 
             if( isset( $_POST['commune'] ) ){
                 if( !empty( $_POST['commune'] ) ){
-                    $commune = htmlentities( trim( $_POST['commune'] ) );
+                    $commune = trim( $_POST['commune']  );
                 }
             }
 
             if( isset( $_POST['region'] ) ){
                 if( !empty( $_POST['region'] ) ){
-                    $region = htmlentities( trim( $_POST['region'] ) );
+                    $region = trim( $_POST['region']  );
                 }
             }
 
@@ -258,57 +258,57 @@ if (isset($_GET['action'])){
 
             if( isset( $_POST['raison_sociale'] ) ){
                 if( !empty( $_POST['raison_sociale'] ) ){
-                    $raison_sociale = htmlentities( trim( $_POST['raison_sociale'] ) );
+                    $raison_sociale = trim( $_POST['raison_sociale']  );
                 }
             }
 
             if( isset( $_POST['fonction_animateur'] ) ){
                 if( !empty( $_POST['fonction_animateur'] ) ){
-                    $fonction_animateur = htmlentities( trim( $_POST['fonction_animateur'] ) );
+                    $fonction_animateur = trim( $_POST['fonction_animateur']  );
                     $fonction_animateur = (int) $fonction_animateur;
                 }
             }
 
             if( isset( $_POST['statut_animateur'] ) ){
                 if( !empty( $_POST['statut_animateur'] ) ){
-                    $statut_animateur = htmlentities( trim( $_POST['statut_animateur'] ) );
+                    $statut_animateur = trim( $_POST['statut_animateur']  );
                     $statut_animateur = (int) $statut_animateur;
                 }
             }
             
             if( isset( $_POST['urssaf'] ) ){
                 if( !empty( $_POST['urssaf'] ) ){
-                    $urssaf = htmlentities( trim( $_POST['urssaf'] ) );
+                    $urssaf = trim( $_POST['urssaf']  );
                 }
             }
 
             if( isset( $_POST['siret'] ) ){
                 if( !empty( $_POST['siret'] ) ){
-                    $siret = htmlentities( trim( $_POST['siret'] ) );
+                    $siret = trim( $_POST['siret']  );
                 }
             }
 
             if( isset( $_POST['tel_portable'] ) ){
                 if( !empty( $_POST['tel_portable'] ) ){
-                    $tel_portable = htmlentities( trim( $_POST['tel_portable'] ) );
+                    $tel_portable = trim( $_POST['tel_portable']  );
                 }
             }
 
             if( isset( $_POST['tel_fixe'] ) ){
                 if( !empty( $_POST['tel_fixe'] ) ){
-                    $tel_fixe = htmlentities( trim( $_POST['tel_fixe'] ) );
+                    $tel_fixe = trim( $_POST['tel_fixe']  );
                 }
             }
             
             if( isset( $_POST['email'] ) ){
                 if( !empty( $_POST['email'] ) ){
-                    $email = htmlentities( trim( $_POST['email'] ) );
+                    $email = trim( $_POST['email']  );
                 }
             }
 
             if( isset( $_POST['observation'] ) ){
                 if( !empty( $_POST['observation'] ) ){
-                    $observation = htmlentities( trim( $_POST['observation'] ) );
+                    $observation = trim( $_POST['observation']  );
                 }
             }
 
@@ -353,8 +353,8 @@ if (isset($_GET['action'])){
 
         case 'newjson':
 
-            $itemSearch = htmlentities( trim( $_POST['itemSearch'] ) );
-            $valueSearch = htmlentities( trim( $_POST['valueSearch'] ) );
+            $itemSearch = trim( $_POST['itemSearch']  );
+            $valueSearch = trim( $_POST['valueSearch']  );
             search( $itemSearch, $valueSearch ) ;
 
         break;

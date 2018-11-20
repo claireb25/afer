@@ -53,7 +53,7 @@ function makeList(){
 
 // NEW
 function addNew($valeur){
-    $type_infraction = htmlentities($valeur);
+    $type_infraction = $valeur;
     create('type_infraction(type_infraction_nom)', $type_infraction);
     header('Location: /afer-back/typeinfraction/list');
 }
@@ -73,7 +73,7 @@ function showEdit($id){
 }
 
 function updateType($data, $id){
-    $type_infraction = htmlentities($data);
+    $type_infraction = $data;
     $id = (int)$id;
     edit($type_infraction, $id);
     header('Location: /afer-back/typeinfraction/list');

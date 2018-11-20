@@ -53,9 +53,9 @@ function makeList(){
 
 // NEW
 function addNew($cas_nom, $cas_prix, $cas_description){
-    $nom = htmlentities($cas_nom);
-    $prix = htmlentities($cas_prix);
-    $description = htmlentities($cas_description);
+    $nom = $cas_nom;
+    $prix = $cas_prix;
+    $description = $cas_description;
     create($nom, $prix, $description);
     header('Location: /afer-back/casstage/list');
 }
@@ -75,9 +75,9 @@ function showEdit($id){
 }
 
 function update($cas_nom, $cas_prix, $cas_description, $id){
-    $nom = htmlentities($cas_nom);
-    $prix = htmlentities($cas_prix);
-    $description = htmlentities($cas_description);
+    $nom = $cas_nom;
+    $prix = $cas_prix;
+    $description = $cas_description;
     $id = (int)$id;
     edit($nom, $prix, $description, $id);
     header('Location: /afer-back/casstage/list');

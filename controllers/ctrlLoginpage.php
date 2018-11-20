@@ -35,7 +35,7 @@ function validChamp( $champ ){
 
     if( isset( $_POST[ $champ ] ) ){
         if( !empty( $_POST[ $champ ] ) ){
-            $val =  htmlentities( trim( $_POST[ $champ ] ) );
+            $val =  trim( $_POST[ $champ ]  );
         }
     }
 

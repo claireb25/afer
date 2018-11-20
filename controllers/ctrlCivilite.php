@@ -19,7 +19,7 @@ if (isset($_GET['action'])){
             break;
         case 'new':
             if (isset($_POST['nom']) && (!empty($_POST['nom']))){
-                $nom = htmlentities( trim( $_POST['nom'] ) );               
+                $nom = trim( $_POST['nom']  );               
                 $reponse = getNom( $nom );
                 
                 if( $reponse === false ){   
@@ -37,7 +37,7 @@ if (isset($_GET['action'])){
                 $id = (int) $_GET['id'];
                 if( count( $_POST ) > 0 ){
                     if( isset( $_POST['nom'] ) ){
-                        $nom = htmlentities( trim( $_POST['nom'] ) );               
+                        $nom = trim( $_POST['nom']  );               
                         $reponse = getNom( $nom );
             
                         if( $reponse === false ){   
@@ -77,7 +77,7 @@ if (isset($_GET['action'])){
                 if( $reponse === false ){                   
                     create($nom);
                     $lastRow = lastRow();
-                    $lastRow['nom'] = html_entity_decode( $lastRow['nom'] );
+                    $lastRow['nom'] =  $lastRow['nom'];
                     $data = array('error' => 'add', 'data' => $lastRow );
                     echo json_encode( $data );
                 }else{
@@ -105,7 +105,7 @@ function makeList(){
 
 // NEW
 function addNew($valeur){
-    $nom = htmlentities($valeur);
+    $nom = $valeur;
     create($nom);
     header('Location: /civilite/list');
 }
@@ -146,7 +146,7 @@ function showExistEdit( $nom , $id){
 }
 
 function update($data, $id){
-    $civilite = htmlentities($data);
+    $civilite = $data;
     $id = (int)$id;
     edit($civilite, $id);
     header('Location: /civilite/list');

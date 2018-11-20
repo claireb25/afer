@@ -56,8 +56,8 @@ function makeList(){
 
 // NEW
 function addNew($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $stagiaire){
-    $lieuInfraction = htmlentities($lieuInfraction);
-    $numeroParquet = htmlentities($numeroParquet);
+    $lieuInfraction = $lieuInfraction;
+    $numeroParquet = $numeroParquet;
     $infractionId = create($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $stagiaire);
     return $infractionId;
 }
@@ -93,8 +93,8 @@ function showEdit($id){
 }
 
 function update($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $stagiaire, $id){
-    $lieuInfraction = htmlentities($lieuInfraction);
-    $numeroParquet = htmlentities($numeroParquet);
+    $lieuInfraction = $lieuInfraction;
+    $numeroParquet = $numeroParquet;
     $id = (int)$id;
     $typeInfraction = typeInfraction();
     editInfraction($tribunal, $dateInfraction, $heureInfraction, $lieuInfraction, $numeroParquet, $stagiaire, $id);

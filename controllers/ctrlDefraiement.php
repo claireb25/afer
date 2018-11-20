@@ -68,8 +68,8 @@ function makeList(){
 
 // NEW
 function addNew($repas, $kmar){
-    $repas = htmlentities($repas);
-    $kmar = htmlentities($kmar);
+    $repas = $repas;
+    $kmar = $kmar;
     create($repas, $kmar);
     header('Location: /afer-back/defraiement/list');
 }
@@ -90,8 +90,8 @@ function showEdit($id){
 }
 
 function updateType($repas, $kmar, $id){
-    $repas = htmlentities($repas);
-    $kmar = htmlentities($kmar);
+    $repas = $repas;
+    $kmar = $kmar;
     $id = (int)$id;
     edit($repas, $kmar, $id);   
 }
