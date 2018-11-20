@@ -121,6 +121,10 @@
             require('controllers/ctrl404.php');
         break; 
 
+            case "404":
+            require('controllers/ctrl404.php');
+            break;
+
         default :
             require('controllers/ctrl404.php');
             break;
