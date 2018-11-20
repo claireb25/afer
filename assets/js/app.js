@@ -1377,26 +1377,33 @@ function autocomplete(){
     const autoComplete = document.querySelectorAll('.autocomplete');
 
     autoComplete.forEach( ( element ) => {
-        element.addEventListener( 'keyup', () => {
-            if( element.value.length > 2 ){
-                let itemSearch = element.getAttribute('id');
-                let valueSearch = element.value;
+        element.addEventListener( 'keyup', () => {            
+            let itemSearch = element.getAttribute('id');
+            let valueSearch = element.value;
+            const elemHtmlAutoComplete = document.querySelector('.listeAutoComplete--' + itemSearch );
+            if( element.value.length > 2 ){                
                 let formData = new FormData();
                 formData.append('itemSearch', itemSearch );
                 formData.append('valueSearch', valueSearch);
-
                 fetch('/animateur/newjson', {
                     method :  'POST',
                     body : formData
                 })
                 .then( ( result ) => result.json() )
                 .then( ( result ) => {
-                    if( result.error === false ){
-                        if( result.list.length ){
-                            console.log( result.list );
+                    if( result.error === false ){                        
+                        if( result.list.length ){                            
+                            elemHtmlAutoComplete.classList.remove('hidden');
+                            elemHtmlAutoComplete.innerHTML = '';
+                            for( let i of result.list ){
+                                elemHtmlAutoComplete.innerHTML += "<p>" + i.commune + "</p>";
+                            }
                         }
                     }
                 })
+            }else{
+                elemHtmlAutoComplete.classList.add('hidden');
+                elemHtmlAutoComplete.innerHTML = '';
             }                
         });
     });
