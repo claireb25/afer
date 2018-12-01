@@ -1416,7 +1416,14 @@ function autocomplete(){
             }else{
                 elemHtmlAutoComplete.classList.add('hidden');
                 elemHtmlAutoComplete.innerHTML = '';
-            }                
+            }                            
+        });
+
+        element.addEventListener('blur', () => {
+            let itemSearch = element.getAttribute('id');
+            const elemHtmlAutoComplete = document.querySelector('.listeAutoComplete--' + itemSearch );
+            elemHtmlAutoComplete.innerHTML = "";
+            elemHtmlAutoComplete.classList.add('hidden');
         });
     });
 
