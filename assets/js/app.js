@@ -1402,29 +1402,25 @@ function autocomplete(){
                             }
                         }
 
-                        const choiceLink = document.querySelectorAll('.autocomplete--choix');
+                        const choiceLink = document.querySelectorAll('.listeAutoComplete--' + itemSearch + ' .autocomplete--choix');
                         choiceLink.forEach( (elemLink) => {
-                            elemLink.addEventListener('click' , (e) => {
+                            console.log(elemLink);
+                            elemLink.addEventListener('click' , (e ) => {
+                                console.log(e.target);
                                 e.preventDefault();
                                 element.value = elemLink.textContent;
                                 elemHtmlAutoComplete.classList.add('hidden');
                                 elemHtmlAutoComplete.innerHTML = '';
-                            })
-                        })
+                            });
+                        });
                     }
-                })
+                });
             }else{
                 elemHtmlAutoComplete.classList.add('hidden');
                 elemHtmlAutoComplete.innerHTML = '';
             }                            
-        });
-
-        element.addEventListener('blur', () => {
-            let itemSearch = element.getAttribute('id');
-            const elemHtmlAutoComplete = document.querySelector('.listeAutoComplete--' + itemSearch );
-            elemHtmlAutoComplete.innerHTML = "";
-            elemHtmlAutoComplete.classList.add('hidden');
-        });
+        });        
+        
     });
 
 }
