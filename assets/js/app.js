@@ -1392,7 +1392,7 @@ function autocomplete(){
                 .then( ( result ) => result.json() )
                 .then( ( result ) => {
                     if( result.error === false ){                        
-                        if( result.list.length ){                            
+                        if( result.list.length > 0 ){                            
                             elemHtmlAutoComplete.classList.remove('hidden');
                             elemHtmlAutoComplete.innerHTML = '';
                             for( let i in result.list ){
