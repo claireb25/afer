@@ -478,6 +478,10 @@ function search( $itemSearch, $valueSearch ){
             $reponse['list'] = searchCommune( $valueSearch );
             break;
 
+        case 'region' :
+        $reponse['list'] = searchRegion( $valueSearch );
+        break;
+
         default :
             $reponse['error'] = true;
             break;

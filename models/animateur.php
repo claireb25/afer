@@ -174,3 +174,13 @@ function searchCommune( $valueSearch ){
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC); 
 }
+
+function searchRegion( $valueSearch ){
+    global $db;
+    
+    $sql = "SELECT region FROM animateur  where region like :valueSearch GROUP by region";
+    $response = $db->prepare( $sql );
+    $response->bindValue(':valueSearch', $valueSearch.'%', PDO::PARAM_STR);
+    $response->execute();
+    return $response->fetchAll(PDO::FETCH_ASSOC); 
+}
