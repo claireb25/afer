@@ -1423,6 +1423,26 @@ function autocomplete(){
         
     });
 
+    //Ajout de l'événement qui permet de cacher la liste autocomplete
+    //lorsque l'on clique sur fond du document
+    document.addEventListener('click', (e) => {
+        const elementClicked =  e.target;
+        const classListing = elementClicked.classList;
+        if( typeof( classListing ) === 'object' ){
+            
+            if( classListing.length >= 0 ){
+                if( classListing.value.indexOf('autocomplete--choix')  === -1 ){
+                    const listAutoComplete = document.querySelectorAll('.listeAutoComplete');
+                    listAutoComplete.forEach( ( element) => {
+                        element.innerHTML = '';
+                        element.classList.add( 'hidden' );
+                    });
+                }
+            }
+
+        }
+    });
+
 }
 
 
