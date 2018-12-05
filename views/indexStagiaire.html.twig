@@ -1,23 +1,68 @@
-{% extends 'template.html.twig' %}
+{% extends 'template.html.twig' %} {% block content %}
 
-{% block content %}
 
-	
 
-<h1>Liste des stagiaires</h1>
+<h1>Liste des Stagiaires</h1>
 
-<a href="stagiaire/new"><button>Nouveau</button></a>
 
-<ul>
-    {% for elmt in list %}
-        <li> {{ elmt.civilite_nom }} {{ elmt.nom }} {{ elmt.prenom }} {{ elmt.commune }} {{ elmt.code_postal }} {{ elmt.tel_portable }} {{ elmt.tel_fix }} {{ elmt.email }} {{ elmt.carte_avantages_jeunes }} {{ elmt.partenaires }} {{ elmt.adherents }}
-            <a href="stagiaire/edit/{{ elmt.id }}"><button>Modifier</button></a>
-            <a href="stagiaire/delete/{{ elmt.id }}"><button>Supprimer</button></a>
-            <a href="stagiaire/stagiairestage/{{ elmt.id }}"><button>Inscrire à un stage</button></a>
-        </li>
-    {% endfor %}
-</ul>
+<table class="tbl-list">
+    <thead>
+        <tr>
+            <th class="tbl-col-header">Nom</th>
+            <th class="tbl-col-header">Prénom</th>
+            <th class="tbl-col-header">Code postal</th>
+            <th class="tbl-col-header">Commune</th>
+        </tr>
+        <tr class="tbl-row-search">
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" data-column="0" id="nom" placeholder="Rechercher par nom">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" data-column="1" id="prenom" placeholder="et/ou rechercher par prénom">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" data-column="2" id="code_postal" placeholder="et/ou Rechercher par code postal">
+            </td>
+            <td class="tbl-col-search">
+                <input type="text" class="form-input" data-column="3" id="commune" placeholder="et/ou Rechercher par commune">
+            </td>       
+            <td class="tbl-col-search">
+                <input type="text" disabled class="form-input">
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for elms in list %}
 
-<a href="stagiaire/new"><button>Nouveau</button></a>
+        <tr class="tbl-row-list ligne">
+            <td class="tbl-col-list capitalize nom">{{elms.nom|raw }}</td>
+            <td class="tbl-col-list capitalize prenom">{{elms.prenom|raw }}</td>
+            <td class="tbl-col-list capitalize raison_sociale">{{elms.code_postal|raw }}</td>
+            <td class="tbl-col-list capitalize fonction">{{elms.commune|raw }}</td>        
+            <td class="tbl-col-list "> 
+                <a href="stagiaire/view/{{elms.id }}" class="tbl-link-look"></a>               
+                <a href="stagiaire/edit/{{elms.id }}" class="tbl-link-edit"></a>
+                <a href="stagiaire/delete/{{elms.id }}" class="tbl-link-delete" data-value="{{ elms.nom }} {{ elms.prenom }}"></a>
+            </td>
+        </tr>
 
+        {% endfor %}
+    </tbody>
+</table>
+<a href="stagiaire/new" class="btn-link">Ajouter</a>
+
+
+<div class="boxOverlay hidden ">
+    <div class="modal modal-yesNo fas fa-exclamation-triangle">
+        <p class="modal-message">Êtes-vous sûre de vouloir supprimmer le stagiaire :
+            <span class="capitalize modal-message--value"></span>
+        </p>
+        <button type="button" data-link="" onclick="deleteUser()" class="modal-btn form-login-button modal-btn--inline modal-btn-yes">Oui</button>
+        <button type="button" class="modal-btn form-login-button modal-btn--inline modal-btn-no"> Non</button>
+    </div>
+</div>
+
+{% endblock %} {% block javascript %}
+<script src="assets/js/tri.js"></script>
+<script src="assets/js/app.js"></script>
 {% endblock %}

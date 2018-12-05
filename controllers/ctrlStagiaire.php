@@ -85,7 +85,7 @@ function makeList(){
     $list = listAll();
     global $twig;
     $template = $twig->load('indexStagiaire.html.twig');
-    echo $template->render(array('list'=>$list));
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'list'=>$list));
 }
 
 // QUERY
@@ -102,7 +102,7 @@ function addNew($civilite, $nom, $nomNaissance, $prenom, $dateNaissance, $lieuNa
     $lieuNaissance = $lieuNaissance;
     $adresse = $adresse;
     $commune = $commune;
-    $pays = $pays);
+    $pays = $pays;
     create($civilite, $nom, $nomNaissance, $prenom, $dateNaissance, $lieuNaissance, $adresse, $codePostal, $commune, $pays, $telPortable, $telFixe, $email, $carteAvantagesJeunes, $partenaires, $adherents);
 }
 
@@ -129,7 +129,7 @@ function update($civilite, $nom, $nomNaissance, $prenom, $dateNaissance, $lieuNa
     $lieuNaissance = $lieuNaissance;
     $adresse = $adresse;
     $commune = $commune;
-    $pays = $pays);
+    $pays = $pays;
     editStagiaire($civilite, $nom, $nomNaissance, $prenom, $dateNaissance, $lieuNaissance, $adresse, $codePostal, $commune, $pays, $telPortable, $telFixe, $email, $carteAvantagesJeunes, $partenaires, $adherents, $id);
 }
 
