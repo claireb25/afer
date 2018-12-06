@@ -194,6 +194,16 @@ html, .login, .content{
     margin : 30px auto auto 15px
 }
 
+.listingStage--table{
+    width:100%;
+}
+
+.listingStage_table_empty{
+    text-align: center;
+    padding: 15px;
+
+}
+
 
 
 

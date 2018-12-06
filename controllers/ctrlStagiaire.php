@@ -63,7 +63,11 @@ if (isset($_GET['action'])){
             break;
         
         case 'view':
-            $view;
+            
+            if( isset( $_GET['id'] ) ){
+                showView( $_GET['id'] );
+            }
+
             break;
 
         case 'delete':
@@ -111,6 +115,16 @@ function showNew(){
     $civilite = civilite();
     $template = $twig->load('newStagiaire.html.twig');
     echo $template->render(array('civilite'=>$civilite));
+}
+
+
+function showView( $id ){  
+    $id = (int) $id;  
+    $toEdit = getOne($id);
+    $stages = getStageByIdStagiaire($id);
+    global $twig;
+    $template = $twig->load('viewStagiaire.html.twig');
+    echo $template->render(array("user" => array( 'id' => $_SESSION['user']["id"], 'identifiant' => $_SESSION['user']["identifiant"],  'prenom' => $_SESSION['user']["prenom"] , 'nom' => $_SESSION['user']["nom"], 'fullName' => $_SESSION['user']["prenom"].' '.$_SESSION['user']["nom"] ),'toEdit'=>$toEdit, 'stages' => $stages ) );
 }
 
 //EDIT 

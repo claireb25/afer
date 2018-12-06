@@ -54,10 +54,12 @@ function stagiaire(){
     $response->execute();
     return $response->fetchAll(PDO::FETCH_ASSOC);
 }
-function stagiaireByID($stagiaireID){
+
+
+function getOne($id){
     global $db;
-    $response = $db->prepare("SELECT * FROM stagiaire WHERE id = :id");
-    $response->bindParam(':id', $stagiaireID, PDO::PARAM_INT);
+    $response = $db->prepare("SELECT stagiaire.id, civilite.nom as civilite, stagiaire.nom, stagiaire.nom_naissance, stagiaire.prenom, stagiaire.date_naissance, stagiaire.lieu_naissance, stagiaire.adresse, stagiaire.code_postal, stagiaire.commune, stagiaire.pays, stagiaire.tel_portable, stagiaire.tel_fixe, stagiaire.email, stagiaire.carte_avantages_jeunes, stagiaire.partenaires, stagiaire.adherents from stagiaire inner join civilite on stagiaire.civilite_id_id = civilite.id where stagiaire.id = :id" );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return $response->fetch(PDO::FETCH_ASSOC);
 }
@@ -128,5 +130,17 @@ function deleteStagiaire($id){
     $response->bindParam(':id', $id, PDO::PARAM_INT);
     $response->execute();
     return true; 
+}
+
+
+function getStageByIdStagiaire( $id ){
+    global $db;
+    $response = $db->prepare("SELECT stage.id, lieu_stage.lieu_nom, lieu_stage.commune, stage.date as date_Debut, stage.date_fin
+                                FROM stage inner join lieu_stage on stage.lieu_stage_id_id 
+                                inner join liaison_stagiaire_stage_dossier_cas_bordereau on stage.id = liaison_stagiaire_stage_dossier_cas_bordereau.stage_id_id 
+                                where stagiaire_id_id = :id ");
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    return $response->fetchAll(PDO::FETCH_ASSOC);
 }
 

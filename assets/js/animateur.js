@@ -1,5 +1,5 @@
 $(document).ready( function() {
-    $('body').on("click", ".form div h3", function(){
+    $('body').on("click", "#listingStage div h3", function(){
         // console.log($(this).children('div'))
       if ($(this).children('span').hasClass('close')) {
         $(this).children('span').removeClass('close');
@@ -9,6 +9,17 @@ $(document).ready( function() {
       }
       $(this).parent().children('div').slideToggle(250);
     });
+
+    $('body').on("click", ".form div h3", function(){
+      // console.log($(this).children('div'))
+    if ($(this).children('span').hasClass('close')) {
+      $(this).children('span').removeClass('close');
+    }
+    else {
+      $(this).children('span').addClass('close');
+    }
+    $(this).parent().children('div').slideToggle(250);
+  });
 });
 
 
