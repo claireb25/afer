@@ -19,25 +19,168 @@ if (isset($_GET['action'])){
             makeList();            
             break;
 
-        case 'new':
-            if (count($_POST) > 0){
-                if (!isset($_POST['carte_avantages_jeunes'])){
-                    $_POST['carte_avantages_jeunes'] = 0;
+            case 'new':
+                if ( count( $_POST )  > 0 ){
+                    $civilite = '';
+                    $nom = '';
+                    $prenom = '';
+                    $adresse = '';
+                    $code_postal = '';
+                    $commune = '';
+                    $region = '';
+                    $gta = false;
+                    $raison_sociale = '';
+                    $fonction_animateur = '';
+                    $statut_animateur = '';
+                    $urssaf = '';
+                    $siret = '';
+                    $tel_portable = '';
+                    $tel_fixe = '';
+                    $email = '';
+                    $observation = '';
+        
+        
+                    if( isset( $_POST['civilite'] ) ){
+                        if( !empty( $_POST['civilite'] ) ){
+                            $civilite = trim( $_POST['civilite']  );
+                            $civilite = (int) $civilite;
+                        }
+                    }
+        
+                    if( isset( $_POST['nom'] ) ){
+                        if( !empty( $_POST['nom'] ) ){
+                            $nom = trim( $_POST['nom']  );
+                        }
+                    }
+        
+        
+                    if( isset( $_POST['prenom'] ) ){
+                        if( !empty( $_POST['prenom'] ) ){
+                            $prenom = trim( $_POST['prenom']  );
+                        }
+                    }
+        
+                    if( isset( $_POST['adresse'] ) ){
+                        if( !empty( $_POST['adresse'] ) ){
+                            $adresse = trim( $_POST['adresse']  );
+                        }
+                    }
+        
+                    if( isset( $_POST['code_postal'] ) ){
+                        if( !empty( $_POST['code_postal'] ) ){
+                            $code_postal = trim( $_POST['code_postal']  );
+                        }
+                    }
+        
+                    if( isset( $_POST['commune'] ) ){
+                        if( !empty( $_POST['commune'] ) ){
+                            $commune = trim( $_POST['commune']  );
+                        }
+                    }
+        
+                    if( isset( $_POST['region'] ) ){
+                        if( !empty( $_POST['region'] ) ){
+                            $region = trim( $_POST['region']  );
+                        }
+                    }
+        
+        
+                    if( isset( $_POST['gta'] ) ){
+                        if( !empty( $_POST['gta'] ) ){
+                            $gta = true;
+                        }
+                    }
+        
+                    if( isset( $_POST['raison_sociale'] ) ){
+                        if( !empty( $_POST['raison_sociale'] ) ){
+                            $raison_sociale = trim( $_POST['raison_sociale']  );
+                        }
+                    }
+        
+                    if( isset( $_POST['fonction_animateur'] ) ){
+                        if( !empty( $_POST['fonction_animateur'] ) ){
+                            $fonction_animateur = trim( $_POST['fonction_animateur']  );
+                            $fonction_animateur = (int) $fonction_animateur;
+                        }
+                    }
+        
+                    if( isset( $_POST['statut_animateur'] ) ){
+                        if( !empty( $_POST['statut_animateur'] ) ){
+                            $statut_animateur = trim( $_POST['statut_animateur']  );
+                            $statut_animateur = (int) $statut_animateur;
+                        }
+                    }
+                    
+                    if( isset( $_POST['urssaf'] ) ){
+                        if( !empty( $_POST['urssaf'] ) ){
+                            $urssaf = trim( $_POST['urssaf']  );
+                        }
+                    }
+        
+                    if( isset( $_POST['siret'] ) ){
+                        if( !empty( $_POST['siret'] ) ){
+                            $siret = trim( $_POST['siret']  );
+                        }
+                    }
+        
+                    if( isset( $_POST['tel_portable'] ) ){
+                        if( !empty( $_POST['tel_portable'] ) ){
+                            $tel_portable = trim( $_POST['tel_portable']  );
+                        }
+                    }
+        
+                    if( isset( $_POST['tel_fixe'] ) ){
+                        if( !empty( $_POST['tel_fixe'] ) ){
+                            $tel_fixe = trim( $_POST['tel_fixe']  );
+                        }
+                    }
+                    
+                    if( isset( $_POST['email'] ) ){
+                        if( !empty( $_POST['email'] ) ){
+                            $email = trim( $_POST['email']  );
+                        }
+                    }
+        
+                    if( isset( $_POST['observation'] ) ){
+                        if( !empty( $_POST['observation'] ) ){
+                            $observation = trim( $_POST['observation']  );
+                        }
+                    }
+        
+                
+                    
+                    
+        
+                    if( $civilite == "" ){
+                        $civilite = null;
+                    }
+        
+                    if( $fonction_animateur == "" ){
+                        $fonction_animateur = null;
+                    }
+        
+                    if( $statut_animateur == "" ){
+                        $statut_animateur = null;
+                    }
+        
+        
+                    
+                    
+                    
+                    
+                    $reponse = (int) getCountAnimateur( $nom,  $prenom, $adresse, $code_postal, $commune );
+                    
+                    
+                    if( $reponse === 0 ){                   
+                        addNew( $civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation );
+                    }else{
+                        showExist( $civilite, $nom, $prenom, $adresse, $code_postal, $commune, $region, $gta, $raison_sociale, $fonction_animateur, $statut_animateur, $urssaf, $siret, $tel_portable, $tel_fixe, $email, $observation );
+                    }
+                    
+                } else {
+                    showNew();
                 }
-                if (!isset($_POST['partenaires'])){
-                    $_POST['partenaires'] = 0;
-                }
-                if (!isset($_POST['adherents'])){
-                    $_POST['adherents'] = 0;
-                }
-                addNew($_POST['civilite'], $_POST['nom'], $_POST['nom_naissance'], $_POST['prenom'], $_POST['date_naissance'], $_POST['lieu_naissance'], $_POST['adresse'], $_POST['code_postal'], $_POST['commune'], $_POST['pays'], $_POST['tel_portable'], $_POST['tel_fixe'], $_POST['email'], $_POST['carte_avantages_jeunes'], $_POST['partenaires'], $_POST['adherents']);
-                //redirectList();
-            } 
-            else {
-                showNew();
-            }
-            break; 
-
+                    break; 
         case 'edit':
             if (count($_POST) > 0){
                 if (!isset($_POST['carte_avantages_jeunes'])){
